@@ -6,10 +6,12 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -18,7 +20,7 @@ import javax.ws.rs.Path;
  * @author Luis Miguel
  */
 
-@Path("tarjetas")
+@Path("usuarios/login/tarjetas")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -30,5 +32,12 @@ public class TarjetaDeCreditoResource {
     public TarjetaDeCreditoDTO crearTarjeta(TarjetaDeCreditoDTO tarjeta) {
         return tarjeta;
     }
+    
+    @GET
+    public List<TarjetaDeCreditoDTO> getTarjetas() {
+        return null;
+    }
+    
+    
     
 }

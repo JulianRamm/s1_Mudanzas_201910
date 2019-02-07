@@ -14,6 +14,11 @@ import java.io.Serializable;
 public class TarjetaDeCreditoDTO implements Serializable{
     
     /**
+     * Atributo que representa el id de la tarjeta.
+     */
+    private Long idTarjeta;
+    
+    /**
      * Atributo que representa el nombre personalizado que se le quiere dar a la tarjeta.
      */
     private String nombreTarjeta;
@@ -43,6 +48,20 @@ public class TarjetaDeCreditoDTO implements Serializable{
      */
     public TarjetaDeCreditoDTO(){
         
+    }
+    
+    /**
+     * @return the idTarjeta
+     */
+    public Long getIdTarjeta() {
+        return idTarjeta;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setIdTarjeta(Long id) {
+        this.idTarjeta = id;
     }
     
     /**
