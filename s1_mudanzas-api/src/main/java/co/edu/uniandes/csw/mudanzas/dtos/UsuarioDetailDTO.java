@@ -13,7 +13,20 @@ import java.util.List;
  */
 public class UsuarioDetailDTO extends UsuarioDTO{
     
+    /*
+    * Esta lista de tipo TarjetaDeCreditoDTO contiene las Tarjetas De Credito que estan asociados a un Usuario.
+     */
     private List<TarjetaDeCreditoDTO> tarjetas;
+    
+    /*
+    * Esta lista de tipo SubastaDTO contiene las subastas que estan asociadas a un Usuario.
+     */
+    private List<SubastaDTO> subastas;
+    
+    /*
+    * Esta lista de tipo CargaDTO contiene las cargas que estan asociadas a un Usuario.
+     */
+    private List<CargaDTO> cargas;
     
     /**
      * Constructor por defecto

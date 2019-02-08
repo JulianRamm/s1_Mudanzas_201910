@@ -41,7 +41,7 @@ class TarjetasUsuarioResource {
     }
     
     /**
-     * Busca la tarjeta con el id asociado dentro del usuario con el login asociado.
+     * Busca la tarjeta con el idTarjeta asociado dentro del usuario con el login asociado.
      *
      * @param login del usuario que se esta buscando.
      * @param idTarjeta Identificador de la tarjeta que se esta buscando. Este debe
@@ -50,7 +50,7 @@ class TarjetasUsuarioResource {
      */
     @GET
     @Path("{idTarjeta: \\d+}")
-    public TarjetaDeCreditoDTO getTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long id)
+    public TarjetaDeCreditoDTO getTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta)
     {
         return null;
     }
@@ -67,7 +67,7 @@ class TarjetasUsuarioResource {
      */
     @POST
     @Path("{idTarjeta: \\d+}")
-    public TarjetaDeCreditoDTO crearTarjeta(@PathParam("login") String login,@PathParam("idTarjeta") Long id)
+    public TarjetaDeCreditoDTO crearTarjeta(@PathParam("login") String login,@PathParam("idTarjeta") Long idTarjeta)
     {
         return null;
     }
@@ -83,7 +83,7 @@ class TarjetasUsuarioResource {
      */
     @PUT
     @Path("{idTarjeta: \\d+}")
-    public TarjetaDeCreditoDTO cambiarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long id){
+    public TarjetaDeCreditoDTO cambiarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta){
         return null;
     }
     

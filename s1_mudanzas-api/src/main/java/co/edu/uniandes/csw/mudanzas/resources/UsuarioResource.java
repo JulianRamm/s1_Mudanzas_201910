@@ -78,16 +78,58 @@ public class UsuarioResource {
         
     }
     
+    /**
+     * Conexión con el servicio de tarjetas de credito para un usuario.
+     * {@link TarjetasUsuarioResource}
+     *
+     * Este método conecta la ruta de /usuarios con las rutas de /tarjetas que
+     * dependen del usuario, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las tarjetas de un usuario.
+     *
+     * @param login El login del usuario con respecto al cual se
+     * accede al servicio.
+     * @return El servicio de tarjetas para este usuario en particular.
+     */
     @Path("{login}/tarjetas")
     public Class<TarjetasUsuarioResource> getTarjetasUsuarioResource(@PathParam("login") String login)
     {
         return TarjetasUsuarioResource.class;
     }
 
+    /**
+     * Conexión con el servicio de subastas para un usuario.
+     * {@link SubastasUsuarioResource}
+     *
+     * Este método conecta la ruta de /usuarios con las rutas de /subastas que
+     * dependen del usuario, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las subastas de un usuario.
+     *
+     * @param login El login del usuario con respecto al cual se
+     * accede al servicio.
+     * @return El servicio de subastas para este usuario en particular.
+     */
     @Path("{login}/subastas")
     public Class<SubastasUsuarioResource> getSubastasUsuarioResource(@PathParam("login") String login)
     {
         return SubastasUsuarioResource.class;
+    }
+    
+    /**
+     * Conexión con el servicio de cargas para un usuario.
+     * {@link CargasUsuarioResource}
+     *
+     * Este método conecta la ruta de /usuarios con las rutas de /cargas que
+     * dependen del usuario, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las cargas de un usuario.
+     *
+     * @param login El login del usuario con respecto al cual se
+     * accede al servicio.
+     * @return El servicio de cargas para este usuario en particular.
+     */
+    @Path("{login}/cargas")
+    public Class<CargasUsuarioResource> getCargasUsuarioResource(@PathParam("login") String login)
+    {
+        return CargasUsuarioResource.class;
     }
     
 }
