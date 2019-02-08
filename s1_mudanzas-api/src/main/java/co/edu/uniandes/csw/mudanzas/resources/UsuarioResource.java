@@ -83,5 +83,11 @@ public class UsuarioResource {
     {
         return TarjetasUsuarioResource.class;
     }
+
+    @Path("{login}/subastas")
+    public Class<SubastasUsuarioResource> getSubastasUsuarioResource(@PathParam("login") String login)
+    {
+        return SubastasUsuarioResource.class;
+    }
     
 }
