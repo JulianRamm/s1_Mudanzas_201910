@@ -14,10 +14,11 @@ import java.util.LinkedList;
  */
 public class ViajeDetailDTO extends ViajeDTO implements Serializable{
 
+    /**
+     * Lista encadenada de CargaDTO que corresponde a que un viaje pude tener 1 o màs cargas asignadas
+     */
 	private LinkedList<CargaDTO> cargas;
-	public ViajeDetailDTO(){
-		super();
-	}
+	
 
     /**
      * @return the cargas
@@ -32,4 +33,13 @@ public class ViajeDetailDTO extends ViajeDTO implements Serializable{
     public void setCargas(LinkedList<CargaDTO> cargas) {
         this.cargas = cargas;
     }
-}
+    /**
+     * constructor de un objeto de tipo ViajeDetailDTO
+     */
+    public ViajeDetailDTO(){
+		
+	}
+} 
+        
+    
+
