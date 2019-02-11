@@ -34,8 +34,9 @@ public class ProveedorDTO implements Serializable{
     private String logotipo;
 
     
-    
-    
+    public ProveedorDTO(){
+        
+    }
     
     
     public String getLogin() {
