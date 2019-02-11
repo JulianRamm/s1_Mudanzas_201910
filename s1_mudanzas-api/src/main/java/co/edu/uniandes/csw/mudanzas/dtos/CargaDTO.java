@@ -72,6 +72,13 @@ public class CargaDTO implements Serializable{
 	 */
 	
 	private long id;
+        
+        /**
+         * Constructor por defecto
+         */
+        public CargaDTO() {
+            
+        }
 
     /**
      * @return the datosEnvio
@@ -212,9 +219,5 @@ public class CargaDTO implements Serializable{
     public void setId(long id) {
         this.id = id;
     }
-    public CargaDTO(){
-        
-    }
-            
-	
+    
 }

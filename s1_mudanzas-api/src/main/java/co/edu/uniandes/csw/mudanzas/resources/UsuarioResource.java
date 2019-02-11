@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDTO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -53,7 +54,8 @@ public class UsuarioResource {
      */
     @GET 
     public List<UsuarioDTO> getUsuarios(){
-        return null;
+        List<UsuarioDTO> users = new ArrayList<>();
+        return users;
     }
     
     /**
@@ -131,25 +133,6 @@ public class UsuarioResource {
     public Class<CargasUsuarioResource> getCargasUsuarioResource(@PathParam("login") String login)
     {
         return CargasUsuarioResource.class;
-    }
-    /**
-     * Mètodo que crea una carga para un usuario dado su login y la informaciòn de la carga
-     * @param login
-     * @return nuevo objeto CargaDTO 
-     */
-    @POST
-    @Path("{login: [a-zA-Z][a-zA-Z]*}}")
-    public CargaDTO crearNuevaCargaAUsusario(@PathParam("login") String login){
-        return new CargaDTO();
-    }
-    /**
-     * Mètodo que elimina las cargas de un usuario dado su login
-     * @param login 
-     */
-    @POST
-    @Path("{login: [a-zA-Z][a-zA-Z]*}}")
-    public void eliminarCargasDeUnUsusario(@PathParam("login") String login){
-        return;
     }
     
 }

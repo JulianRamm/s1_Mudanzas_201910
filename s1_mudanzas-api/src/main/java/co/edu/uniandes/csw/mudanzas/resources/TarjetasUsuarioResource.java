@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-class TarjetasUsuarioResource {
+public class TarjetasUsuarioResource {
     
     private static final Logger LOGGER = Logger.getLogger(TarjetasUsuarioResource.class.getName());
 
