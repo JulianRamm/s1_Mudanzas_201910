@@ -26,7 +26,14 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-public class ProveedorResource {
+public class ProveedorResource 
+{
+    
+    @Path("{login}/conductores")
+    public Class<ProveedorConductorResource> getProveedorConductorResource(@PathParam("login") String login)
+    {
+        return ProveedorConductorResource.class;
+    }
     
     private static final Logger LOGGER = Logger.getLogger(ProveedorResource.class.getName());
     
