@@ -19,7 +19,7 @@ public class ViajesPersistence {
     
     private static final Logger LOGGER=Logger.getLogger(ViajesPersistence.class.getName());
     
-    @PersistenceContext(unitName="ViajesPU")
+    @PersistenceContext(unitName="mudazasPU")
     protected EntityManager em;
     public ViajesEntity create(ViajesEntity viajesEntity){
         em.persist(viajesEntity);
