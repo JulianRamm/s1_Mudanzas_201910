@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
-import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
+import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,55 +21,56 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Clase de pruebas para la persistencia del usuario
+ *
  * @author Luis Miguel
  */
 @RunWith(Arquillian.class)
-public class UsuarioPersistenceTest {
+public class TarjetaDeCreditoPersistenceTest {
 
     /**
-     * Atributo que instancia a un usuario.
+     * Atributo que instancia a una tarjeta.
      */
     @Inject
-    private UsuarioPersistence ep;
-    
+    private TarjetaDeCreditoPersistence ep;
+
     /**
      * Llamamos al encargado de la BD
      */
     @PersistenceContext
     private EntityManager em;
-    
+
     /**
-     * Crea todo lo necesario para el desarrollo de las pruebas. 
+     * Crea todo lo necesario para el desarrollo de las pruebas.
+     *
      * @return .jar
      */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(UsuarioEntity.class.getPackage())
-                .addPackage(UsuarioPersistence.class.getPackage())
+                .addPackage(TarjetaDeCreditoEntity.class.getPackage())
+                .addPackage(TarjetaDeCreditoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     /**
-     * Prueba unitaria para probar la creacion de un usuario
+     * Prueba unitaria para probar la creacion de una tarjeta.
      */
     @Test
-    public void createUsuarioTest() {
+    public void createTarjetaTest() {
         //podam nos crea una instancia automatica
         PodamFactory factory = new PodamFactoryImpl();
-        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         //llamamos al manager de persistencia, en este caso de usuario
-        UsuarioEntity usuarioe = ep.create(usr);
+        TarjetaDeCreditoEntity tarjetae = ep.create(trjt);
         //verificamos que no devuelva algo nulo de la creacion en la base de datos. 
-        Assert.assertNotNull(usuarioe);
+        Assert.assertNotNull(tarjetae);
         //Buscamos ese usuario directamente en la BD
-        UsuarioEntity entity = em.find(UsuarioEntity.class, usuarioe.getId());
-        
+        TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, tarjetae.getId());
+
         //verificamos que el mismo que cree en mi propio metodo sea el mismo que relamente se creo en la BD.
-        Assert.assertEquals(usr.getNombre(), entity.getNombre());
-        
+        Assert.assertEquals(trjt.getTitularCuenta(), entity.getTitularCuenta());
+
     }
-    
-}   
+
+}

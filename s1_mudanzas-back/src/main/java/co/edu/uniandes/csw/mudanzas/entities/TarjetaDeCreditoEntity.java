@@ -1,0 +1,124 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package co.edu.uniandes.csw.mudanzas.entities;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Luis Miguel
+ */
+@Entity
+public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
+    
+    /**
+     * Atributo que representa el nombre personalizado que se le quiere dar a la tarjeta.
+     */
+    private String nombreTarjeta;
+    
+    /**
+     * Atributo que representa el numero serial de la tarjeta
+     */
+    private int numeroSerial;
+    
+    /**
+     * Atributo que representa el codigo de seguridad en la parte posterior de la tarjeta.
+     */
+    private int codigoSeguridad;
+    
+    /**
+     * Atributo que representa el nombre del usuario titular de la cuenta. 
+     */
+    private String titularCuenta;
+    
+    /**
+     * Atributo que representa la fecha de vencimiento de la tarjeta de credito.
+     */
+    @Temporal(TemporalType.DATE)
+    private Date fechaVencimiento;
+
+    /**
+     * Constructor por defecto.
+     */
+    public TarjetaDeCreditoEntity(){
+        
+    }
+    
+    /**
+     * @return the nombreTarjeta
+     */
+    public String getNombreTarjeta() {
+        return nombreTarjeta;
+    }
+
+    /**
+     * @param nombreTarjeta the nombreTarjeta to set
+     */
+    public void setNombreTarjeta(String nombreTarjeta) {
+        this.nombreTarjeta = nombreTarjeta;
+    }
+
+    /**
+     * @return the numeroSerial
+     */
+    public int getNumeroSerial() {
+        return numeroSerial;
+    }
+
+    /**
+     * @param numeroSerial the numeroSerial to set
+     */
+    public void setNumeroSerial(int numeroSerial) {
+        this.numeroSerial = numeroSerial;
+    }
+
+    /**
+     * @return the codigoSeguridad
+     */
+    public int getCodigoSeguridad() {
+        return codigoSeguridad;
+    }
+
+    /**
+     * @param codigoSeguridad the codigoSeguridad to set
+     */
+    public void setCodigoSeguridad(int codigoSeguridad) {
+        this.codigoSeguridad = codigoSeguridad;
+    }
+
+    /**
+     * @return the titularCuenta
+     */
+    public String getTitularCuenta() {
+        return titularCuenta;
+    }
+
+    /**
+     * @param titularCuenta the titularCuenta to set
+     */
+    public void setTitularCuenta(String titularCuenta) {
+        this.titularCuenta = titularCuenta;
+    }
+    
+    /**
+     * @return the fechaVencimiento
+     */
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    /**
+     * @param fechaVencimiento the fechaVencimiento to set
+     */
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+    
+}

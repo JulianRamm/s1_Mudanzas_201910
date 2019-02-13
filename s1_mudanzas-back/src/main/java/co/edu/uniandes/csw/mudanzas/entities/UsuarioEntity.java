@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.entities;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
@@ -12,7 +13,7 @@ import javax.persistence.Entity;
  * @author Luis Miguel
  */
 @Entity
-public class UsuarioEntity extends BaseEntity{
+public class UsuarioEntity extends BaseEntity implements Serializable{
     
     /**
      * Atributo que representa el nombre de usuario de un Usuario
@@ -43,6 +44,13 @@ public class UsuarioEntity extends BaseEntity{
      * Atributo que representa la ciudad de origen del usuario.
      */
     private String ciudadDeOrigen;
+    
+    /**
+     * Constructor por defecto de la entidad.
+     */
+    public UsuarioEntity() {
+        
+    }
     
     /**
      * @return the login
@@ -127,6 +135,4 @@ public class UsuarioEntity extends BaseEntity{
     public void setCiudadDeOrigen(String ciudadDeOrigen) {
         this.ciudadDeOrigen = ciudadDeOrigen;
     }
-    
-    
 }
