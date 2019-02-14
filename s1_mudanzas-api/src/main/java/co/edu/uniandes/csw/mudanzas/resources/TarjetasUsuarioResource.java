@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDTO;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
@@ -33,11 +34,12 @@ public class TarjetasUsuarioResource {
      * @param login del usuario que se esta buscando.
      * @return JSONArray {@link TarjetaDeCreditoDTO} - Las tarjetas encontradas en el
      * usuario. Si no hay ninguno retorna una lista vacía.
+     * @return retornaria para pruebas el login de quien se quieren las tarjetas. 
      */
     @GET
-    public List<TarjetaDeCreditoDTO> getTarjetas(@PathParam("login") String login)
+    public String getTarjetas(@PathParam("login") String login)
     {
-        return null;
+        return login;
     }
     
     /**
@@ -52,7 +54,22 @@ public class TarjetasUsuarioResource {
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO getTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta)
     {
-        return null;
+        UsuarioDTO usr = new UsuarioDTO();
+        usr.setLogin(login);
+        usr.setNombre("Luis Miguel");
+        usr.setApellido("Gomez Londono");
+        usr.setCiudadDeOrigen("Manizales");
+        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setPassword("123456");
+                
+        TarjetaDeCreditoDTO tarjeta = new TarjetaDeCreditoDTO();
+        tarjeta.setIdTarjeta(idTarjeta);
+        tarjeta.setTitularCuenta(usr);
+        tarjeta.setCodigoSeguridad(000);
+        tarjeta.setFechaVencimiento("01/01/2020");
+        tarjeta.setNombreTarjeta(usr.getNombre());
+        tarjeta.setNumeroSerial(123456789);
+        return tarjeta;
     }
     
     /**
@@ -69,7 +86,22 @@ public class TarjetasUsuarioResource {
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO crearTarjeta(@PathParam("login") String login,@PathParam("idTarjeta") Long idTarjeta)
     {
-        return null;
+        UsuarioDTO usr = new UsuarioDTO();
+        usr.setLogin(login);
+        usr.setNombre("Luis Miguel");
+        usr.setApellido("Gomez Londono");
+        usr.setCiudadDeOrigen("Manizales");
+        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setPassword("123456");
+                
+        TarjetaDeCreditoDTO tarjeta = new TarjetaDeCreditoDTO();
+        tarjeta.setIdTarjeta(idTarjeta);
+        tarjeta.setTitularCuenta(usr);
+        tarjeta.setCodigoSeguridad(000);
+        tarjeta.setFechaVencimiento("01/01/2020");
+        tarjeta.setNombreTarjeta(usr.getNombre());
+        tarjeta.setNumeroSerial(123456789);
+        return tarjeta;
     }
     
     /**
@@ -84,7 +116,22 @@ public class TarjetasUsuarioResource {
     @PUT
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO cambiarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta){
-        return null;
+        UsuarioDTO usr = new UsuarioDTO();
+        usr.setLogin(login);
+        usr.setNombre("Luis Miguel");
+        usr.setApellido("Gomez Londono");
+        usr.setCiudadDeOrigen("Manizales");
+        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setPassword("123456");
+                
+        TarjetaDeCreditoDTO tarjeta = new TarjetaDeCreditoDTO();
+        tarjeta.setIdTarjeta(idTarjeta);
+        tarjeta.setTitularCuenta(usr);
+        tarjeta.setCodigoSeguridad(000);
+        tarjeta.setFechaVencimiento("01/01/2020");
+        tarjeta.setNombreTarjeta(usr.getNombre());
+        tarjeta.setNumeroSerial(123456789);
+        return tarjeta;
     }
     
 }

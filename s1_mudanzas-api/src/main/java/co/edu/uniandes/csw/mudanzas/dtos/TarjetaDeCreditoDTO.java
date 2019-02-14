@@ -36,7 +36,7 @@ public class TarjetaDeCreditoDTO implements Serializable{
     /**
      * Atributo que representa el nombre del usuario titular de la cuenta. 
      */
-    private String titularCuenta;
+    private UsuarioDTO titularCuenta;
     
     /**
      * Atributo que representa la fecha de vencimiento de la tarjeta de credito.
@@ -109,14 +109,14 @@ public class TarjetaDeCreditoDTO implements Serializable{
     /**
      * @return the titularCuenta
      */
-    public String getTitularCuenta() {
+    public UsuarioDTO getTitularCuenta() {
         return titularCuenta;
     }
 
     /**
      * @param titularCuenta the titularCuenta to set
      */
-    public void setTitularCuenta(String titularCuenta) {
+    public void setTitularCuenta(UsuarioDTO titularCuenta) {
         this.titularCuenta = titularCuenta;
     }
 

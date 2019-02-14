@@ -51,10 +51,11 @@ public class UsuarioResource {
      *
      * @return JSONArray {@link UsuarioDTO} - Los usuarios encontrados en
      * la aplicación. Si no hay ninguno retorna una lista vacía.
+     * @return arreglo normal de strings.
      */
     @GET 
-    public List<UsuarioDTO> getUsuarios(){
-        List<UsuarioDTO> users = new ArrayList<>();
+    public String getUsuarios(){
+        String users = "Luis"+ "Julian"+ "Samuel"+ "Daniel" + "Andres";
         return users;
     }
     
@@ -67,18 +68,33 @@ public class UsuarioResource {
     @GET
     @Path("{login}")
     public UsuarioDTO getUsuario(@PathParam("login") String login){
-        return null;
+        UsuarioDTO usr = new UsuarioDTO();
+        usr.setLogin(login);
+        usr.setNombre("Luis Miguel");
+        usr.setApellido("Gomez Londono");
+        usr.setCiudadDeOrigen("Manizales");
+        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setPassword("123456");
+        return usr;
     }
     
     /**
      * Borra el usuario asociado recibido en la URL.
      *
      * @param login del usuario que se desea borrar.
+     * @return el objeto que fue borrado.
      */
     @DELETE
     @Path("{login}")
-    public void deleteUsuario(@PathParam("login") String login) {
-        
+    public UsuarioDTO deleteUsuario(@PathParam("login") String login) {
+        UsuarioDTO usr = new UsuarioDTO();
+        usr.setLogin(login);
+        usr.setNombre("Luis Miguel");
+        usr.setApellido("Gomez Londono");
+        usr.setCiudadDeOrigen("Manizales");
+        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setPassword("123456");
+        return usr;
     }
     
     /**
