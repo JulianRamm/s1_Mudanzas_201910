@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -44,6 +47,12 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      * Atributo que representa la ciudad de origen del usuario.
      */
     private String ciudadDeOrigen;
+    
+    /**
+     * Lista, coleccion que contiene todas las tarjetas de ese usuario.
+     */
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    Collection<TarjetaDeCreditoEntity> tarjetas;
     
     /**
      * Constructor por defecto de la entidad.
@@ -134,5 +143,21 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
      */
     public void setCiudadDeOrigen(String ciudadDeOrigen) {
         this.ciudadDeOrigen = ciudadDeOrigen;
+    }
+    
+    /**
+     * @param lTarjetas la lista de tarjetas que se quiere cambiar.
+     */
+    public void setTarjetas(Collection<TarjetaDeCreditoEntity> lTarjetas)
+    {
+        this.tarjetas = lTarjetas;
+    }
+    
+    /**
+     * @return la lista de tarjetas de credito de un usuario. 
+     */
+    public Collection<TarjetaDeCreditoEntity> getTarjetas()
+    {
+        return tarjetas;
     }
 }
