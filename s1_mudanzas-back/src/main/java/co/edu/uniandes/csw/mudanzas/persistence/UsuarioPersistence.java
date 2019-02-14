@@ -61,5 +61,10 @@ public class UsuarioPersistence {
         TypedQuery<UsuarioEntity> query = em.createQuery("select u from UsuarioEntity u", UsuarioEntity.class);
         return query.getResultList();
     }
+    
+    public void delete(Long usuarioId)
+    {
+        em.remove(find(usuarioId));
+    }
 
 }
