@@ -7,14 +7,18 @@ package co.edu.uniandes.csw.mudanzas.test.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -31,14 +35,26 @@ public class TarjetaDeCreditoPersistenceTest {
      * Atributo que instancia a una tarjeta.
      */
     @Inject
-    private TarjetaDeCreditoPersistence ep;
+    private TarjetaDeCreditoPersistence tp;
 
     /**
      * Llamamos al encargado de la BD
      */
     @PersistenceContext
     private EntityManager em;
+    
+    /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    UserTransaction utx;
 
+    /**
+     * Lista que tiene los datos de prueba.
+     */
+    private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+    
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -52,6 +68,50 @@ public class TarjetaDeCreditoPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+    
+    /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
+    public void configTest() {
+        try {
+            utx.begin();
+            em.joinTransaction();
+            clearData();
+            insertData();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
+    private void clearData() {
+        em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+    }
+
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
+    private void insertData() {
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) {
+
+            TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+
+            em.persist(entity);
+
+            data.add(entity);
+        }
+    }
 
     /**
      * Prueba unitaria para probar la creacion de una tarjeta.
@@ -62,7 +122,7 @@ public class TarjetaDeCreditoPersistenceTest {
         PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         //llamamos al manager de persistencia, en este caso de usuario
-        TarjetaDeCreditoEntity tarjetae = ep.create(trjt);
+        TarjetaDeCreditoEntity tarjetae = tp.create(trjt);
         //verificamos que no devuelva algo nulo de la creacion en la base de datos. 
         Assert.assertNotNull(tarjetae);
         //Buscamos ese usuario directamente en la BD
