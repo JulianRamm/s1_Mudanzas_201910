@@ -54,7 +54,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private String ciudadDeOrigen;
     
     /**
-     * Lista, coleccion que contiene todas las tarjetas de ese usuario.
+     * Lista, coleccion que contiene todas las tarjetas de ese usuario. bla bla
      */
     @PodamExclude
     @OneToMany(
