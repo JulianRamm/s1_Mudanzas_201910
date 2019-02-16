@@ -6,10 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -17,41 +14,37 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class ViajesEntity extends BaseEntity implements Serializable {
-    /**
-     * Lista de objetos CargaEntity ya que la relación para estas dos entidades está definida
-     * como Viaje tiene 1 o muchas cargas debido a esto se utiliza una lista, además, se utiliza fetch lazy
-     * para que no se carguen todos los objetos CargaEntity cuando se necesite un objeto de este tipo
-     */
-    @OneToMany(
-            mappedBy="viajes",
-            fetch=FetchType.LAZY
-    )
-    LinkedList<CargaEntity> cargas;
-    /**
-     * direcciòn del lugar de salida del viaje
-     */
+     
 
-    private String lugarSalida;
+	/**
+	 * direcciòn del lugar de salida del viaje 
+	 */
+	
+	private String lugarSalida;
 
-    /**
-     * Direcciòn del lugar de llegada del viaje
-     */
-    private String lugarLlegada;
+	/**
+	 * Direcciòn del lugar de llegada del viaje
+	 */
+	
+	private String lugarLlegada;
 
-    /**
-     * tiempo que se va a demorar el viaje acorde con la distancia
-     */
-    private int tiempo;
+	/**
+	 * tiempo que se va a demorar el viaje acorde con la distancia
+	 */
+	
+	private int tiempo;
 
-    /**
-     * gasolina que se va a necesitar para completar el viaje
-     */
-    private int gastoGasolina;
+	/**
+	 * gasolina que se va a necesitar para completar el viaje
+	 */
+	
+	private int gastoGasolina;
 
-    /**
-     * clima actual de la posiciòn en la que se encuentra el conductor
-     */
-    private String clima;
+	/**
+	 * clima actual de la posiciòn en la que se encuentra el conductor
+	 */
+	
+	private String clima;
 
     /**
      * @return the lugarSalida
@@ -121,7 +114,5 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     public void setClima(String clima) {
         this.clima = clima;
-    }
-    public ViajesEntity() {
     }
 }
