@@ -12,73 +12,65 @@ import java.util.LinkedList;
  *
  * @author je.osorio
  */
-public class CargaDTO implements Serializable{
+public class CargaDTO implements Serializable {
+
     /**
-	 * Representa los datos de env�o de la carga que se lleva de un lugar a otro
-	 */
-	
-	private String datosEnvio;
+     * Representa los datos de env�o de la carga que se lleva de un lugar a otro
+     */
 
-	/**
-	 * volumen de la carga en metros al cubo
-	 */
-	
-	private int volumen;
+    private String datosEnvio;
 
-	/**
-	 * lista encadenada de im�genes de la carga del env�o
-	 */
-	
-	private LinkedList<String> imagenes;
+    /**
+     * volumen de la carga en metros al cubo
+     */
+    private int volumen;
 
-	/**
-	 * direcci�n del lugar de salida de la carga
-	 */
-	
-	private String lugarSalida;
+    /**
+     * lista encadenada de im�genes de la carga del env�o
+     */
+    private LinkedList<String> imagenes;
 
-	/**
-	 * direcci�n del lugar de llegada de la carga
-	 */
-	
-	private String lugarLlegada;
+    /**
+     * direcci�n del lugar de salida de la carga
+     */
+    private String lugarSalida;
 
-	/**
-	 * fecha estimada de llegada definida por el proveedor
-	 */
-	
-	private String fechaEstimadaLlegada;
+    /**
+     * direcci�n del lugar de llegada de la carga
+     */
+    private String lugarLlegada;
 
-	/**
-	 * fecha en la que la carga va a ser trasladada
-	 */
-	
-	private String fechaEnvio;
+    /**
+     * fecha estimada de llegada definida por el proveedor
+     */
+    private String fechaEstimadaLlegada;
 
-	/**
-	 * observaciones sadicionales definidas por el cliente
-	 */
-	
-	private String observaciones;
+    /**
+     * fecha en la que la carga va a ser trasladada
+     */
+    private String fechaEnvio;
 
-	/**
-	 * 
-	 */
-	
-	private int valorInicialS;
+    /**
+     * observaciones sadicionales definidas por el cliente
+     */
+    private String observaciones;
 
-	/**
-	 * id de la carga 
-	 */
-	
-	private long id;
-        
-        /**
-         * Constructor por defecto
-         */
-        public CargaDTO() {
-            
-        }
+    /**
+     *
+     */
+    private int valorInicialS;
+
+    /**
+     * id de la carga
+     */
+    private long id;
+
+    /**
+     * Constructor por defecto
+     */
+    public CargaDTO() {
+
+    }
 
     /**
      * @return the datosEnvio
@@ -219,5 +211,5 @@ public class CargaDTO implements Serializable{
     public void setId(long id) {
         this.id = id;
     }
-    
+
 }

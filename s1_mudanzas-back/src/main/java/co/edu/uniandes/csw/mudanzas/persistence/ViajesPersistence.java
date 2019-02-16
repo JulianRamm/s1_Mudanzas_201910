@@ -55,7 +55,8 @@ public class ViajesPersistence {
      * @return una lista con todos los viajes.
      */
     public List<ViajesEntity> findAll() {
-        TypedQuery<ViajesEntity> query = em.createQuery("select u from ViajesEntity u", ViajesEntity.class);
+        TypedQuery<ViajesEntity> query;
+        query = em.createQuery("select u from ViajesEntity u" , ViajesEntity.class);
         return query.getResultList();
     }
 }
