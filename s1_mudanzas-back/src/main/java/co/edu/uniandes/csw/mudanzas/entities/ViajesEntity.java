@@ -26,7 +26,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @OneToMany(
-            mappedBy="viajes",
+            mappedBy="viaje",
             fetch=FetchType.LAZY
     )
     List<CargaEntity> cargas;
