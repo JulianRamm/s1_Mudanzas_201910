@@ -125,45 +125,12 @@ public class UsuarioPersistenceTest {
         UsuarioEntity usuarioe = ep.create(usr);
         //verificamos que no devuelva algo nulo de la creacion en la base de datos. 
         Assert.assertNotNull(usuarioe);
-        //Buscamos ese usuario directamente en la BD
+        
+//Buscamos ese usuario directamente en la BD
         UsuarioEntity entity = em.find(UsuarioEntity.class, usuarioe.getId());
         
         //verificamos que el mismo que cree en mi propio metodo sea el mismo que relamente se creo en la BD.
         Assert.assertEquals(usr.getNombre(), entity.getNombre());
         
-    }
-    
-//    @Test
-//    public void findUsuarioTest()
-//    {
-//        //podam nos crea una instancia automatica
-//        PodamFactory factory = new PodamFactoryImpl();
-//        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-//        //llamamos al manager de persistencia, en este caso de usuario
-//        UsuarioEntity usuarioe = ep.create(usr);
-//        //Buscamos ese usuario directamente en la BD
-//        UsuarioEntity entity = em.find(UsuarioEntity.class, usuarioe.getId());
-//        
-//        //verificamos que el mismo que cree en mi propio metodo sea el mismo que relamente se creo en la BD.
-//        Assert.assertEquals(usr.getNombre(), entity.getNombre());
-//    }
-//    
-//    @Test
-//    public void deleteUsuarioTest()
-//    {
-//        //podam nos crea una instancia automatica
-//        PodamFactory factory = new PodamFactoryImpl();
-//        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-//        //llamamos al manager de persistencia para que lo cree en la bd, en este caso de usuario
-//        UsuarioEntity usuarioe = ep.create(usr);
-//        
-//        ep.delete(usuarioe.getId());
-//        
-//        //Buscamos ese usuario directamente en la BD
-//        UsuarioEntity entity = em.find(UsuarioEntity.class, usuarioe.getId());
-//        
-//        //verificamos que despues de borrarlo buscarlo sea nulo.
-//        Assert.assertNull(entity);
-//    }
-    
+    }    
 }   
