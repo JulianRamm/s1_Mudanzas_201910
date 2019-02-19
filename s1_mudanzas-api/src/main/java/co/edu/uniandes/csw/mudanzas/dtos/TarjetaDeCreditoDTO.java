@@ -47,7 +47,7 @@ public class TarjetaDeCreditoDTO implements Serializable{
     /**
      * Constructor por defecto.
      */
-    public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjetaEntity){
+    public TarjetaDeCreditoDTO(){
         
     }
     

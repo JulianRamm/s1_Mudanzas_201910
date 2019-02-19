@@ -31,12 +31,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class CargaPersistenceTest {
-    
-    
+        
     @Inject
     UserTransaction utx;
-
-   
+    
     @PersistenceContext
     private EntityManager em;
 
@@ -83,7 +81,7 @@ public class CargaPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete fro  CargaEntity").executeUpdate();
+        em.createQuery("delete from CargaEntity").executeUpdate();
     }
 
     /**
@@ -107,7 +105,7 @@ public class CargaPersistenceTest {
      * los id's de la entidad creada aleatoriamente y de la creada con el método create
      */
     @Test
-    public void createCargaEntityTest() {
+    public void createCargaTest() {
         PodamFactory factory = new PodamFactoryImpl();
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
         CargaEntity result = persistence.create(newEntity);

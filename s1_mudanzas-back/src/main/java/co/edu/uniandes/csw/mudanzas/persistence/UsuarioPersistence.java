@@ -67,4 +67,22 @@ public class UsuarioPersistence {
         em.remove(find(usuarioId));
     }
 
+    public UsuarioEntity update(UsuarioEntity cambiada) {
+        return em.merge(cambiada);
+    }
+
+    public UsuarioEntity buscarUsuarioPorLogin(String titularCuenta) {
+       TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
+       query = query.setParameter("login", titularCuenta);
+       List<UsuarioEntity> duenio = query.getResultList();
+       UsuarioEntity resultado;
+       if(duenio == null)
+           resultado = null;
+       else if(duenio.isEmpty())
+           resultado = null;
+       else
+           resultado = duenio.get(0);
+       return resultado;
+    }
+    
 }
