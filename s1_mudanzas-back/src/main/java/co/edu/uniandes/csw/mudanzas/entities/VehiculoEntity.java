@@ -10,48 +10,52 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author estudiante
  */
 @Entity
-public class VehiculoEntity extends BaseEntity implements Serializable        
-{
+public class VehiculoEntity extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String placa;
-    
+
     private boolean disponibilidad;
-    
+
     private String UbicacionActual;
-    
+
     private int numeroConductores;
-    
+
     private String color;
-    
+
     private String dimensiones;
-    
+
     private int capacidad;
-    
-      /**
- * Atributo que modela la lista de vehiculos de un conductor
- */
-    @ManyToMany(mappedBy = "conductores", fetch = FetchType.LAZY)
-    private Collection <ConductorEntity> conductores;
-    
+
+    /**
+     * Atributo que modela la lista de vehiculos de un conductor
+     */
+    @PodamExclude
+    @ManyToOne
+    private ConductorEntity conductor;
+
+    @PodamExclude
     @OneToOne
     private AgendaEntity agenda;
-    
-    public VehiculoEntity()
-    {
-        
+
+    public VehiculoEntity() {
+
     }
 
     /**
      * @return the placa
      */
-    public String getPlaca() 
-    {
+    public String getPlaca() {
         return placa;
     }
 
@@ -149,15 +153,15 @@ public class VehiculoEntity extends BaseEntity implements Serializable
     /**
      * @return the conductores
      */
-    public Collection <ConductorEntity> getConductores() {
-        return conductores;
+    public ConductorEntity getConductor() {
+        return conductor;
     }
 
     /**
-     * @param conductores the conductores to set
+     * @param conductor the conductores to set
      */
-    public void setConductores(Collection <ConductorEntity> conductores) {
-        this.conductores = conductores;
+    public void setConductores(ConductorEntity conductor) {
+        this.conductor = conductor;
     }
 
     /**
@@ -173,6 +177,5 @@ public class VehiculoEntity extends BaseEntity implements Serializable
     public void setAgenda(AgendaEntity agenda) {
         this.agenda = agenda;
     }
-    
-    
+
 }

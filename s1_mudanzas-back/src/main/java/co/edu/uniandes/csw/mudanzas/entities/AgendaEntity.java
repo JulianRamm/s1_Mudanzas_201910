@@ -9,10 +9,12 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -21,16 +23,18 @@ import javax.persistence.TemporalType;
 @Entity
 public class AgendaEntity extends BaseEntity implements Serializable  
 {
- @Temporal (TemporalType.DATE)
- private Collection<Date> diasDisponible;
+ private static final long serialVersionUID = 1L;
+ @PodamExclude
+ private List<String> diasDisponible;
  
  @Temporal (TemporalType.TIME)
- private Time horaSalida;
+ private Date horaSalida;
  
  @Temporal (TemporalType.TIME)
- private Time horaLlegada;
+ private Date horaLlegada;
  private boolean disponibilidad;
  
+ @PodamExclude
  @OneToOne
  private VehiculoEntity vehiculo;
 
@@ -42,21 +46,21 @@ public class AgendaEntity extends BaseEntity implements Serializable
     /**
      * @return the diasDisponible
      */
-    public Collection<Date> getDiasDisponible() {
+    public List<String> getDiasDisponible() {
         return diasDisponible;
     }
 
     /**
      * @param diasDisponible the diasDisponible to set
      */
-    public void setDiasDisponible(Collection<Date> diasDisponible) {
+    public void setDiasDisponible(List<String> diasDisponible) {
         this.diasDisponible = diasDisponible;
     }
 
     /**
      * @return the horaSalida
      */
-    public Time getHoraSalida() {
+    public Date getHoraSalida() {
         return horaSalida;
     }
 
@@ -70,7 +74,7 @@ public class AgendaEntity extends BaseEntity implements Serializable
     /**
      * @return the horaLlegada
      */
-    public Time getHoraLlegada() {
+    public Date getHoraLlegada() {
         return horaLlegada;
     }
 
