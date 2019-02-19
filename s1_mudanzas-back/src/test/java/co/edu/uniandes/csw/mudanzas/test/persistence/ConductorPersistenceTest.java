@@ -34,6 +34,13 @@ public class ConductorPersistenceTest
     @Inject
     private ConductorPersistence ConPersistence;
     
+    
+     /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    UserTransaction utx;
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
@@ -42,12 +49,6 @@ public class ConductorPersistenceTest
     private EntityManager em;
     
      /**
-     * Variable para martcar las transacciones del em anterior cuando se
-     * crean/borran datos para las pruebas.
-     */
-    @Inject
-    UserTransaction utx;
-    
     /**
      * Lista que tiene los datos de prueba.
      */

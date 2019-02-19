@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
  *
  * @author estudiante
  */
+@Entity
 public class AgendaEntity extends BaseEntity implements Serializable  
 {
  @Temporal (TemporalType.DATE)

@@ -116,7 +116,7 @@ public class VehiculoPersistenceTest
 
         VehiculoEntity entity = em.find(VehiculoEntity.class, result.getPlaca());
 
-        Assert.assertEquals(newEntity.getPlaca(), entity.getPlaca());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
     }
     
 }

@@ -22,10 +22,7 @@ public class ConductorEntity extends BaseEntity implements Serializable
  * Atributo que modela el nombre de un conductor
  */
    private String nombre;
- /**
- * Atributo que modela el id de un conductor
- */ 
-   private Long id;
+ 
  /**
  * Atributo que modela la calificacion de un conductor
  */  
@@ -70,20 +67,7 @@ public class ConductorEntity extends BaseEntity implements Serializable
         this.nombre = nombre;
     }
 
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+   
     /**
      * @return the calificacion
      */

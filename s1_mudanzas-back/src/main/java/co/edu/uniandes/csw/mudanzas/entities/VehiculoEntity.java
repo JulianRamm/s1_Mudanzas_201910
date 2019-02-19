@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -15,6 +16,7 @@ import javax.persistence.OneToOne;
  *
  * @author estudiante
  */
+@Entity
 public class VehiculoEntity extends BaseEntity implements Serializable        
 {
     private String placa;
