@@ -7,10 +7,13 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.UserTransaction;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -18,6 +21,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
+    
+    public static final long serialVersionUID = 1L;
     
     /**
      * Atributo que representa el nombre personalizado que se le quiere dar a la tarjeta.
@@ -48,8 +53,17 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
     /**
      * Atributo que representa al usuario dueno de la tarjeta.
      */
-    @ManyToOne
+    @PodamExclude
+    @ManyToOne()
     UsuarioEntity usuario;
+    
+    /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    UserTransaction utx;
+
 
     /**
      * Constructor por defecto.

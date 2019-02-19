@@ -6,10 +6,13 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.transaction.UserTransaction;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -17,6 +20,8 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class UsuarioEntity extends BaseEntity implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Atributo que representa el nombre de usuario de un Usuario
@@ -49,11 +54,15 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private String ciudadDeOrigen;
     
     /**
-     * Lista, coleccion que contiene todas las tarjetas de ese usuario.
+     * Lista, coleccion que contiene todas las tarjetas de ese usuario. bla bla
      */
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    Collection<TarjetaDeCreditoEntity> tarjetas;
-    
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "usuario", 
+            fetch = FetchType.LAZY
+    )
+    List<TarjetaDeCreditoEntity> tarjetas;
+        
     /**
      * Constructor por defecto de la entidad.
      */
@@ -148,7 +157,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * @param lTarjetas la lista de tarjetas que se quiere cambiar.
      */
-    public void setTarjetas(Collection<TarjetaDeCreditoEntity> lTarjetas)
+    public void setTarjetas(List<TarjetaDeCreditoEntity> lTarjetas)
     {
         this.tarjetas = lTarjetas;
     }
@@ -156,7 +165,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     /**
      * @return la lista de tarjetas de credito de un usuario. 
      */
-    public Collection<TarjetaDeCreditoEntity> getTarjetas()
+    public List<TarjetaDeCreditoEntity> getTarjetas()
     {
         return tarjetas;
     }
