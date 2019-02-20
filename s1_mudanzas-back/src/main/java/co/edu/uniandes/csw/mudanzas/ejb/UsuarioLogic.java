@@ -16,6 +16,7 @@ import javax.inject.Inject;
 /**
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Usuario.
+ *
  * @author Luis Miguel
  */
 @Stateless
@@ -30,31 +31,29 @@ public class UsuarioLogic {
     /**
      * Crea una usuario en la persistencia.
      *
-     * @param usuario La entidad que representa el usuario a
-     * persistir.
+     * @param usuario La entidad que representa el usuario a persistir.
      * @return La entiddad del usuario luego de persistirla.
      * @throws BusinessLogicException Si el usuario a persistir ya existe.
      */
     public UsuarioEntity crearUsuario(UsuarioEntity usuario) throws BusinessLogicException {
 
-        if (persistence.buscarUsuarioPorLogin(usuario.getLogin()) != null) {
+        if (persistence.findUsuarioPorLogin(usuario.getLogin()) != null) {
             throw new BusinessLogicException("Ya existe un usuario con el login \"" + usuario.getLogin() + "\"");
         }
         usuario = persistence.create(usuario);
         return usuario;
     }
-    
+
     /**
      * Obtener todos los usuarios existentes en la base de datos.
      *
      * @return una lista de usuarios.
      */
-    public List<UsuarioEntity> getUsuarios()
-    {
+    public List<UsuarioEntity> getUsuarios() {
         List<UsuarioEntity> usuarios = persistence.findAll();
         return usuarios;
     }
-    
+
     /**
      * Obtener un usuario por medio de su id.
      *
@@ -64,11 +63,12 @@ public class UsuarioLogic {
      */
     public UsuarioEntity getUsuario(Long usuarioId) throws BusinessLogicException {
         UsuarioEntity usuarioEntity = persistence.find(usuarioId);
-        if (usuarioEntity == null)
+        if (usuarioEntity == null) {
             throw new BusinessLogicException("No existe tal usuario con id: " + usuarioId);
+        }
         return usuarioEntity;
     }
-    
+
     /**
      * Obtener un usuario por medio de su login.
      *
@@ -77,28 +77,31 @@ public class UsuarioLogic {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public UsuarioEntity getUsuario(String usuarioLogin) throws BusinessLogicException {
-        UsuarioEntity usuarioEntity = persistence.buscarUsuarioPorLogin(usuarioLogin);
-        if (usuarioEntity == null)
+        UsuarioEntity usuarioEntity = persistence.findUsuarioPorLogin(usuarioLogin);
+        if (usuarioEntity == null) {
             throw new BusinessLogicException("No existe tal usuario con login: " + usuarioLogin);
+        }
         return usuarioEntity;
     }
-    
+
     /**
      * Actualizar un usuario.
-     * @param nuevoUsuario: usuario con los cambios para ser actualizado,
-     * por ejemplo el nombre.
+     *
+     * @param nuevoUsuario: usuario con los cambios para ser actualizado, por
+     * ejemplo el nombre.
      * @return el usuario con los cambios actualizados en la base de datos.
      */
     public UsuarioEntity updateUsuario(UsuarioEntity nuevoUsuario) {
         UsuarioEntity usuarioEntity = persistence.update(nuevoUsuario);
         return usuarioEntity;
     }
-    
+
     /**
      * Borrar un usuario
      *
      * @param usuarioId: id del usuario a borrar
-     * @throws BusinessLogicException Si el usuario a eliminar tiene tarjetas de credito.
+     * @throws BusinessLogicException Si el usuario a eliminar tiene tarjetas de
+     * credito.
      */
     public void deleteUsuario(Long usuarioId) throws BusinessLogicException {
         List<TarjetaDeCreditoEntity> tarjetas = getUsuario(usuarioId).getTarjetas();

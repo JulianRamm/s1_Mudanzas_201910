@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
@@ -78,7 +79,7 @@ public class UsuarioLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     /**
      * Configuración inicial de la prueba.
      */
@@ -138,14 +139,81 @@ public class UsuarioLogicTest {
         Assert.assertEquals(nuevaEntidad.getPassword(), entidad.getPassword());
         Assert.assertEquals(nuevaEntidad.getLogin(), entidad.getLogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
-    public void createUsuarioMismoLoginTest() throws BusinessLogicException
-    {
+    public void createUsuarioMismoLoginTest() throws BusinessLogicException {
         PodamFactory factory = new PodamFactoryImpl();
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setLogin(data.get(0).getLogin());
         usuarioLogic.crearUsuario(nuevaEntidad);
     }
 
+    @Test
+    public void getUsuariosTest() {
+        List<UsuarioEntity> lista = usuarioLogic.getUsuarios();
+        Assert.assertEquals(data.size(), lista.size());
+        for (UsuarioEntity entidad : lista) {
+            boolean encontrado = false;
+            for (UsuarioEntity almacenado : data) {
+                if (entidad.getId().equals(almacenado.getId())) {
+                    encontrado = true;
+                }
+            }
+            Assert.assertTrue(encontrado);
+        }
+    }
+
+    @Test
+    public void getUsuarioPorIdTest() throws BusinessLogicException {
+        UsuarioEntity entidad = data.get(0);
+        UsuarioEntity resultado = usuarioLogic.getUsuario(entidad.getId());
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(resultado.getId(), entidad.getId());
+        Assert.assertEquals(resultado.getNombre(), entidad.getNombre());
+        Assert.assertEquals(resultado.getApellido(), entidad.getApellido());
+        Assert.assertEquals(resultado.getCiudadDeOrigen(), entidad.getCiudadDeOrigen());
+        Assert.assertEquals(resultado.getCorreoElectronico(), entidad.getCorreoElectronico());
+        Assert.assertEquals(resultado.getPassword(), entidad.getPassword());
+        Assert.assertEquals(resultado.getLogin(), entidad.getLogin());
+    }
+
+    @Test
+    public void getUsuarioPorLoginTest() throws BusinessLogicException {
+        UsuarioEntity entidad = data.get(0);
+        UsuarioEntity resultado = usuarioLogic.getUsuario(entidad.getLogin());
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(resultado.getId(), entidad.getId());
+        Assert.assertEquals(resultado.getNombre(), entidad.getNombre());
+        Assert.assertEquals(resultado.getApellido(), entidad.getApellido());
+        Assert.assertEquals(resultado.getCiudadDeOrigen(), entidad.getCiudadDeOrigen());
+        Assert.assertEquals(resultado.getCorreoElectronico(), entidad.getCorreoElectronico());
+        Assert.assertEquals(resultado.getPassword(), entidad.getPassword());
+        Assert.assertEquals(resultado.getLogin(), entidad.getLogin());
+    }
+
+    @Test
+    public void updateUsuarioTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        UsuarioEntity entidad = data.get(0);
+        UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
+        nuevaEntidad.setId(entidad.getId());
+        usuarioLogic.updateUsuario(nuevaEntidad);
+        UsuarioEntity respuesta = em.find(UsuarioEntity.class, entidad.getId());
+        Assert.assertEquals(nuevaEntidad.getId(), respuesta.getId());
+        Assert.assertEquals(nuevaEntidad.getNombre(), respuesta.getNombre());
+        Assert.assertEquals(nuevaEntidad.getApellido(), respuesta.getApellido());
+        Assert.assertEquals(nuevaEntidad.getCiudadDeOrigen(), respuesta.getCiudadDeOrigen());
+        Assert.assertEquals(nuevaEntidad.getCorreoElectronico(), respuesta.getCorreoElectronico());
+        Assert.assertEquals(nuevaEntidad.getPassword(), respuesta.getPassword());
+        Assert.assertEquals(nuevaEntidad.getLogin(), respuesta.getLogin());
+    }
+    
+    @Test
+    public void deleteUsuarioTest() throws BusinessLogicException {
+        UsuarioEntity entidad = data.get(1);
+        usuarioLogic.deleteUsuario(entidad.getId());
+        UsuarioEntity borrar = em.find(UsuarioEntity.class, entidad.getId());
+        Assert.assertNull(borrar);
+    }
+    
 }
