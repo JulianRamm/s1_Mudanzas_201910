@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -35,6 +38,33 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     private Integer dineroDisponible;
     
     private Integer calificacion;
+    
+   
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<ConductorEntity> conductores;
+    
+    
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<OfertaEntity> ofertas;
+    
+        
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<SubastaEntity> subastas;
+    
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<VehiculoEntity> vehiculos;
 
     public void setLogin(String login) {
         this.login = login;
@@ -76,6 +106,24 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         this.calificacion = calificacion;
     }
 
+    public void setConductores(List<ConductorEntity> conductores) {
+        this.conductores = conductores;
+    }
+
+    public void setOfertas(List<OfertaEntity> ofertas) {
+        this.ofertas = ofertas;
+    }
+
+    public void setSubastas(List<SubastaEntity> subastas) {
+        this.subastas = subastas;
+    }
+
+    public void setVehiculos(List<VehiculoEntity> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    
+    
     public String getLogin() {
         return login;
     }
@@ -115,6 +163,21 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public Integer getCalificacion() {
         return calificacion;
     }
-    
-    
+
+    public List<ConductorEntity> getConductores() {
+        return conductores;
+    }
+
+    public List<OfertaEntity> getOfertas() {
+        return ofertas;
+    }
+
+    public List<SubastaEntity> getSubastas() {
+        return subastas;
+    }
+
+    public List<VehiculoEntity> getVehiculos() {
+        return vehiculos;
+    }
+       
 }
