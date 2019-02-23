@@ -50,7 +50,12 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "conductor", fetch = FetchType.LAZY)
+    private ViajesEntity viajes;
 
+    
     /**
      * Metdo constructor de la entidad de un conductor
      */
