@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,11 +28,8 @@ public class ViajesEntity extends BaseEntity implements Serializable {
             mappedBy="viaje",
             fetch=FetchType.LAZY
     )
-    List<CargaEntity> cargas;
-    /**
-     * direcciòn del lugar de salida del viaje
-     */
-
+    private List<CargaEntity> cargas;
+   
     private String lugarSalida;
 
     /**
@@ -55,7 +51,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      * clima actual de la posiciòn en la que se encuentra el conductor
      */
     private String clima;
-
+    
     /**
      * @return the lugarSalida
      */
@@ -127,4 +123,20 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     }
     public ViajesEntity() {
     }
+
+    /**
+     * @return the cargas
+     */
+    public List<CargaEntity> getCargas() {
+        return cargas;
+    }
+
+    /**
+     * @param cargas the cargas to set
+     */
+    public void setCargas(List<CargaEntity> cargas) {
+        this.cargas = cargas;
+    }
+
+    
 }

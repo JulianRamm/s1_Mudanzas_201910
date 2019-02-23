@@ -7,8 +7,11 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -25,10 +28,22 @@ public class CargaEntity extends BaseEntity implements Serializable{
      */
     @PodamExclude
     @ManyToOne
-    ViajesEntity viaje;
+    private ViajesEntity viaje;
     /**
      * Representa los datos de env�o de la carga que se lleva de un lugar a otro
      */
+    @PodamExclude
+    @OneToMany(
+            mappedBy="carga",
+            fetch=FetchType.LAZY
+    )
+    private List<DireccionEntity> direcciones;
+    /**
+     * usuario de la carga
+     */
+    @PodamExclude
+    @OneToMany
+    private UsuarioEntity usuario;
     private String datosEnvio;
 
     /**
@@ -202,5 +217,90 @@ public class CargaEntity extends BaseEntity implements Serializable{
     public CargaEntity() {
 
     }
-    
+
+    /**
+     * @return the viaje
+     */
+    public ViajesEntity getViaje() {
+        return viaje;
+    }
+
+    /**
+     * @param viaje the viaje to set
+     */
+    public void setViaje(ViajesEntity viaje) {
+        this.viaje = viaje;
+    }
+
+    /**
+     * @return the direcciones
+     */
+    public List<DireccionEntity> getDirecciones() {
+        return direcciones;
+    }
+
+    /**
+     * @param direcciones the direcciones to set
+     */
+    public void setDirecciones(List<DireccionEntity> direcciones) {
+        this.direcciones = direcciones;
+    }
+    /**
+     * método que devualeve un par de latitudes longitudes dao el id del par
+     * guarda en la posicion 0 la direccion inicial y en la posicion 1 la direccion final
+     * @param id
+     * @return 
+     */
+    public LinkedList<DireccionEntity> encontrarParDirecciones(long id){
+        LinkedList<DireccionEntity> res=new LinkedList<>();       
+        for(DireccionEntity dir : direcciones){
+            if(dir.getIdPar()==id&&dir.isDeSalida()==true){
+                res.add(0, dir);
+            }
+            else if(dir.getIdPar()==id&&dir.isDeSalida()==false){
+                res.add(1, dir);
+            }
+        }
+        return res;
+    }
+    /**
+     * calcula la distancia entre dos diferenciales de latitud y longitud usando la formula harvesiana
+     * @param lat1
+     * @param lat2
+     * @param lon1
+     * @param lon2
+     * @return 
+     */
+    public double calcularDistancia(double lat1,double lat2,double lon1,double lon2){
+        // distance between latitudes and longitudes 
+        double dLat = Math.toRadians(lat2 - lat1); 
+        double dLon = Math.toRadians(lon2 - lon1); 
+  
+        // convert to radians 
+        lat1 = Math.toRadians(lat1); 
+        lat2 = Math.toRadians(lat2); 
+  
+        // apply formulae 
+        double a = Math.pow(Math.sin(dLat / 2), 2) +  
+                   Math.pow(Math.sin(dLon / 2), 2) *  
+                   Math.cos(lat1) *  
+                   Math.cos(lat2); 
+        double rad = 6371; 
+        double c = 2 * Math.asin(Math.sqrt(a)); 
+        return rad * c; 
+    }
+
+    /**
+     * @return the usuario
+     */
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
 }
