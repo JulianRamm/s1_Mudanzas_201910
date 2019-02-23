@@ -181,7 +181,7 @@ public class ProveedorPersistenceTest {
     }
     
     @Test
-    public void buscarUsuarioPorLogin() {
+    public void buscarProveedorPorLogin() {
         ProveedorEntity entidad = data.get(0);
         ProveedorEntity nuevo = proveedorPersistence.findUsuarioPorLogin(entidad.getLogin());
         Assert.assertNotNull(nuevo);

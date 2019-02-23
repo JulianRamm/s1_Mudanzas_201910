@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +28,9 @@ public class ProveedorPersistence {
     
     
     public ProveedorEntity create(ProveedorEntity proveedorEntity) {
+        LOGGER.log(Level.INFO, "Creando un proveedor nuevo");
         em.persist(proveedorEntity);
+        LOGGER.log(Level.INFO, "Saliendo de crear un proveedor nuevo");
         return proveedorEntity;
     }
     
@@ -78,17 +79,15 @@ public class ProveedorPersistence {
      * @param login el nombre de proveedor que se desea buscar
      * @return el proveedor completo con ese login
      */
-    public ProveedorEntity findUsuarioPorLogin(String login) {
-        TypedQuery query = em.createQuery("Select e From ProveedorEntity e where e.login = :login", ProveedorEntity.class);
+    public ProveedorEntity findProveedorPorLogin(String login) {
+        TypedQuery query = em.createQuery("Select e from ProveedorEntity e where e.login = :login", ProveedorEntity.class);
         query = query.setParameter("login", login);
-        List<ProveedorEntity> duenio = query.getResultList();
+        ProveedorEntity duenio = (ProveedorEntity) query.getSingleResult();
         ProveedorEntity resultado;
         if (duenio == null) {
             resultado = null;
-        } else if (duenio.isEmpty()) {
-            resultado = null;
-        } else {
-            resultado = duenio.get(0);
+        }else {
+            resultado = duenio;
         }
         return resultado;
     }
