@@ -96,4 +96,18 @@ public class DireccionEntity extends BaseEntity implements Serializable {
     public void setIdPar(long idPar) {
         this.idPar = idPar;
     }
+
+    /**
+     * @return the carga
+     */
+    public CargaEntity getCarga() {
+        return carga;
+    }
+
+    /**
+     * @param carga the carga to set
+     */
+    public void setCarga(CargaEntity carga) {
+        this.carga = carga;
+    }
 }

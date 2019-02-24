@@ -62,6 +62,10 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
             fetch = FetchType.LAZY
     )
     List<TarjetaDeCreditoEntity> tarjetas;
+    
+    /**
+     * Lista de cargas
+     */
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario", 

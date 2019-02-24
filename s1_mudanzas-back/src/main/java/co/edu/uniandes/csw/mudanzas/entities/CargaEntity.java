@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
      */
     @PodamExclude
     @ManyToOne
-    private ViajesEntity viaje;
+    ViajesEntity viaje;
     /**
      * Representa los datos de env�o de la carga que se lleva de un lugar a otro
      */
@@ -37,13 +38,15 @@ public class CargaEntity extends BaseEntity implements Serializable{
             mappedBy="carga",
             fetch=FetchType.LAZY
     )
-    private List<DireccionEntity> direcciones;
+    List<DireccionEntity> direcciones;
     /**
      * usuario de la carga
      */
     @PodamExclude
-    @OneToMany
-    private UsuarioEntity usuario;
+    @ManyToOne
+    UsuarioEntity usuario;
+    
+    
     private String datosEnvio;
 
     /**
@@ -69,12 +72,12 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * fecha estimada de llegada definida por el proveedor
      */
-    private String fechaEstimadaLlegada;
+    private LocalDateTime fechaEstimadaLlegada;
 
     /**
      * fecha en la que la carga va a ser trasladada
      */
-    private String fechaEnvio;
+    private LocalDateTime fechaEnvio;
 
     /**
      * observaciones sadicionales definidas por el cliente
@@ -159,28 +162,28 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the fechaEstimadaLlegada
      */
-    public String getFechaEstimadaLlegada() {
+    public LocalDateTime getFechaEstimadaLlegada() {
         return fechaEstimadaLlegada;
     }
 
     /**
      * @param fechaEstimadaLlegada the fechaEstimadaLlegada to set
      */
-    public void setFechaEstimadaLlegada(String fechaEstimadaLlegada) {
+    public void setFechaEstimadaLlegada(LocalDateTime fechaEstimadaLlegada) {
         this.fechaEstimadaLlegada = fechaEstimadaLlegada;
     }
 
     /**
      * @return the fechaEnvio
      */
-    public String getFechaEnvio() {
+    public LocalDateTime getFechaEnvio() {
         return fechaEnvio;
     }
 
     /**
      * @param fechaEnvio the fechaEnvio to set
      */
-    public void setFechaEnvio(String fechaEnvio) {
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
     }
 
