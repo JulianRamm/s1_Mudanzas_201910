@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
+
 /**
  *
  * @author estudiante
@@ -44,6 +46,22 @@ public class SubastaDTO {
 
     public void setValorFinal(double valorFinal) {
         this.valorFinal = valorFinal;
+    }
+    
+    public SubastaDTO(SubastaEntity subEntity)
+    {
+        if(subEntity!= null)
+        {
+            idSubasta = subEntity.getId();
+            
+        }
+    }
+    
+    public SubastaEntity toEntity()
+    {
+        SubastaEntity subEntity = new SubastaEntity();
+        subEntity.setId(idSubasta);
+        return subEntity;
     }
     
             
