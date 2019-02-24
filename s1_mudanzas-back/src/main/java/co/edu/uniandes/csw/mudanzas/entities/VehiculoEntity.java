@@ -16,7 +16,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Samuel Bernal Neira
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
@@ -25,9 +25,13 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     private String placa;
 
-    private boolean disponibilidad;
-
-    private String UbicacionActual;
+    private double rendimiento;
+    
+    private Long idConductorActual;
+    
+    private String marca;
+    
+   // private String UbicacionActual;
 
     private int numeroConductores;
 
@@ -35,7 +39,6 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     private String dimensiones;
 
-    private int capacidad;
 
     /**
      * Atributo que modela la lista de vehiculos de un conductor
@@ -46,7 +49,7 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @OneToOne
-    private AgendaEntity agenda;
+    private DiaEntity agenda;
 
     public VehiculoEntity() {
 
@@ -66,33 +69,8 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
         this.placa = placa;
     }
 
-    /**
-     * @return the disponibilidad
-     */
-    public boolean isDisponibilidad() {
-        return disponibilidad;
-    }
-
-    /**
-     * @param disponibilidad the disponibilidad to set
-     */
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
-    /**
-     * @return the UbicacionActual
-     */
-    public String getUbicacionActual() {
-        return UbicacionActual;
-    }
-
-    /**
-     * @param UbicacionActual the UbicacionActual to set
-     */
-    public void setUbicacionActual(String UbicacionActual) {
-        this.UbicacionActual = UbicacionActual;
-    }
+    
+   
 
     /**
      * @return the numeroConductores
@@ -136,19 +114,6 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
         this.dimensiones = dimensiones;
     }
 
-    /**
-     * @return the capacidad
-     */
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    /**
-     * @param capacidad the capacidad to set
-     */
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
 
     /**
      * @return the conductores
@@ -167,15 +132,57 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * @return the agenda
      */
-    public AgendaEntity getAgenda() {
+    public DiaEntity getAgenda() {
         return agenda;
     }
 
     /**
      * @param agenda the agenda to set
      */
-    public void setAgenda(AgendaEntity agenda) {
+    public void setAgenda(DiaEntity agenda) {
         this.agenda = agenda;
+    }
+
+    /**
+     * @return the rendimiento
+     */
+    public double getRendimiento() {
+        return rendimiento;
+    }
+
+    /**
+     * @param rendimiento the rendimiento to set
+     */
+    public void setRendimiento(double rendimiento) {
+        this.rendimiento = rendimiento;
+    }
+
+    /**
+     * @return the idConductorActual
+     */
+    public Long getIdConductorActual() {
+        return idConductorActual;
+    }
+
+    /**
+     * @param idConductorActual the idConductorActual to set
+     */
+    public void setIdConductorActual(Long idConductorActual) {
+        this.idConductorActual = idConductorActual;
+    }
+
+    /**
+     * @return the marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
 }
