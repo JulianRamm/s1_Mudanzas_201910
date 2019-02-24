@@ -62,7 +62,12 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
             fetch = FetchType.LAZY
     )
     List<TarjetaDeCreditoEntity> tarjetas;
-        
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "usuario", 
+            fetch = FetchType.LAZY
+    )
+    private List<CargaEntity> cargas;
     /**
      * Constructor por defecto de la entidad.
      */
@@ -168,5 +173,19 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public List<TarjetaDeCreditoEntity> getTarjetas()
     {
         return tarjetas;
+    }
+
+    /**
+     * @return the cargas
+     */
+    public List<CargaEntity> getCargas() {
+        return cargas;
+    }
+
+    /**
+     * @param cargas the cargas to set
+     */
+    public void setCargas(List<CargaEntity> cargas) {
+        this.cargas = cargas;
     }
 }

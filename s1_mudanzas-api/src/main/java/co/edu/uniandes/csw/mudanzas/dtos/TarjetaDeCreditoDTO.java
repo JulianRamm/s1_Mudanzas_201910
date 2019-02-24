@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import java.io.Serializable;
 
 /**

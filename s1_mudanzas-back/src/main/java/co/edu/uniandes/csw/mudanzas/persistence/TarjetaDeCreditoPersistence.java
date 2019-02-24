@@ -61,4 +61,47 @@ public class TarjetaDeCreditoPersistence {
         TypedQuery<TarjetaDeCreditoEntity> query = em.createQuery("select u from TarjetaDeCreditoEntity u", TarjetaDeCreditoEntity.class);
         return query.getResultList();
     }
+
+    /**
+     * Elimina una tarjeta con
+     *
+     * @param tarjetaId de la base de datos.
+     */
+    public void delete(Long tarjetaId) {
+        TarjetaDeCreditoEntity entidad = em.find(TarjetaDeCreditoEntity.class, tarjetaId);
+        em.remove(entidad);
+    }
+
+    /**
+     * Actualiza una tarjeta de credito con la bd
+     *
+     * @param cambiada
+     * @return la tarjeta de credito actualizada
+     */
+    public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity cambiada) {
+        return em.merge(cambiada);
+    }
+
+    /**
+     * Busca una tarjeta de credito por el nombre del titular de la cuenta.
+     *
+     * @param titularCuenta el nombre del titular de la cuenta.
+     * @return la tarjeta de credito que pertenece al usuario que entra por
+     * parametro.
+     */
+    public TarjetaDeCreditoEntity findTarjetaPorPropietario(String titularCuenta) {
+        TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.titularCuenta = :titularCuenta", TarjetaDeCreditoEntity.class);
+        query = query.setParameter("titularCuenta", titularCuenta);
+        List<TarjetaDeCreditoEntity> duenio = query.getResultList();
+        TarjetaDeCreditoEntity resultado;
+        if (duenio == null) {
+            resultado = null;
+        } else if (duenio.isEmpty()) {
+            resultado = null;
+        } else {
+            resultado = duenio.get(0);
+        }
+        return resultado;
+    }
+
 }

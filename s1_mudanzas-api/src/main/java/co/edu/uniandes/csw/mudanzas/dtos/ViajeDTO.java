@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import java.io.Serializable;
 
 /**
@@ -137,5 +138,29 @@ public class ViajeDTO implements Serializable{
 	 */
     public ViajeDTO(){
         
+    }
+    /**
+     * constructor de un DTO dado una entidad
+     * @param viajesEntity 
+     */
+    public ViajeDTO(ViajesEntity viajesEntity){
+        if(viajesEntity!=null){
+            this.clima=viajesEntity.getClima();
+            this.gastoGasolina=viajesEntity.getGastoGasolina();
+            this.id=viajesEntity.getId();
+            this.lugarLlegada=viajesEntity.getLugarLlegada();
+            this.lugarSalida=viajesEntity.getLugarSalida();
+            this.tiempo=viajesEntity.getTiempo();
+        }
+    }
+    public ViajesEntity toEntity(){
+        ViajesEntity viajesEntity =new ViajesEntity();
+        viajesEntity.setClima(this.clima);
+        viajesEntity.setGastoGasolina(this.gastoGasolina);
+        viajesEntity.setId(this.id);
+        viajesEntity.setLugarLlegada(this.lugarLlegada);
+        viajesEntity.setLugarSalida(this.lugarSalida);
+        viajesEntity.setTiempo(this.tiempo);
+        return viajesEntity;
     }
 }

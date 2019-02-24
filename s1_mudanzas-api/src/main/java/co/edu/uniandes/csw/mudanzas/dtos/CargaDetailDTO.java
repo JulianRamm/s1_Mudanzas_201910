@@ -8,39 +8,12 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 import java.io.Serializable;
 import java.util.List;
 
-
 /**
  *
  * @author je.osorio
  */
-public class ViajeDetailDTO extends ViajeDTO implements Serializable {
-
-    /**
-     * Lista encadenada de CargaDTO que corresponde a que un viaje pude tener 1
-     * o màs cargas asignadas
-     */
-    private List<CargaDTO> cargas;
+public class CargaDetailDTO extends CargaDTO implements Serializable{
     private List<DireccionDTO> direcciones;
-    /**
-     * @return the cargas
-     */
-    public List<CargaDTO> getCargas() {
-        return cargas;
-    }
-
-    /**
-     * @param cargas the cargas to set
-     */
-    public void setCargas(List<CargaDTO> cargas) {
-        this.cargas = cargas;
-    }
-
-    /**
-     * constructor de un objeto de tipo ViajeDetailDTO
-     */
-    public ViajeDetailDTO() {
-
-    }
 
     /**
      * @return the direcciones
@@ -55,4 +28,6 @@ public class ViajeDetailDTO extends ViajeDTO implements Serializable {
     public void setDirecciones(List<DireccionDTO> direcciones) {
         this.direcciones = direcciones;
     }
+    
+    
 }

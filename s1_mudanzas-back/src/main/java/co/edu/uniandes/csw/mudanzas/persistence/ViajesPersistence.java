@@ -12,13 +12,14 @@ import javax.persistence.EntityManager;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 /**
  *
  * @author je.osorio
  */
 @Stateless
 public class ViajesPersistence {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ViajesPersistence.class.getName());
 
     /**
@@ -55,7 +56,25 @@ public class ViajesPersistence {
      * @return una lista con todos los viajes.
      */
     public List<ViajesEntity> findAll() {
-        TypedQuery<ViajesEntity> query = em.createQuery("select u from ViajesEntity u", ViajesEntity.class);
+        TypedQuery<ViajesEntity> query;
+        query = em.createQuery("select u from ViajesEntity u", ViajesEntity.class);
         return query.getResultList();
+    }
+
+    /**
+     * eleimina un viaje dado su id
+     *
+     * @param viajeId
+     */
+    public void delete(Long viajeId) {
+        em.remove(find(viajeId));
+    }
+    /**
+     * método que actualiza un viaje dado el objeto con los cambios nuevos
+     * @param viajesEntity
+     * @return 
+     */
+    public ViajesEntity update(ViajesEntity viajesEntity) {
+        return em.merge(viajesEntity);
     }
 }

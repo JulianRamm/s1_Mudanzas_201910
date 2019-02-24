@@ -7,7 +7,10 @@ package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajeDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajeDetailDTO;
-import java.util.LinkedList;
+import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
+import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
+import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import java.util.logging.Logger;
@@ -21,13 +24,19 @@ import java.util.logging.Logger;
 @RequestScoped
 public class ViajeResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
+    private ViajesLogic viajesLogic;
     /**
      * mètodo que crea un nuevo viaje dado un json con la informaciòn de sus atributos
+     * @param viajeDTO
      * @return un nuevo objeto que hereda de la clase ViajeDTO
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public ViajeDTO crearVijeJson(){
-        return new ViajeDTO();
+    public ViajeDTO createVije(ViajeDTO viajeDTO) throws BusinessLogicException{
+        ViajesEntity viajesEntity = viajeDTO.toEntity();
+        ViajesEntity viajeEntity = viajesLogic.createViajes(viajesEntity);
+        ViajeDTO nuevoViajeDTO = new ViajeDTO(viajesEntity);
+        return nuevoViajeDTO;
     }
     /**
      * mètodo que crea un viaje dado el id 
@@ -66,7 +75,7 @@ public class ViajeResource {
      */
     @GET
     @Path("{id: \\d+}/cargas")
-    public LinkedList<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
+    public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
         return new ViajeDetailDTO().getCargas();
     }
     /**
@@ -75,8 +84,7 @@ public class ViajeResource {
      */
     @DELETE 
     @Path("{id: \\d+}/cargas")
-    public void eliminarCargasIdEspecificado(@PathParam("id") Long id){
-        return;
+    public void eliminarCargasIdEspecificado(@PathParam("id") Long id){       
     }
     
     

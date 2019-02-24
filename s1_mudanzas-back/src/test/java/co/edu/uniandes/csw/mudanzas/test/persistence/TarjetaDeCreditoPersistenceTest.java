@@ -42,7 +42,7 @@ public class TarjetaDeCreditoPersistenceTest {
      */
     @PersistenceContext
     private EntityManager em;
-    
+
     /**
      * Variable para martcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
@@ -54,7 +54,7 @@ public class TarjetaDeCreditoPersistenceTest {
      * Lista que tiene los datos de prueba.
      */
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
-    
+
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -68,7 +68,7 @@ public class TarjetaDeCreditoPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     /**
      * Configuración inicial de la prueba.
      */
@@ -89,7 +89,7 @@ public class TarjetaDeCreditoPersistenceTest {
             }
         }
     }
-    
+
     /**
      * Limpia las tablas que están implicadas en la prueba.
      */
@@ -133,4 +133,88 @@ public class TarjetaDeCreditoPersistenceTest {
 
     }
 
+    /**
+     * Prueba, obtiene de la base de datos todas las tarjetas que han sido creadas...
+     */
+    @Test
+    public void getTarjetasTest() {
+        List<TarjetaDeCreditoEntity> lista = tp.findAll();
+        Assert.assertEquals(data.size(), lista.size());
+
+        for (TarjetaDeCreditoEntity enLista : lista) {
+            boolean loEncontre = false;
+            for (TarjetaDeCreditoEntity enData : data) {
+                if (enLista.getId().equals(enData.getId()));
+                    loEncontre = true;
+            }
+            Assert.assertTrue(loEncontre);
+        }
+
+    }
+    
+    /**
+     * Prueba para obtener solo una tarjeta.
+     */
+    @Test
+    public void getTarjetaTest() {
+        TarjetaDeCreditoEntity entidad = data.get(0);
+        TarjetaDeCreditoEntity nuevo = tp.find(entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getCodigoSeguridad(), nuevo.getCodigoSeguridad());
+        Assert.assertEquals(entidad.getId(), nuevo.getId());
+        Assert.assertEquals(entidad.getNombreTarjeta(), nuevo.getNombreTarjeta());
+        Assert.assertEquals(entidad.getNumeroSerial(), nuevo.getNumeroSerial());
+        Assert.assertEquals(entidad.getTitularCuenta(), nuevo.getTitularCuenta());
+    }
+
+    /**
+     * Prueba para borrar una tarjeta de la bd
+     */
+    @Test
+    public void deleteTarjetaTest()
+    {
+        TarjetaDeCreditoEntity entidad = data.get(0);
+        tp.delete(entidad.getId());
+        TarjetaDeCreditoEntity borrado = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
+        Assert.assertNull(borrado);
+    }
+    
+    /**
+     * Prueba para actualizar una tarjeta en la base de datos.
+     */
+    @Test
+    public void updateTarjetaTest()
+    {
+        TarjetaDeCreditoEntity entidad = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        TarjetaDeCreditoEntity cambiada = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        
+        cambiada.setId(entidad.getId());
+        
+        tp.update(cambiada);
+        
+        TarjetaDeCreditoEntity encontrada = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
+        
+        Assert.assertEquals(cambiada.getCodigoSeguridad(), encontrada.getCodigoSeguridad());
+        Assert.assertEquals(cambiada.getId(), encontrada.getId());
+        Assert.assertEquals(cambiada.getNombreTarjeta(), encontrada.getNombreTarjeta());
+        Assert.assertEquals(cambiada.getNumeroSerial(), encontrada.getNumeroSerial());
+        Assert.assertEquals(cambiada.getTitularCuenta(), encontrada.getTitularCuenta());
+    }   
+    
+    /**
+     * Prueba para buscar una tarjeta por el nombre de su propietario.
+     */
+    @Test
+    public void buscarTarjetaPorPropietario()
+    {
+        TarjetaDeCreditoEntity entidad = data.get(0);
+        TarjetaDeCreditoEntity nuevo = tp.findTarjetaPorPropietario(entidad.getTitularCuenta());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getTitularCuenta(), nuevo.getTitularCuenta());
+        
+        nuevo = tp.findTarjetaPorPropietario(null);
+        Assert.assertNull(nuevo);
+    }
+    
 }
