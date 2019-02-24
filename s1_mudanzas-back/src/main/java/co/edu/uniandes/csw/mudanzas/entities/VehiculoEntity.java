@@ -28,7 +28,7 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     private double rendimiento;
     
-    private Long conductorActual;
+    private Long idConductorActual;
     
     private String marca;
     
@@ -161,16 +161,16 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * @return the idConductorActual
      */
-    public Long getConductorActual() {
-        return conductorActual;
+    public Long getIdConductorActual() {
+        return idConductorActual;
     }
 
     /**
      * @param conductorActual
      * 
      */
-    public void setConductorActual(Long conductorActual) {
-        this.conductorActual = conductorActual;
+    public void setIdConductorActual(Long conductorActual) {
+        this.idConductorActual = conductorActual;
     }
 
     /**
