@@ -5,22 +5,19 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
-import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
+import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import java.util.List;
 
 /**
  *
  * @author estudiante
  */
-public class VehiculoDetailDTO extends VehiculoDTO
+public class DiaDetailDTO extends DiaDTO
 {
-    private List<DiaDTO> agendas;
+    private List<VehiculoDTO> vehiculos;
     
-    private List<ConductorDTO> conductores;
-    
-    public VehiculoDetailDTO(VehiculoEntity entity)
+    public DiaDetailDTO(DiaEntity entity)
     {
         super(entity);
     }
-    
 }

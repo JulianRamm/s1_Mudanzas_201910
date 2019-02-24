@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class VehiculoDTO 
 {
-    private String imagen;
+    //Falta el atributo de la ubicaciòn actual con la clase de direccion
     
     private Long idConductorActual;
     
@@ -23,28 +24,40 @@ public class VehiculoDTO
     
     private String placa;
     
-    private String ubicacion;
+    private String color;
     
     private String dimensiones;
     
-    public VehiculoDTO()
+    private double rendimiento;
+    
+    public VehiculoDTO(VehiculoEntity entity)
     {
-        
+        if(entity != null)
+        {
+            this.idConductorActual = entity.getIdConductorActual();
+            this.numeroConductores = entity.getNumeroConductores();
+            this.marca = entity.getMarca();
+            this.placa = entity.getPlaca();
+            this.color = entity.getColor();
+            this.dimensiones = entity.getDimensiones();
+            this.rendimiento = entity.getRendimiento();
+        }
     }
 
-    /**
-     * @return the imagen
-     */
-    public String getImagen() {
-        return imagen;
+    
+    public VehiculoEntity toEntity()
+    {
+        VehiculoEntity rta = new VehiculoEntity();
+        rta.setIdConductorActual(this.idConductorActual);
+        rta.setNumeroConductores(this.numeroConductores);
+        rta.setMarca(this.marca);
+        rta.setPlaca(this.placa);
+        rta.setColor(this.color);
+        rta.setRendimiento(this.rendimiento);
+        rta.setDimensiones(this.dimensiones);
+        return rta;
     }
-
-    /**
-     * @param imagen the imagen to set
-     */
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
+   
 
     
     /**
@@ -103,19 +116,7 @@ public class VehiculoDTO
         this.placa = placa;
     }
 
-    /**
-     * @return the ubicacion
-     */
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    /**
-     * @param ubicacion the ubicacion to set
-     */
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+    
 
     /**
      * @return the dimensiones
@@ -129,6 +130,34 @@ public class VehiculoDTO
      */
     public void setDimensiones(String dimensiones) {
         this.dimensiones = dimensiones;
+    }
+
+    /**
+     * @return the color
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    /**
+     * @return the rendimiento
+     */
+    public double getRendimiento() {
+        return rendimiento;
+    }
+
+    /**
+     * @param rendimiento the rendimiento to set
+     */
+    public void setRendimiento(double rendimiento) {
+        this.rendimiento = rendimiento;
     }
     
 }
