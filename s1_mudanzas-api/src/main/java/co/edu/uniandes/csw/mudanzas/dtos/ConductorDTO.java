@@ -5,23 +5,29 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+
 /**
  *
  * @author estudiante
  */
-public class ConductorDTO 
-{
+public class ConductorDTO {
+
     private String nombre;
-    
+
     private Long id;
-    
+
     private double calificacion;
-    
+
     private String telefono;
-    
-    public ConductorDTO()
-    {
-        
+
+    public ConductorDTO(ConductorEntity entity) {
+        if (entity != null) {
+            this.nombre = entity.getNombre();
+            this.id = entity.getId();
+            this.calificacion = entity.getCalificacion();
+            this.telefono = entity.getTelefono();
+        }
     }
 
     /**
@@ -79,5 +85,5 @@ public class ConductorDTO
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
+
 }
