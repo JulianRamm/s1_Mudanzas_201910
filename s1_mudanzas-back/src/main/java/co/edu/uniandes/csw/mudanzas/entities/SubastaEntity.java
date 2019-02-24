@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -14,6 +16,9 @@ import javax.persistence.Entity;
  */
 @Entity
 public class SubastaEntity extends BaseEntity implements Serializable{
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
      /**
      * Atributo que representa el valor inicial de la subasta dado por el usuario. 
      */
@@ -55,6 +60,20 @@ public class SubastaEntity extends BaseEntity implements Serializable{
      */
     public void setValorFinal(double valorFinal) {
         this.valorFinal = valorFinal;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
     }
     
     

@@ -38,6 +38,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     /**
      * conducto asignado en el viaje
      */
+    @PodamExclude
     @OneToOne
     ConductorEntity conductor;
     

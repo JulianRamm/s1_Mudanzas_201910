@@ -22,35 +22,28 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Samuel Bernal Neira
  */
 @Entity
-public class DiaEntity extends BaseEntity implements Serializable  
-{
- private static final long serialVersionUID = 1L;
- 
- 
- @Temporal (TemporalType.TIME)
- private LocalDateTime horaInicio;
- 
- @Temporal (TemporalType.TIME)
- private LocalDateTime horaFin;
- 
- @Temporal (TemporalType.DATE)
- private Date diaActual;
- 
- private boolean disponibilidad;
- 
- @PodamExclude
- @OneToOne
- private VehiculoEntity vehiculo;
- 
+public class DiaEntity extends BaseEntity implements Serializable {
 
- public DiaEntity()
- {
-     
- }
+    private static final long serialVersionUID = 1L;
 
-   
+    @Temporal(TemporalType.TIME)
+    private LocalDateTime horaInicio;
 
-    
+    @Temporal(TemporalType.TIME)
+    private LocalDateTime horaFin;
+
+    @Temporal(TemporalType.DATE)
+    private Date diaActual;
+
+    private boolean disponibilidad;
+
+    @PodamExclude
+    @OneToOne
+    private VehiculoEntity vehiculo;
+
+    public DiaEntity() {
+
+    }
 
     /**
      * @return the horaSalida
@@ -121,7 +114,5 @@ public class DiaEntity extends BaseEntity implements Serializable
     public void setDiaActual(Date diaActual) {
         this.diaActual = diaActual;
     }
- 
- 
 
 }

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mudanzas.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -18,6 +19,7 @@ public class DireccionEntity extends BaseEntity implements Serializable {
     /**
      * Carga que contiene una lista de direcciones
      */
+    @PodamExclude
     @ManyToOne
     private CargaEntity carga;
     

@@ -20,14 +20,15 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
-
+    @ManyToOne
+    private ProveedorEntity proveedor;
     private static final long serialVersionUID = 1L;
 
     private String placa;
 
     private double rendimiento;
     
-    private Long idConductorActual;
+    private Long conductorActual;
     
     private String marca;
     
@@ -160,15 +161,16 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * @return the idConductorActual
      */
-    public Long getIdConductorActual() {
-        return idConductorActual;
+    public Long getConductorActual() {
+        return conductorActual;
     }
 
     /**
-     * @param idConductorActual the idConductorActual to set
+     * @param conductorActual
+     * 
      */
-    public void setIdConductorActual(Long idConductorActual) {
-        this.idConductorActual = idConductorActual;
+    public void setConductorActual(Long conductorActual) {
+        this.conductorActual = conductorActual;
     }
 
     /**
@@ -183,6 +185,20 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
     }
 
 }

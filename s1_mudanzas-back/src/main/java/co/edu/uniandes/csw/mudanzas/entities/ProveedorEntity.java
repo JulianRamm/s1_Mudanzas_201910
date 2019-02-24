@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -39,27 +40,28 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private Integer calificacion;
     
-   
+    @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
     private List<ConductorEntity> conductores;
     
-    
+    @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
     private List<OfertaEntity> ofertas;
     
-        
+    @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
     private List<SubastaEntity> subastas;
     
+    @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
