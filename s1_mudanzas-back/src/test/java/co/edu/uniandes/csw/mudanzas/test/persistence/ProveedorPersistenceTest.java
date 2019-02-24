@@ -26,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Daniel Machado
  */
 @RunWith(Arquillian.class)
 public class ProveedorPersistenceTest {
@@ -126,4 +126,69 @@ public class ProveedorPersistenceTest {
         Assert.assertEquals(newEntity.getLogin(), entity.getLogin());
     }
 
+    @Test
+    public void getProveedoresTest() {
+        List<ProveedorEntity> lista = proveedorPersistence.findAll();
+        Assert.assertEquals(data.size(), lista.size());
+
+        for (ProveedorEntity enLista : lista) {
+            boolean encontrado = false;
+            for (ProveedorEntity enData : data) {
+                if (enLista.getId().equals(enData.getId()));
+                encontrado = true;
+            }
+            Assert.assertTrue(encontrado);
+        }
+    }
+    
+    @Test
+    public void getProveedorTest() {
+        ProveedorEntity entidad = data.get(0);
+        ProveedorEntity proveedor = proveedorPersistence.find(entidad.getId());
+        Assert.assertNotNull(proveedor);
+        Assert.assertEquals(entidad.getId(), proveedor.getId());
+        Assert.assertEquals(entidad.getNombre(), proveedor.getNombre());
+        Assert.assertEquals(entidad.getCorreoElectronico(), proveedor.getCorreoElectronico());
+        Assert.assertEquals(entidad.getLogin(), proveedor.getLogin());
+        Assert.assertEquals(entidad.getPassword(), proveedor.getPassword());
+    }
+
+    @Test
+    public void deleteUsuarioTest() {
+        ProveedorEntity entidad = data.get(0);
+        proveedorPersistence.delete(entidad.getId());
+        ProveedorEntity borrado = em.find(ProveedorEntity.class, entidad.getId());
+        Assert.assertNull(borrado);
+    }
+    
+    @Test
+    public void updateUsuarioTest() {
+        ProveedorEntity entidad = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ProveedorEntity cambiada = factory.manufacturePojo(ProveedorEntity.class);
+
+        cambiada.setId(entidad.getId());
+
+        proveedorPersistence.update(cambiada);
+
+        ProveedorEntity encontrada = em.find(ProveedorEntity.class, entidad.getId());
+
+        Assert.assertEquals(cambiada.getNombre(), encontrada.getNombre());
+        Assert.assertEquals(cambiada.getId(), encontrada.getId());
+        Assert.assertEquals(cambiada.getCorreoElectronico(), encontrada.getCorreoElectronico());
+        Assert.assertEquals(cambiada.getLogin(), encontrada.getLogin());
+        Assert.assertEquals(cambiada.getPassword(), encontrada.getPassword());
+    }
+    
+    @Test
+    public void buscarProveedorPorLogin() {
+        ProveedorEntity entidad = data.get(0);
+        ProveedorEntity nuevo = proveedorPersistence.findProveedorPorLogin(entidad.getLogin());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getLogin(), nuevo.getLogin());
+
+        nuevo = proveedorPersistence.findProveedorPorLogin(null);
+        Assert.assertNull(nuevo);
+    }
+    
 }
