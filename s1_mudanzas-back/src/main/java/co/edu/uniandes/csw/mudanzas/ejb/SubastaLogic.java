@@ -17,17 +17,19 @@ import javax.inject.Inject;
  */
 @Stateless
 public class SubastaLogic {
+
     @Inject
     private SubastaPersistence persistence;
-    
-    
-    public SubastaEntity createSubasta(SubastaEntity subEntity) throws Exception
-    {
-        if(persistence.find(subEntity.getId())!=null)
-        {
-           throw new BusinessLogicException("la subasta con id: "+ subEntity.getId()+ "ya existe");
+
+    public SubastaEntity createSubasta(SubastaEntity subEntity) throws BusinessLogicException {
+        if (persistence.find(subEntity.getId()) != null) {
+            throw new BusinessLogicException("la subasta con id: " + subEntity.getId() + "ya existe");
+        }
+        if (subEntity.getValorInicial() != subEntity.getValorFinal()) {
+            throw new BusinessLogicException("la subasta debe tener el mismo valor inicial y final al crear");
+
         }
         return persistence.create(subEntity);
     }
-    
+
 }

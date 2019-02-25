@@ -27,6 +27,12 @@ public class OfertaLogic {
             throw new BusinessLogicException("la oferta con id: " + oferEntity.getId() + "ya existe");
 
         }
+        
+        if(oferEntity.getValor()<0){
+            throw new BusinessLogicException("la oferta debe tener un valor mayor a cero");
+
+        }
+
         return persistence.create(oferEntity);
     }
 
