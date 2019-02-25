@@ -74,7 +74,6 @@ public class VehiculoLogicTest
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VehiculoEntity.class.getPackage())
                 .addPackage(VehiculoLogic.class.getPackage())
-                .addPackage(VehiculoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
