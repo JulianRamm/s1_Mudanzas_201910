@@ -58,6 +58,11 @@ public class VehiculoPersistence
        return rta;
    }
    
+    //public VehiculoEntity  findMarcaCorrecta()
+    //      {
+              
+    //      }
+   
    public List<VehiculoEntity> findAll()
    {
        TypedQuery<VehiculoEntity> query = em.createQuery("select u from VehiculoEntity u", VehiculoEntity.class);

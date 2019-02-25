@@ -82,12 +82,15 @@ public class ProveedorPersistence {
     public ProveedorEntity findProveedorPorLogin(String login) {
         TypedQuery query = em.createQuery("Select e from ProveedorEntity e where e.login = :login", ProveedorEntity.class);
         query = query.setParameter("login", login);
-        ProveedorEntity duenio = (ProveedorEntity) query.getSingleResult();
+        List<ProveedorEntity> duenio = query.getResultList();
         ProveedorEntity resultado;
         if (duenio == null) {
             resultado = null;
-        }else {
-            resultado = duenio;
+        }else if(duenio.isEmpty()){
+            resultado = null;
+        }
+        else {
+            resultado = duenio.get(0);
         }
         return resultado;
     }
