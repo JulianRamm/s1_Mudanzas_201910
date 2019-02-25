@@ -31,6 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class DiaPersistenceTest 
 {
+    PodamFactory factory = new PodamFactoryImpl();
      @Inject
     private DiaPersistence APersistence;
     
@@ -94,7 +95,7 @@ public class DiaPersistenceTest
         }
     }
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+        
         for (int i = 0; i < 3; i++) {
 
             DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
@@ -112,7 +113,6 @@ public class DiaPersistenceTest
     @Test
     public void createAgendaTest()
     {
-        PodamFactory factory = new PodamFactoryImpl();
         DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
         DiaEntity result = APersistence.create(newEntity);
         Assert.assertNotNull(result);

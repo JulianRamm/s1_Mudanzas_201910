@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
-import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
@@ -35,6 +34,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class VehiculoLogicTest 
 {
   
+    PodamFactory factory = new PodamFactoryImpl();
+    
+    
      @Inject
     private VehiculoLogic VLogic;
     
@@ -97,7 +99,6 @@ public class VehiculoLogicTest
         }
     }
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             VehiculoEntity entity = factory.manufacturePojo(VehiculoEntity.class);
@@ -113,9 +114,8 @@ public class VehiculoLogicTest
     }
     
     @Test
-    public void createConductorTest() throws BusinessLogicException
+    public void createVehiculoTest() throws BusinessLogicException
     {
-        PodamFactory factory = new PodamFactoryImpl();
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
         VehiculoEntity result = VLogic.crearVehiculo(newEntity);
         Assert.assertNotNull(result);
@@ -127,9 +127,8 @@ public class VehiculoLogicTest
     }
     
     @Test(expected = BusinessLogicException.class)
-    public void createConductorConMismoNombre() throws BusinessLogicException
+    public void createVehiculoConMismaPlaca() throws BusinessLogicException
     {
-        PodamFactory factory = new PodamFactoryImpl();
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
         newEntity.setPlaca(data.get(0).getPlaca());
         VLogic.crearVehiculo(newEntity);

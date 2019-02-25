@@ -38,4 +38,9 @@ public class VehiculoLogic
         return entity;
     }
     
+  //  public boolean marcaSinCaracteresEspeciales()
+  //  {
+        
+  //  }
+    
 }
