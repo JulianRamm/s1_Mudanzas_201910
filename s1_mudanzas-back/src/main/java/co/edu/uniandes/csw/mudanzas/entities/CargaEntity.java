@@ -45,11 +45,8 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * usuario de la carga
      */
-    @PodamExclude
-    @ManyToOne
-    UsuarioEntity usuario;
-    
-    
+    @ManyToOne()
+    private UsuarioEntity usuario;
     private String datosEnvio;
 
     /**

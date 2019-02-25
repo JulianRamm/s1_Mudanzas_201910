@@ -29,6 +29,9 @@ public class SubastaEntity extends BaseEntity implements Serializable{
      */
     private double valorFinal;
 
+    @PodamExclude
+    @ManyToOne()
+    private UsuarioEntity usuario;
     
     public SubastaEntity()
     {
