@@ -34,11 +34,11 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private String telefono;
     
-    private Integer numeroVehiculos;
+    private int numeroVehiculos;
     
-    private Integer dineroDisponible;
+    private int dineroDisponible;
     
-    private Integer calificacion;
+    private int calificacion;
     
     @PodamExclude
     @OneToMany(
@@ -154,15 +154,15 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         return telefono;
     }
 
-    public Integer getNumeroVehiculos() {
+    public int getNumeroVehiculos() {
         return numeroVehiculos;
     }
 
-    public Integer getDineroDisponible() {
+    public int getDineroDisponible() {
         return dineroDisponible;
     }
 
-    public Integer getCalificacion() {
+    public int getCalificacion() {
         return calificacion;
     }
 

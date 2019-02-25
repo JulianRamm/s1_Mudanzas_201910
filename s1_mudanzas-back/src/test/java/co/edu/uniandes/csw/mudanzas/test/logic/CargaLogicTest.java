@@ -132,6 +132,7 @@ public class CargaLogicTest {
     @Test
     public void createCargaTest() throws BusinessLogicException {
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
+        newEntity.setVolumen(344);
         CargaEntity result = cargaLogic.createCarga(newEntity);
         Assert.assertNotNull(result);
         CargaEntity entity = em.find(CargaEntity.class, result.getId());
@@ -156,7 +157,8 @@ public class CargaLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createCargaVolumen0() throws BusinessLogicException {
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
-        newEntity.setVolumen(0);
+        int haber=1;
+        newEntity.setVolumen(haber);
         cargaLogic.createCarga(newEntity);
     }
     

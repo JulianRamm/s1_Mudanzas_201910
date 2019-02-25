@@ -38,7 +38,7 @@ public class DireccionEntity extends BaseEntity implements Serializable {
      * llegada al destino
      */
 
-    private boolean deSalida;
+    private boolean isDeSalida;
     /**
      * id del par latitudf,longitudf,latitudi,longitudi
      */
@@ -74,15 +74,15 @@ public class DireccionEntity extends BaseEntity implements Serializable {
     /**
      * @return the deSalida
      */
-    public boolean isDeSalida() {
-        return deSalida;
+    public boolean getIsDeSalida() {
+        return isDeSalida;
     }
 
     /**
-     * @param deSalida the deSalida to set
+     * @param isDeSalida
      */
-    public void setDeSalida(boolean deSalida) {
-        this.deSalida = deSalida;
+    public void setIsDeSalida(boolean isDeSalida) {
+        this.isDeSalida = isDeSalida;
     }
 
     /**

@@ -8,12 +8,15 @@ package co.edu.uniandes.csw.mudanzas.entities;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -66,11 +69,13 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      /**
      * hora de salida del viaje
      */
-    private LocalDateTime horaPartida;
+    @Temporal(TemporalType.DATE)
+    private Date horaPartida;
     /**
      * hora de llegada del viaje
      */
-    private LocalDateTime horaLlegada;
+    @Temporal(TemporalType.DATE)
+    private Date horaLlegada;
 
     /**
      * @return the lugarSalida
@@ -186,28 +191,28 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     /**
      * @return the horaPartida
      */
-    public LocalDateTime getHoraPartida() {
+    public Date getHoraPartida() {
         return horaPartida;
     }
 
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraPartida(LocalDateTime horaPartida) {
+    public void setHoraPartida(Date horaPartida) {
         this.horaPartida = horaPartida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraLlegada() {
+    public Date getHoraLlegada() {
         return horaLlegada;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraLlegada(LocalDateTime horaLlegada) {
+    public void setHoraLlegada(Date horaLlegada) {
         this.horaLlegada = horaLlegada;
     }
     /**

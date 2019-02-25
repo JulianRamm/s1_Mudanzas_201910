@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.mudanzas.ejb;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -44,10 +43,12 @@ public class CargaLogic {
         if(cargaEntity.getLugarSalida()==null||cargaEntity.getLugarSalida().equals("")){
             throw new BusinessLogicException("El lugar de salida no puede ser null");
         }
+        /**
         LocalDateTime tiempo= cargaEntity.getFechaEnvio().plusHours(cargaEntity.getViaje().getTiempo());
         if(!(cargaEntity.getFechaEstimadaLlegada().isAfter(tiempo.minusHours(8))&&cargaEntity.getFechaEstimadaLlegada().isBefore(tiempo.plusHours(8)))){
             throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
         }
+        */
         if(cargaEntity.getFechaEnvio()==null){
             throw new BusinessLogicException("la fecha de envío no pued e ser null");
         }

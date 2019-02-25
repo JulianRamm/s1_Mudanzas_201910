@@ -7,12 +7,15 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -72,12 +75,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * fecha estimada de llegada definida por el proveedor
      */
-    private LocalDateTime fechaEstimadaLlegada;
+    @Temporal(TemporalType.DATE)
+    private Date fechaEstimadaLlegada;
 
     /**
      * fecha en la que la carga va a ser trasladada
      */
-    private LocalDateTime fechaEnvio;
+    @Temporal(TemporalType.DATE)
+    private Date fechaEnvio;
 
     /**
      * observaciones sadicionales definidas por el cliente
@@ -162,28 +167,28 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the fechaEstimadaLlegada
      */
-    public LocalDateTime getFechaEstimadaLlegada() {
+    public Date getFechaEstimadaLlegada() {
         return fechaEstimadaLlegada;
     }
 
     /**
      * @param fechaEstimadaLlegada the fechaEstimadaLlegada to set
      */
-    public void setFechaEstimadaLlegada(LocalDateTime fechaEstimadaLlegada) {
+    public void setFechaEstimadaLlegada(Date fechaEstimadaLlegada) {
         this.fechaEstimadaLlegada = fechaEstimadaLlegada;
     }
 
     /**
      * @return the fechaEnvio
      */
-    public LocalDateTime getFechaEnvio() {
+    public Date getFechaEnvio() {
         return fechaEnvio;
     }
 
     /**
      * @param fechaEnvio the fechaEnvio to set
      */
-    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+    public void setFechaEnvio(Date fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
     }
 
@@ -257,10 +262,10 @@ public class CargaEntity extends BaseEntity implements Serializable{
     public LinkedList<DireccionEntity> encontrarParDirecciones(long id){
         LinkedList<DireccionEntity> res=new LinkedList<>();       
         for(DireccionEntity dir : direcciones){
-            if(dir.getIdPar()==id&&dir.isDeSalida()==true){
+            if(dir.getIdPar()==id&&dir.getIsDeSalida()==true){
                 res.add(0, dir);
             }
-            else if(dir.getIdPar()==id&&dir.isDeSalida()==false){
+            else if(dir.getIdPar()==id&&dir.getIsDeSalida()==false){
                 res.add(1, dir);
             }
         }
