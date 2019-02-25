@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.mudanzas.test.persistence;
+package co.edu.uniandes.csw.mudanzas.test.logic;
 
+import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
-import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
+import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -29,18 +32,12 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Samuel Bernal Neira
  */
 @RunWith(Arquillian.class)
-public class ConductorPersistenceTest 
+public class VehiculoLogicTest 
 {
-    @Inject
-    private ConductorPersistence ConPersistence;
+  
+     @Inject
+    private VehiculoLogic VLogic;
     
-    
-     /**
-     * Variable para martcar las transacciones del em anterior cuando se
-     * crean/borran datos para las pruebas.
-     */
-    @Inject
-    UserTransaction utx;
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
@@ -48,12 +45,19 @@ public class ConductorPersistenceTest
     @PersistenceContext
     private EntityManager em;
     
+     /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    UserTransaction utx;
     
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<ConductorEntity> data = new ArrayList<ConductorEntity>();
+    private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
+   
     
     /**
      *
@@ -63,10 +67,12 @@ public class ConductorPersistenceTest
      * dependencias.
      */
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive createDeployment() 
+    {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ConductorEntity.class.getPackage())
-                .addPackage(ConductorPersistence.class.getPackage())
+                .addPackage(VehiculoEntity.class.getPackage())
+                .addPackage(VehiculoLogic.class.getPackage())
+                .addPackage(VehiculoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -78,7 +84,6 @@ public class ConductorPersistenceTest
     public void configTest() {
         try {
             utx.begin();
-            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
@@ -95,7 +100,7 @@ public class ConductorPersistenceTest
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
-            ConductorEntity entity = factory.manufacturePojo(ConductorEntity.class);
+            VehiculoEntity entity = factory.manufacturePojo(VehiculoEntity.class);
 
             em.persist(entity);
 
@@ -104,20 +109,31 @@ public class ConductorPersistenceTest
     }
     private void clearData() 
     {
-        em.createQuery("delete from ConductorEntity").executeUpdate();
+        em.createQuery("delete from VehiculoEntity").executeUpdate();
     }
     
     @Test
-    public void createConductorTest()
+    public void createConductorTest() throws BusinessLogicException
     {
         PodamFactory factory = new PodamFactoryImpl();
-        ConductorEntity newEntity = factory.manufacturePojo(ConductorEntity.class);
-        ConductorEntity result = ConPersistence.create(newEntity);
+        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
+        VehiculoEntity result = VLogic.crearVehiculo(newEntity);
         Assert.assertNotNull(result);
 
-        ConductorEntity entity = em.find(ConductorEntity.class, result.getId());
+        VehiculoEntity entity = em.find(VehiculoEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getPlaca(), entity.getPlaca());
     }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void createConductorConMismoNombre() throws BusinessLogicException
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
+        newEntity.setPlaca(data.get(0).getPlaca());
+        VLogic.crearVehiculo(newEntity);
+    }
+    
     
 }

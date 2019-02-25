@@ -54,25 +54,21 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
     private String ciudadDeOrigen;
 
     /**
-     * Lista, coleccion que contiene todas las tarjetas de ese usuario. bla bla
+     * Lista, coleccion que contiene todas las tarjetas de ese usuario.
      */
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    List<TarjetaDeCreditoEntity> tarjetas;
-
-    /**
-     * Lista, coleccion que contiene todas las tarjetas de ese usuario. bla bla
-     */
+    List<TarjetaDeCreditoEntity> tarjetas;   
+    
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
     List<SubastaEntity> subastas;
-
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
