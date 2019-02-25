@@ -177,7 +177,7 @@ public class TarjetaDeCreditoLogicTest {
     }
     
     @Test(expected = BusinessLogicException.class)
-    public void tamanioSerialTarjetaTest() throws BusinessLogicException {
+    public void serialTarjetaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         Integer menorQue12 = 1234567890;
@@ -187,7 +187,7 @@ public class TarjetaDeCreditoLogicTest {
     }
     
     @Test(expected = BusinessLogicException.class)
-    public void tamanioCodigoSeguridadTest() throws BusinessLogicException {
+    public void codigoSeguridadTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         trjt.setCodigoSeguridad(1672);

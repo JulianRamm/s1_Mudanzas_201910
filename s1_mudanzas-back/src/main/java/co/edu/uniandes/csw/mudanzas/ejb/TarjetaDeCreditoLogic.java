@@ -49,22 +49,16 @@ public class TarjetaDeCreditoLogic {
             throw new BusinessLogicException("Los campos no pueden ser nulos");
         }
 
+        //Verificacion de formato para el nombre de la tarjeta y del propietario
+        if (!tarjeta.getNombreTarjeta().matches("([a-zA-Z ]+){2,}")
+                || !tarjeta.getTitularCuenta().matches("([a-zA-Z ]+){2,}")) {
+            throw new BusinessLogicException("El nombre de la tarjeta o del propietario solo puede contener letras");
+        }
+        String codigoS = tarjeta.getCodigoSeguridad() + "";
         String serial = tarjeta.getNumeroSerial() + "";
-        //verificacion de caracteres especiales
-        if (!tarjeta.getNombreTarjeta().matches("[a-zA-Z]*")
-                || !tarjeta.getTitularCuenta().matches("[a-zA-Z]*")
-                || !serial.matches("[0-9]*")) {
-            throw new BusinessLogicException("Los nombres solo pueden contener letras y el numero serial solo numeros.");
-        }
-
-        //verificacion de tamanio del serial
-        if (serial.length() < 12 || serial.length() > 19) {
-            throw new BusinessLogicException("El numero serial es invalido");
-        }
-
-        //verificacion de tamanio del codigo de seguridad
-        if (tarjeta.getCodigoSeguridad() < 0 || tarjeta.getCodigoSeguridad() > 1000) {
-            throw new BusinessLogicException("El codigo de seguridad no es valido");
+        if (!codigoS.matches("[0-9]{1,3}+")
+                || !serial.matches("[0-9]{12,19}+")) {
+            throw new BusinessLogicException("Los digitos de la tarjeta o cs no son validos");
         }
         //verificacion de fecha de expedicion
         Date fechaV = tarjeta.getFechaVencimiento();
