@@ -6,14 +6,15 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  *
- * @author estudiante
+ * @author Samuel Bernal Neira 
  */
-public class DiaDTO 
+public class DiaDTO implements Serializable
 {
     
     private boolean disponibilidad;

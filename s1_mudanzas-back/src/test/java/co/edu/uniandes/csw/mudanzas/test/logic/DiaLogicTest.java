@@ -32,7 +32,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class DiaLogicTest 
-{
+{ 
+    PodamFactory factory = new PodamFactoryImpl();
+
+    
      @Inject
     private DiaLogic DLogic;
     
@@ -96,7 +99,6 @@ public class DiaLogicTest
         }
     }
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
@@ -114,7 +116,6 @@ public class DiaLogicTest
     @Test
     public void createAgendaTest() throws BusinessLogicException
     {
-        PodamFactory factory = new PodamFactoryImpl();
         DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
         DiaEntity result = DLogic.crearDia(newEntity);
         Assert.assertNotNull(result);
