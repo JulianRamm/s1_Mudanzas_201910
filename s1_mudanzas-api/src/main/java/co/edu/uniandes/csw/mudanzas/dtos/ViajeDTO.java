@@ -5,49 +5,54 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author je.osorio
  */
-public class ViajeDTO implements Serializable{
-        /**
-	 * id del viaje
-	 */
-	
-	private long id;
+public class ViajeDTO implements Serializable {
 
-	/**
-	 * direcciòn del lugar de salida del viaje 
-	 */
-	
-	private String lugarSalida;
+    /**
+     * id del viaje
+     */
 
-	/**
-	 * Direcciòn del lugar de llegada del viaje
-	 */
-	
-	private String lugarLlegada;
+    private long id;
 
-	/**
-	 * tiempo que se va a demorar el viaje acorde con la distancia
-	 */
-	
-	private int tiempo;
+    /**
+     * direcciòn del lugar de salida del viaje
+     */
+    private String lugarSalida;
 
-	/**
-	 * gasolina que se va a necesitar para completar el viaje
-	 */
-	
-	private int gastoGasolina;
+    /**
+     * Direcciòn del lugar de llegada del viaje
+     */
+    private String lugarLlegada;
 
-	/**
-	 * clima actual de la posiciòn en la que se encuentra el conductor
-	 */
-	
-	private String clima;
+    /**
+     * tiempo que se va a demorar el viaje acorde con la distancia
+     */
+    private int tiempo;
 
+    /**
+     * gasolina que se va a necesitar para completar el viaje
+     */
+    private int gastoGasolina;
+
+    /**
+     * clima actual de la posiciòn en la que se encuentra el conductor
+     */
+    private String clima;
+    /**
+     * hora de salida del viaje
+     */
+    private LocalDateTime horaPartida;
+    /**
+     * hora de llegada del viaje
+     */
+    private LocalDateTime horaLlegada;
     /**
      * @return the id
      */
@@ -132,10 +137,65 @@ public class ViajeDTO implements Serializable{
         this.clima = clima;
     }
 
-	/**
-	 * constructor de un objeto que toma la definiciòn de la clase viaje
-	 */
-    public ViajeDTO(){
-        
+    /**
+     * constructor de un objeto que toma la definiciòn de la clase viaje
+     */
+    public ViajeDTO() {
+
+    }
+
+    /**
+     * constructor de un DTO dado una entidad
+     *
+     * @param viajesEntity
+     */
+    public ViajeDTO(ViajesEntity viajesEntity) {
+        if (viajesEntity != null) {
+            this.clima = viajesEntity.getClima();
+            this.gastoGasolina = viajesEntity.getGastoGasolina();
+            this.id = viajesEntity.getId();
+            this.lugarLlegada = viajesEntity.getLugarLlegada();
+            this.lugarSalida = viajesEntity.getLugarSalida();
+            this.tiempo = viajesEntity.getTiempo();
+        }
+    }
+
+    public ViajesEntity toEntity() {
+        ViajesEntity viajesEntity = new ViajesEntity();
+        viajesEntity.setClima(this.clima);
+        viajesEntity.setGastoGasolina(this.gastoGasolina);
+        viajesEntity.setId(this.id);
+        viajesEntity.setLugarLlegada(this.lugarLlegada);
+        viajesEntity.setLugarSalida(this.lugarSalida);
+        viajesEntity.setTiempo(this.tiempo);
+        return viajesEntity;
+    }
+
+    /**
+     * @return the horaPartida
+     */
+    public LocalDateTime getHoraPartida() {
+        return horaPartida;
+    }
+
+    /**
+     * @param horaPartida the horaPartida to set
+     */
+    public void setHoraPartida(LocalDateTime horaPartida) {
+        this.horaPartida = horaPartida;
+    }
+
+    /**
+     * @return the horaLlegada
+     */
+    public LocalDateTime getHoraLlegada() {
+        return horaLlegada;
+    }
+
+    /**
+     * @param horaLlegada the horaLlegada to set
+     */
+    public void setHoraLlegada(LocalDateTime horaLlegada) {
+        this.horaLlegada = horaLlegada;
     }
 }

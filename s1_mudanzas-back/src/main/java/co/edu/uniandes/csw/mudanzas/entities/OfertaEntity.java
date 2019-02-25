@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -15,7 +17,9 @@ import javax.persistence.Entity;
 
 @Entity
 public class OfertaEntity extends BaseEntity implements Serializable{
-    
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
      /**
      * Atributo que representa comentario dado por el proveedor. 
      */
@@ -57,6 +61,20 @@ public class OfertaEntity extends BaseEntity implements Serializable{
      */
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
     }
     
     

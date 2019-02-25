@@ -36,6 +36,36 @@ public class ConductorPersistence
    {
        return em.find(ConductorEntity.class, conductorId);
    }
+   /**
+    * Método que busca la entidad del conductor que tiene un nombre ingresado por parametro.
+    * @param nombre , es el nombre que se va a usar para buscar
+    * @return la entidad del conductor que tiene el nombre que se ingresa por parametro
+    */
+   public ConductorEntity findByName(String nombre)
+   {
+       //rta: respuesta que se va a devolver
+       ConductorEntity rta;
+       //Compara el nombre de las entidades de la base de datos con el parámetro
+       TypedQuery<ConductorEntity> query = em.createQuery("select e from ConductorEntity e where e.nombre = :name", ConductorEntity.class);
+       // asignación del valor del parámetro
+       query = query.setParameter("name", nombre);
+       //Comparaciones del resultado de la comparacion y asignacion del valor de rta
+       List<ConductorEntity> sameName = query.getResultList();
+       if(sameName == null)
+       {
+           rta=null;
+       }
+       else if(sameName.isEmpty())
+       {
+           rta = null;
+       }
+       else
+       {
+           rta = sameName.get(0);
+       }
+               
+       return rta;
+   }
    
    public List<ConductorEntity> findAll()
    {

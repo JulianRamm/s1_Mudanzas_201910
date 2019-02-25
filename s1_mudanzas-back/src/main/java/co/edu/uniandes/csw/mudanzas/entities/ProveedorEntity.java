@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -30,11 +34,39 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private String telefono;
     
-    private Integer numeroVehiculos;
+    private int numeroVehiculos;
     
-    private Integer dineroDisponible;
+    private int dineroDisponible;
     
-    private Integer calificacion;
+    private int calificacion;
+    
+    @PodamExclude
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<ConductorEntity> conductores;
+    
+    @PodamExclude
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<OfertaEntity> ofertas;
+    
+    @PodamExclude
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<SubastaEntity> subastas;
+    
+    @PodamExclude
+    @OneToMany(
+        mappedBy = "proveedor", 
+        fetch = FetchType.LAZY
+    )
+    private List<VehiculoEntity> vehiculos;
 
     public void setLogin(String login) {
         this.login = login;
@@ -76,6 +108,24 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         this.calificacion = calificacion;
     }
 
+    public void setConductores(List<ConductorEntity> conductores) {
+        this.conductores = conductores;
+    }
+
+    public void setOfertas(List<OfertaEntity> ofertas) {
+        this.ofertas = ofertas;
+    }
+
+    public void setSubastas(List<SubastaEntity> subastas) {
+        this.subastas = subastas;
+    }
+
+    public void setVehiculos(List<VehiculoEntity> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    
+    
     public String getLogin() {
         return login;
     }
@@ -104,17 +154,32 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         return telefono;
     }
 
-    public Integer getNumeroVehiculos() {
+    public int getNumeroVehiculos() {
         return numeroVehiculos;
     }
 
-    public Integer getDineroDisponible() {
+    public int getDineroDisponible() {
         return dineroDisponible;
     }
 
-    public Integer getCalificacion() {
+    public int getCalificacion() {
         return calificacion;
     }
-    
-    
+
+    public List<ConductorEntity> getConductores() {
+        return conductores;
+    }
+
+    public List<OfertaEntity> getOfertas() {
+        return ofertas;
+    }
+
+    public List<SubastaEntity> getSubastas() {
+        return subastas;
+    }
+
+    public List<VehiculoEntity> getVehiculos() {
+        return vehiculos;
+    }
+       
 }

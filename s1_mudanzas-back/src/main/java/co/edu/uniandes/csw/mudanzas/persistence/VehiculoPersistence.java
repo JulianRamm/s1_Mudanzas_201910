@@ -35,6 +35,33 @@ public class VehiculoPersistence
    {
        return em.find(VehiculoEntity.class, vehiculoId);
    }
+   public VehiculoEntity findByPlaca(String placa)
+   {
+       VehiculoEntity rta;
+       TypedQuery<VehiculoEntity> query = em.createQuery("select e from VehiculoEntity e where e.placa = :pPlaca", VehiculoEntity.class);
+       query = query.setParameter("pPlaca", placa);
+       
+       List<VehiculoEntity> samePlaca = query.getResultList();
+       
+       if(samePlaca == null)
+       {
+           rta = null;
+       }
+       else if(samePlaca.isEmpty())
+       {
+           rta = null;
+       }
+       else
+       {
+           rta = samePlaca.get(0);
+       }
+       return rta;
+   }
+   
+    //public VehiculoEntity  findMarcaCorrecta()
+    //      {
+              
+    //      }
    
    public List<VehiculoEntity> findAll()
    {
