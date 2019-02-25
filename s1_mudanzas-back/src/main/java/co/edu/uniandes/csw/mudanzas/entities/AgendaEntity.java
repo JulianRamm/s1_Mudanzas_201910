@@ -21,40 +21,19 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author estudiante
  */
 @Entity
-public class AgendaEntity extends BaseEntity implements Serializable  
-{
- private static final long serialVersionUID = 1L;
- @PodamExclude
- private List<String> diasDisponible;
- 
- @Temporal (TemporalType.TIME)
- private Date horaSalida;
- 
- @Temporal (TemporalType.TIME)
- private Date horaLlegada;
- private boolean disponibilidad;
- 
- @PodamExclude
- @OneToOne
- private VehiculoEntity vehiculo;
+public class AgendaEntity extends BaseEntity implements Serializable {
 
- public AgendaEntity()
- {
-     
- }
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * @return the diasDisponible
-     */
-    public List<String> getDiasDisponible() {
-        return diasDisponible;
-    }
+    @Temporal(TemporalType.TIME)
+    private Date horaSalida;
 
-    /**
-     * @param diasDisponible the diasDisponible to set
-     */
-    public void setDiasDisponible(List<String> diasDisponible) {
-        this.diasDisponible = diasDisponible;
+    @Temporal(TemporalType.TIME)
+    private Date horaLlegada;
+    private boolean disponibilidad;
+
+    public AgendaEntity() {
+
     }
 
     /**
@@ -98,21 +77,5 @@ public class AgendaEntity extends BaseEntity implements Serializable
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
-
-    /**
-     * @return the vehiculo
-     */
-    public VehiculoEntity getVehiculo() {
-        return vehiculo;
-    }
-
-    /**
-     * @param vehiculo the vehiculo to set
-     */
-    public void setVehiculo(VehiculoEntity vehiculo) {
-        this.vehiculo = vehiculo;
-    }
- 
- 
 
 }

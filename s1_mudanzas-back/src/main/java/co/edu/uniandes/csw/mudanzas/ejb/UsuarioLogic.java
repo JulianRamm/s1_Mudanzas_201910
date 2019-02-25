@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -36,10 +37,39 @@ public class UsuarioLogic {
      * @throws BusinessLogicException Si el usuario a persistir ya existe.
      */
     public UsuarioEntity crearUsuario(UsuarioEntity usuario) throws BusinessLogicException {
-
+        //Verificacion de existencia
         if (persistence.findUsuarioPorLogin(usuario.getLogin()) != null) {
             throw new BusinessLogicException("Ya existe un usuario con el login \"" + usuario.getLogin() + "\"");
         }
+
+        //Verificacion de "nulidad"
+        if (usuario.getLogin() == null
+                || usuario.getPassword() == null
+                || usuario.getNombre() == null
+                || usuario.getApellido() == null
+                || usuario.getCorreoElectronico() == null
+                || usuario.getCiudadDeOrigen() == null) {
+            throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
+        }
+        //Verificacion de formato para el login
+        if (!usuario.getLogin().matches("([0-9a-zA-Z_.-][0-9a-zA-Z_.-]*){8,}$")) {
+            throw new BusinessLogicException("El nombre de usuario solamente puede contener Letras, numeros, (-), (.), (_), minimo 8 caracteres.");
+        }
+        //Verificacion de formato para la contrasenia
+        if (!usuario.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,128}$")) {
+            throw new BusinessLogicException("La contrasenia debe tener mínimo ocho y máximo 128 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial");
+        }
+        //verificacion de formato para nombre, apellido y ciudad de origen
+        if (!usuario.getNombre().matches("([a-zA-Z ]+){2,}")
+                || !usuario.getApellido().matches("([a-zA-Z ]+){2,}")
+                || !usuario.getCiudadDeOrigen().matches("([a-zA-Z ]+){2,}")) {
+            throw new BusinessLogicException("El nombr, apellido o ciudad de origen solo puede contener letras minusculas o mayusculas");
+        }
+        //verificacion de formato para correo electronico
+        if (!usuario.getCorreoElectronico().matches("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$")) {
+            throw new BusinessLogicException("El correo electronico esta en un formato que no es valido");
+        }
+
         usuario = persistence.create(usuario);
         return usuario;
     }

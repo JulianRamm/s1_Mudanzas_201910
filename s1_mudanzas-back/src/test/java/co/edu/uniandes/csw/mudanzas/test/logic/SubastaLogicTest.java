@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.SubastaPersistence;
 import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,6 +37,9 @@ public class SubastaLogicTest {
     
      @Inject
     private SubastaLogic subastaLogic;
+     
+     @Inject
+     private SubastaPersistence sp;
 
     @PersistenceContext
     private EntityManager em;
@@ -44,7 +48,7 @@ public class SubastaLogicTest {
     private UserTransaction utx;
     
     
-    private ArrayList<SubastaEntity> subastaData; 
+    private List<SubastaEntity> subastaData; 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -89,7 +93,6 @@ public class SubastaLogicTest {
     
     @Test
     public void createSubastaTest() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
         SubastaEntity ManufacturedEntity = factory.manufacturePojo(SubastaEntity.class);
         SubastaEntity subcreada = subastaLogic.createSubasta(ManufacturedEntity);
         Assert.assertNotNull(subcreada);

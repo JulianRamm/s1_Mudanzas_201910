@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -16,18 +17,24 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Samuel Bernal Neira
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
-
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
     private static final long serialVersionUID = 1L;
 
     private String placa;
 
-    private boolean disponibilidad;
-
-    private String UbicacionActual;
+    private double rendimiento;
+    
+    private long idConductorActual;
+    
+    private String marca;
+    
+   // private String UbicacionActual;
 
     private int numeroConductores;
 
@@ -35,18 +42,17 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     private String dimensiones;
 
-    private int capacidad;
 
     /**
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
-    @ManyToOne
-    private ConductorEntity conductor;
+    @ManyToMany
+    private List<ConductorEntity> conductor;
 
     @PodamExclude
     @OneToOne
-    private AgendaEntity agenda;
+    private DiaEntity agenda;
 
     public VehiculoEntity() {
 
@@ -64,34 +70,6 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     public void setPlaca(String placa) {
         this.placa = placa;
-    }
-
-    /**
-     * @return the disponibilidad
-     */
-    public boolean isDisponibilidad() {
-        return disponibilidad;
-    }
-
-    /**
-     * @param disponibilidad the disponibilidad to set
-     */
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
-    /**
-     * @return the UbicacionActual
-     */
-    public String getUbicacionActual() {
-        return UbicacionActual;
-    }
-
-    /**
-     * @param UbicacionActual the UbicacionActual to set
-     */
-    public void setUbicacionActual(String UbicacionActual) {
-        this.UbicacionActual = UbicacionActual;
     }
 
     /**
@@ -136,46 +114,90 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
         this.dimensiones = dimensiones;
     }
 
-    /**
-     * @return the capacidad
-     */
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    /**
-     * @param capacidad the capacidad to set
-     */
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
 
     /**
      * @return the conductores
      */
-    public ConductorEntity getConductor() {
+    public List<ConductorEntity> getConductor() {
         return conductor;
     }
 
     /**
      * @param conductor the conductores to set
      */
-    public void setConductores(ConductorEntity conductor) {
+    public void setConductores(List<ConductorEntity> conductor) {
         this.conductor = conductor;
     }
 
     /**
      * @return the agenda
      */
-    public AgendaEntity getAgenda() {
+    public DiaEntity getAgenda() {
         return agenda;
     }
 
     /**
      * @param agenda the agenda to set
      */
-    public void setAgenda(AgendaEntity agenda) {
+    public void setAgenda(DiaEntity agenda) {
         this.agenda = agenda;
+    }
+
+    /**
+     * @return the rendimiento
+     */
+    public double getRendimiento() {
+        return rendimiento;
+    }
+
+    /**
+     * @param rendimiento the rendimiento to set
+     */
+    public void setRendimiento(double rendimiento) {
+        this.rendimiento = rendimiento;
+    }
+
+    /**
+     * @return the idConductorActual
+     */
+    public long getIdConductorActual() {
+        return idConductorActual;
+    }
+
+    /**
+     * @param conductorActual
+     * 
+     */
+    public void setIdConductorActual(long conductorActual) {
+        this.idConductorActual = conductorActual;
+    }
+
+    /**
+     * @return the marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
     }
 
 }

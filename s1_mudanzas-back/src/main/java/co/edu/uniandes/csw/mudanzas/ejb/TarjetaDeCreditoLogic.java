@@ -8,7 +8,10 @@ package co.edu.uniandes.csw.mudanzas.ejb;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -34,9 +37,36 @@ public class TarjetaDeCreditoLogic {
      */
     public TarjetaDeCreditoEntity crearTarjeta(TarjetaDeCreditoEntity tarjeta) throws BusinessLogicException {
 
+        //Verificacion de existencia
         if (persistence.find(tarjeta.getId()) != null) {
             throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
         }
+
+        //Verificacion de "nulidad"
+        if (tarjeta.getTitularCuenta() == null
+                || tarjeta.getNombreTarjeta() == null
+                || tarjeta.getNumeroSerial() == null) {
+            throw new BusinessLogicException("Los campos no pueden ser nulos");
+        }
+
+        //Verificacion de formato para el nombre de la tarjeta y del propietario
+        if (!tarjeta.getNombreTarjeta().matches("([a-zA-Z ]+){2,}")
+                || !tarjeta.getTitularCuenta().matches("([a-zA-Z ]+){2,}")) {
+            throw new BusinessLogicException("El nombre de la tarjeta o del propietario solo puede contener letras");
+        }
+        String codigoS = tarjeta.getCodigoSeguridad() + "";
+        String serial = tarjeta.getNumeroSerial() + "";
+        if (!codigoS.matches("[0-9]{1,3}+")
+                || !serial.matches("[0-9]{12,19}+")) {
+            throw new BusinessLogicException("Los digitos de la tarjeta o cs no son validos");
+        }
+        //verificacion de fecha de expedicion
+        Date fechaV = tarjeta.getFechaVencimiento();
+        Calendar cal = Calendar.getInstance();
+        if (fechaV.getMonth() > cal.get(Calendar.MONTH) && fechaV.getYear() > cal.get(Calendar.YEAR)) {
+            throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
+        }
+
         tarjeta = persistence.create(tarjeta);
         return tarjeta;
     }

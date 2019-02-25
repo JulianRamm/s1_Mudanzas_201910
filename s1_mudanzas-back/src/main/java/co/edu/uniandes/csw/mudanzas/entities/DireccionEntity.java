@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mudanzas.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -18,6 +19,7 @@ public class DireccionEntity extends BaseEntity implements Serializable {
     /**
      * Carga que contiene una lista de direcciones
      */
+    @PodamExclude
     @ManyToOne
     private CargaEntity carga;
     
@@ -36,7 +38,7 @@ public class DireccionEntity extends BaseEntity implements Serializable {
      * llegada al destino
      */
 
-    private boolean deSalida;
+    private boolean isDeSalida;
     /**
      * id del par latitudf,longitudf,latitudi,longitudi
      */
@@ -72,15 +74,15 @@ public class DireccionEntity extends BaseEntity implements Serializable {
     /**
      * @return the deSalida
      */
-    public boolean isDeSalida() {
-        return deSalida;
+    public boolean getIsDeSalida() {
+        return isDeSalida;
     }
 
     /**
-     * @param deSalida the deSalida to set
+     * @param isDeSalida
      */
-    public void setDeSalida(boolean deSalida) {
-        this.deSalida = deSalida;
+    public void setIsDeSalida(boolean isDeSalida) {
+        this.isDeSalida = isDeSalida;
     }
 
     /**
@@ -95,5 +97,19 @@ public class DireccionEntity extends BaseEntity implements Serializable {
      */
     public void setIdPar(long idPar) {
         this.idPar = idPar;
+    }
+
+    /**
+     * @return the carga
+     */
+    public CargaEntity getCarga() {
+        return carga;
+    }
+
+    /**
+     * @param carga the carga to set
+     */
+    public void setCarga(CargaEntity carga) {
+        this.carga = carga;
     }
 }

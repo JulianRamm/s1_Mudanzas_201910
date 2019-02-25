@@ -45,7 +45,7 @@ public class UsuarioLogicTest {
      * Atributo que instancia a un usuario.
      */
     @Inject
-    private UsuarioPersistence ep;
+    private UsuarioPersistence up;
 
     /**
      * Llamamos al encargado de la BD
@@ -58,13 +58,15 @@ public class UsuarioLogicTest {
      * crean/borran datos para las pruebas.
      */
     @Inject
-    UserTransaction utx;
+    private UserTransaction utx;
 
     /**
      * Lista que tiene los datos de prueba.
      */
     private List<UsuarioEntity> data = new ArrayList<UsuarioEntity>();
 
+    private PodamFactory factory = new PodamFactoryImpl();
+    
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -113,7 +115,6 @@ public class UsuarioLogicTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
@@ -126,8 +127,13 @@ public class UsuarioLogicTest {
 
     @Test
     public void createUsuarioTest() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
+        nuevaEntidad.setNombre("Luis Miguel");
+        nuevaEntidad.setApellido("Gomez");
+        nuevaEntidad.setCiudadDeOrigen("Manizales");
+        nuevaEntidad.setLogin("lm.gomezl");
+        nuevaEntidad.setPassword("M0v345Y!");
+        nuevaEntidad.setCorreoElectronico("moveasy_desarrollo@uniandes.com");
         UsuarioEntity resultado = usuarioLogic.crearUsuario(nuevaEntidad);
         Assert.assertNotNull(resultado);
         UsuarioEntity entidad = em.find(UsuarioEntity.class, resultado.getId());
@@ -141,8 +147,70 @@ public class UsuarioLogicTest {
     }
 
     @Test(expected = BusinessLogicException.class)
+    public void nullTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setLogin(null);
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void loginTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setLogin("moveasy!");
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void passwordTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setPassword("moveasy1234");
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void nameTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setNombre("M0V345Y");
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void apellidoTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setApellido("D354RR0LL0");
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void ciudadTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setCiudadDeOrigen("B0G0T4");
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void namesTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+        usr.setCorreoElectronico("m0v345y.d3s4rr0ll0@@andes.co");
+        //llamamos al manager de persistencia, en este caso no se creara
+        usuarioLogic.crearUsuario(usr);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
     public void createUsuarioMismoLoginTest() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setLogin(data.get(0).getLogin());
         usuarioLogic.crearUsuario(nuevaEntidad);
@@ -193,7 +261,6 @@ public class UsuarioLogicTest {
 
     @Test
     public void updateUsuarioTest() {
-        PodamFactory factory = new PodamFactoryImpl();
         UsuarioEntity entidad = data.get(0);
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setId(entidad.getId());

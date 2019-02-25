@@ -51,7 +51,7 @@ public class DireccionPersistence {
      */
     public List<DireccionEntity> findAll() {
         TypedQuery<DireccionEntity> query;
-        query = em.createQuery("select u from DireccionEntity u", DireccionEntity.class);
+        query = em.createQuery("Select u From DireccionEntity u", DireccionEntity.class);
         return query.getResultList();
     }
 

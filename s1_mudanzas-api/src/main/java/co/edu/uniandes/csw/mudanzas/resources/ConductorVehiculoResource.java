@@ -79,9 +79,9 @@ public class ConductorVehiculoResource
     }
     
     @Path("{placa}/agenda")
-    public Class<VehiculoAgendaResource> getProveedorConductorResource(@PathParam("placa") String pPlaca)
+    public Class<VehiculoDiaResource> getProveedorConductorResource(@PathParam("placa") String pPlaca)
     {
-        return VehiculoAgendaResource.class;
+        return VehiculoDiaResource.class;
     }
     
 }
