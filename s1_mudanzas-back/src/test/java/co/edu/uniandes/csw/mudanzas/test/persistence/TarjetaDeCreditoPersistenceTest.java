@@ -55,6 +55,8 @@ public class TarjetaDeCreditoPersistenceTest {
      */
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
 
+    
+    private PodamFactory factory = new PodamFactoryImpl();
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -102,7 +104,7 @@ public class TarjetaDeCreditoPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+         
         for (int i = 0; i < 3; i++) {
 
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
@@ -119,7 +121,7 @@ public class TarjetaDeCreditoPersistenceTest {
     @Test
     public void createTarjetaTest() {
         //podam nos crea una instancia automatica
-        PodamFactory factory = new PodamFactoryImpl();
+        
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         //llamamos al manager de persistencia, en este caso de usuario
         TarjetaDeCreditoEntity tarjetae = tp.create(trjt);
@@ -186,7 +188,7 @@ public class TarjetaDeCreditoPersistenceTest {
     public void updateTarjetaTest()
     {
         TarjetaDeCreditoEntity entidad = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
+         
         TarjetaDeCreditoEntity cambiada = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         
         cambiada.setId(entidad.getId());
@@ -209,11 +211,11 @@ public class TarjetaDeCreditoPersistenceTest {
     public void buscarTarjetaPorPropietario()
     {
         TarjetaDeCreditoEntity entidad = data.get(0);
-        TarjetaDeCreditoEntity nuevo = tp.buscarTarjetaPorPropietario(entidad.getTitularCuenta());
+        TarjetaDeCreditoEntity nuevo = tp.findTarjetaPorPropietario(entidad.getTitularCuenta());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getTitularCuenta(), nuevo.getTitularCuenta());
         
-        nuevo = tp.buscarTarjetaPorPropietario(null);
+        nuevo = tp.findTarjetaPorPropietario(null);
         Assert.assertNull(nuevo);
     }
     

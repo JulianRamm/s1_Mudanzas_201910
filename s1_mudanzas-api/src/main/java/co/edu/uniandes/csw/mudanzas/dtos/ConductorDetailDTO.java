@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import java.util.List;
 
 /**
@@ -14,9 +15,11 @@ import java.util.List;
 public class ConductorDetailDTO extends ConductorDTO
 {
     private List<VehiculoDTO> vehiculos;
-    
-    public ConductorDetailDTO()
+
+    public ConductorDetailDTO(ConductorEntity entity) 
     {
-        
+        super(entity);
     }
+    
+    
 }

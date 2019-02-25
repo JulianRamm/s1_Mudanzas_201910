@@ -6,6 +6,9 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.SubastaDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.SubastaLogic;
+import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
+import co.edu.uniandes.csw.mudanzas.persistence.SubastaPersistence;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
@@ -34,6 +37,8 @@ public class SubastasUsuarioResource {
      * @return JSONArray {@link SubastaDTO} - Las subastas encontradas en el
      * usuario. Si no hay ninguna retorna una lista vacía.
      */
+    
+    SubastaLogic subLogic ;
     @GET
     public List<SubastaDTO> getSubastas(@PathParam("login") String login)
     {
@@ -67,9 +72,20 @@ public class SubastasUsuarioResource {
      */
     @POST
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO crearSubasta(@PathParam("login") String login,@PathParam("idSubasta") Long idSubasta)
+    public SubastaDTO crearSubastaFROMUSUARIO(@PathParam("login") String login,@PathParam("idSubasta") Long idSubasta)
     {
+        SubastaPersistence subPersist = new SubastaPersistence();
         return null;
+    }
+    
+    @POST
+    public SubastaDTO createSubasta(SubastaDTO subDTO) throws Exception
+    {
+        SubastaEntity subentity = subDTO.toEntity();
+        
+        SubastaEntity nuevaSubEntity = subLogic.createSubasta(subentity);
+         SubastaDTO nuevoSubastaDTO = new SubastaDTO(nuevaSubEntity);
+    return nuevoSubastaDTO; 
     }
     
     /**

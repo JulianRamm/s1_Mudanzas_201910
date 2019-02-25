@@ -6,40 +6,53 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  *
  * @author je.osorio
  */
-public class ViajeDetailDTO extends ViajeDTO implements Serializable{
+public class ViajeDetailDTO extends ViajeDTO implements Serializable {
 
     /**
-     * Lista encadenada de CargaDTO que corresponde a que un viaje pude tener 1 o màs cargas asignadas
+     * Lista encadenada de CargaDTO que corresponde a que un viaje pude tener 1
+     * o màs cargas asignadas
      */
-	private LinkedList<CargaDTO> cargas;
-	
-
+    private List<CargaDTO> cargas;
+    private List<DireccionDTO> direcciones;
     /**
      * @return the cargas
      */
-    public LinkedList<CargaDTO> getCargas() {
+    public List<CargaDTO> getCargas() {
         return cargas;
     }
 
     /**
      * @param cargas the cargas to set
      */
-    public void setCargas(LinkedList<CargaDTO> cargas) {
+    public void setCargas(List<CargaDTO> cargas) {
         this.cargas = cargas;
     }
+
     /**
      * constructor de un objeto de tipo ViajeDetailDTO
      */
-    public ViajeDetailDTO(){
-		
-	}
-} 
-        
-    
+    public ViajeDetailDTO() {
 
+    }
+
+    /**
+     * @return the direcciones
+     */
+    public List<DireccionDTO> getDirecciones() {
+        return direcciones;
+    }
+
+    /**
+     * @param direcciones the direcciones to set
+     */
+    public void setDirecciones(List<DireccionDTO> direcciones) {
+        this.direcciones = direcciones;
+    }
+}
