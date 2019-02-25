@@ -57,14 +57,14 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @ManyToOne()
-    UsuarioEntity usuario;
+    private UsuarioEntity usuario;
 
     /**
      * Variable para martcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
      */
     @Inject
-    UserTransaction utx;
+    private UserTransaction utx;
 
     /**
      * Constructor por defecto.

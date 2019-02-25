@@ -45,7 +45,7 @@ public class UsuarioLogicTest {
      * Atributo que instancia a un usuario.
      */
     @Inject
-    private UsuarioPersistence ep;
+    private UsuarioPersistence up;
 
     /**
      * Llamamos al encargado de la BD
@@ -58,7 +58,7 @@ public class UsuarioLogicTest {
      * crean/borran datos para las pruebas.
      */
     @Inject
-    UserTransaction utx;
+    private UserTransaction utx;
 
     /**
      * Lista que tiene los datos de prueba.
