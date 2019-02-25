@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -42,7 +43,7 @@ public class ConductorEntity extends BaseEntity implements Serializable {
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
-    @OneToMany(mappedBy = "conductor", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "conductor", fetch = FetchType.LAZY)
     private List<VehiculoEntity> vehiculos;
     /**
      * Atributo que modela el proveeedor al cual el conductor está adscrito.
