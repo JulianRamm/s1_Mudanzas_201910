@@ -42,95 +42,95 @@ public class UsuarioDTO implements Serializable{
      * Atributo que representa la ciudad de origen del usuario.
      */
     private String ciudadDeOrigen;
-
+    
     /**
      * Constructor por defecto
      */    
     public UsuarioDTO(){
-        
+        //No se hace nada, se crea mediante 
     }
     
     /**
      * @return the login
      */
-    public String getLogin() {
+    public String getDTOLogin() {
         return login;
     }
 
     /**
      * @param login the login to set
      */
-    public void setLogin(String login) {
+    public void setDTOLogin(String login) {
         this.login = login;
     }
 
     /**
      * @return the password
      */
-    public String getPassword() {
+    public String getDTOPassword() {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setDTOPassword(String password) {
         this.password = password;
     }
 
     /**
      * @return the nombre
      */
-    public String getNombre() {
+    public String getDTONombre() {
         return nombre;
     }
 
     /**
      * @param nombre the nombre to set
      */
-    public void setNombre(String nombre) {
+    public void setDTONombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
      * @return the apellido
      */
-    public String getApellido() {
+    public String getDTOApellido() {
         return apellido;
     }
 
     /**
      * @param apellido the apellido to set
      */
-    public void setApellido(String apellido) {
+    public void setDTOApellido(String apellido) {
         this.apellido = apellido;
     }
 
     /**
      * @return the correoElectronico
      */
-    public String getCorreoElectronico() {
+    public String getDTOCorreoElectronico() {
         return correoElectronico;
     }
 
     /**
      * @param correoElectronico the correoElectronico to set
      */
-    public void setCorreoElectronico(String correoElectronico) {
+    public void setDTOCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
     /**
      * @return the ciudadDeOrigen
      */
-    public String getCiudadDeOrigen() {
+    public String getDTOCiudadDeOrigen() {
         return ciudadDeOrigen;
     }
 
     /**
      * @param ciudadDeOrigen the ciudadDeOrigen to set
      */
-    public void setCiudadDeOrigen(String ciudadDeOrigen) {
+    public void setDTOCiudadDeOrigen(String ciudadDeOrigen) {
         this.ciudadDeOrigen = ciudadDeOrigen;
     }
     

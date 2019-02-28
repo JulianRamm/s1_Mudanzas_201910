@@ -7,11 +7,9 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.transaction.UserTransaction;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -61,14 +59,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    List<TarjetaDeCreditoEntity> tarjetas;   
+    private List<TarjetaDeCreditoEntity> tarjetas;   
     
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    List<SubastaEntity> subastas;
+    private List<SubastaEntity> subastas;
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
@@ -86,77 +84,77 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
     /**
      * @return the login
      */
-    public String getLogin() {
+    public String getELogin() {
         return login;
     }
 
     /**
      * @param login the login to set
      */
-    public void setLogin(String login) {
+    public void setELogin(String login) {
         this.login = login;
     }
 
     /**
      * @return the password
      */
-    public String getPassword() {
+    public String getEPassword() {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setEPassword(String password) {
         this.password = password;
     }
 
     /**
      * @return the nombre
      */
-    public String getNombre() {
+    public String getENombre() {
         return nombre;
     }
 
     /**
      * @param nombre the nombre to set
      */
-    public void setNombre(String nombre) {
+    public void setENombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
      * @return the apellido
      */
-    public String getApellido() {
+    public String getEApellido() {
         return apellido;
     }
 
     /**
      * @param apellido the apellido to set
      */
-    public void setApellido(String apellido) {
+    public void setEApellido(String apellido) {
         this.apellido = apellido;
     }
 
     /**
      * @return the correoElectronico
      */
-    public String getCorreoElectronico() {
+    public String getECorreoElectronico() {
         return correoElectronico;
     }
 
     /**
      * @param correoElectronico the correoElectronico to set
      */
-    public void setCorreoElectronico(String correoElectronico) {
+    public void setECorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
     /**
      * @return the ciudadDeOrigen
      */
-    public String getCiudadDeOrigen() {
+    public String getECiudadDeOrigen() {
         return ciudadDeOrigen;
     }
 
