@@ -5,13 +5,14 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import java.util.List;
 
 /**
  *
  * @author Luis Miguel
  */
-public class UsuarioDetailDTO extends UsuarioDTO{
+public class UsuarioDetailDTO extends UsuarioDTO {
     
     /*
     * Esta lista de tipo TarjetaDeCreditoDTO contiene las Tarjetas De Credito que estan asociados a un Usuario.
@@ -32,6 +33,10 @@ public class UsuarioDetailDTO extends UsuarioDTO{
      * Constructor por defecto
      */
     public UsuarioDetailDTO(){
+    }
+
+    public UsuarioDetailDTO(UsuarioEntity usuarioEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
