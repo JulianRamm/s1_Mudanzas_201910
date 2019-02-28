@@ -70,12 +70,12 @@ public class UsuarioResource {
     @Path("{login}")
     public UsuarioDTO getUsuario(@PathParam("login") String login){
         UsuarioDTO usr = new UsuarioDTO();
-        usr.setLogin(login);
-        usr.setNombre("Luis Miguel");
-        usr.setApellido("Gomez Londono");
-        usr.setCiudadDeOrigen("Manizales");
-        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
-        usr.setPassword("123456");
+        usr.setDTOLogin(login);
+        usr.setDTONombre("Luis Miguel");
+        usr.setDTOApellido("Gomez Londono");
+        usr.setDTOCiudadDeOrigen("Manizales");
+        usr.setDTOCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setDTOPassword("123456");
         return usr;
     }
     
@@ -89,12 +89,12 @@ public class UsuarioResource {
     @Path("{login}")
     public UsuarioDTO deleteUsuario(@PathParam("login") String login) {
         UsuarioDTO usr = new UsuarioDTO();
-        usr.setLogin(login);
-        usr.setNombre("Luis Miguel");
-        usr.setApellido("Gomez Londono");
-        usr.setCiudadDeOrigen("Manizales");
-        usr.setCorreoElectronico("lm.gomezl@uniandes.edu.co");
-        usr.setPassword("123456");
+        usr.setDTOLogin(login);
+        usr.setDTONombre("Luis Miguel");
+        usr.setDTOApellido("Gomez Londono");
+        usr.setDTOCiudadDeOrigen("Manizales");
+        usr.setDTOCorreoElectronico("lm.gomezl@uniandes.edu.co");
+        usr.setDTOPassword("123456");
         return usr;
     }
     
