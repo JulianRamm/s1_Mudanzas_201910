@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class TarjetaDeCreditoLogicTest {
      */
     @PersistenceContext
     private EntityManager em;
-    
+
     private PodamFactory factory = new PodamFactoryImpl();
 
     /**
@@ -116,23 +117,25 @@ public class TarjetaDeCreditoLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            
+
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-            
+
             em.persist(entity);
-            
+
             data.add(entity);
         }
     }
-    
+
     @Test
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
         nuevaEntidad.setNombreTarjeta("prueba");
         nuevaEntidad.setTitularCuenta("luism");
         nuevaEntidad.setNumeroSerial(1234567891011L);
         nuevaEntidad.setCodigoSeguridad(654);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad);
+        nuevaEntidad.setUsuario(dummy);
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getELogin());
         Assert.assertNotNull(resultado);
         TarjetaDeCreditoEntity entidad = em.find(TarjetaDeCreditoEntity.class, resultado.getId());
         Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
@@ -141,72 +144,85 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(nuevaEntidad.getTitularCuenta(), entidad.getTitularCuenta());
         Assert.assertEquals(nuevaEntidad.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void createTarjetaDeCreditoMismoIdTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setId(data.get(0).getId());
-        tarjetaLogic.crearTarjeta(nuevaEntidad);
+        nuevaEntidad.setUsuario(dummy);
+        tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getELogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void nullTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        trjt.setTitularCuenta(null);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
+        trjt.setUsuario(null);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt);
+        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void expresionRegularNombreTarjetaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
         trjt.setNombreTarjeta("l1234");
+        trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt);
+        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void expresionRegularTitularCuentaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
         trjt.setTitularCuenta("l1234");
+        trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt);
+        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void serialTarjetaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
         Integer menorQue12 = 1234567890;
         trjt.setNumeroSerial(menorQue12.longValue());
+        trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt);
+        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void codigoSeguridadTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
         trjt.setCodigoSeguridad(1672);
+        trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt);
+        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void fechaVencimientoTarjetaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
         Date fechaProximoAnio = new Date();
         fechaProximoAnio.setMonth(03);
         fechaProximoAnio.setYear(2020);
         trjt.setFechaVencimiento(fechaProximoAnio);
+        trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt);
+        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
     }
-    
+
     @Test
     public void getTarjetasDeCreditoTest() {
         List<TarjetaDeCreditoEntity> lista = tarjetaLogic.getTarjetas();
@@ -221,7 +237,7 @@ public class TarjetaDeCreditoLogicTest {
             Assert.assertTrue(encontrado);
         }
     }
-    
+
     @Test
     public void getTarjetaDeCreditoPorIdTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
@@ -233,7 +249,7 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultado.getTitularCuenta(), entidad.getTitularCuenta());
         Assert.assertEquals(resultado.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
-    
+
     @Test
     public void getTarjetaDeCreditoPorLoginTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
@@ -245,7 +261,7 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultado.getTitularCuenta(), entidad.getTitularCuenta());
         Assert.assertEquals(resultado.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
-    
+
     @Test
     public void updateTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entidad = data.get(0);
@@ -259,7 +275,7 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(respuesta.getTitularCuenta(), nuevaEntidad.getTitularCuenta());
         Assert.assertEquals(respuesta.getCodigoSeguridad(), nuevaEntidad.getCodigoSeguridad());
     }
-    
+
     @Test
     public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(1);
@@ -267,5 +283,5 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity borrar = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
-    
+
 }

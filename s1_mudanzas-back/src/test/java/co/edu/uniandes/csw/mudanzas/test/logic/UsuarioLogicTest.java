@@ -64,7 +64,9 @@ public class UsuarioLogicTest {
      * Lista que tiene los datos de prueba.
      */
     private List<UsuarioEntity> data = new ArrayList<UsuarioEntity>();
-
+    
+    private List<TarjetaDeCreditoEntity> tarjetaData = new ArrayList<TarjetaDeCreditoEntity>();
+    
     private PodamFactory factory = new PodamFactoryImpl();
     
     /**
@@ -107,6 +109,7 @@ public class UsuarioLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
+        em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
         em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
@@ -116,12 +119,17 @@ public class UsuarioLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-
+            TarjetaDeCreditoEntity tarjetas = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            em.persist(tarjetas);
+            tarjetaData.add(tarjetas);
+        }
+        for (int i = 0; i < 3; i++) {
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
-
             em.persist(entity);
-
             data.add(entity);
+            if (i == 0) {
+                tarjetaData.get(i).setUsuario(entity);
+            }
         }
     }
 

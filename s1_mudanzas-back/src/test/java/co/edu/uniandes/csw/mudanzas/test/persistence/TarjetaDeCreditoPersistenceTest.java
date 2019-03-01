@@ -211,11 +211,11 @@ public class TarjetaDeCreditoPersistenceTest {
     public void buscarTarjetaPorPropietario()
     {
         TarjetaDeCreditoEntity entidad = data.get(0);
-        TarjetaDeCreditoEntity nuevo = tp.findTarjetaPorPropietario(entidad.getTitularCuenta());
+        TarjetaDeCreditoEntity nuevo = tp.findTarjetaPorLoginPropietario(entidad.getUsuario().getELogin(), entidad.getId());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getTitularCuenta(), nuevo.getTitularCuenta());
         
-        nuevo = tp.findTarjetaPorPropietario(null);
+        nuevo = tp.findTarjetaPorLoginPropietario(entidad.getUsuario().getELogin(), null);
         Assert.assertNull(nuevo);
     }
     
