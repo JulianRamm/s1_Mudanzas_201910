@@ -155,10 +155,9 @@ public class TarjetaDeCreditoLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createTarjetaDeCreditoMismoIdTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setId(data.get(0).getId());
-        nuevaEntidad.setUsuario(dummy);
-        tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getLogin());
+        nuevaEntidad.setUsuario(usuarioData.get(0));
+        tarjetaLogic.crearTarjeta(nuevaEntidad, usuarioData.get(0).getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -260,7 +259,7 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void getTarjetaDeCreditoPorLoginTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.getTarjeta(entidad.getId());
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.getTarjeta(usuarioData.get(0).getLogin(), entidad.getId());
         Assert.assertNotNull(resultado);
         Assert.assertEquals(resultado.getId(), entidad.getId());
         Assert.assertEquals(resultado.getNombreTarjeta(), entidad.getNombreTarjeta());

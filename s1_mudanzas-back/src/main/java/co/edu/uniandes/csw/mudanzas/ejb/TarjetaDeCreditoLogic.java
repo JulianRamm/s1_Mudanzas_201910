@@ -44,8 +44,13 @@ public class TarjetaDeCreditoLogic {
         UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
         TarjetaDeCreditoEntity tarjetaBuscada = tarjetaPersistence.find(tarjeta.getId());
 
+        if(usuarioEntity == null)
+        {
+            throw new BusinessLogicException("No existe ningun usuario \"" + username + "\"");
+        }
+        
         //Verificacion de existencia
-        for (TarjetaDeCreditoEntity tarjetaE : usuarioPersistence.findUsuarioPorLogin(username).getTarjetas()) {
+        for (TarjetaDeCreditoEntity tarjetaE : usuarioEntity.getTarjetas()) {
             if (tarjeta.getId() == tarjetaBuscada.getId()) {
                 throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
             }
