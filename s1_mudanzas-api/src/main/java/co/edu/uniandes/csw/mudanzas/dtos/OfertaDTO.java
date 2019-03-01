@@ -5,13 +5,15 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
+
 /**
  *
  * @author aj.gonzalezt
  */
 public class OfertaDTO {
  
-    private int valor;
+    private double valor;
      
     private Long idOferta;
     
@@ -22,11 +24,20 @@ public class OfertaDTO {
         
     }
 
-    public int getValor() {
+    
+    public OfertaDTO(OfertaEntity oferEntity)
+    {
+        setComentario(oferEntity.getComentario());
+        setValor(oferEntity.getValor());
+        setidOferta(oferEntity.getId());
+       
+    }
+ 
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 

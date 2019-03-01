@@ -12,16 +12,24 @@ import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
  * @author estudiante
  */
 public class SubastaDTO {
-  
+
     private Long idSubasta;
-    
+
     private double valorInicial;
-    
+
     private double valorFinal;
-    
-    public  SubastaDTO()
-    {
-        
+
+    public SubastaDTO() {
+
+    }
+
+    public SubastaDTO(SubastaEntity subEntity) {
+        if (subEntity != null) {
+            setIdSubasta(subEntity.getId());
+            setValorFinal(subEntity.getValorFinal());
+            setValorInicial(subEntity.getValorInicial());
+        }
+
     }
 
     public Long getIdSubasta() {
@@ -47,22 +55,11 @@ public class SubastaDTO {
     public void setValorFinal(double valorFinal) {
         this.valorFinal = valorFinal;
     }
-    
-    public SubastaDTO(SubastaEntity subEntity)
-    {
-        if(subEntity!= null)
-        {
-            idSubasta = subEntity.getId();
-            
-        }
-    }
-    
-    public SubastaEntity toEntity()
-    {
+
+    public SubastaEntity toEntity() {
         SubastaEntity subEntity = new SubastaEntity();
         subEntity.setId(idSubasta);
         return subEntity;
     }
-    
-            
+
 }
