@@ -36,13 +36,13 @@ public class TarjetaDeCreditoLogic {
      * Crea una tarjeta en la persistencia.
      *
      * @param tarjeta La entidad que representa la tarjeta a persistir.
+     * @param username
      * @return La entiddad de la tarjeta luego de persistirla.
      * @throws BusinessLogicException Si la tarjeta a persistir ya existe.
      */
     public TarjetaDeCreditoEntity crearTarjeta(TarjetaDeCreditoEntity tarjeta, String username) throws BusinessLogicException {
 
         UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
-        TarjetaDeCreditoEntity tarjetaBuscada = tarjetaPersistence.find(tarjeta.getId());
 
         if(usuarioEntity == null)
         {
@@ -51,7 +51,7 @@ public class TarjetaDeCreditoLogic {
         
         //Verificacion de existencia
         for (TarjetaDeCreditoEntity tarjetaE : usuarioEntity.getTarjetas()) {
-            if (tarjeta.getId() == tarjetaBuscada.getId()) {
+            if (tarjeta.getId() == tarjetaE.getId()) {
                 throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
             }
         }
@@ -69,7 +69,7 @@ public class TarjetaDeCreditoLogic {
             throw new BusinessLogicException("El nombre de la tarjeta o del propietario solo puede contener letras");
         }
         String codigoS = tarjeta.getCodigoSeguridad() + "";
-        String serial = tarjeta.getNumeroSerial() + "";
+        String serial = tarjeta.getNumeroSerial();
         if (!codigoS.matches("[0-9]{1,3}+")
                 || !serial.matches("[0-9]{12,19}+")) {
             throw new BusinessLogicException("Los digitos de la tarjeta o cs no son validos");
@@ -77,10 +77,10 @@ public class TarjetaDeCreditoLogic {
         //verificacion de fecha de expedicion
         Date fechaV = tarjeta.getFechaVencimiento();
         Calendar cal = Calendar.getInstance();
-        if (fechaV.getMonth() > cal.get(Calendar.MONTH) && fechaV.getYear() > cal.get(Calendar.YEAR)) {
+        if (cal.get(Calendar.MONTH) > fechaV.getMonth() && cal.get(Calendar.YEAR) > fechaV.getYear()) {
             throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
         }
-        tarjeta = tarjetaPersistence.create(tarjeta);
+        tarjetaPersistence.create(tarjeta);
         usuarioEntity.getTarjetas().add(tarjeta);
         return tarjeta;
     }
