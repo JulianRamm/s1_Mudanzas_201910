@@ -6,12 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
