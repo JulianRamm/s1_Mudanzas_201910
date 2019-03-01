@@ -31,6 +31,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VehiculoPersistenceTest 
 {
+    PodamFactory factory = new PodamFactoryImpl();
+    
      @Inject
     private VehiculoPersistence VPersistence;
     
@@ -94,7 +96,6 @@ public class VehiculoPersistenceTest
         }
     }
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             VehiculoEntity entity = factory.manufacturePojo(VehiculoEntity.class);
@@ -112,7 +113,6 @@ public class VehiculoPersistenceTest
     @Test
     public void createVehiculoTest()
     {
-        PodamFactory factory = new PodamFactoryImpl();
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
         VehiculoEntity result = VPersistence.create(newEntity);
         Assert.assertNotNull(result);

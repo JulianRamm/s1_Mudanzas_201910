@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
-import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
+import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -29,18 +29,12 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Samuel Bernal Neira
  */
 @RunWith(Arquillian.class)
-public class ConductorPersistenceTest 
+public class DiaPersistenceTest 
 {
-    @Inject
-    private ConductorPersistence ConPersistence;
+    PodamFactory factory = new PodamFactoryImpl();
+     @Inject
+    private DiaPersistence APersistence;
     
-    
-     /**
-     * Variable para martcar las transacciones del em anterior cuando se
-     * crean/borran datos para las pruebas.
-     */
-    @Inject
-    UserTransaction utx;
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
@@ -48,12 +42,21 @@ public class ConductorPersistenceTest
     @PersistenceContext
     private EntityManager em;
     
+     /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    UserTransaction utx;
     
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<ConductorEntity> data = new ArrayList<ConductorEntity>();
+    private List<DiaEntity> data = new ArrayList<DiaEntity>();
 
+    /**
+     * Lista que tiene los datos de prueba.
+     */
     
     /**
      *
@@ -65,8 +68,8 @@ public class ConductorPersistenceTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ConductorEntity.class.getPackage())
-                .addPackage(ConductorPersistence.class.getPackage())
+                .addPackage(DiaEntity.class.getPackage())
+                .addPackage(DiaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -92,10 +95,10 @@ public class ConductorPersistenceTest
         }
     }
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+        
         for (int i = 0; i < 3; i++) {
 
-            ConductorEntity entity = factory.manufacturePojo(ConductorEntity.class);
+            DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
 
             em.persist(entity);
 
@@ -104,18 +107,17 @@ public class ConductorPersistenceTest
     }
     private void clearData() 
     {
-        em.createQuery("delete from ConductorEntity").executeUpdate();
+        em.createQuery("delete from DiaEntity").executeUpdate();
     }
     
     @Test
-    public void createConductorTest()
+    public void createAgendaTest()
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        ConductorEntity newEntity = factory.manufacturePojo(ConductorEntity.class);
-        ConductorEntity result = ConPersistence.create(newEntity);
+        DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
+        DiaEntity result = APersistence.create(newEntity);
         Assert.assertNotNull(result);
 
-        ConductorEntity entity = em.find(ConductorEntity.class, result.getId());
+        DiaEntity entity = em.find(DiaEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
