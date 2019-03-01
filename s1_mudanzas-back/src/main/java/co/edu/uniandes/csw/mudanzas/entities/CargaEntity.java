@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,6 +48,9 @@ public class CargaEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @ManyToOne()
     private UsuarioEntity usuario;
+    /**
+     * datos del envío
+     */
     private String datosEnvio;
 
     /**
@@ -73,13 +76,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * fecha estimada de llegada definida por el proveedor
      */
+    
     @Temporal(TemporalType.DATE)
     private Date fechaEstimadaLlegada;
 
     /**
      * fecha en la que la carga va a ser trasladada
      */
-    @Temporal(TemporalType.DATE)
+     @Temporal(TemporalType.DATE)
     private Date fechaEnvio;
 
     /**

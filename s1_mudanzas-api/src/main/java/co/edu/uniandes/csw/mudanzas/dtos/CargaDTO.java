@@ -5,7 +5,9 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -47,25 +49,19 @@ public class CargaDTO implements Serializable{
 	 * fecha estimada de llegada definida por el proveedor
 	 */
 	
-	private String fechaEstimadaLlegada;
+	private Date fechaEstimadaLlegada;
 
 	/**
 	 * fecha en la que la carga va a ser trasladada
 	 */
 	
-	private String fechaEnvio;
+	private Date fechaEnvio;
 
 	/**
 	 * observaciones sadicionales definidas por el cliente
 	 */
 	
 	private String observaciones;
-
-	/**
-	 * 
-	 */
-	
-	private int valorInicialS;
 
 	/**
 	 * id de la carga 
@@ -79,6 +75,20 @@ public class CargaDTO implements Serializable{
         public CargaDTO() {
             
         }
+
+    public CargaDTO(CargaEntity cargaEntity) {
+        if(cargaEntity!=null){
+            this.datosEnvio=cargaEntity.getDatosEnvio();
+            this.fechaEnvio=cargaEntity.getFechaEnvio();
+            this.fechaEstimadaLlegada=cargaEntity.getFechaEstimadaLlegada();
+            this.id=cargaEntity.getId();
+            this.imagenes=cargaEntity.getImagenes();
+            this.lugarLlegada=cargaEntity.getLugarLlegada();
+            this.lugarSalida=cargaEntity.getLugarSalida();
+            this.observaciones=cargaEntity.getObservaciones();
+            this.volumen=cargaEntity.getVolumen();
+        }
+    }
 
     /**
      * @return the datosEnvio
@@ -153,28 +163,28 @@ public class CargaDTO implements Serializable{
     /**
      * @return the fechaEstimadaLlegada
      */
-    public String getFechaEstimadaLlegada() {
+    public Date getFechaEstimadaLlegada() {
         return fechaEstimadaLlegada;
     }
 
     /**
      * @param fechaEstimadaLlegada the fechaEstimadaLlegada to set
      */
-    public void setFechaEstimadaLlegada(String fechaEstimadaLlegada) {
+    public void setFechaEstimadaLlegada(Date fechaEstimadaLlegada) {
         this.fechaEstimadaLlegada = fechaEstimadaLlegada;
     }
 
     /**
      * @return the fechaEnvio
      */
-    public String getFechaEnvio() {
+    public Date getFechaEnvio() {
         return fechaEnvio;
     }
 
     /**
      * @param fechaEnvio the fechaEnvio to set
      */
-    public void setFechaEnvio(String fechaEnvio) {
+    public void setFechaEnvio(Date fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
     }
 
@@ -193,20 +203,6 @@ public class CargaDTO implements Serializable{
     }
 
     /**
-     * @return the valorInicialS
-     */
-    public int getValorInicialS() {
-        return valorInicialS;
-    }
-
-    /**
-     * @param valorInicialS the valorInicialS to set
-     */
-    public void setValorInicialS(int valorInicialS) {
-        this.valorInicialS = valorInicialS;
-    }
-
-    /**
      * @return the id
      */
     public long getId() {
@@ -218,6 +214,10 @@ public class CargaDTO implements Serializable{
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    CargaEntity toEntity() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

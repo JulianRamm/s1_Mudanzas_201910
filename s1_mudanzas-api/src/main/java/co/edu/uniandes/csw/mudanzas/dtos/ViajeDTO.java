@@ -7,7 +7,9 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -48,11 +50,11 @@ public class ViajeDTO implements Serializable {
     /**
      * hora de salida del viaje
      */
-    private LocalDateTime horaPartida;
+    private Date horaPartida;
     /**
      * hora de llegada del viaje
      */
-    private LocalDateTime horaLlegada;
+    private Date horaLlegada;
     /**
      * @return the id
      */
@@ -151,12 +153,14 @@ public class ViajeDTO implements Serializable {
      */
     public ViajeDTO(ViajesEntity viajesEntity) {
         if (viajesEntity != null) {
+            this.id=viajesEntity.getId();
             this.clima = viajesEntity.getClima();
             this.gastoGasolina = viajesEntity.getGastoGasolina();
-            this.id = viajesEntity.getId();
             this.lugarLlegada = viajesEntity.getLugarLlegada();
             this.lugarSalida = viajesEntity.getLugarSalida();
             this.tiempo = viajesEntity.getTiempo();
+            this.horaLlegada=viajesEntity.getHoraLlegada();
+            this.horaPartida=viajesEntity.getHoraPartida();
         }
     }
 
@@ -168,34 +172,40 @@ public class ViajeDTO implements Serializable {
         viajesEntity.setLugarLlegada(this.lugarLlegada);
         viajesEntity.setLugarSalida(this.lugarSalida);
         viajesEntity.setTiempo(this.tiempo);
+        viajesEntity.setHoraLlegada(this.horaLlegada);
+        viajesEntity.setHoraPartida(this.horaPartida);
         return viajesEntity;
     }
 
     /**
      * @return the horaPartida
      */
-    public LocalDateTime getHoraPartida() {
+    public Date getHoraPartida() {
         return horaPartida;
     }
 
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraPartida(LocalDateTime horaPartida) {
+    public void setHoraPartida(Date horaPartida) {
         this.horaPartida = horaPartida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraLlegada() {
+    public Date getHoraLlegada() {
         return horaLlegada;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraLlegada(LocalDateTime horaLlegada) {
+    public void setHoraLlegada(Date horaLlegada) {
         this.horaLlegada = horaLlegada;
+    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

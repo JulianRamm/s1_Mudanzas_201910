@@ -200,4 +200,6 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
         this.proveedor = proveedor;
     }
 
+    
+
 }
