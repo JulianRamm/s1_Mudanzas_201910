@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
-import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,12 +113,12 @@ public class TarjetaDeCreditoLogicTest {
      * pruebas.
      */
     private void insertData() {
-        
+
         UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
         usuario.setLogin("luismigolondo");
         em.persist(usuario);
         usuarioData = usuario;
-        
+
         for (int j = 0; j < 3; j++) {
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
             entity.setUsuario(usuarioData);
@@ -139,7 +138,7 @@ public class TarjetaDeCreditoLogicTest {
         fechaV.setYear(2020);
         nuevaEntidad.setCodigoSeguridad(951);
         nuevaEntidad.setFechaVencimiento(fechaV);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad,usuarioData.getLogin());
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, usuarioData.getLogin());
 
         Assert.assertNotNull(resultado);
 

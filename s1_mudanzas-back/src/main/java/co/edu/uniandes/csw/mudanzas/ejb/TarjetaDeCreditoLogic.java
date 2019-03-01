@@ -44,11 +44,10 @@ public class TarjetaDeCreditoLogic {
 
         UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
 
-        if(usuarioEntity == null)
-        {
+        if (usuarioEntity == null) {
             throw new BusinessLogicException("No existe ningun usuario \"" + username + "\"");
         }
-        
+
         //Verificacion de existencia
         for (TarjetaDeCreditoEntity tarjetaE : usuarioEntity.getTarjetas()) {
             if (tarjeta.getId() == tarjetaE.getId()) {

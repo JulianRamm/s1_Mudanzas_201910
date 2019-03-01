@@ -112,8 +112,7 @@ public class UsuarioResource {
     @Path("{login}")
     public void deleteUsuario(@PathParam("login") String login) throws WebApplicationException, BusinessLogicException {
         UsuarioEntity usr = usuarioLogic.getUsuario(login);
-        if(usr == null)
-        {
+        if (usr == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
         }
         usuarioLogic.deleteUsuario(usr.getId());

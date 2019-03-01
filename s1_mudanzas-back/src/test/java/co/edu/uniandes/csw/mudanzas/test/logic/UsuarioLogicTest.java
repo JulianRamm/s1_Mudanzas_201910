@@ -64,11 +64,11 @@ public class UsuarioLogicTest {
      * Lista que tiene los datos de prueba.
      */
     private List<UsuarioEntity> data = new ArrayList<UsuarioEntity>();
-    
+
     private List<TarjetaDeCreditoEntity> tarjetaData = new ArrayList<TarjetaDeCreditoEntity>();
-    
+
     private PodamFactory factory = new PodamFactoryImpl();
-    
+
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -162,7 +162,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void loginTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -171,7 +171,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void passwordTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -180,7 +180,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void nameTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -189,7 +189,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void apellidoTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -198,7 +198,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void ciudadTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -207,7 +207,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void namesTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -216,7 +216,7 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void createUsuarioMismoLoginTest() throws BusinessLogicException {
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
@@ -282,7 +282,7 @@ public class UsuarioLogicTest {
         Assert.assertEquals(nuevaEntidad.getPassword(), respuesta.getPassword());
         Assert.assertEquals(nuevaEntidad.getLogin(), respuesta.getLogin());
     }
-    
+
     @Test
     public void deleteUsuarioTest() throws BusinessLogicException {
         UsuarioEntity entidad = data.get(1);
@@ -290,5 +290,5 @@ public class UsuarioLogicTest {
         UsuarioEntity borrar = em.find(UsuarioEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
-    
+
 }
