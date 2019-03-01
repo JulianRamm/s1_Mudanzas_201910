@@ -50,6 +50,10 @@ public class TarjetaDeCreditoDTO implements Serializable{
     public TarjetaDeCreditoDTO(){
         
     }
+
+    TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * @return the idTarjeta

@@ -59,8 +59,8 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    private List<TarjetaDeCreditoEntity> tarjetas;   
-    
+    private List<TarjetaDeCreditoEntity> tarjetas;
+
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
@@ -191,5 +191,19 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
      */
     public void setCargas(List<CargaEntity> cargas) {
         this.cargas = cargas;
+    }
+
+    /**
+     * @return the subastas
+     */
+    public List<SubastaEntity> getSubastas() {
+        return subastas;
+    }
+
+    /**
+     * @param subastas the subastas to set
+     */
+    public void setSubastas(List<SubastaEntity> subastas) {
+        this.subastas = subastas;
     }
 }
