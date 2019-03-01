@@ -7,9 +7,11 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -52,6 +54,8 @@ public class TarjetaDeCreditoLogicTest {
     @PersistenceContext
     private EntityManager em;
 
+    private PodamFactory factory = new PodamFactoryImpl();
+
     /**
      * Variable para martcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
@@ -63,6 +67,8 @@ public class TarjetaDeCreditoLogicTest {
      * Lista que tiene los datos de prueba.
      */
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+
+    private List<UsuarioEntity> usuarioData = new ArrayList<UsuarioEntity>();
 
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
@@ -105,6 +111,7 @@ public class TarjetaDeCreditoLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+        em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
     /**
@@ -112,22 +119,30 @@ public class TarjetaDeCreditoLogicTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-
+            UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
+            em.persist(usuario);
+            usuarioData.add(usuario);
+        }
+        for (int j = 0; j < 3; j++) {
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            entity.setUsuario(usuarioData.get(0));
 
             em.persist(entity);
-
             data.add(entity);
         }
     }
 
     @Test
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
+        nuevaEntidad.setNombreTarjeta("prueba");
+        nuevaEntidad.setTitularCuenta("luism");
+        nuevaEntidad.setNumeroSerial(1234567891011L);
+        nuevaEntidad.setCodigoSeguridad(654);
+        nuevaEntidad.setUsuario(dummy);
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getLogin());
         Assert.assertNotNull(resultado);
         TarjetaDeCreditoEntity entidad = em.find(TarjetaDeCreditoEntity.class, resultado.getId());
         Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
@@ -139,10 +154,79 @@ public class TarjetaDeCreditoLogicTest {
 
     @Test(expected = BusinessLogicException.class)
     public void createTarjetaDeCreditoMismoIdTest() throws BusinessLogicException {
-        PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         nuevaEntidad.setId(data.get(0).getId());
-        tarjetaLogic.crearTarjeta(nuevaEntidad);
+        nuevaEntidad.setUsuario(usuarioData.get(0));
+        tarjetaLogic.crearTarjeta(nuevaEntidad, usuarioData.get(0).getLogin());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void nullTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
+        trjt.setUsuario(null);
+        //llamamos al manager de persistencia, en este caso no se creara
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void expresionRegularNombreTarjetaTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
+        trjt.setNombreTarjeta("l1234");
+        trjt.setUsuario(dummy);
+        //llamamos al manager de persistencia, en este caso no se creara
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void expresionRegularTitularCuentaTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
+        trjt.setTitularCuenta("l1234");
+        trjt.setUsuario(dummy);
+        //llamamos al manager de persistencia, en este caso no se creara
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void serialTarjetaTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
+        Integer menorQue12 = 1234567890;
+        trjt.setNumeroSerial(menorQue12.longValue());
+        trjt.setUsuario(dummy);
+        //llamamos al manager de persistencia, en este caso no se creara
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void codigoSeguridadTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
+        trjt.setCodigoSeguridad(1672);
+        trjt.setUsuario(dummy);
+        //llamamos al manager de persistencia, en este caso no se creara
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void fechaVencimientoTarjetaTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
+        Date fechaProximoAnio = new Date();
+        fechaProximoAnio.setMonth(03);
+        fechaProximoAnio.setYear(2020);
+        trjt.setFechaVencimiento(fechaProximoAnio);
+        trjt.setUsuario(dummy);
+        //llamamos al manager de persistencia, en este caso no se creara
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test
@@ -175,7 +259,7 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void getTarjetaDeCreditoPorLoginTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.getTarjeta(entidad.getId());
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.getTarjeta(usuarioData.get(0).getLogin(), entidad.getId());
         Assert.assertNotNull(resultado);
         Assert.assertEquals(resultado.getId(), entidad.getId());
         Assert.assertEquals(resultado.getNombreTarjeta(), entidad.getNombreTarjeta());
@@ -186,7 +270,6 @@ public class TarjetaDeCreditoLogicTest {
 
     @Test
     public void updateTarjetaDeCreditoTest() {
-        PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity entidad = data.get(0);
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         nuevaEntidad.setId(entidad.getId());

@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.mudanzas.test.persistence;
+package co.edu.uniandes.csw.mudanzas.test.logic;
 
+import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
+import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +28,17 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Samuel Bernal Neira
  */
 @RunWith(Arquillian.class)
-public class VehiculoPersistenceTest 
+public class VehiculoLogicTest 
 {
+  
     PodamFactory factory = new PodamFactoryImpl();
     
+    
      @Inject
-    private VehiculoPersistence VPersistence;
+    private VehiculoLogic VLogic;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -55,9 +59,7 @@ public class VehiculoPersistenceTest
      */
     private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
+   
     
     /**
      *
@@ -67,10 +69,11 @@ public class VehiculoPersistenceTest
      * dependencias.
      */
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive createDeployment() 
+    {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VehiculoEntity.class.getPackage())
-                .addPackage(VehiculoPersistence.class.getPackage())
+                .addPackage(VehiculoLogic.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -82,7 +85,6 @@ public class VehiculoPersistenceTest
     public void configTest() {
         try {
             utx.begin();
-            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
@@ -111,15 +113,25 @@ public class VehiculoPersistenceTest
     }
     
     @Test
-    public void createVehiculoTest()
+    public void createVehiculoTest() throws BusinessLogicException
     {
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
-        VehiculoEntity result = VPersistence.create(newEntity);
+        VehiculoEntity result = VLogic.crearVehiculo(newEntity);
         Assert.assertNotNull(result);
 
         VehiculoEntity entity = em.find(VehiculoEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getPlaca(), entity.getPlaca());
     }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void createVehiculoConMismaPlaca() throws BusinessLogicException
+    {
+        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
+        newEntity.setPlaca(data.get(0).getPlaca());
+        VLogic.crearVehiculo(newEntity);
+    }
+    
     
 }

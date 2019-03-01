@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
-import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
+import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -26,15 +26,14 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Samuel Bernal Neira
  */
 @RunWith(Arquillian.class)
-public class VehiculoPersistenceTest 
+public class DiaPersistenceTest 
 {
     PodamFactory factory = new PodamFactoryImpl();
-    
      @Inject
-    private VehiculoPersistence VPersistence;
+    private DiaPersistence APersistence;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -53,7 +52,7 @@ public class VehiculoPersistenceTest
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
+    private List<DiaEntity> data = new ArrayList<DiaEntity>();
 
     /**
      * Lista que tiene los datos de prueba.
@@ -69,8 +68,8 @@ public class VehiculoPersistenceTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(VehiculoEntity.class.getPackage())
-                .addPackage(VehiculoPersistence.class.getPackage())
+                .addPackage(DiaEntity.class.getPackage())
+                .addPackage(DiaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -96,9 +95,10 @@ public class VehiculoPersistenceTest
         }
     }
     private void insertData() {
+        
         for (int i = 0; i < 3; i++) {
 
-            VehiculoEntity entity = factory.manufacturePojo(VehiculoEntity.class);
+            DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
 
             em.persist(entity);
 
@@ -107,17 +107,17 @@ public class VehiculoPersistenceTest
     }
     private void clearData() 
     {
-        em.createQuery("delete from VehiculoEntity").executeUpdate();
+        em.createQuery("delete from DiaEntity").executeUpdate();
     }
     
     @Test
-    public void createVehiculoTest()
+    public void createAgendaTest()
     {
-        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
-        VehiculoEntity result = VPersistence.create(newEntity);
+        DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
+        DiaEntity result = APersistence.create(newEntity);
         Assert.assertNotNull(result);
 
-        VehiculoEntity entity = em.find(VehiculoEntity.class, result.getId());
+        DiaEntity entity = em.find(DiaEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }

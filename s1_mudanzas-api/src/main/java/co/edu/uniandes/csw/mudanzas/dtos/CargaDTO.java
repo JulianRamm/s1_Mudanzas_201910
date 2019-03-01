@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -79,6 +80,10 @@ public class CargaDTO implements Serializable{
         public CargaDTO() {
             
         }
+
+    CargaDTO(CargaEntity carga) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * @return the datosEnvio
@@ -218,6 +223,10 @@ public class CargaDTO implements Serializable{
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    CargaEntity toEntity() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

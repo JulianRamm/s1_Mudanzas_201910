@@ -7,11 +7,9 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.transaction.UserTransaction;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -19,57 +17,70 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Luis Miguel
  */
 @Entity
-public class UsuarioEntity extends BaseEntity implements Serializable{
-    
+public class UsuarioEntity extends BaseEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Atributo que representa el nombre de usuario de un Usuario
      */
     private String login;
-    
+
     /**
      * Atributo que representa la contraseña de un Usuario
      */
     private String password;
-    
+
     /**
      * Atributo que representa el nombre del usuario
-     */    
+     */
     private String nombre;
-    
+
     /**
      * Atributo que representa el apellido del usuario.
      */
     private String apellido;
-    
+
     /**
      * Atributo que representa el correo electronico del usuario
      */
     private String correoElectronico;
-    
+
     /**
      * Atributo que representa la ciudad de origen del usuario.
      */
     private String ciudadDeOrigen;
-    
+
     /**
-     * Lista, coleccion que contiene todas las tarjetas de ese usuario. bla bla
+     * Lista, coleccion que contiene todas las tarjetas de ese usuario.
      */
     @PodamExclude
     @OneToMany(
-            mappedBy = "usuario", 
+            mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    List<TarjetaDeCreditoEntity> tarjetas;
-        
+    private List<TarjetaDeCreditoEntity> tarjetas;
+
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "usuario",
+            fetch = FetchType.LAZY
+    )
+    private List<SubastaEntity> subastas;
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "usuario",
+            fetch = FetchType.LAZY
+    )
+    private List<CargaEntity> cargas;
+
     /**
      * Constructor por defecto de la entidad.
      */
     public UsuarioEntity() {
-        
+
     }
-    
+
     /**
      * @return the login
      */
@@ -153,20 +164,46 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public void setCiudadDeOrigen(String ciudadDeOrigen) {
         this.ciudadDeOrigen = ciudadDeOrigen;
     }
-    
+
     /**
      * @param lTarjetas la lista de tarjetas que se quiere cambiar.
      */
-    public void setTarjetas(List<TarjetaDeCreditoEntity> lTarjetas)
-    {
+    public void setTarjetas(List<TarjetaDeCreditoEntity> lTarjetas) {
         this.tarjetas = lTarjetas;
     }
-    
+
     /**
-     * @return la lista de tarjetas de credito de un usuario. 
+     * @return la lista de tarjetas de credito de un usuario.
      */
-    public List<TarjetaDeCreditoEntity> getTarjetas()
-    {
+    public List<TarjetaDeCreditoEntity> getTarjetas() {
         return tarjetas;
+    }
+
+    /**
+     * @return the cargas
+     */
+    public List<CargaEntity> getCargas() {
+        return cargas;
+    }
+
+    /**
+     * @param cargas the cargas to set
+     */
+    public void setCargas(List<CargaEntity> cargas) {
+        this.cargas = cargas;
+    }
+
+    /**
+     * @return the subastas
+     */
+    public List<SubastaEntity> getSubastas() {
+        return subastas;
+    }
+
+    /**
+     * @param subastas the subastas to set
+     */
+    public void setSubastas(List<SubastaEntity> subastas) {
+        this.subastas = subastas;
     }
 }

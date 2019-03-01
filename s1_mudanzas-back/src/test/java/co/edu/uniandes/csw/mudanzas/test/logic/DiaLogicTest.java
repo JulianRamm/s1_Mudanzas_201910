@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.mudanzas.test.persistence;
+package co.edu.uniandes.csw.mudanzas.test.logic;
 
-import co.edu.uniandes.csw.mudanzas.entities.AgendaEntity;
-import co.edu.uniandes.csw.mudanzas.persistence.AgendaPersistence;
+import co.edu.uniandes.csw.mudanzas.ejb.DiaLogic;
+import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -26,13 +28,16 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Samuel Bernal Neira
  */
 @RunWith(Arquillian.class)
-public class AgendaPersistenceTest 
-{
+public class DiaLogicTest 
+{ 
+    PodamFactory factory = new PodamFactoryImpl();
+
+    
      @Inject
-    private AgendaPersistence APersistence;
+    private DiaLogic DLogic;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -51,7 +56,7 @@ public class AgendaPersistenceTest
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<AgendaEntity> data = new ArrayList<AgendaEntity>();
+    private List<DiaEntity> data = new ArrayList<DiaEntity>();
 
     /**
      * Lista que tiene los datos de prueba.
@@ -67,8 +72,9 @@ public class AgendaPersistenceTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(AgendaEntity.class.getPackage())
-                .addPackage(AgendaPersistence.class.getPackage())
+                .addPackage(DiaEntity.class.getPackage())
+                .addPackage(DiaLogic.class.getPackage())
+                .addPackage(DiaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -80,7 +86,6 @@ public class AgendaPersistenceTest
     public void configTest() {
         try {
             utx.begin();
-            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
@@ -94,10 +99,9 @@ public class AgendaPersistenceTest
         }
     }
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
-            AgendaEntity entity = factory.manufacturePojo(AgendaEntity.class);
+            DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
 
             em.persist(entity);
 
@@ -106,18 +110,17 @@ public class AgendaPersistenceTest
     }
     private void clearData() 
     {
-        em.createQuery("delete from AgendaEntity").executeUpdate();
+        em.createQuery("delete from DiaEntity").executeUpdate();
     }
     
     @Test
-    public void createAgendaTest()
+    public void createAgendaTest() throws BusinessLogicException
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        AgendaEntity newEntity = factory.manufacturePojo(AgendaEntity.class);
-        AgendaEntity result = APersistence.create(newEntity);
+        DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
+        DiaEntity result = DLogic.crearDia(newEntity);
         Assert.assertNotNull(result);
 
-        AgendaEntity entity = em.find(AgendaEntity.class, result.getId());
+        DiaEntity entity = em.find(DiaEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }

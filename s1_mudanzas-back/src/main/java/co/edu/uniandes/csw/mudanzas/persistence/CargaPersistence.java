@@ -70,8 +70,8 @@ public class CargaPersistence {
         em.remove(find(cargaId));
     }
     /**
-     * método que actualiza una carga dado el objeto con los cambios nuevos
-     * @param viajesEntity
+     * método que actualiza una carga dado el objeto con los cambios nuevo
+     * @param cargaEntity
      * @return 
      */
     public CargaEntity update(CargaEntity cargaEntity) {

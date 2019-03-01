@@ -199,7 +199,6 @@ public class UsuarioPersistenceTest {
         UsuarioEntity nuevo = ep.findUsuarioPorLogin(entidad.getLogin());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getLogin(), nuevo.getLogin());
-
         nuevo = ep.findUsuarioPorLogin(null);
         Assert.assertNull(nuevo);
     }
