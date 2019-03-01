@@ -68,6 +68,8 @@ public class TarjetaDeCreditoLogicTest {
      */
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
 
+    private List<UsuarioEntity> usuarioData = new ArrayList<UsuarioEntity>();
+
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -109,6 +111,7 @@ public class TarjetaDeCreditoLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+        em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
     /**
@@ -117,11 +120,15 @@ public class TarjetaDeCreditoLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-
+            UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
+            em.persist(usuario);
+            usuarioData.add(usuario);
+        }
+        for (int j = 0; j < 3; j++) {
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            entity.setUsuario(usuarioData.get(0));
 
             em.persist(entity);
-
             data.add(entity);
         }
     }
@@ -129,13 +136,13 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
+        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setNombreTarjeta("prueba");
         nuevaEntidad.setTitularCuenta("luism");
         nuevaEntidad.setNumeroSerial(1234567891011L);
         nuevaEntidad.setCodigoSeguridad(654);
         nuevaEntidad.setUsuario(dummy);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getELogin());
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getLogin());
         Assert.assertNotNull(resultado);
         TarjetaDeCreditoEntity entidad = em.find(TarjetaDeCreditoEntity.class, resultado.getId());
         Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
@@ -151,7 +158,7 @@ public class TarjetaDeCreditoLogicTest {
         UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
         nuevaEntidad.setId(data.get(0).getId());
         nuevaEntidad.setUsuario(dummy);
-        tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(nuevaEntidad, dummy.getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -161,7 +168,7 @@ public class TarjetaDeCreditoLogicTest {
         UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
         trjt.setUsuario(null);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -172,7 +179,7 @@ public class TarjetaDeCreditoLogicTest {
         trjt.setNombreTarjeta("l1234");
         trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -183,7 +190,7 @@ public class TarjetaDeCreditoLogicTest {
         trjt.setTitularCuenta("l1234");
         trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -195,7 +202,7 @@ public class TarjetaDeCreditoLogicTest {
         trjt.setNumeroSerial(menorQue12.longValue());
         trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -206,7 +213,7 @@ public class TarjetaDeCreditoLogicTest {
         trjt.setCodigoSeguridad(1672);
         trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -220,7 +227,7 @@ public class TarjetaDeCreditoLogicTest {
         trjt.setFechaVencimiento(fechaProximoAnio);
         trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getELogin());
+        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
     @Test

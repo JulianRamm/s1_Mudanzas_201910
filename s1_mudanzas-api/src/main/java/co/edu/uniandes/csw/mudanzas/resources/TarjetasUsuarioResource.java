@@ -86,7 +86,7 @@ public class TarjetasUsuarioResource {
     @POST
     public TarjetaDeCreditoDTO crearTarjeta(@PathParam("login") String login, TarjetaDeCreditoDTO tarjeta) throws WebApplicationException, BusinessLogicException {
         if (tarjetaLogic.getTarjeta(login, tarjeta.getIdTarjeta()) != null) {
-            throw new WebApplicationException("El recurso /tarjetas/" + tarjeta.getIdTarjeta() + " ya existe.", 404);
+            throw new WebApplicationException("El recurso /tarjetas/" + tarjeta.getIdTarjeta() + " ya existe.", 412);
         }
         TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.crearTarjeta(tarjeta.toEntity(), login));
         return tarjetaDTO;

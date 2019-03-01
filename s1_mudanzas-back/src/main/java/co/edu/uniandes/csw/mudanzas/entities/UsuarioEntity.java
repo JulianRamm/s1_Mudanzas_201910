@@ -84,77 +84,77 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
     /**
      * @return the login
      */
-    public String getELogin() {
+    public String getLogin() {
         return login;
     }
 
     /**
      * @param login the login to set
      */
-    public void setELogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
     /**
      * @return the password
      */
-    public String getEPassword() {
+    public String getPassword() {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setEPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
     /**
      * @return the nombre
      */
-    public String getENombre() {
+    public String getNombre() {
         return nombre;
     }
 
     /**
      * @param nombre the nombre to set
      */
-    public void setENombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
      * @return the apellido
      */
-    public String getEApellido() {
+    public String getApellido() {
         return apellido;
     }
 
     /**
      * @param apellido the apellido to set
      */
-    public void setEApellido(String apellido) {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
     /**
      * @return the correoElectronico
      */
-    public String getECorreoElectronico() {
+    public String getCorreoElectronico() {
         return correoElectronico;
     }
 
     /**
      * @param correoElectronico the correoElectronico to set
      */
-    public void setECorreoElectronico(String correoElectronico) {
+    public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
     /**
      * @return the ciudadDeOrigen
      */
-    public String getECiudadDeOrigen() {
+    public String getCiudadDeOrigen() {
         return ciudadDeOrigen;
     }
 
