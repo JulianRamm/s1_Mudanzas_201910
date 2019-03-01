@@ -79,6 +79,11 @@ public class TarjetaDeCreditoDTO implements Serializable {
 
     }
 
+    /**
+     * Constructor que recibe una entidad y la convierte a DTO.
+     *
+     * @param tarjeta entidad con la que se va a crear el dto
+     */
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
         if (tarjeta != null) {
             this.idTarjeta = tarjeta.getId();
@@ -178,6 +183,11 @@ public class TarjetaDeCreditoDTO implements Serializable {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    /**
+     * Metodo que convierte una Tarjeta DTO a Entity
+     *
+     * @return TarjetaDeCreditoEntity El DTO ya convertido.
+     */
     public TarjetaDeCreditoEntity toEntity() {
         TarjetaDeCreditoEntity tarjeta = new TarjetaDeCreditoEntity();
         tarjeta.setId(this.idTarjeta);

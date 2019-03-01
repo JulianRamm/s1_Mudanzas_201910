@@ -36,8 +36,11 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class UsuarioResource {
 
+    /**
+     * Atributo que inyecta la logica del usuario en el recurso.
+     */
     @Inject
-    UsuarioLogic usuarioLogic;
+    private UsuarioLogic usuarioLogic;
 
     /**
      * Crea un nuevo Usuario y se regresa un objeto identico con un id

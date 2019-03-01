@@ -29,6 +29,9 @@ public class TarjetaDeCreditoLogic {
     @Inject
     private TarjetaDeCreditoPersistence tarjetaPersistence;
 
+    /**
+     * Atributo que inyecta la persistencia del usuario en la logica.
+     */
     @Inject
     private UsuarioPersistence usuarioPersistence;
 
