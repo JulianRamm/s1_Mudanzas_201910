@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -20,14 +21,16 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
-
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
     private static final long serialVersionUID = 1L;
 
     private String placa;
 
     private double rendimiento;
     
-    private Long idConductorActual;
+    private long idConductorActual;
     
     private String marca;
     
@@ -44,8 +47,8 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
-    @ManyToOne
-    private ConductorEntity conductor;
+    @ManyToMany
+    private List<ConductorEntity> conductor;
 
     @PodamExclude
     @OneToOne
@@ -68,9 +71,6 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
-    
-   
 
     /**
      * @return the numeroConductores
@@ -118,14 +118,14 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * @return the conductores
      */
-    public ConductorEntity getConductor() {
+    public List<ConductorEntity> getConductor() {
         return conductor;
     }
 
     /**
      * @param conductor the conductores to set
      */
-    public void setConductores(ConductorEntity conductor) {
+    public void setConductores(List<ConductorEntity> conductor) {
         this.conductor = conductor;
     }
 
@@ -160,15 +160,16 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * @return the idConductorActual
      */
-    public Long getIdConductorActual() {
+    public long getIdConductorActual() {
         return idConductorActual;
     }
 
     /**
-     * @param idConductorActual the idConductorActual to set
+     * @param conductorActual
+     * 
      */
-    public void setIdConductorActual(Long idConductorActual) {
-        this.idConductorActual = idConductorActual;
+    public void setIdConductorActual(long conductorActual) {
+        this.idConductorActual = conductorActual;
     }
 
     /**
@@ -183,6 +184,20 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
     }
 
 }

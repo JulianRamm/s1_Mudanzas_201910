@@ -22,76 +22,69 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Samuel Bernal Neira
  */
 @Entity
-public class DiaEntity extends BaseEntity implements Serializable  
-{
- private static final long serialVersionUID = 1L;
- 
- 
- @Temporal (TemporalType.TIME)
- private LocalDateTime horaInicio;
- 
- @Temporal (TemporalType.TIME)
- private LocalDateTime horaFin;
- 
- @Temporal (TemporalType.DATE)
- private Date diaActual;
- 
- private boolean disponibilidad;
- 
- @PodamExclude
- @OneToOne
- private VehiculoEntity vehiculo;
- 
+public class DiaEntity extends BaseEntity implements Serializable {
 
- public DiaEntity()
- {
-     
- }
+    private static final long serialVersionUID = 1L;
 
-   
+    @Temporal(TemporalType.DATE)
+    private Date horaInicio;
 
-    
+    @Temporal(TemporalType.DATE)
+    private Date horaFin;
+
+    @Temporal(TemporalType.DATE)
+    private Date diaActual;
+
+    private boolean isDisponibilidad;
+
+    @PodamExclude
+    @OneToOne
+    private VehiculoEntity vehiculo;
+
+    public DiaEntity() {
+
+    }
 
     /**
      * @return the horaSalida
      */
-    public LocalDateTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaSalida the horaSalida to set
      */
-    public void setHoraInicio(LocalDateTime horaSalida) {
+    public void setHoraInicio(Date horaSalida) {
         this.horaInicio = horaSalida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(LocalDateTime horaLlegada) {
+    public void setHoraFin(Date horaLlegada) {
         this.horaFin = horaLlegada;
     }
 
     /**
      * @return the disponibilidad
      */
-    public boolean isDisponibilidad() {
-        return disponibilidad;
+    public boolean getIsDisponibilidad() {
+        return isDisponibilidad;
     }
 
     /**
-     * @param disponibilidad the disponibilidad to set
+     * @param isDisponibilidad
      */
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
+    public void setIsDisponibilidad(boolean isDisponibilidad) {
+        this.isDisponibilidad = isDisponibilidad;
     }
 
     /**
@@ -121,7 +114,5 @@ public class DiaEntity extends BaseEntity implements Serializable
     public void setDiaActual(Date diaActual) {
         this.diaActual = diaActual;
     }
- 
- 
 
 }

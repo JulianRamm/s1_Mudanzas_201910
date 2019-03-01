@@ -19,9 +19,9 @@ public class DiaDTO implements Serializable
     
     private boolean disponibilidad;
     
-    private LocalDateTime horaInicio;
+    private Date horaInicio;
     
-    private LocalDateTime horaFin;
+    private Date horaFin;
     
     private Date diaActual;
     
@@ -29,7 +29,7 @@ public class DiaDTO implements Serializable
     {
         if(entity != null)
         {
-            this.disponibilidad = entity.isDisponibilidad();
+            this.disponibilidad = entity.getIsDisponibilidad();
             this.horaInicio = entity.getHoraInicio();
             this.horaFin = entity.getHoraFin();
             this.diaActual = entity.getDiaActual();
@@ -40,7 +40,7 @@ public class DiaDTO implements Serializable
     {
         DiaEntity rta = new DiaEntity();
         rta.setDiaActual(this.diaActual);
-        rta.setDisponibilidad(this.disponibilidad);
+        rta.setIsDisponibilidad(this.disponibilidad);
         rta.setHoraInicio(this.horaInicio);
         rta.setHoraFin(this.horaFin);
         return rta;
@@ -64,28 +64,28 @@ public class DiaDTO implements Serializable
     /**
      * @return the horaPartida
      */
-    public LocalDateTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraInicio(LocalDateTime horaPartida) {
+    public void setHoraInicio(Date horaPartida) {
         this.horaInicio = horaPartida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(LocalDateTime horaLlegada) {
+    public void setHoraFin(Date horaLlegada) {
         this.horaFin = horaLlegada;
     }
 

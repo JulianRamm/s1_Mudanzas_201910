@@ -61,28 +61,45 @@ public class UsuarioPersistence {
         TypedQuery<UsuarioEntity> query = em.createQuery("select u from UsuarioEntity u", UsuarioEntity.class);
         return query.getResultList();
     }
-    
-    public void delete(Long usuarioId)
-    {
+
+    /**
+     * Borra de la base de datos al usuario con el:
+     *
+     * @param usuarioId
+     */
+    public void delete(Long usuarioId) {
         em.remove(find(usuarioId));
     }
 
+    /**
+     * Actualiza a un usario de la base de datos por el que entra por parametro.
+     *
+     * @param cambiada
+     * @return el usuario ya cambiado
+     */
     public UsuarioEntity update(UsuarioEntity cambiada) {
         return em.merge(cambiada);
     }
 
-    public UsuarioEntity buscarUsuarioPorLogin(String titularCuenta) {
-       TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
-       query = query.setParameter("login", titularCuenta);
-       List<UsuarioEntity> duenio = query.getResultList();
-       UsuarioEntity resultado;
-       if(duenio == null)
-           resultado = null;
-       else if(duenio.isEmpty())
-           resultado = null;
-       else
-           resultado = duenio.get(0);
-       return resultado;
+    /**
+     * Busca a un usuario por su login
+     *
+     * @param login el nombre de usuario que se desea buscar
+     * @return el usuario completo con ese login
+     */
+    public UsuarioEntity findUsuarioPorLogin(String login) {
+        TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
+        query = query.setParameter("login", login);
+        List<UsuarioEntity> duenio = query.getResultList();
+        UsuarioEntity resultado;
+        if (duenio == null) {
+            resultado = null;
+        } else if (duenio.isEmpty()) {
+            resultado = null;
+        } else {
+            resultado = duenio.get(0);
+        }
+        return resultado;
     }
-    
+
 }
