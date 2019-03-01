@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -58,6 +59,7 @@ public class ViajeDTO implements Serializable {
     /**
      * @return the id
      */
+    private ConductorEntity conductor;
     public long getId() {
         return id;
     }

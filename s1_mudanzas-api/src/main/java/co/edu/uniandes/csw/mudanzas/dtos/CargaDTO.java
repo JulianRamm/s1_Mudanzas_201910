@@ -76,6 +76,7 @@ public class CargaDTO implements Serializable{
             
         }
 
+
     public CargaDTO(CargaEntity cargaEntity) {
         if(cargaEntity!=null){
             this.datosEnvio=cargaEntity.getDatosEnvio();
@@ -89,7 +90,6 @@ public class CargaDTO implements Serializable{
             this.volumen=cargaEntity.getVolumen();
         }
     }
-
     /**
      * @return the datosEnvio
      */

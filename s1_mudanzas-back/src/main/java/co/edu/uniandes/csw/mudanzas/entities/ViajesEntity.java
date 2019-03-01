@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
