@@ -30,9 +30,9 @@ public class ProveedorResource
 {
     
     @Path("{login}/conductores")
-    public Class<ProveedorConductorResource> getProveedorConductorResource(@PathParam("login") String login)
+    public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)
     {
-        return ProveedorConductorResource.class;
+        return ConductorProveedorResource.class;
     }
     
     private static final Logger LOGGER = Logger.getLogger(ProveedorResource.class.getName());
