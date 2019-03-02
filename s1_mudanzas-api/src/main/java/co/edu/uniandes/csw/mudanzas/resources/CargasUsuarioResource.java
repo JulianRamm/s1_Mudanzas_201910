@@ -26,26 +26,27 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Clase que implementa el recurso "usuarios/{login}/cargas"
+ *
  * @author Luis Miguel
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CargasUsuarioResource {
-    
+
     private static final Logger LOGGER = Logger.getLogger(CargasUsuarioResource.class.getName());
-        
+
     /**
      * Atributo que inyecta la logica de la carga en el recurso.
      */
     @Inject
     private CargaLogic cargaLogic;
-    
+
     /**
      * Atributo que inyecta la logica del usuario en el recurso.
      */
     @Inject
     private UsuarioLogic usuarioLogic;
-    
+
     /**
      * Busca y devuelve todas las cargas que existen en el usuario.
      *
@@ -54,14 +55,14 @@ public class CargasUsuarioResource {
      * usuario. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<CargaDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException
-    {
-       List<CargaDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas(login));
-       return listaCargas;
+    public List<CargaDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException {
+        List<CargaDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas(login));
+        return listaCargas;
     }
-    
+
     /**
-     * Busca la carga con el idCarga asociado dentro del usuario con el login asociado.
+     * Busca la carga con el idCarga asociado dentro del usuario con el login
+     * asociado.
      *
      * @param login del usuario que se esta buscando.
      * @param idCarga Identificador de la carga que se esta buscando. Este debe
@@ -70,8 +71,7 @@ public class CargasUsuarioResource {
      */
     @GET
     @Path("{idCarga: \\d+}")
-    public CargaDTO getCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga) throws BusinessLogicException, WebApplicationException
-    {
+    public CargaDTO getCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga) throws BusinessLogicException, WebApplicationException {
         CargaEntity carga = cargaLogic.getCargaUsuario(login, idCarga);
         if (carga == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
@@ -79,40 +79,43 @@ public class CargasUsuarioResource {
         CargaDTO cargaDTO = new CargaDTO(carga);
         return cargaDTO;
     }
-    
+
     /**
-     * Guarda una carga dentro de un usuario con la informacion que recibe el
-     * la URL. Se devuelve la carga que se guarda en el usuario.
+     * Guarda una carga dentro de un usuario con la informacion que recibe el la
+     * URL. Se devuelve la carga que se guarda en el usuario.
      *
-     * @param login del usuario que se esta
-     * actualizando.
+     * @param login del usuario que se esta actualizando.
      * @return JSON {@link CargaDTO} - La carga guardada en el usuario.
      */
     @POST
-    public CargaDTO crearCarga(@PathParam("login") String login, CargaDTO carga) throws BusinessLogicException
-    {
+    public CargaDTO crearCarga(@PathParam("login") String login, CargaDTO carga) throws BusinessLogicException {
         if (cargaLogic.getCargaUsuario(login, carga.getId()) != null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + carga.getId() + " ya existe.", 412);
         }
         CargaDTO tarjetaDTO = new CargaDTO(cargaLogic.createCarga(carga.toEntity(), login));
         return tarjetaDTO;
     }
-    
+
     /**
      * Remplaza una instancia de Carga asociada a una instancia del Usuario
      *
-     * @param login del usuario que se esta
-     * remplazando.
-     * @param idCarga Identificador de la carga que se desea actualizar. Este debe
-     * ser una cadena de dígitos.
+     * @param login del usuario que se esta remplazando.
+     * @param idCarga Identificador de la carga que se desea actualizar. Este
+     * debe ser una cadena de dígitos.
+     * @param carga
      * @return JSON {@link CargaDTO} - La Carga Actualizada
      */
     @PUT
     @Path("{idCarga: \\d+}")
-    public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga, CargaDTO carga){
-        return null;
+    public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga, CargaDTO carga) throws WebApplicationException, BusinessLogicException {
+        carga.setId(idCarga);
+        if (cargaLogic.getCargaUsuario(login, idCarga) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
+        }
+        CargaDTO dto = new CargaDTO(cargaLogic.updateCarga(carga.toEntity()));
+        return dto;
     }
-    
+
     /**
      * Convierte una lista de entidades en lista de DTOs
      *
