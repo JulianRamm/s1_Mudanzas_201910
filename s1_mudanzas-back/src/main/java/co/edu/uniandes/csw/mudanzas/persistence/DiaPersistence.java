@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -41,6 +42,28 @@ public class DiaPersistence
    {
        TypedQuery<DiaEntity> query = em.createQuery("select u from DiaEntity u", DiaEntity.class);
        return query.getResultList();
+   }
+   public DiaEntity findByVehiculo(VehiculoEntity pV)
+   {
+       DiaEntity rta;
+       TypedQuery<DiaEntity> query = em.createQuery("select e from DiaEntity e where e.vehiculo.id = :pId", DiaEntity.class);
+       query = query.setParameter("pId", pV.getId());
+       
+       List<DiaEntity> sameDia = query.getResultList();
+       
+       if(sameDia == null)
+       {
+           rta = null;
+       }
+       else if(sameDia.isEmpty())
+       {
+           rta = null;
+       }
+       else
+       {
+           rta = sameDia.get(0);
+       }
+       return rta;
    }
     
 }
