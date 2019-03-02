@@ -33,9 +33,7 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     private long idConductorActual;
     
     private String marca;
-    
-   // private String UbicacionActual;
-
+   
     private int numeroConductores;
 
     private String color;
@@ -53,6 +51,10 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne
     private DiaEntity agenda;
+    
+    @PodamExclude
+    @OneToOne
+    private DireccionEntity ubicacionActual;
 
     public VehiculoEntity() {
 
@@ -200,6 +202,18 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
         this.proveedor = proveedor;
     }
 
-    
+    /**
+     * @return the ubicacionActual
+     */
+    public DireccionEntity getUbicacionActual() {
+        return ubicacionActual;
+    }
+
+    /**
+     * @param ubicacionActual the ubicacionActual to set
+     */
+    public void setUbicacionActual(DireccionEntity ubicacionActual) {
+        this.ubicacionActual = ubicacionActual;
+    }
 
 }
