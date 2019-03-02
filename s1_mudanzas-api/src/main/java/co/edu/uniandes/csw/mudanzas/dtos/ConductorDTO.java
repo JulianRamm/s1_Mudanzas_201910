@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 
 /**
  *
@@ -85,9 +86,15 @@ public class ConductorDTO {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    ConductorEntity toEntity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public ConductorEntity toEntity() {
+        ConductorEntity conductor = new ConductorEntity();
+        conductor.setId(this.getId());
+        conductor.setNombre(this.getNombre());
+        conductor.setTelefono(this.getTelefono());
+        conductor.setCalificacion(this.getCalificacion());
+        return conductor;
     }
+
 
 }
