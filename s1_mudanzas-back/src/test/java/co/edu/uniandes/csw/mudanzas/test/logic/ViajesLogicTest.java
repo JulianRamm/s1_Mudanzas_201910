@@ -134,7 +134,7 @@ public class ViajesLogicTest {
         veh.setIdConductorActual(con.getId());
         vehs.add(veh);
         con.setVehiculos(vehs);
-        newEntity.setConductor(con);
+        newEntity.setConductorEntity(con);
         newEntity.getVehiculoDelViaje().setRendimiento(21);
         LinkedList<DireccionEntity> dirs = new LinkedList<>();
         DireccionEntity dir = new DireccionEntity();
@@ -160,7 +160,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCargas(), entity.getCargas());
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
-        Assert.assertEquals(newEntity.getConductor(), entity.getConductor());
+        Assert.assertEquals(newEntity.getConductorEntity(), entity.getConductorEntity());
         Assert.assertEquals(newEntity.getGastoGasolina(), entity.getGastoGasolina());
         Assert.assertEquals(newEntity.getLugarLlegada(), entity.getLugarLlegada());
         Assert.assertEquals(newEntity.getLugarSalida(), entity.getLugarSalida());
@@ -212,7 +212,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCargas(), entity.getCargas());
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
-        Assert.assertEquals(newEntity.getConductor(), entity.getConductor());
+        Assert.assertEquals(newEntity.getConductorEntity(), entity.getConductorEntity());
         Assert.assertEquals(newEntity.getGastoGasolina(), entity.getGastoGasolina());
         Assert.assertEquals(newEntity.getHoraLlegada(), entity.getHoraLlegada());
         Assert.assertEquals(newEntity.getHoraPartida(), entity.getHoraPartida());
@@ -235,7 +235,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(resp.getId(), pojoEntity.getId());
         Assert.assertEquals(resp.getCargas(), pojoEntity.getCargas());
         Assert.assertEquals(resp.getClima(), pojoEntity.getClima());
-        Assert.assertEquals(resp.getConductor(), pojoEntity.getConductor());
+        Assert.assertEquals(resp.getConductorEntity(), pojoEntity.getConductorEntity());
         Assert.assertEquals(resp.getGastoGasolina(), pojoEntity.getGastoGasolina());
         Assert.assertEquals(resp.getHoraLlegada(), pojoEntity.getHoraLlegada());
         Assert.assertEquals(resp.getHoraPartida(), pojoEntity.getHoraPartida());

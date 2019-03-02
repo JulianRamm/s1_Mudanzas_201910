@@ -89,11 +89,6 @@ public class CargaEntity extends BaseEntity implements Serializable{
      * observaciones sadicionales definidas por el cliente
      */
     private String observaciones;
-
-    /**
-     *
-     */
-    private int valorInicialS;
     
     /**
      * @return the datosEnvio
@@ -207,19 +202,6 @@ public class CargaEntity extends BaseEntity implements Serializable{
         this.observaciones = observaciones;
     }
 
-    /**
-     * @return the valorInicialS
-     */
-    public int getValorInicialS() {
-        return valorInicialS;
-    }
-
-    /**
-     * @param valorInicialS the valorInicialS to set
-     */
-    public void setValorInicialS(int valorInicialS) {
-        this.valorInicialS = valorInicialS;
-    }
     /**
      * Constructor por defecto
      */

@@ -14,82 +14,94 @@ import java.util.LinkedList;
  *
  * @author je.osorio
  */
-public class CargaDTO implements Serializable{
+public class CargaDTO implements Serializable {
+
     /**
-	 * Representa los datos de env�o de la carga que se lleva de un lugar a otro
-	 */
-	
-	private String datosEnvio;
+     * viaje en el que va la carga
+     */
+    private ViajesDTO viaje;
+    /**
+     * Usuario dueño de la carga;
+     */
+    private UsuarioDTO usuario;
+    /**
+     * Representa los datos de env�o de la carga que se lleva de un lugar a otro
+     */
 
-	/**
-	 * volumen de la carga en metros al cubo
-	 */
-	
-	private int volumen;
+    private String datosEnvio;
 
-	/**
-	 * lista encadenada de im�genes de la carga del env�o
-	 */
-	
-	private LinkedList<String> imagenes;
+    /**
+     * volumen de la carga en metros al cubo
+     */
+    private int volumen;
 
-	/**
-	 * direcci�n del lugar de salida de la carga
-	 */
-	
-	private String lugarSalida;
+    /**
+     * lista encadenada de im�genes de la carga del env�o
+     */
+    private LinkedList<String> imagenes;
 
-	/**
-	 * direcci�n del lugar de llegada de la carga
-	 */
-	
-	private String lugarLlegada;
+    /**
+     * direcci�n del lugar de salida de la carga
+     */
+    private String lugarSalida;
 
-	/**
-	 * fecha estimada de llegada definida por el proveedor
-	 */
-	
-	private Date fechaEstimadaLlegada;
+    /**
+     * direcci�n del lugar de llegada de la carga
+     */
+    private String lugarLlegada;
 
-	/**
-	 * fecha en la que la carga va a ser trasladada
-	 */
-	
-	private Date fechaEnvio;
+    /**
+     * fecha estimada de llegada definida por el proveedor
+     */
+    private Date fechaEstimadaLlegada;
 
-	/**
-	 * observaciones sadicionales definidas por el cliente
-	 */
-	
-	private String observaciones;
+    /**
+     * fecha en la que la carga va a ser trasladada
+     */
+    private Date fechaEnvio;
 
-	/**
-	 * id de la carga 
-	 */
-	
-	private long id;
-        
-        /**
-         * Constructor por defecto
-         */
-        public CargaDTO() {
-            
-        }
+    /**
+     * observaciones sadicionales definidas por el cliente
+     */
+    private String observaciones;
 
+    /**
+     * id de la carga
+     */
+    private long id;
+
+    /**
+     * Constructor por defecto
+     */
+    public CargaDTO() {
+
+    }
 
     public CargaDTO(CargaEntity cargaEntity) {
-        if(cargaEntity!=null){
-            this.datosEnvio=cargaEntity.getDatosEnvio();
-            this.fechaEnvio=cargaEntity.getFechaEnvio();
-            this.fechaEstimadaLlegada=cargaEntity.getFechaEstimadaLlegada();
-            this.id=cargaEntity.getId();
-            this.imagenes=cargaEntity.getImagenes();
-            this.lugarLlegada=cargaEntity.getLugarLlegada();
-            this.lugarSalida=cargaEntity.getLugarSalida();
-            this.observaciones=cargaEntity.getObservaciones();
-            this.volumen=cargaEntity.getVolumen();
+        if (cargaEntity != null) {
+            this.datosEnvio = cargaEntity.getDatosEnvio();
+            this.fechaEnvio = cargaEntity.getFechaEnvio();
+            this.fechaEstimadaLlegada = cargaEntity.getFechaEstimadaLlegada();
+            this.id = cargaEntity.getId();
+            this.imagenes = cargaEntity.getImagenes();
+            this.lugarLlegada = cargaEntity.getLugarLlegada();
+            this.lugarSalida = cargaEntity.getLugarSalida();
+            this.observaciones = cargaEntity.getObservaciones();
+            this.volumen = cargaEntity.getVolumen();
+            if (cargaEntity.getViaje() != null) {
+                this.viaje = new ViajesDTO(cargaEntity.getViaje());
+            } else {
+                this.viaje = null;
+            }
+            if (cargaEntity.getUsuario() != null) {
+                this.usuario = new UsuarioDTO(cargaEntity.getUsuario());
+            } else {
+                this.usuario = null;
+            }
+
         }
     }
+
     /**
      * @return the datosEnvio
      */
@@ -216,8 +228,52 @@ public class CargaDTO implements Serializable{
         this.id = id;
     }
 
-    CargaEntity toEntity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CargaEntity toEntity() {
+        CargaEntity cargaEntity = new CargaEntity();
+        cargaEntity.setDatosEnvio(this.datosEnvio);
+        cargaEntity.setFechaEnvio(this.fechaEnvio);
+        cargaEntity.setFechaEstimadaLlegada(this.fechaEstimadaLlegada);
+        cargaEntity.setId(this.id);
+        cargaEntity.setImagenes(this.imagenes);
+        cargaEntity.setLugarLlegada(this.lugarLlegada);
+        cargaEntity.setLugarSalida(this.lugarSalida);
+        cargaEntity.setObservaciones(this.observaciones);
+        cargaEntity.setVolumen(this.volumen);
+        if (this.usuario != null) {
+            cargaEntity.setViaje(this.viaje.toEntity());
+        }
+        if (this.viaje != null) {
+            cargaEntity.setViaje(this.viaje.toEntity());
+        }
+        return cargaEntity;
     }
-    
+
+    /**
+     * @return the viaje
+     */
+    public ViajesDTO getViaje() {
+        return viaje;
+    }
+
+    /**
+     * @param viaje the viaje to set
+     */
+    public void setViaje(ViajesDTO viaje) {
+        this.viaje = viaje;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
 }

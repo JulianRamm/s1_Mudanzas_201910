@@ -17,14 +17,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author je.osorio
  */
-public class ViajeDetailDTO extends ViajeDTO implements Serializable {
+public class ViajesDetailDTO extends ViajesDTO implements Serializable {
 
     /**
      * Lista encadenada de CargaDTO que corresponde a que un viaje pude tener 1
      * o màs cargas asignadas
      */
     private List<CargaDTO> cargas;
-    private List<DireccionDTO> direcciones;
 
     /**
      * @return the cargas
@@ -42,7 +41,7 @@ public class ViajeDetailDTO extends ViajeDTO implements Serializable {
     /**
      * constructor vacío
      */
-    public ViajeDetailDTO(){
+    public ViajesDetailDTO(){
         
     }
     /**
@@ -50,7 +49,7 @@ public class ViajeDetailDTO extends ViajeDTO implements Serializable {
      *
      * @param viajesEntity
      */
-    public ViajeDetailDTO(ViajesEntity viajesEntity) {
+    public ViajesDetailDTO(ViajesEntity viajesEntity) {
         super(viajesEntity);
         if (viajesEntity != null) {
             if (viajesEntity.getCargas() != null) {
@@ -72,19 +71,6 @@ public class ViajeDetailDTO extends ViajeDTO implements Serializable {
             viajesEntity.setCargas(cargasEntity);
         }
         return viajesEntity;
-    }
-    /**
-     * @return the direcciones
-     */
-    public List<DireccionDTO> getDirecciones() {
-        return direcciones;
-    }
-
-    /**
-     * @param direcciones the direcciones to set
-     */
-    public void setDirecciones(List<DireccionDTO> direcciones) {
-        this.direcciones = direcciones;
     }
     @Override
     public String toString() {

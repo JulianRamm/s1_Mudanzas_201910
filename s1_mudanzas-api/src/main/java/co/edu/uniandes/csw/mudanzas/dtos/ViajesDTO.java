@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
-import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author je.osorio
  */
-public class ViajeDTO implements Serializable {
+public class ViajesDTO implements Serializable {
 
     /**
      * id del viaje
@@ -57,9 +56,12 @@ public class ViajeDTO implements Serializable {
      */
     private Date horaLlegada;
     /**
+     * conductor del viaje
+     */
+    private ConductorDTO conductor;
+    /**
      * @return the id
      */
-    private ConductorEntity conductor;
     public long getId() {
         return id;
     }
@@ -144,7 +146,7 @@ public class ViajeDTO implements Serializable {
     /**
      * constructor de un objeto que toma la definiciòn de la clase viaje
      */
-    public ViajeDTO() {
+    public ViajesDTO() {
 
     }
 
@@ -153,7 +155,7 @@ public class ViajeDTO implements Serializable {
      *
      * @param viajesEntity
      */
-    public ViajeDTO(ViajesEntity viajesEntity) {
+    public ViajesDTO(ViajesEntity viajesEntity) {
         if (viajesEntity != null) {
             this.id=viajesEntity.getId();
             this.clima = viajesEntity.getClima();
@@ -161,8 +163,14 @@ public class ViajeDTO implements Serializable {
             this.lugarLlegada = viajesEntity.getLugarLlegada();
             this.lugarSalida = viajesEntity.getLugarSalida();
             this.tiempo = viajesEntity.getTiempo();
-            this.horaLlegada=viajesEntity.getHoraLlegada();
-            this.horaPartida=viajesEntity.getHoraPartida();
+            this.horaLlegada = viajesEntity.getHoraLlegada();
+            this.horaPartida = viajesEntity.getHoraPartida();
+            if(viajesEntity.getConductorEntity()!=null){
+                this.conductor = new ConductorDTO(viajesEntity.getConductorEntity());
+            }
+            else{
+                this.conductor=null;
+            }
         }
     }
 
@@ -176,6 +184,9 @@ public class ViajeDTO implements Serializable {
         viajesEntity.setTiempo(this.tiempo);
         viajesEntity.setHoraLlegada(this.horaLlegada);
         viajesEntity.setHoraPartida(this.horaPartida);
+        if(this.conductor!=null){
+            viajesEntity.setConductorEntity(this.conductor.toEntity());
+        }
         return viajesEntity;
     }
 
@@ -209,5 +220,19 @@ public class ViajeDTO implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the conductor
+     */
+    public ConductorDTO getConductor() {
+        return conductor;
+    }
+
+    /**
+     * @param conductor the conductor to set
+     */
+    public void setConductor(ConductorDTO conductor) {
+        this.conductor = conductor;
     }
 }
