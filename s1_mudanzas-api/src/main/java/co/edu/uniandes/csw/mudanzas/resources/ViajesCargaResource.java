@@ -51,4 +51,5 @@ public class ViajesCargaResource {
         CargaDTO nuevoViajeDTO = new CargaDTO(nuevaCargaEntity);
         return nuevoViajeDTO;
     }
+    
 }
