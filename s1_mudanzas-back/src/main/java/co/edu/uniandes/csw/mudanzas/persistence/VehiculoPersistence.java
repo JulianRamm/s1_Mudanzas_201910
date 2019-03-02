@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.persistence;
 
+import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.util.List;
 import java.util.logging.Logger;
@@ -57,12 +59,53 @@ public class VehiculoPersistence
        }
        return rta;
    }
+   public VehiculoEntity findByUbicacionActual(DireccionEntity uAct)
+   {
+       VehiculoEntity rta;
+       TypedQuery<VehiculoEntity> query = em.createQuery("select e from VehiculoEntity e where e.ubicacionActual.idPar = :pUbicacionActual", VehiculoEntity.class);
+       query = query.setParameter("pUbicacionActual", uAct.getIdPar());
+       
+       List<VehiculoEntity> sameUAct = query.getResultList();
+       
+       if(sameUAct== null)
+       {
+           rta = null;
+       }
+       else if(sameUAct.isEmpty())
+       {
+           rta = null;
+       }
+       else
+       {
+           rta = sameUAct.get(0);
+       }
+       return rta;
+   }
    
-    //public VehiculoEntity  findMarcaCorrecta()
-    //      {
-              
-    //      }
+   public VehiculoEntity findByDia(DiaEntity Agenda)
+   {
+       VehiculoEntity rta;
+       TypedQuery<VehiculoEntity> query = em.createQuery("select e from VehiculoEntity e where e.agenda.id = :pAgenda", VehiculoEntity.class);
+       query = query.setParameter("pAgenda", Agenda.getId());
+       
+       List<VehiculoEntity> sameAgenda = query.getResultList();
+       
+       if(sameAgenda== null)
+       {
+           rta = null;
+       }
+       else if(sameAgenda.isEmpty())
+       {
+           rta = null;
+       }
+       else
+       {
+           rta = sameAgenda.get(0);
+       }
+       return rta;
+   }
    
+    
    public List<VehiculoEntity> findAll()
    {
        TypedQuery<VehiculoEntity> query = em.createQuery("select u from VehiculoEntity u", VehiculoEntity.class);
