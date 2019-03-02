@@ -7,10 +7,13 @@ package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.SubastaDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.SubastaLogic;
+import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.SubastaPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -30,6 +33,18 @@ public class SubastasUsuarioResource {
     
     private static final Logger LOGGER = Logger.getLogger(SubastasUsuarioResource.class.getName());
 
+    /**
+     * Atributo que inyecta la logica de la tarjeta en el recurso.
+     */
+    @Inject
+    private SubastaLogic subastaLogic;
+
+    /**
+     * Atributo que inyecta la logica del usuario en el recurso.
+     */
+    @Inject
+    private UsuarioLogic usuarioLogic;
+    
     /**
      * Busca y devuelve todas las subastas que existen en el usuario.
      *
@@ -101,6 +116,20 @@ public class SubastasUsuarioResource {
     @Path("{idSubasta: \\d+}")
     public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta){
         return null;
+    }
+    
+    /**
+     * Convierte una lista de entidades en lista de DTOs
+     *
+     * @param subastasList la lista de entidades a convertir
+     * @return una lista de dtos.
+     */
+    public List<SubastaDTO> listEntity2DTO(List<SubastaEntity> subastasList) {
+        List<SubastaDTO> lista = new ArrayList<>();
+        for (SubastaEntity entidad : subastasList) {
+            lista.add(new SubastaDTO(entidad));
+        }
+        return lista;
     }
     
 }

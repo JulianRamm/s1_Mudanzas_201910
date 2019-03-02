@@ -94,12 +94,12 @@ public class UsuarioDTO implements Serializable {
     public UsuarioDTO(UsuarioEntity usuarioEntity) {
         if (usuarioEntity != null) {
             this.id = usuarioEntity.getId();
-            this.login = usuarioEntity.getELogin();
-            this.nombre = usuarioEntity.getENombre();
-            this.apellido = usuarioEntity.getEApellido();
-            this.password = usuarioEntity.getEPassword();
-            this.ciudadDeOrigen = usuarioEntity.getECiudadDeOrigen();
-            this.correoElectronico = usuarioEntity.getECorreoElectronico();
+            this.login = usuarioEntity.getLogin();
+            this.nombre = usuarioEntity.getNombre();
+            this.apellido = usuarioEntity.getApellido();
+            this.password = usuarioEntity.getPassword();
+            this.ciudadDeOrigen = usuarioEntity.getCiudadDeOrigen();
+            this.correoElectronico = usuarioEntity.getCorreoElectronico();
         }
     }
 
@@ -201,14 +201,19 @@ public class UsuarioDTO implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Metodo que convierte el UsuarioDTO a un UsuarioEnity
+     *
+     * @return UsuarioEntity el usuario DTO ya convertido.
+     */
     public UsuarioEntity toEntity() {
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         usuarioEntity.setId(this.id);
-        usuarioEntity.setELogin(this.login);
-        usuarioEntity.setEPassword(this.password);
-        usuarioEntity.setENombre(this.nombre);
-        usuarioEntity.setEApellido(this.apellido);
-        usuarioEntity.setECorreoElectronico(this.correoElectronico);
+        usuarioEntity.setLogin(this.login);
+        usuarioEntity.setPassword(this.password);
+        usuarioEntity.setNombre(this.nombre);
+        usuarioEntity.setApellido(this.apellido);
+        usuarioEntity.setCorreoElectronico(this.correoElectronico);
         usuarioEntity.setCiudadDeOrigen(this.ciudadDeOrigen);
         return usuarioEntity;
     }

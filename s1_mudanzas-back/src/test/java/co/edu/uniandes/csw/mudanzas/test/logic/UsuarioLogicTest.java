@@ -64,9 +64,16 @@ public class UsuarioLogicTest {
      * Lista que tiene los datos de prueba.
      */
     private List<UsuarioEntity> data = new ArrayList<UsuarioEntity>();
-
+    /**
+     * Lista que contiene los datos de las tarjetas de credito que pertenecen a
+     * los usuarios
+     */
+    private List<TarjetaDeCreditoEntity> tarjetaData = new ArrayList<TarjetaDeCreditoEntity>();
+    /**
+     * Podam
+     */
     private PodamFactory factory = new PodamFactoryImpl();
-    
+
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -107,6 +114,7 @@ public class UsuarioLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
+        em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
         em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
@@ -116,81 +124,122 @@ public class UsuarioLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-
+            TarjetaDeCreditoEntity tarjetas = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            em.persist(tarjetas);
+            tarjetaData.add(tarjetas);
+        }
+        for (int i = 0; i < 3; i++) {
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
-
             em.persist(entity);
-
             data.add(entity);
+            if (i == 0) {
+                tarjetaData.get(i).setUsuario(entity);
+            }
         }
     }
 
+    /**
+     * Prueba para la creacion de un usuario
+     *
+     * @throws BusinessLogicException en caso que una de las reglas de negocio
+     * no se cumpla.
+     */
     @Test
     public void createUsuarioTest() throws BusinessLogicException {
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
-        nuevaEntidad.setENombre("Luis Miguel");
-        nuevaEntidad.setEApellido("Gomez");
+        nuevaEntidad.setNombre("Luis Miguel");
+        nuevaEntidad.setApellido("Gomez");
         nuevaEntidad.setCiudadDeOrigen("Manizales");
-        nuevaEntidad.setELogin("lm.gomezl");
-        nuevaEntidad.setEPassword("M0v345Y!");
-        nuevaEntidad.setECorreoElectronico("moveasy_desarrollo@uniandes.com");
+        nuevaEntidad.setLogin("lm.gomezl");
+        nuevaEntidad.setPassword("M0v345Y!");
+        nuevaEntidad.setCorreoElectronico("moveasy_desarrollo@uniandes.com");
         UsuarioEntity resultado = usuarioLogic.crearUsuario(nuevaEntidad);
         Assert.assertNotNull(resultado);
         UsuarioEntity entidad = em.find(UsuarioEntity.class, resultado.getId());
         Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
-        Assert.assertEquals(nuevaEntidad.getENombre(), entidad.getENombre());
-        Assert.assertEquals(nuevaEntidad.getEApellido(), entidad.getEApellido());
-        Assert.assertEquals(nuevaEntidad.getECiudadDeOrigen(), entidad.getECiudadDeOrigen());
-        Assert.assertEquals(nuevaEntidad.getECorreoElectronico(), entidad.getECorreoElectronico());
-        Assert.assertEquals(nuevaEntidad.getEPassword(), entidad.getEPassword());
-        Assert.assertEquals(nuevaEntidad.getELogin(), entidad.getELogin());
+        Assert.assertEquals(nuevaEntidad.getNombre(), entidad.getNombre());
+        Assert.assertEquals(nuevaEntidad.getApellido(), entidad.getApellido());
+        Assert.assertEquals(nuevaEntidad.getCiudadDeOrigen(), entidad.getCiudadDeOrigen());
+        Assert.assertEquals(nuevaEntidad.getCorreoElectronico(), entidad.getCorreoElectronico());
+        Assert.assertEquals(nuevaEntidad.getPassword(), entidad.getPassword());
+        Assert.assertEquals(nuevaEntidad.getLogin(), entidad.getLogin());
     }
 
+    /**
+     * Prueba que valida que no se puede crear una usuario si este es nulo.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void nullTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-        usr.setELogin(null);
+        usr.setLogin(null);
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para el login del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
     public void loginTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-        usr.setELogin("moveasy!");
+        usr.setLogin("moveasy!");
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para la contrasenia del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
     public void passwordTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-        usr.setEPassword("moveasy1234");
+        usr.setPassword("moveasy1234");
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para el nombre del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
     public void nameTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-        usr.setENombre("M0V345Y");
+        usr.setNombre("M0V345Y");
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para el apellido del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
     public void apellidoTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-        usr.setEApellido("D354RR0LL0");
+        usr.setApellido("D354RR0LL0");
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para la ciudad del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
     public void ciudadTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -199,23 +248,39 @@ public class UsuarioLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para el correo electronico del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
-    public void namesTest() throws BusinessLogicException {
+    public void emailTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-        usr.setECorreoElectronico("m0v345y.d3s4rr0ll0@@andes.co");
+        usr.setCorreoElectronico("m0v345y.d3s4rr0ll0@@andes.co");
         //llamamos al manager de persistencia, en este caso no se creara
         usuarioLogic.crearUsuario(usr);
     }
-    
+
+    /**
+     * Prueba la regla de negocio para la creacion de un usuario con un mismo
+     * login
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test(expected = BusinessLogicException.class)
     public void createUsuarioMismoLoginTest() throws BusinessLogicException {
         UsuarioEntity nuevaEntidad = factory.manufacturePojo(UsuarioEntity.class);
-        nuevaEntidad.setELogin(data.get(0).getELogin());
+        nuevaEntidad.setLogin(data.get(0).getLogin());
         usuarioLogic.crearUsuario(nuevaEntidad);
     }
 
+    /**
+     * Prueba la obtencion de todos los usuarios
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test
     public void getUsuariosTest() {
         List<UsuarioEntity> lista = usuarioLogic.getUsuarios();
@@ -231,34 +296,47 @@ public class UsuarioLogicTest {
         }
     }
 
+    /**
+     * Prueba la obtencion de un usuario por su id
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test
     public void getUsuarioPorIdTest() throws BusinessLogicException {
         UsuarioEntity entidad = data.get(0);
         UsuarioEntity resultado = usuarioLogic.getUsuario(entidad.getId());
         Assert.assertNotNull(resultado);
         Assert.assertEquals(resultado.getId(), entidad.getId());
-        Assert.assertEquals(resultado.getENombre(), entidad.getENombre());
-        Assert.assertEquals(resultado.getEApellido(), entidad.getEApellido());
-        Assert.assertEquals(resultado.getECiudadDeOrigen(), entidad.getECiudadDeOrigen());
-        Assert.assertEquals(resultado.getECorreoElectronico(), entidad.getECorreoElectronico());
-        Assert.assertEquals(resultado.getEPassword(), entidad.getEPassword());
-        Assert.assertEquals(resultado.getELogin(), entidad.getELogin());
+        Assert.assertEquals(resultado.getNombre(), entidad.getNombre());
+        Assert.assertEquals(resultado.getApellido(), entidad.getApellido());
+        Assert.assertEquals(resultado.getCiudadDeOrigen(), entidad.getCiudadDeOrigen());
+        Assert.assertEquals(resultado.getCorreoElectronico(), entidad.getCorreoElectronico());
+        Assert.assertEquals(resultado.getPassword(), entidad.getPassword());
+        Assert.assertEquals(resultado.getLogin(), entidad.getLogin());
     }
 
+    /**
+     * Prueba la obtencion de un usuario por su login
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test
     public void getUsuarioPorLoginTest() throws BusinessLogicException {
         UsuarioEntity entidad = data.get(0);
-        UsuarioEntity resultado = usuarioLogic.getUsuario(entidad.getELogin());
+        UsuarioEntity resultado = usuarioLogic.getUsuario(entidad.getLogin());
         Assert.assertNotNull(resultado);
         Assert.assertEquals(resultado.getId(), entidad.getId());
-        Assert.assertEquals(resultado.getENombre(), entidad.getENombre());
-        Assert.assertEquals(resultado.getEApellido(), entidad.getEApellido());
-        Assert.assertEquals(resultado.getECiudadDeOrigen(), entidad.getECiudadDeOrigen());
-        Assert.assertEquals(resultado.getECorreoElectronico(), entidad.getECorreoElectronico());
-        Assert.assertEquals(resultado.getEPassword(), entidad.getEPassword());
-        Assert.assertEquals(resultado.getELogin(), entidad.getELogin());
+        Assert.assertEquals(resultado.getNombre(), entidad.getNombre());
+        Assert.assertEquals(resultado.getApellido(), entidad.getApellido());
+        Assert.assertEquals(resultado.getCiudadDeOrigen(), entidad.getCiudadDeOrigen());
+        Assert.assertEquals(resultado.getCorreoElectronico(), entidad.getCorreoElectronico());
+        Assert.assertEquals(resultado.getPassword(), entidad.getPassword());
+        Assert.assertEquals(resultado.getLogin(), entidad.getLogin());
     }
 
+    /**
+     * Prueba la actualizacion de un usuario.
+     */
     @Test
     public void updateUsuarioTest() {
         UsuarioEntity entidad = data.get(0);
@@ -267,14 +345,19 @@ public class UsuarioLogicTest {
         usuarioLogic.updateUsuario(nuevaEntidad);
         UsuarioEntity respuesta = em.find(UsuarioEntity.class, entidad.getId());
         Assert.assertEquals(nuevaEntidad.getId(), respuesta.getId());
-        Assert.assertEquals(nuevaEntidad.getENombre(), respuesta.getENombre());
-        Assert.assertEquals(nuevaEntidad.getEApellido(), respuesta.getEApellido());
-        Assert.assertEquals(nuevaEntidad.getECiudadDeOrigen(), respuesta.getECiudadDeOrigen());
-        Assert.assertEquals(nuevaEntidad.getECorreoElectronico(), respuesta.getECorreoElectronico());
-        Assert.assertEquals(nuevaEntidad.getEPassword(), respuesta.getEPassword());
-        Assert.assertEquals(nuevaEntidad.getELogin(), respuesta.getELogin());
+        Assert.assertEquals(nuevaEntidad.getNombre(), respuesta.getNombre());
+        Assert.assertEquals(nuevaEntidad.getApellido(), respuesta.getApellido());
+        Assert.assertEquals(nuevaEntidad.getCiudadDeOrigen(), respuesta.getCiudadDeOrigen());
+        Assert.assertEquals(nuevaEntidad.getCorreoElectronico(), respuesta.getCorreoElectronico());
+        Assert.assertEquals(nuevaEntidad.getPassword(), respuesta.getPassword());
+        Assert.assertEquals(nuevaEntidad.getLogin(), respuesta.getLogin());
     }
-    
+
+    /**
+     * Prueba la eliminacion de un usuario.
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
     @Test
     public void deleteUsuarioTest() throws BusinessLogicException {
         UsuarioEntity entidad = data.get(1);
@@ -282,5 +365,5 @@ public class UsuarioLogicTest {
         UsuarioEntity borrar = em.find(UsuarioEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
-    
+
 }

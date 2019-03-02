@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.ArrayList;
@@ -51,6 +50,8 @@ public class UsuarioPersistenceTest {
      */
     @Inject
     UserTransaction utx;
+
+    private PodamFactory factory = new PodamFactoryImpl();
 
     /**
      * Lista que tiene los datos de prueba.
@@ -104,7 +105,6 @@ public class UsuarioPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
@@ -132,7 +132,7 @@ public class UsuarioPersistenceTest {
         UsuarioEntity entity = em.find(UsuarioEntity.class, usuarioe.getId());
 
         //verificamos que el mismo que cree en mi propio metodo sea el mismo que relamente se creo en la BD.
-        Assert.assertEquals(usr.getENombre(), entity.getENombre());
+        Assert.assertEquals(usr.getNombre(), entity.getNombre());
 
     }
 
@@ -157,12 +157,12 @@ public class UsuarioPersistenceTest {
         UsuarioEntity entidad = data.get(0);
         UsuarioEntity nuevo = ep.find(entidad.getId());
         Assert.assertNotNull(nuevo);
-        Assert.assertEquals(entidad.getENombre(), nuevo.getENombre());
+        Assert.assertEquals(entidad.getNombre(), nuevo.getNombre());
         Assert.assertEquals(entidad.getId(), nuevo.getId());
-        Assert.assertEquals(entidad.getEApellido(), nuevo.getEApellido());
-        Assert.assertEquals(entidad.getECorreoElectronico(), nuevo.getECorreoElectronico());
-        Assert.assertEquals(entidad.getELogin(), nuevo.getELogin());
-        Assert.assertEquals(entidad.getEPassword(), nuevo.getEPassword());
+        Assert.assertEquals(entidad.getApellido(), nuevo.getApellido());
+        Assert.assertEquals(entidad.getCorreoElectronico(), nuevo.getCorreoElectronico());
+        Assert.assertEquals(entidad.getLogin(), nuevo.getLogin());
+        Assert.assertEquals(entidad.getPassword(), nuevo.getPassword());
     }
 
     @Test
@@ -185,20 +185,20 @@ public class UsuarioPersistenceTest {
 
         UsuarioEntity encontrada = em.find(UsuarioEntity.class, entidad.getId());
 
-        Assert.assertEquals(cambiada.getENombre(), encontrada.getENombre());
+        Assert.assertEquals(cambiada.getNombre(), encontrada.getNombre());
         Assert.assertEquals(cambiada.getId(), encontrada.getId());
-        Assert.assertEquals(cambiada.getEApellido(), encontrada.getEApellido());
-        Assert.assertEquals(cambiada.getECorreoElectronico(), encontrada.getECorreoElectronico());
-        Assert.assertEquals(cambiada.getELogin(), encontrada.getELogin());
-        Assert.assertEquals(cambiada.getEPassword(), encontrada.getEPassword());
+        Assert.assertEquals(cambiada.getApellido(), encontrada.getApellido());
+        Assert.assertEquals(cambiada.getCorreoElectronico(), encontrada.getCorreoElectronico());
+        Assert.assertEquals(cambiada.getLogin(), encontrada.getLogin());
+        Assert.assertEquals(cambiada.getPassword(), encontrada.getPassword());
     }
 
     @Test
     public void buscarUsuarioPorLogin() {
         UsuarioEntity entidad = data.get(0);
-        UsuarioEntity nuevo = ep.findUsuarioPorLogin(entidad.getELogin());
+        UsuarioEntity nuevo = ep.findUsuarioPorLogin(entidad.getLogin());
         Assert.assertNotNull(nuevo);
-        Assert.assertEquals(entidad.getELogin(), nuevo.getELogin());
+        Assert.assertEquals(entidad.getLogin(), nuevo.getLogin());
         nuevo = ep.findUsuarioPorLogin(null);
         Assert.assertNull(nuevo);
     }
