@@ -6,11 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;

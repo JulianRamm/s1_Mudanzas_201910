@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +42,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @OneToOne
-    ConductorEntity conductor;
+    ConductorEntity conductorEntity;
     
     private String lugarSalida;
 
@@ -167,21 +166,21 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     /**
      * @return the conductor
      */
-    public ConductorEntity getConductor() {
-        return conductor;
+    public ConductorEntity getConductorEntity() {
+        return conductorEntity;
     }
 
     /**
      * @param conductor the conductor to set
      */
-    public void setConductor(ConductorEntity conductor) {
-        this.conductor = conductor;
+    public void setConductorEntity(ConductorEntity conductor) {
+        this.conductorEntity = conductor;
     }
 
     public VehiculoEntity getVehiculoDelViaje() {
         VehiculoEntity res = new VehiculoEntity();
-        for (VehiculoEntity ve : conductor.getVehiculos()) {
-            if (Objects.equals(ve.getId(), conductor.getId())) {
+        for (VehiculoEntity ve : conductorEntity.getVehiculos()) {
+            if (Objects.equals(ve.getId(), conductorEntity.getId())) {
               res=ve;
             }
         }
@@ -232,4 +231,5 @@ public class ViajesEntity extends BaseEntity implements Serializable {
                 throw new BusinessLogicException("El tiempo no es acorde a la distancia de colombia");
             }
     }
+
 }
