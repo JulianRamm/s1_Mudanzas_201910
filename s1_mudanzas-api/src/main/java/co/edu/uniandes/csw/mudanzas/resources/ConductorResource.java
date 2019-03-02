@@ -44,7 +44,7 @@ public class ConductorResource
      * @param id
      * @return
      */
-    @Path("{id: \\d+}/viajes") 
+    @Path("{id: \\d+}/viajes")
     public Class<ConductorViajesResource> getConductorViaje(@PathParam("id")Long id ){
         return ConductorViajesResource.class;
     }
