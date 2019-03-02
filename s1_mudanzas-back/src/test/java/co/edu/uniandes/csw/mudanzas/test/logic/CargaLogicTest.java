@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
 import java.util.ArrayList;
@@ -32,11 +33,11 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class CargaLogicTest {
-    
+
     private PodamFactory factory = new PodamFactoryImpl();
-     /**
-     * Inyeccion de la dependencia a la clase CargaLogic cuyos metodos se van
-     * a probar.
+    /**
+     * Inyeccion de la dependencia a la clase CargaLogic cuyos metodos se van a
+     * probar.
      */
     @Inject
     private CargaLogic cargaLogic;
@@ -64,6 +65,11 @@ public class CargaLogicTest {
      * Lista que tiene los datos de prueba.
      */
     private List<CargaEntity> data = new ArrayList<CargaEntity>();
+
+    /**
+     * Atributo que almacena un usuario duenio de muchas tarjetas.
+     */
+    private UsuarioEntity usuarioData;
 
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
@@ -106,6 +112,7 @@ public class CargaLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from CargaEntity").executeUpdate();
+        em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
     /**
@@ -113,34 +120,34 @@ public class CargaLogicTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+        UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(usuario);
+        usuarioData = usuario;
         for (int i = 0; i < 3; i++) {
 
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
-
+            entity.setUsuario(usuarioData);
             em.persist(entity);
-
             data.add(entity);
         }
     }
+
     /**
      * Prueba para crear un Editorial.
      *
-     * 
+     *
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @Test
     public void createCargaTest() throws BusinessLogicException {
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
         newEntity.setVolumen(344);
-        CargaEntity result = cargaLogic.createCarga(newEntity);
+        CargaEntity result = cargaLogic.createCarga(newEntity, usuarioData.getLogin());
         Assert.assertNotNull(result);
         CargaEntity entity = em.find(CargaEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getDatosEnvio(), entity.getDatosEnvio());
         Assert.assertEquals(newEntity.getDirecciones(), entity.getDirecciones());
-        Assert.assertEquals(newEntity.getFechaEnvio(), entity.getFechaEnvio());
-        Assert.assertEquals(newEntity.getFechaEstimadaLlegada(), entity.getFechaEstimadaLlegada());
         Assert.assertEquals(newEntity.getImagenes(), entity.getImagenes());
         Assert.assertEquals(newEntity.getLugarLlegada(), entity.getLugarLlegada());
         Assert.assertEquals(newEntity.getLugarSalida(), entity.getLugarSalida());
@@ -149,19 +156,20 @@ public class CargaLogicTest {
         Assert.assertEquals(newEntity.getViaje(), entity.getViaje());
         Assert.assertEquals(newEntity.getVolumen(), entity.getVolumen());
     }
+
     /**
      * Prueba para crear una carga que tiene volumen =0
-     * 
+     *
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createCargaVolumen0() throws BusinessLogicException {
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
-        int haber=1;
+        int haber = 1;
         newEntity.setVolumen(haber);
-        cargaLogic.createCarga(newEntity);
+        cargaLogic.createCarga(newEntity, usuarioData.getLogin());
     }
-    
+
     /**
      * Prueba para consultar la lista de cargas.
      */
@@ -172,15 +180,17 @@ public class CargaLogicTest {
         for (CargaEntity entity : list) {
             boolean found = false;
             for (CargaEntity storedEntity : data) {
-                if (entity.getId().equals(storedEntity.getId())) {
+                if (entity.getId() == (storedEntity.getId())) {
                     found = true;
                 }
             }
             Assert.assertTrue(found);
         }
     }
+
     /**
      * Prueba para consultar una carga.
+     *
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @Test
@@ -191,8 +201,6 @@ public class CargaLogicTest {
         Assert.assertEquals(resultEntity.getId(), entity.getId());
         Assert.assertEquals(resultEntity.getDatosEnvio(), entity.getDatosEnvio());
         Assert.assertEquals(resultEntity.getDirecciones(), entity.getDirecciones());
-        Assert.assertEquals(resultEntity.getFechaEnvio(), entity.getFechaEnvio());
-        Assert.assertEquals(resultEntity.getFechaEstimadaLlegada(), entity.getFechaEstimadaLlegada());
         Assert.assertEquals(resultEntity.getImagenes(), entity.getImagenes());
         Assert.assertEquals(resultEntity.getLugarLlegada(), entity.getLugarLlegada());
         Assert.assertEquals(resultEntity.getLugarSalida(), entity.getLugarSalida());
@@ -201,34 +209,33 @@ public class CargaLogicTest {
         Assert.assertEquals(resultEntity.getViaje(), entity.getViaje());
         Assert.assertEquals(resultEntity.getVolumen(), entity.getVolumen());
     }
-    
+
     /**
      * Prueba para actualizar una carga.
      */
     @Test
     public void updateCargaTest() {
         CargaEntity entity = data.get(0);
-        CargaEntity pojoEntity = factory.manufacturePojo(CargaEntity.class);
-        pojoEntity.setId(entity.getId());
-        cargaLogic.updateCarga(pojoEntity);
+        CargaEntity nuevaEntitdad = factory.manufacturePojo(CargaEntity.class);
+        nuevaEntitdad.setId(entity.getId());
+        cargaLogic.updateCarga(nuevaEntitdad);
         CargaEntity resp = em.find(CargaEntity.class, entity.getId());
-        Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getId(), entity.getId());
-        Assert.assertEquals(pojoEntity.getDatosEnvio(), entity.getDatosEnvio());
-        Assert.assertEquals(pojoEntity.getDirecciones(), entity.getDirecciones());
-        Assert.assertEquals(pojoEntity.getFechaEnvio(), entity.getFechaEnvio());
-        Assert.assertEquals(pojoEntity.getFechaEstimadaLlegada(), entity.getFechaEstimadaLlegada());
-        Assert.assertEquals(pojoEntity.getImagenes(), entity.getImagenes());
-        Assert.assertEquals(pojoEntity.getLugarLlegada(), entity.getLugarLlegada());
-        Assert.assertEquals(pojoEntity.getLugarSalida(), entity.getLugarSalida());
-        Assert.assertEquals(pojoEntity.getObservaciones(), entity.getObservaciones());
-        Assert.assertEquals(pojoEntity.getUsuario(), entity.getUsuario());
-        Assert.assertEquals(pojoEntity.getViaje(), entity.getViaje());
-        Assert.assertEquals(pojoEntity.getVolumen(), entity.getVolumen());     
+        Assert.assertEquals(nuevaEntitdad.getId(), resp.getId());
+        Assert.assertEquals(nuevaEntitdad.getDatosEnvio(), resp.getDatosEnvio());
+        Assert.assertEquals(nuevaEntitdad.getDirecciones(), resp.getDirecciones());
+        Assert.assertEquals(nuevaEntitdad.getImagenes(), resp.getImagenes());
+        Assert.assertEquals(nuevaEntitdad.getLugarLlegada(), resp.getLugarLlegada());
+        Assert.assertEquals(nuevaEntitdad.getLugarSalida(), resp.getLugarSalida());
+        Assert.assertEquals(nuevaEntitdad.getObservaciones(), resp.getObservaciones());
+        Assert.assertEquals(nuevaEntitdad.getUsuario(), resp.getUsuario());
+        Assert.assertEquals(nuevaEntitdad.getViaje(), resp.getViaje());
+        Assert.assertEquals(nuevaEntitdad.getVolumen(), resp.getVolumen());
     }
+
     /**
      * prueba para eliminar una carga
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
     @Test
     public void deleteCargaTest() throws BusinessLogicException {

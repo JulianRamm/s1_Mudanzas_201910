@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.test.persistence;
 
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,10 @@ public class CargaPersistenceTest {
 
     @Inject
     private CargaPersistence persistence;
+    
+    private UsuarioEntity usuarioData;
+
+    private PodamFactory factory = new PodamFactoryImpl();
     
     /**
      * método que retorna un archivo jar dada la información del archivo persistence.xml y beans.xml
@@ -89,11 +94,18 @@ public class CargaPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+
+        em.persist(usr);
+
+        usuarioData = usr;
+        
         for (int i = 0; i < 3; i++) {
 
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
 
+            entity.setUsuario(usr);
+            
             em.persist(entity);
 
             data.add(entity);
@@ -106,7 +118,6 @@ public class CargaPersistenceTest {
      */
     @Test
     public void createCargaTest() {
-        PodamFactory factory = new PodamFactoryImpl();
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
         CargaEntity result = persistence.create(newEntity);
 
@@ -167,7 +178,6 @@ public class CargaPersistenceTest {
     @Test
     public void updateCargaTest() {
         CargaEntity entity = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
 
         newEntity.setId(entity.getId());
@@ -178,5 +188,19 @@ public class CargaPersistenceTest {
 
         Assert.assertEquals(newEntity.getId(), resp.getId());
     }
+    
+    /**
+     * Prueba para buscar una carga por el nombre de su propietario.
+     */
+    @Test
+    public void buscarCargaPorPropietario() {
+        CargaEntity entidad = data.get(0);
+        CargaEntity nuevo = persistence.findCargaPorLoginPropietario(entidad.getUsuario().getLogin(), entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getUsuario().getLogin(), nuevo.getUsuario().getLogin());
+        nuevo = persistence.findCargaPorLoginPropietario(entidad.getUsuario().getLogin(), null);
+        Assert.assertNull(nuevo);
+    }
+    
 
 }
