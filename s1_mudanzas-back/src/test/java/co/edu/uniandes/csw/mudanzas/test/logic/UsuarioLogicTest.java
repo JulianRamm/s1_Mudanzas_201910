@@ -279,7 +279,6 @@ public class UsuarioLogicTest {
     /**
      * Prueba la obtencion de todos los usuarios
      *
-     * @throws BusinessLogicException si no se cumple la regla de negocio
      */
     @Test
     public void getUsuariosTest() {
