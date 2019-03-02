@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.ejb;
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
@@ -30,7 +31,9 @@ public class CargaLogic {
      * @return
      * @throws BusinessLogicException 
      */
-    public CargaEntity createCarga(CargaEntity cargaEntity) throws BusinessLogicException{
+    public CargaEntity createCarga(CargaEntity cargaEntity, String login) throws BusinessLogicException{
+        UsuarioEntity usuarioEntity = usuarioPer.findUsuarioPorLogin(login);
+        
         if(cargaEntity.getVolumen()<=0){
             throw new BusinessLogicException("El volumen no puede ser 0 o menor a cero");
         }
@@ -58,7 +61,10 @@ public class CargaLogic {
         if(cargaEntity.getDatosEnvio()==null||cargaEntity.getDatosEnvio().equals("")){
             throw new BusinessLogicException("los datos de envío no puede ser null o vacío");
         }
-        return persistence.create(cargaEntity);
+        cargaEntity.setUsuario(usuarioEntity);
+        usuarioEntity.getCargas().add(cargaEntity);
+        persistence.create(cargaEntity);
+        return cargaEntity;
     }
     /**
      * método que devuelve todas las cargas encontradas

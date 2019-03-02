@@ -99,9 +99,7 @@ public class ConductorViajesResource {
     @GET
     @Path("{id: \\d+}/cargas")
     public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
-        try{
-            
-        }
+        
         return new ViajesDetailDTO().getCargas();
     }   
     @Path("{id: \\d+}/cargas") 

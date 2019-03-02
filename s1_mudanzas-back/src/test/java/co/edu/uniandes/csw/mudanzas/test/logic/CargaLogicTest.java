@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
 import java.util.ArrayList;
@@ -66,6 +67,11 @@ public class CargaLogicTest {
     private List<CargaEntity> data = new ArrayList<CargaEntity>();
 
     /**
+     * Atributo que almacena un usuario duenio de muchas tarjetas.
+     */
+    private UsuarioEntity usuarioData;
+
+    /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
      * @return .jar
@@ -106,6 +112,7 @@ public class CargaLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from CargaEntity").executeUpdate();
+        em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
     /**
@@ -113,13 +120,14 @@ public class CargaLogicTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+        UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
+        em.persist(usuario);
+        usuarioData = usuario;
         for (int i = 0; i < 3; i++) {
 
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
-
+            entity.setUsuario(usuarioData);
             em.persist(entity);
-
             data.add(entity);
         }
     }
@@ -134,7 +142,7 @@ public class CargaLogicTest {
     public void createCargaTest() throws BusinessLogicException {
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
         newEntity.setVolumen(344);
-        CargaEntity result = cargaLogic.createCarga(newEntity);
+        CargaEntity result = cargaLogic.createCarga(newEntity, usuarioData.getLogin());
         Assert.assertNotNull(result);
         CargaEntity entity = em.find(CargaEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -159,7 +167,7 @@ public class CargaLogicTest {
         CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
         int haber = 1;
         newEntity.setVolumen(haber);
-        cargaLogic.createCarga(newEntity);
+        cargaLogic.createCarga(newEntity, usuarioData.getLogin());
     }
 
     /**
@@ -172,7 +180,7 @@ public class CargaLogicTest {
         for (CargaEntity entity : list) {
             boolean found = false;
             for (CargaEntity storedEntity : data) {
-                if (entity.getId()==(storedEntity.getId())) {
+                if (entity.getId() == (storedEntity.getId())) {
                     found = true;
                 }
             }
@@ -212,7 +220,7 @@ public class CargaLogicTest {
         nuevaEntitdad.setId(entity.getId());
         cargaLogic.updateCarga(nuevaEntitdad);
         CargaEntity resp = em.find(CargaEntity.class, entity.getId());
-        Assert.assertEquals(nuevaEntitdad.getId(), resp.getId());      
+        Assert.assertEquals(nuevaEntitdad.getId(), resp.getId());
         Assert.assertEquals(nuevaEntitdad.getDatosEnvio(), resp.getDatosEnvio());
         Assert.assertEquals(nuevaEntitdad.getDirecciones(), resp.getDirecciones());
         Assert.assertEquals(nuevaEntitdad.getImagenes(), resp.getImagenes());

@@ -82,8 +82,8 @@ public class TarjetaDeCreditoLogic {
         if (cal.get(Calendar.MONTH) > fechaV.getMonth() && cal.get(Calendar.YEAR) > fechaV.getYear()) {
             throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
         }
-        tarjetaPersistence.create(tarjeta);
         usuarioEntity.getTarjetas().add(tarjeta);
+        tarjetaPersistence.create(tarjeta);
         return tarjeta;
     }
 
