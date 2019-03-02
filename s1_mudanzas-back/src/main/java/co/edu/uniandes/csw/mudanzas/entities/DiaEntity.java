@@ -26,11 +26,11 @@ public class DiaEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.DATE)
-    private Date horaInicio;
+    @Temporal(TemporalType.TIME)
+    private Time horaInicio;
 
-    @Temporal(TemporalType.DATE)
-    private Date horaFin;
+    @Temporal(TemporalType.TIME)
+    private Time horaFin;
 
     @Temporal(TemporalType.DATE)
     private Date diaActual;
@@ -48,28 +48,28 @@ public class DiaEntity extends BaseEntity implements Serializable {
     /**
      * @return the horaSalida
      */
-    public Date getHoraInicio() {
+    public Time getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaSalida the horaSalida to set
      */
-    public void setHoraInicio(Date horaSalida) {
+    public void setHoraInicio(Time horaSalida) {
         this.horaInicio = horaSalida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public Date getHoraFin() {
+    public Time getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(Date horaLlegada) {
+    public void setHoraFin(Time horaLlegada) {
         this.horaFin = horaLlegada;
     }
 

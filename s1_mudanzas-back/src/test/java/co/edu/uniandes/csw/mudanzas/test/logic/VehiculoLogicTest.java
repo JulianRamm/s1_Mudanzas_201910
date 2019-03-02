@@ -125,6 +125,7 @@ public class VehiculoLogicTest
         Assert.assertEquals(newEntity.getPlaca(), entity.getPlaca());
     }
     
+    
     @Test(expected = BusinessLogicException.class)
     public void createVehiculoConMismaPlaca() throws BusinessLogicException
     {
