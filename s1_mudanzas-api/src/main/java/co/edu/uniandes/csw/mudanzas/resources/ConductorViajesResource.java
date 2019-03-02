@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajesDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajesDetailDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
@@ -14,17 +15,24 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 /**
  *
  * @author je.osorio
  */
-@Path("viajes")
 @Produces("application/JSON")
 @Consumes("application/JSON")
 @RequestScoped
-public class ViajeResource {
+public class ConductorViajesResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
+    /**
+     * atributo de la lógica de viajes
+     */
+    @Inject
     private ViajesLogic viajesLogic;
+    @Inject 
+    private CargaLogic cargalogic;
     /**
      * mètodo que crea un nuevo viaje dado un json con la informaciòn de sus atributos
      * @param viajeDTO
@@ -45,27 +53,42 @@ public class ViajeResource {
      */
     @POST
     @Path("{id: \\d+}")
-    public ViajesDTO crearVije(@PathParam("id") Long id){
+    public ViajesDTO creteVijeid(@PathParam("id") Long id){
+        
         return new ViajesDTO();
     }
     /**
      * mètodo que retorna un viaje dado el id 
      * @param id
      * @return el objeto ViajeDTO el cual corresponde al id especificado
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     @Path("{id: \\d+}")
-    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id){
+    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id) throws BusinessLogicException{
+        try{
+        ViajesEntity viajesEntity = viajesLogic.getViaje(id);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
         return new ViajesDTO();
     }
     /**
      * mètodo que elimina un viaje dado el id 
      * @param id
      * @return indormaciòn del viaje eliminado
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{id: \\d+}")
-    public ViajesDTO deleteVIajeDTO(@PathParam("id") Long id){
+    public ViajesDTO deleteViajeDTO(@PathParam("id") Long id) throws BusinessLogicException{
+        try{
+            viajesLogic.getViaje(id);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
         return new ViajesDTO();
     }
     /**
@@ -76,16 +99,13 @@ public class ViajeResource {
     @GET
     @Path("{id: \\d+}/cargas")
     public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
+        try{
+            
+        }
         return new ViajesDetailDTO().getCargas();
+    }   
+    @Path("{id: \\d+}/cargas") 
+    public Class<ViajesCargaResource> getConductorViaje(@PathParam("id")Long id ){
+        return ViajesCargaResource.class;
     }
-    /**
-     * mètodo que elimina las cargas de un viaje dado el id del viaje
-     * @param id
-     */
-    @DELETE 
-    @Path("{id: \\d+}/cargas")
-    public void eliminarCargasIdEspecificado(@PathParam("id") Long id){       
-    }
-    
-    
 }

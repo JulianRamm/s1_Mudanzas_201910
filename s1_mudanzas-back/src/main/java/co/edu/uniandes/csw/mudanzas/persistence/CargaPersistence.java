@@ -85,7 +85,7 @@ public class CargaPersistence {
      * Busca una carga por el login del titular de la cuenta.
      *
      * @param login del usuario que queremos buscar
-     * @param titularCuenta el nombre del titular de la cuenta.
+     * @param idCarga
      * @return la carga que pertenece al usuario que entra por parametro.
      */
     public CargaEntity findCargaPorLoginPropietario(String login, Long idCarga) {
@@ -108,5 +108,4 @@ public class CargaPersistence {
         }
         return resultado;
     }
-
 }
