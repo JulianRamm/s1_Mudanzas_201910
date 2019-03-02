@@ -91,7 +91,7 @@ public class ViajesLogic {
      * @return
      * @throws BusinessLogicException 
      */
-    public ViajesEntity getViaje(long id)throws BusinessLogicException{
+    public ViajesEntity getViaje(Long id)throws BusinessLogicException{
         ViajesEntity viajeEntity=persistence.find(id);
         if(viajeEntity==null){
             throw new BusinessLogicException("No existe un viaje con id: "+ id);
@@ -108,8 +108,10 @@ public class ViajesLogic {
         return viaje;
     }
     
-    public void deleteViaje(long id)throws BusinessLogicException{
-        persistence.delete(id);
-        
+    public void deleteViaje(Long id)throws BusinessLogicException{
+        persistence.delete(id);       
     }
+    public List<CargaEntity> getCargasDadoUnId(Long id){
+        return persistence.getCargasDadoUnId(id);
+    }   
 }
