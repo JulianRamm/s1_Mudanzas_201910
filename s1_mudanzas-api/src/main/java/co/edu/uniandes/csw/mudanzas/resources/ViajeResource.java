@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.ViajeDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.ViajeDetailDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.ViajesDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.ViajesDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
@@ -32,10 +32,10 @@ public class ViajeResource {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public ViajeDTO createVije(ViajeDTO viajeDTO) throws BusinessLogicException{
+    public ViajesDTO createVije(ViajesDTO viajeDTO) throws BusinessLogicException{
         ViajesEntity viajesEntity = viajeDTO.toEntity();
-        ViajesEntity viajeEntity = viajesLogic.createViajes(viajesEntity);
-        ViajeDTO nuevoViajeDTO = new ViajeDTO(viajesEntity);
+        ViajesEntity nuevoViajeEntity = viajesLogic.createViajes(viajesEntity);
+        ViajesDTO nuevoViajeDTO = new ViajesDTO(nuevoViajeEntity);
         return nuevoViajeDTO;
     }
     /**
@@ -45,8 +45,8 @@ public class ViajeResource {
      */
     @POST
     @Path("{id: \\d+}")
-    public ViajeDTO crearVije(@PathParam("id") Long id){
-        return new ViajeDTO();
+    public ViajesDTO crearVije(@PathParam("id") Long id){
+        return new ViajesDTO();
     }
     /**
      * mètodo que retorna un viaje dado el id 
@@ -55,8 +55,8 @@ public class ViajeResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ViajeDTO getViajeDTOPorId(@PathParam("id") Long id){
-        return new ViajeDTO();
+    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id){
+        return new ViajesDTO();
     }
     /**
      * mètodo que elimina un viaje dado el id 
@@ -65,8 +65,8 @@ public class ViajeResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public ViajeDTO deleteVIajeDTO(@PathParam("id") Long id){
-        return new ViajeDTO();
+    public ViajesDTO deleteVIajeDTO(@PathParam("id") Long id){
+        return new ViajesDTO();
     }
     /**
      * mètodo que retorna las cargas de un viaje dado el id del viaje
@@ -76,7 +76,7 @@ public class ViajeResource {
     @GET
     @Path("{id: \\d+}/cargas")
     public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
-        return new ViajeDetailDTO().getCargas();
+        return new ViajesDetailDTO().getCargas();
     }
     /**
      * mètodo que elimina las cargas de un viaje dado el id del viaje

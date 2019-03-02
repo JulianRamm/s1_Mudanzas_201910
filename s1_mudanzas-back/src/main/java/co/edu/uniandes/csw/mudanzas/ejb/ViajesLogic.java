@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
-import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -53,18 +52,17 @@ public class ViajesLogic {
             }
             viajesEntity.verificarTiempo(tiempoT);
         }
-        if (viajesEntity.getGastoGasolina() == distance * viajesEntity.getVehiculoDelViaje().getRendimiento()) {
+        if (viajesEntity.getGastoGasolina() != distance * viajesEntity.getVehiculoDelViaje().getRendimiento()) {
             throw new BusinessLogicException("El gasto de gasolina no es acorde a la distancia");
         }
         if (viajesEntity.getGastoGasolina() <= 0) {
             throw new BusinessLogicException("El gasto de gasolina no puede ser 0 o negativo");
         }
-        /**
-        double hours = ChronoUnit.HOURS.between(viajesEntity.getHoraPartida(), viajesEntity.getHoraLlegada());
+        
+        double hours = (viajesEntity.getHoraLlegada().getTime()-viajesEntity.getHoraPartida().getTime())*1000*3600;
         if (!(tiempoT <=hours+8&&tiempoT>=hours-8)) {
              throw new BusinessLogicException("La hora de llegada y la hora de salida no es acorde a la distancia");
         } 
-        */
         if(viajesEntity.getHoraPartida()==null){
             throw new BusinessLogicException("la hora de partida no puede ser null");
         }
@@ -114,6 +112,4 @@ public class ViajesLogic {
         persistence.delete(id);
         
     }
-    
-
 }
