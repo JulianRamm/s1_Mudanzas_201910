@@ -77,4 +77,10 @@ public class ViajesPersistence {
     public ViajesEntity update(ViajesEntity viajesEntity) {
         return em.merge(viajesEntity);
     }
+    public List<ViajesEntity> getCargasDadoUnId(Long id){
+        TypedQuery<ViajesEntity> query;
+        query = em.createQuery("select e from ViajesEntity e where e.id=:id", ViajesEntity.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
 }

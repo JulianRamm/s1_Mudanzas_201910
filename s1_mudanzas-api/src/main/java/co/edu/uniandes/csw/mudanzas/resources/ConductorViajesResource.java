@@ -14,16 +14,21 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 /**
  *
  * @author je.osorio
  */
-@Path("viajes")
 @Produces("application/JSON")
 @Consumes("application/JSON")
 @RequestScoped
-public class ViajeResource {
+public class ConductorViajesResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
+    /**
+     * atributo de la lógica de viajes
+     */
+    @Inject
     private ViajesLogic viajesLogic;
     /**
      * mètodo que crea un nuevo viaje dado un json con la informaciòn de sus atributos
@@ -45,27 +50,42 @@ public class ViajeResource {
      */
     @POST
     @Path("{id: \\d+}")
-    public ViajesDTO crearVije(@PathParam("id") Long id){
+    public ViajesDTO creteVijeid(@PathParam("id") Long id){
+        
         return new ViajesDTO();
     }
     /**
      * mètodo que retorna un viaje dado el id 
      * @param id
      * @return el objeto ViajeDTO el cual corresponde al id especificado
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     @Path("{id: \\d+}")
-    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id){
+    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id) throws BusinessLogicException{
+        try{
+        ViajesEntity viajesEntity = viajesLogic.getViaje(id);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
         return new ViajesDTO();
     }
     /**
      * mètodo que elimina un viaje dado el id 
      * @param id
      * @return indormaciòn del viaje eliminado
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{id: \\d+}")
-    public ViajesDTO deleteVIajeDTO(@PathParam("id") Long id){
+    public ViajesDTO deleteViajeDTO(@PathParam("id") Long id) throws BusinessLogicException{
+        try{
+            viajesLogic.getViaje(id);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
         return new ViajesDTO();
     }
     /**
@@ -76,6 +96,7 @@ public class ViajeResource {
     @GET
     @Path("{id: \\d+}/cargas")
     public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
+        
         return new ViajesDetailDTO().getCargas();
     }
     /**
