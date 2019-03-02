@@ -99,17 +99,13 @@ public class ConductorViajesResource {
     @GET
     @Path("{id: \\d+}/cargas")
     public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
-        
+        try{
+            
+        }
         return new ViajesDetailDTO().getCargas();
+    }   
+    @Path("{id: \\d+}/cargas") 
+    public Class<ViajesCargaResource> getConductorViaje(@PathParam("id")Long id ){
+        return ViajesCargaResource.class;
     }
-    /**
-     * mètodo que elimina las cargas de un viaje dado el id del viaje
-     * @param id
-     */
-    @DELETE 
-    @Path("{id: \\d+}/cargas")
-    public void eliminarCargasIdEspecificado(@PathParam("id") Long id){       
-    }
-    
-    
 }

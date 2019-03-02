@@ -193,14 +193,14 @@ public class CargaPersistenceTest {
      * Prueba para buscar una carga por el nombre de su propietario.
      */
     @Test
-    public void buscarTarjetaPorLogin() {
+    public void buscarCargaPorPropietario() {
         CargaEntity entidad = data.get(0);
         CargaEntity nuevo = persistence.findCargaPorLoginPropietario(entidad.getUsuario().getLogin(), entidad.getId());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getUsuario().getLogin(), nuevo.getUsuario().getLogin());
-
         nuevo = persistence.findCargaPorLoginPropietario(entidad.getUsuario().getLogin(), null);
         Assert.assertNull(nuevo);
     }
+    
 
 }

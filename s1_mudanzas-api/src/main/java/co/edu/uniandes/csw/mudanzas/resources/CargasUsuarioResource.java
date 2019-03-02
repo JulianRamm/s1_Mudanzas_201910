@@ -108,7 +108,6 @@ public class CargasUsuarioResource {
      * Convierte una lista de entidades en lista de DTOs
      *
      * @param cargasList
-     * @param cargasList la lista de entidades a convertir
      * @return una lista de dtos.
      */
     public List<CargaDTO> listEntity2DTO(List<CargaEntity> cargasList) {
