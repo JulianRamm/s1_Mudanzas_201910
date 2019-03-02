@@ -62,6 +62,9 @@ public class TarjetaDeCreditoLogicTest {
      */
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
 
+    /**
+     * Atributo que almacena un usuario duenio de muchas tarjetas.
+     */
     private UsuarioEntity usuarioData;
 
     /**
@@ -127,6 +130,12 @@ public class TarjetaDeCreditoLogicTest {
         }
     }
 
+    /**
+     * Prueba para la creacion de una tarjeta de credito
+     *
+     * @throws BusinessLogicException en caso que una de las reglas de negocio
+     * no se cumpla.
+     */
     @Test
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
@@ -151,6 +160,11 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(nuevaEntidad.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
 
+    /**
+     * Prueba que valida que no se pueda crear una tarjeta con un mismo id.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void createTarjetaDeCreditoMismoIdTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
@@ -158,6 +172,11 @@ public class TarjetaDeCreditoLogicTest {
         tarjetaLogic.crearTarjeta(nuevaEntidad, usuarioData.getLogin());
     }
 
+    /**
+     * Prueba que valida que no se puede crear una tarjet sin un propietario.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void nullTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -179,6 +198,12 @@ public class TarjetaDeCreditoLogicTest {
         tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
+    /**
+     * Prueba que valida que no se pueda crear un titular sin el formato
+     * requerido.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void expresionRegularTitularCuentaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -190,6 +215,12 @@ public class TarjetaDeCreditoLogicTest {
         tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
+    /**
+     * Prueba que valida que no se pueda crear una tarjeta con un serial menor
+     * que 12 o mayor a 19 digitos.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void serialTarjetaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -202,6 +233,12 @@ public class TarjetaDeCreditoLogicTest {
         tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
+    /**
+     * Prueba que valida que no se pueda crear una tarjeta con un codigo de
+     * seguridad invalido.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void codigoSeguridadTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -213,6 +250,12 @@ public class TarjetaDeCreditoLogicTest {
         tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
+    /**
+     * Prueba que valida que no se pueda crear una tarjeta si por su fecha de
+     * expedicion es invalida.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test(expected = BusinessLogicException.class)
     public void fechaVencimientoTarjetaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
@@ -227,6 +270,9 @@ public class TarjetaDeCreditoLogicTest {
         tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
     }
 
+    /**
+     * Prueba que valida la obtencion de todas las tarjetas.
+     */
     @Test
     public void getTarjetasDeCreditoTest() {
         List<TarjetaDeCreditoEntity> lista = tarjetaLogic.getTarjetas();
@@ -242,6 +288,11 @@ public class TarjetaDeCreditoLogicTest {
         }
     }
 
+    /**
+     * Prueba que valida que se pueda obtener una tarjeta por su id.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test
     public void getTarjetaDeCreditoPorIdTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
@@ -254,6 +305,11 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultado.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
 
+    /**
+     * Prueba que valida que se pueda obtener una tarjeta por su login.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test
     public void getTarjetaDeCreditoPorLoginTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
@@ -266,6 +322,9 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultado.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
 
+    /**
+     * Prueba que valida que se pueda actualizar una tarjeta ya existente.
+     */
     @Test
     public void updateTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entidad = data.get(0);
@@ -280,6 +339,11 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(respuesta.getCodigoSeguridad(), nuevaEntidad.getCodigoSeguridad());
     }
 
+    /**
+     * Prueba que valida que se pueda eliminar una tarjeta.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
     @Test
     public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(1);
