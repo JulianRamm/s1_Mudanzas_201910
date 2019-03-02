@@ -28,7 +28,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Samuel Bernal Neira
+ * @author Daniel Machado
  */
 @RunWith(Arquillian.class)
 public class ConductorLogicTest 
@@ -36,20 +36,25 @@ public class ConductorLogicTest
     
     @Inject
     private ConductorLogic conLogic;
+    
+    @Inject
+    private ConductorPersistence conPersistence;
      /**
      * Variable para martcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
      */
     @Inject
     UserTransaction utx;
+    
+    
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
      */
-       @PersistenceContext
+    @PersistenceContext
     private EntityManager em;
        
-        /**
+     /**
      * Lista que tiene los datos de prueba.
      */
     private List<ConductorEntity> data = new ArrayList<ConductorEntity>();
