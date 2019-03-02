@@ -82,8 +82,8 @@ public class TarjetaDeCreditoLogic {
         if (cal.get(Calendar.MONTH) > fechaV.getMonth() && cal.get(Calendar.YEAR) > fechaV.getYear()) {
             throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
         }
-        tarjetaPersistence.create(tarjeta);
         usuarioEntity.getTarjetas().add(tarjeta);
+        tarjetaPersistence.create(tarjeta);
         return tarjeta;
     }
 
@@ -126,13 +126,13 @@ public class TarjetaDeCreditoLogic {
     /**
      * Obtener un tarjeta por medio de su login.
      *
-     * @param usuarioTitular: nombre del propietario de la tarjeta para ser
+     * @param login: nombre del propietario de la tarjeta para ser
      * buscado.
      * @return la tarjeta solicitado por medio de su login.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public TarjetaDeCreditoEntity getTarjeta(String login, Long idTarjeta) throws BusinessLogicException {
-        TarjetaDeCreditoEntity usuarioEntity = tarjetaPersistence.findTarjetaPorLoginPropietario(login, idTarjeta);
+        TarjetaDeCreditoEntity usuarioEntity = tarjetaPersistence.findTarjetaPorLoginUsuario(login, idTarjeta);
         if (usuarioEntity == null) {
             throw new BusinessLogicException("No existe tal tarjeta con propietario de login: " + login);
         }

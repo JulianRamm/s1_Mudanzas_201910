@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,9 @@ public class ConductorPersistenceTest
      * Lista que tiene los datos de prueba.
      */
     private List<ConductorEntity> data = new ArrayList<ConductorEntity>();
+    
+    
+    private PodamFactory factory = new PodamFactoryImpl();
 
     
     /**
@@ -107,17 +111,88 @@ public class ConductorPersistenceTest
         em.createQuery("delete from ConductorEntity").executeUpdate();
     }
     
+    /**
+     * Prueba unitaria para probar la creacion de una tarjeta.
+     */
     @Test
-    public void createConductorTest()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        ConductorEntity newEntity = factory.manufacturePojo(ConductorEntity.class);
-        ConductorEntity result = ConPersistence.create(newEntity);
-        Assert.assertNotNull(result);
+    public void createConductorTest() {
+        //podam nos crea una instancia automatica
+        
+        ConductorEntity conductor = factory.manufacturePojo(ConductorEntity.class);
+        //llamamos al manager de persistencia, en este caso de usuario
+        ConductorEntity creado = ConPersistence.create(conductor);
+        //verificamos que no devuelva algo nulo de la creacion en la base de datos. 
+        Assert.assertNotNull(creado);
+        //Buscamos ese usuario directamente en la BD
+        ConductorEntity entity = em.find(ConductorEntity.class, creado.getId());
 
-        ConductorEntity entity = em.find(ConductorEntity.class, result.getId());
+        //verificamos que el mismo que cree en mi propio metodo sea el mismo que relamente se creo en la BD.
+        Assert.assertEquals(conductor.getNombre(), entity.getNombre());
 
-        Assert.assertEquals(newEntity.getId(), entity.getId());
     }
     
+    /**
+     * Prueba, obtiene de la base de datos todos los conductores que han sido creadas...
+     */
+    @Test
+    public void getConductoresTest() {
+        List<ConductorEntity> lista = ConPersistence.findAll();
+        Assert.assertEquals(data.size(), lista.size());
+
+        for (ConductorEntity enLista : lista) {
+            boolean loEncontre = false;
+            for (ConductorEntity enData : data) {
+                if (enLista.getId().equals(enData.getId()));
+                    loEncontre = true;
+            }
+            Assert.assertTrue(loEncontre);
+        }
+
+    }
+    
+    /**
+     * Prueba para obtener solo un conductor.
+     */
+    @Test
+    public void getConcuctorTest() {
+        ConductorEntity entidad = data.get(0);
+        ConductorEntity nuevo = ConPersistence.find(entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getNombre(), nuevo.getNombre());
+        Assert.assertEquals(entidad.getId(), nuevo.getId());
+        Assert.assertEquals(entidad.getTelefono(), nuevo.getTelefono());
+    }
+    
+    /**
+     * Prueba para borrar un conductor de la bd
+     */
+    @Test
+    public void deleteConductorTest()
+    {
+        ConductorEntity entidad = data.get(0);
+        ConPersistence.delete(entidad.getId());
+        ConductorEntity borrado = em.find(ConductorEntity.class, entidad.getId());
+        Assert.assertNull(borrado);
+    }
+    
+    /**
+     * Prueba para actualizar un conductor en la base de datos.
+     */
+    @Test
+    public void updateTarjetaTest()
+    {
+        ConductorEntity entidad = data.get(0);
+         
+        ConductorEntity cambiada = factory.manufacturePojo(ConductorEntity.class);
+        
+        cambiada.setId(entidad.getId());
+        
+        ConPersistence.update(cambiada);
+        
+        ConductorEntity encontrada = em.find(ConductorEntity.class, entidad.getId());
+        
+        Assert.assertEquals(encontrada.getNombre(), cambiada.getNombre());
+        Assert.assertEquals(encontrada.getId(), cambiada.getId());
+        Assert.assertEquals(encontrada.getTelefono(), cambiada.getTelefono());
+    }
 }
