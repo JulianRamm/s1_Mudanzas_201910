@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.ArrayList;
@@ -51,6 +50,8 @@ public class UsuarioPersistenceTest {
      */
     @Inject
     UserTransaction utx;
+
+    private PodamFactory factory = new PodamFactoryImpl();
 
     /**
      * Lista que tiene los datos de prueba.
@@ -104,7 +105,6 @@ public class UsuarioPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);

@@ -6,12 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -34,9 +32,15 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class TarjetasUsuarioResource {
 
+    /**
+     * Atributo que inyecta la logica de la tarjeta en el recurso.
+     */
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
 
+    /**
+     * Atributo que inyecta la logica del usuario en el recurso.
+     */
     @Inject
     private UsuarioLogic usuarioLogic;
 
@@ -65,10 +69,11 @@ public class TarjetasUsuarioResource {
     @GET
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO getTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException, BusinessLogicException {
-        if (tarjetaLogic.getTarjeta(login, idTarjeta) == null) {
+        TarjetaDeCreditoEntity tarjeta = tarjetaLogic.getTarjeta(login, idTarjeta);
+        if (tarjeta == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idTarjeta + " no existe.", 404);
         }
-        TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.getTarjeta(login, idTarjeta));
+        TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjeta);
         return tarjetaDTO;
     }
 
@@ -86,7 +91,7 @@ public class TarjetasUsuarioResource {
     @POST
     public TarjetaDeCreditoDTO crearTarjeta(@PathParam("login") String login, TarjetaDeCreditoDTO tarjeta) throws WebApplicationException, BusinessLogicException {
         if (tarjetaLogic.getTarjeta(login, tarjeta.getIdTarjeta()) != null) {
-            throw new WebApplicationException("El recurso /tarjetas/" + tarjeta.getIdTarjeta() + " ya existe.", 412);
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + tarjeta.getIdTarjeta() + " ya existe.", 412);
         }
         TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.crearTarjeta(tarjeta.toEntity(), login));
         return tarjetaDTO;
@@ -113,6 +118,12 @@ public class TarjetasUsuarioResource {
         return dto;
     }
 
+    /**
+     * Convierte una lista de entidades en lista de DTOs
+     *
+     * @param tarjetasList la lista de entidades a convertir
+     * @return una lista de dtos.
+     */
     public List<TarjetaDeCreditoDTO> listEntity2DTO(List<TarjetaDeCreditoEntity> tarjetasList) {
         List<TarjetaDeCreditoDTO> lista = new ArrayList<>();
         for (TarjetaDeCreditoEntity entidad : tarjetasList) {

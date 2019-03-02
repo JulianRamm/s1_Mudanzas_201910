@@ -7,10 +7,14 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -33,8 +37,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class ViajesLogicTest {
+
     private PodamFactory factory = new PodamFactoryImpl();
-    
 
     @Inject
     private ViajesLogic viajesLogic;
@@ -62,6 +66,10 @@ public class ViajesLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -93,56 +101,91 @@ public class ViajesLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
+            CargaEntity cargaEntity = factory.manufacturePojo(CargaEntity.class);
+            em.persist(cargaEntity);
+            cargaData.add(cargaEntity);
+        }
+        for (int i = 0; i < 3; i++) {
             ViajesEntity viajes = factory.manufacturePojo(ViajesEntity.class);
             em.persist(viajes);
             data.add(viajes);
             if (i == 0) {
                 cargaData.get(i).setViaje(viajes);
             }
+
         }
-        for (int i = 0; i < 3; i++) {
-            CargaEntity cargaEntity = factory.manufacturePojo(CargaEntity.class);
-            em.persist(cargaEntity);
-            cargaData.add(cargaEntity);         
-        }
+
     }
+
     /**
      * test que prueba la igualdad al crear 2 viajes
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
     @Test
     public void createViajesTest() throws BusinessLogicException {
         ViajesEntity newEntity = factory.manufacturePojo(ViajesEntity.class);
+        newEntity.setCargas(cargaData);
+        newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
+        newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
+        ConductorEntity con = factory.manufacturePojo(ConductorEntity.class);
+        LinkedList<VehiculoEntity> vehs = new LinkedList<>();
+        VehiculoEntity veh = factory.manufacturePojo(VehiculoEntity.class);
+        veh.setIdConductorActual(con.getId());
+        vehs.add(veh);
+        con.setVehiculos(vehs);
+        newEntity.setConductorEntity(con);
+        newEntity.getVehiculoDelViaje().setRendimiento(21);
+        LinkedList<DireccionEntity> dirs = new LinkedList<>();
+        DireccionEntity dir = new DireccionEntity();
+        dir.setId((long) 2);
+        dir.setIdPar(1);
+        dir.setLatitud(23);
+        dir.setLongitud(34);
+        dir.setIsDeSalida(false);
+        dirs.add(dir);
+        DireccionEntity dir1 = new DireccionEntity();
+        dir1.setId((long) 1);
+        dir1.setIsDeSalida(true);
+        dir1.setLatitud(32);
+        dir1.setLongitud(43);
+        dir1.setIdPar(2);
+        dirs.add(dir1);
+        newEntity.getCargas().get(0).setDirecciones(dirs);
+        newEntity.setTiempo((int) 4.06364);
+        newEntity.setGastoGasolina((int) 1336.486711011556 * 21);
         ViajesEntity result = viajesLogic.createViajes(newEntity);
         Assert.assertNotNull(result);
         ViajesEntity entity = em.find(ViajesEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCargas(), entity.getCargas());
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
-        Assert.assertEquals(newEntity.getConductor(), entity.getConductor());
+        Assert.assertEquals(newEntity.getConductorEntity(), entity.getConductorEntity());
         Assert.assertEquals(newEntity.getGastoGasolina(), entity.getGastoGasolina());
-        Assert.assertEquals(newEntity.getHoraLlegada(), entity.getHoraLlegada());
-        Assert.assertEquals(newEntity.getHoraPartida(), entity.getHoraPartida());
         Assert.assertEquals(newEntity.getLugarLlegada(), entity.getLugarLlegada());
         Assert.assertEquals(newEntity.getLugarSalida(), entity.getLugarSalida());
         Assert.assertEquals(newEntity.getTiempo(), entity.getTiempo());
         Assert.assertEquals(newEntity.getVehiculoDelViaje(), entity.getVehiculoDelViaje());
     }
+
     /**
      * test que falla al crear una entidad con gasto de gasolina igual a cero
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createVIajesConMismoNombreTest() throws BusinessLogicException {
+    public void createVIajesConVolumen0() throws BusinessLogicException {
         ViajesEntity newEntity = factory.manufacturePojo(ViajesEntity.class);
         newEntity.setGastoGasolina(0);
         viajesLogic.createViajes(newEntity);
     }
+
     /**
      * prueba para encontrar los viajes
      */
     @Test
     public void getViajesesTest() {
+        System.out.println(data.size());
         List<ViajesEntity> list = viajesLogic.getViajes();
         Assert.assertEquals(data.size(), list.size());
         for (ViajesEntity entity : list) {
@@ -155,8 +198,10 @@ public class ViajesLogicTest {
             Assert.assertTrue(found);
         }
     }
-     /**
+
+    /**
      * Prueba para consultar un Viajes.
+     *
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @Test
@@ -167,7 +212,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCargas(), entity.getCargas());
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
-        Assert.assertEquals(newEntity.getConductor(), entity.getConductor());
+        Assert.assertEquals(newEntity.getConductorEntity(), entity.getConductorEntity());
         Assert.assertEquals(newEntity.getGastoGasolina(), entity.getGastoGasolina());
         Assert.assertEquals(newEntity.getHoraLlegada(), entity.getHoraLlegada());
         Assert.assertEquals(newEntity.getHoraPartida(), entity.getHoraPartida());
@@ -176,6 +221,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(newEntity.getTiempo(), entity.getTiempo());
         Assert.assertEquals(newEntity.getVehiculoDelViaje(), entity.getVehiculoDelViaje());
     }
+
     /**
      * Prueba para actualizar un viaje.
      */
@@ -186,11 +232,10 @@ public class ViajesLogicTest {
         pojoEntity.setId(entity.getId());
         viajesLogic.updateViaje(pojoEntity);
         ViajesEntity resp = em.find(ViajesEntity.class, entity.getId());
-         Assert.assertNotNull(entity);
         Assert.assertEquals(resp.getId(), pojoEntity.getId());
         Assert.assertEquals(resp.getCargas(), pojoEntity.getCargas());
         Assert.assertEquals(resp.getClima(), pojoEntity.getClima());
-        Assert.assertEquals(resp.getConductor(), pojoEntity.getConductor());
+        Assert.assertEquals(resp.getConductorEntity(), pojoEntity.getConductorEntity());
         Assert.assertEquals(resp.getGastoGasolina(), pojoEntity.getGastoGasolina());
         Assert.assertEquals(resp.getHoraLlegada(), pojoEntity.getHoraLlegada());
         Assert.assertEquals(resp.getHoraPartida(), pojoEntity.getHoraPartida());
@@ -199,9 +244,11 @@ public class ViajesLogicTest {
         Assert.assertEquals(resp.getTiempo(), pojoEntity.getTiempo());
         Assert.assertEquals(resp.getVehiculoDelViaje(), pojoEntity.getVehiculoDelViaje());
     }
+
     /**
      * prueba para eliminar un viaje
-     * @throws BusinessLogicException 
+     *
+     * @throws BusinessLogicException
      */
     @Test
     public void deleteViajesTest() throws BusinessLogicException {
@@ -210,5 +257,5 @@ public class ViajesLogicTest {
         ViajesEntity deleted = em.find(ViajesEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
+
 }
