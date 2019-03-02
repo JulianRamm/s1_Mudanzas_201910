@@ -114,7 +114,7 @@ public class CargasUsuarioResource {
     public List<CargaDTO> listEntity2DTO(List<CargaEntity> cargasList) {
         List<CargaDTO> lista = new ArrayList<>();
         for (CargaEntity entidad : cargasList) {
-            lista.add(new CargaDTO(entidad));
+            //lista.add(new CargaDTO(entidad));
         }
         return lista;
     }
