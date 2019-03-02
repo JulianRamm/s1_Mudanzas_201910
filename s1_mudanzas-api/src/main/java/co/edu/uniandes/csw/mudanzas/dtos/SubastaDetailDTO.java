@@ -5,10 +5,28 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import java.util.List;
+
 /**
  *
- * @author estudiante
+ * @author Andres Gonzalez
  */
-public class SubastaDetailDTO {
-    
+public class SubastaDetailDTO extends SubastaDTO
+{
+       private List<OfertaDTO> Ofertas;
+       
+       public SubastaDetailDTO()
+       {
+           
+       }
+
+    public List<OfertaDTO> getOfertas() {
+        return Ofertas;
+    }
+
+    public void setOfertas(List<OfertaDTO> Ofertas) {
+        this.Ofertas = Ofertas;
+    }
+       
+       
 }
