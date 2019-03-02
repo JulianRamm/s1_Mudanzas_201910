@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -69,13 +70,43 @@ public class CargaPersistence {
     public void delete(Long cargaId) {
         em.remove(find(cargaId));
     }
+
     /**
      * método que actualiza una carga dado el objeto con los cambios nuevo
+     *
      * @param cargaEntity
-     * @return 
+     * @return
      */
     public CargaEntity update(CargaEntity cargaEntity) {
         return em.merge(cargaEntity);
+    }
+
+    /**
+     * Busca una carga por el login del titular de la cuenta.
+     *
+     * @param login del usuario que queremos buscar
+     * @param titularCuenta el nombre del titular de la cuenta.
+     * @return la carga que pertenece al usuario que entra por parametro.
+     */
+    public CargaEntity findCargaPorLoginPropietario(String login, Long idCarga) {
+        TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
+        query = query.setParameter("login", login);
+        List<UsuarioEntity> duenio = query.getResultList();
+        CargaEntity resultado = null;
+        if (duenio == null) {
+            resultado = null;
+        } else if (duenio.isEmpty()) {
+            resultado = null;
+        } else if (duenio.get(0).getCargas() == null) {
+            resultado = null;
+        } else {
+            for (CargaEntity t : duenio.get(0).getCargas()) {
+                if (t.getId() == idCarga) {
+                    resultado = t;
+                }
+            }
+        }
+        return resultado;
     }
 
 }

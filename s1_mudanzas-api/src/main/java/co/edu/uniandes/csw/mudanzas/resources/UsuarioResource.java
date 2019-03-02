@@ -36,8 +36,11 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class UsuarioResource {
 
+    /**
+     * Atributo que inyecta la logica del usuario en el recurso.
+     */
     @Inject
-    UsuarioLogic usuarioLogic;
+    private UsuarioLogic usuarioLogic;
 
     /**
      * Crea un nuevo Usuario y se regresa un objeto identico con un id
@@ -112,8 +115,7 @@ public class UsuarioResource {
     @Path("{login}")
     public void deleteUsuario(@PathParam("login") String login) throws WebApplicationException, BusinessLogicException {
         UsuarioEntity usr = usuarioLogic.getUsuario(login);
-        if(usr == null)
-        {
+        if (usr == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
         }
         usuarioLogic.deleteUsuario(usr.getId());

@@ -6,12 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -34,9 +32,15 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class TarjetasUsuarioResource {
 
+    /**
+     * Atributo que inyecta la logica de la tarjeta en el recurso.
+     */
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
 
+    /**
+     * Atributo que inyecta la logica del usuario en el recurso.
+     */
     @Inject
     private UsuarioLogic usuarioLogic;
 
@@ -113,6 +117,12 @@ public class TarjetasUsuarioResource {
         return dto;
     }
 
+    /**
+     * Convierte una lista de entidades en lista de DTOs
+     *
+     * @param tarjetasList la lista de entidades a convertir
+     * @return una lista de dtos.
+     */
     public List<TarjetaDeCreditoDTO> listEntity2DTO(List<TarjetaDeCreditoEntity> tarjetasList) {
         List<TarjetaDeCreditoDTO> lista = new ArrayList<>();
         for (TarjetaDeCreditoEntity entidad : tarjetasList) {

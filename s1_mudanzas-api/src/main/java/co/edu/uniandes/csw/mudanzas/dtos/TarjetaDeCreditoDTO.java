@@ -19,7 +19,7 @@ import java.util.Date;
  * {
  *      "id": number,
  *      "nombreTarjeta": string,
- *      "numeroSerial": number,
+ *      "numeroSerial": string,
  *      "codigoSeguridad": number,
  *      "titularCuenta": string,
  *      "fechaVencimiento": string
@@ -29,7 +29,7 @@ import java.util.Date;
  * {
  *      "id": 321,
  *      "nombreTarjeta": "LUIS MIGUEL GOMEZ L",
- *      "numeroSerial": 9876543251,
+ *      "numeroSerial": "987654325123",
  *      "codigoSeguridad": 951,
  *      "titularCuenta": Luis Miguel Gomez Londono,
  *      "fechaVencimiento": "24/07/2019"
@@ -54,7 +54,7 @@ public class TarjetaDeCreditoDTO implements Serializable {
     /**
      * Atributo que representa el numero serial de la tarjeta
      */
-    private Long numeroSerial;
+    private String numeroSerial;
 
     /**
      * Atributo que representa el codigo de seguridad en la parte posterior de
@@ -76,9 +76,14 @@ public class TarjetaDeCreditoDTO implements Serializable {
      * Constructor por defecto.
      */
     public TarjetaDeCreditoDTO() {
-        
+
     }
-    
+
+    /**
+     * Constructor que recibe una entidad y la convierte a DTO.
+     *
+     * @param tarjeta entidad con la que se va a crear el dto
+     */
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
         if (tarjeta != null) {
             this.idTarjeta = tarjeta.getId();
@@ -125,14 +130,14 @@ public class TarjetaDeCreditoDTO implements Serializable {
     /**
      * @return the numeroSerial
      */
-    public Long getNumeroSerial() {
+    public String getNumeroSerial() {
         return numeroSerial;
     }
 
     /**
      * @param numeroSerial the numeroSerial to set
      */
-    public void setNumeroSerial(Long numeroSerial) {
+    public void setNumeroSerial(String numeroSerial) {
         this.numeroSerial = numeroSerial;
     }
 
@@ -178,6 +183,12 @@ public class TarjetaDeCreditoDTO implements Serializable {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+
+    /**
+     * Metodo que convierte una Tarjeta DTO a Entity
+     *
+     * @return TarjetaDeCreditoEntity El DTO ya convertido.
+     */
     public TarjetaDeCreditoEntity toEntity() {
         TarjetaDeCreditoEntity tarjeta = new TarjetaDeCreditoEntity();
         tarjeta.setId(this.idTarjeta);
@@ -187,5 +198,5 @@ public class TarjetaDeCreditoDTO implements Serializable {
         tarjeta.setFechaVencimiento(this.fechaVencimiento);
         return tarjeta;
     }
-    
+
 }

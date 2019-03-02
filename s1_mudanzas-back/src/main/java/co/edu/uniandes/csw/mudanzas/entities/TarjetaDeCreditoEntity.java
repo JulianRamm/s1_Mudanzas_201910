@@ -33,7 +33,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que representa el numero serial de la tarjeta
      */
-    private Long numeroSerial;
+    private String numeroSerial;
 
     /**
      * Atributo que representa el codigo de seguridad en la parte posterior de
@@ -90,14 +90,14 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     /**
      * @return the numeroSerial
      */
-    public Long getNumeroSerial() {
+    public String getNumeroSerial() {
         return numeroSerial;
     }
 
     /**
      * @param numeroSerial the numeroSerial to set
      */
-    public void setNumeroSerial(Long numeroSerial) {
+    public void setNumeroSerial(String numeroSerial) {
         this.numeroSerial = numeroSerial;
     }
 

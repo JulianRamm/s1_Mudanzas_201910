@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,11 @@ public class TarjetaDeCreditoPersistenceTest {
      * Lista que tiene los datos de prueba.
      */
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
-
     
+    private UsuarioEntity usuarioData;
+
     private PodamFactory factory = new PodamFactoryImpl();
+
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -104,11 +107,19 @@ public class TarjetaDeCreditoPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-         
+
+        UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
+
+        em.persist(usr);
+
+        usuarioData = usr;
+        
         for (int i = 0; i < 3; i++) {
 
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-
+            
+            entity.setUsuario(usr);
+            
             em.persist(entity);
 
             data.add(entity);
@@ -121,7 +132,7 @@ public class TarjetaDeCreditoPersistenceTest {
     @Test
     public void createTarjetaTest() {
         //podam nos crea una instancia automatica
-        
+
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         //llamamos al manager de persistencia, en este caso de usuario
         TarjetaDeCreditoEntity tarjetae = tp.create(trjt);
@@ -136,7 +147,8 @@ public class TarjetaDeCreditoPersistenceTest {
     }
 
     /**
-     * Prueba, obtiene de la base de datos todas las tarjetas que han sido creadas...
+     * Prueba, obtiene de la base de datos todas las tarjetas que han sido
+     * creadas...
      */
     @Test
     public void getTarjetasTest() {
@@ -147,13 +159,13 @@ public class TarjetaDeCreditoPersistenceTest {
             boolean loEncontre = false;
             for (TarjetaDeCreditoEntity enData : data) {
                 if (enLista.getId().equals(enData.getId()));
-                    loEncontre = true;
+                loEncontre = true;
             }
             Assert.assertTrue(loEncontre);
         }
 
     }
-    
+
     /**
      * Prueba para obtener solo una tarjeta.
      */
@@ -173,50 +185,47 @@ public class TarjetaDeCreditoPersistenceTest {
      * Prueba para borrar una tarjeta de la bd
      */
     @Test
-    public void deleteTarjetaTest()
-    {
+    public void deleteTarjetaTest() {
         TarjetaDeCreditoEntity entidad = data.get(0);
         tp.delete(entidad.getId());
         TarjetaDeCreditoEntity borrado = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
         Assert.assertNull(borrado);
     }
-    
+
     /**
      * Prueba para actualizar una tarjeta en la base de datos.
      */
     @Test
-    public void updateTarjetaTest()
-    {
+    public void updateTarjetaTest() {
         TarjetaDeCreditoEntity entidad = data.get(0);
-         
+
         TarjetaDeCreditoEntity cambiada = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        
+
         cambiada.setId(entidad.getId());
-        
+
         tp.update(cambiada);
-        
+
         TarjetaDeCreditoEntity encontrada = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
-        
+
         Assert.assertEquals(cambiada.getCodigoSeguridad(), encontrada.getCodigoSeguridad());
         Assert.assertEquals(cambiada.getId(), encontrada.getId());
         Assert.assertEquals(cambiada.getNombreTarjeta(), encontrada.getNombreTarjeta());
         Assert.assertEquals(cambiada.getNumeroSerial(), encontrada.getNumeroSerial());
         Assert.assertEquals(cambiada.getTitularCuenta(), encontrada.getTitularCuenta());
-    }   
-    
+    }
+
     /**
      * Prueba para buscar una tarjeta por el nombre de su propietario.
      */
     @Test
-    public void buscarTarjetaPorPropietario()
-    {
+    public void buscarTarjetaPorLogin() {
         TarjetaDeCreditoEntity entidad = data.get(0);
         TarjetaDeCreditoEntity nuevo = tp.findTarjetaPorLoginPropietario(entidad.getUsuario().getLogin(), entidad.getId());
         Assert.assertNotNull(nuevo);
-        Assert.assertEquals(entidad.getTitularCuenta(), nuevo.getTitularCuenta());
-        
+        Assert.assertEquals(entidad.getUsuario().getLogin(), nuevo.getUsuario().getLogin());
+
         nuevo = tp.findTarjetaPorLoginPropietario(entidad.getUsuario().getLogin(), null);
         Assert.assertNull(nuevo);
     }
-    
+
 }
