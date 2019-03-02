@@ -41,7 +41,7 @@ public class ViajesCargaResource {
      * @param id 
      */
     @DELETE
-    public void deleteCargasViaje(@PathParam("id") Long id){
+    public void deleteCargasViaje(@PathParam("id") Long id)throws WebApplicationException{
         try{
             cargaLogic.getCarga(id);
         }
@@ -56,7 +56,7 @@ public class ViajesCargaResource {
      * @return 
      */
     @GET
-    public CargaDTO getCargaIdViaje(@PathParam("id") Long id){
+    public CargaDTO getCargaIdViaje(@PathParam("id") Long id)throws WebApplicationException{
         CargaEntity carga;
         try{
             carga=cargaLogic.getCarga(id);
@@ -72,7 +72,7 @@ public class ViajesCargaResource {
      * @return la lista de cargas que corresponden al viaje con id especificado
      */
     @GET
-    public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id){
+    public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id)throws WebApplicationException{
         List<CargaEntity> cargas;
         try{
             cargas = viajesLogic.getCargasDadoUnId(id);

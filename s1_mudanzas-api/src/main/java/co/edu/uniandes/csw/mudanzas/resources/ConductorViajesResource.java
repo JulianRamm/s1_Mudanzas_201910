@@ -53,7 +53,7 @@ public class ConductorViajesResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id) throws BusinessLogicException{
+    public ViajesDTO getViajeDTOPorId(@PathParam("id") Long id) throws BusinessLogicException, WebApplicationException{
         ViajesEntity viajesEntity;
         try{
         viajesEntity = viajesLogic.getViaje(id);
@@ -70,7 +70,7 @@ public class ConductorViajesResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteViajeDTO(@PathParam("id") Long id) throws BusinessLogicException{
+    public void deleteViajeDTO(@PathParam("id") Long id) throws BusinessLogicException, WebApplicationException{
         try{
             viajesLogic.getViaje(id);
         }
