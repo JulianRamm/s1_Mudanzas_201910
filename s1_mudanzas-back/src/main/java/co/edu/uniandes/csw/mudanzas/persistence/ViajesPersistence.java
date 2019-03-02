@@ -83,4 +83,5 @@ public class ViajesPersistence {
         query.setParameter("id", id);
         return query.getResultList();
     }
+    
 }

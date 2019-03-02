@@ -112,7 +112,7 @@ public class ViajesLogic {
         persistence.delete(id);       
     }
     public List<CargaEntity> getCargasDadoUnId(Long id){
-        
+        return null;
     }
     
     

@@ -54,7 +54,6 @@ public class CargasUsuarioResource {
     @GET
     public List<CargaDTO> getCargas(@PathParam("login") String login)
     {
-       List<CargaDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas());
        return null;
     }
     
@@ -101,7 +100,7 @@ public class CargasUsuarioResource {
      */
     @PUT
     @Path("{idCarga: \\d+}")
-    public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga){
+    public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga, CargaDTO carga){
         return null;
     }
     
@@ -109,12 +108,13 @@ public class CargasUsuarioResource {
      * Convierte una lista de entidades en lista de DTOs
      *
      * @param cargasList
+     * @param cargasList la lista de entidades a convertir
      * @return una lista de dtos.
      */
     public List<CargaDTO> listEntity2DTO(List<CargaEntity> cargasList) {
         List<CargaDTO> lista = new ArrayList<>();
         for (CargaEntity entidad : cargasList) {
-            //lista.add(new CargaDTO(entidad));
+            lista.add(new CargaDTO(entidad));
         }
         return lista;
     }

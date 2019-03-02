@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajesDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajesDetailDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
@@ -30,6 +31,8 @@ public class ConductorViajesResource {
      */
     @Inject
     private ViajesLogic viajesLogic;
+    @Inject 
+    private CargaLogic cargalogic;
     /**
      * mètodo que crea un nuevo viaje dado un json con la informaciòn de sus atributos
      * @param viajeDTO
