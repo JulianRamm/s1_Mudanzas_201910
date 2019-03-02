@@ -95,5 +95,4 @@ public class ConductorDTO {
         conductor.setCalificacion(this.getCalificacion());
         return conductor;
     }
-
 }
