@@ -55,7 +55,7 @@ public class CargasUsuarioResource {
     public List<CargaDTO> getCargas(@PathParam("login") String login)
     {
        List<CargaDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas());
-       
+       return null;
     }
     
     /**
