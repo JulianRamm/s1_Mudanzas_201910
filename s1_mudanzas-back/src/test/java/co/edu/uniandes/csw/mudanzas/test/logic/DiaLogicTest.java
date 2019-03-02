@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.DiaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.util.ArrayList;
@@ -124,5 +125,25 @@ public class DiaLogicTest
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
+    // @Test
+   // public void createUsuarioTest() throws BusinessLogicException {
+     //   DiaEntity nuevaEntidad = factory.manufacturePojo(DiaEntity.class);
+     //   nuevaEntidad.setHoraInicio("08:02:11");
+    //    nuevaEntidad.setHoraFin("10:02:11");
+    //    nuevaEntidad.setDiaActual("02/03/2019");
+    //    nuevaEntidad.setELogin("lm.gomezl");
+    //    nuevaEntidad.setEPassword("M0v345Y!");
+    //    nuevaEntidad.setECorreoElectronico("moveasy_desarrollo@uniandes.com");
+    //    UsuarioEntity resultado = usuarioLogic.crearUsuario(nuevaEntidad);
+    //    Assert.assertNotNull(resultado);
+    //    UsuarioEntity entidad = em.find(UsuarioEntity.class, resultado.getId());
+     //   Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
+    //    Assert.assertEquals(nuevaEntidad.getENombre(), entidad.getENombre());
+    //    Assert.assertEquals(nuevaEntidad.getEApellido(), entidad.getEApellido());
+   //     Assert.assertEquals(nuevaEntidad.getECiudadDeOrigen(), entidad.getECiudadDeOrigen());
+    //    Assert.assertEquals(nuevaEntidad.getECorreoElectronico(), entidad.getECorreoElectronico());
+     //   Assert.assertEquals(nuevaEntidad.getEPassword(), entidad.getEPassword());
+      //  Assert.assertEquals(nuevaEntidad.getELogin(), entidad.getELogin());
+   // }
     
 }

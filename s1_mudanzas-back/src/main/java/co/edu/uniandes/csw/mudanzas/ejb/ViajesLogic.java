@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
-import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -53,18 +52,17 @@ public class ViajesLogic {
             }
             viajesEntity.verificarTiempo(tiempoT);
         }
-        if (viajesEntity.getGastoGasolina() == distance * viajesEntity.getVehiculoDelViaje().getRendimiento()) {
+        if (viajesEntity.getGastoGasolina() != distance * viajesEntity.getVehiculoDelViaje().getRendimiento()) {
             throw new BusinessLogicException("El gasto de gasolina no es acorde a la distancia");
         }
         if (viajesEntity.getGastoGasolina() <= 0) {
             throw new BusinessLogicException("El gasto de gasolina no puede ser 0 o negativo");
         }
-        /**
-        double hours = ChronoUnit.HOURS.between(viajesEntity.getHoraPartida(), viajesEntity.getHoraLlegada());
+        
+        double hours = (viajesEntity.getHoraLlegada().getTime()-viajesEntity.getHoraPartida().getTime())*1000*3600;
         if (!(tiempoT <=hours+8&&tiempoT>=hours-8)) {
              throw new BusinessLogicException("La hora de llegada y la hora de salida no es acorde a la distancia");
         } 
-        */
         if(viajesEntity.getHoraPartida()==null){
             throw new BusinessLogicException("la hora de partida no puede ser null");
         }
@@ -93,7 +91,7 @@ public class ViajesLogic {
      * @return
      * @throws BusinessLogicException 
      */
-    public ViajesEntity getViaje(long id)throws BusinessLogicException{
+    public ViajesEntity getViaje(Long id)throws BusinessLogicException{
         ViajesEntity viajeEntity=persistence.find(id);
         if(viajeEntity==null){
             throw new BusinessLogicException("No existe un viaje con id: "+ id);
@@ -110,10 +108,14 @@ public class ViajesLogic {
         return viaje;
     }
     
-    public void deleteViaje(long id)throws BusinessLogicException{
-        persistence.delete(id);
-        
+    public void deleteViaje(Long id)throws BusinessLogicException{
+        persistence.delete(id);       
     }
-    
-
+    public List<CargaEntity> getCargasDadoUnId(Long id) throws BusinessLogicException{
+        List<CargaEntity> car = persistence.getCargasDadoUnId(id);
+        if(car==null){
+            throw new BusinessLogicException("No hay cargas para un id: " + id);
+        }
+        return car; 
+    }   
 }

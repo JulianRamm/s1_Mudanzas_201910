@@ -201,6 +201,11 @@ public class UsuarioDTO implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Metodo que convierte el UsuarioDTO a un UsuarioEnity
+     *
+     * @return UsuarioEntity el usuario DTO ya convertido.
+     */
     public UsuarioEntity toEntity() {
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         usuarioEntity.setId(this.id);

@@ -5,7 +5,9 @@
  */
 package co.edu.uniandes.csw.mudanzas.persistence;
 
+import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -69,12 +71,37 @@ public class ViajesPersistence {
     public void delete(Long viajeId) {
         em.remove(find(viajeId));
     }
+
     /**
      * método que actualiza un viaje dado el objeto con los cambios nuevos
+     *
      * @param viajesEntity
-     * @return 
+     * @return
      */
     public ViajesEntity update(ViajesEntity viajesEntity) {
         return em.merge(viajesEntity);
+    }
+
+    /**
+     * devuelve todas las cargas con id especificado
+     *
+     * @param id
+     * @return
+     */
+    public List<CargaEntity> getCargasDadoUnId(Long id) {
+        TypedQuery<ViajesEntity> query;
+        query = em.createQuery("select e from ViajesEntity e where e.id=:id", ViajesEntity.class);
+        query.setParameter("id", id);
+        List<ViajesEntity> viaje = query.getResultList();
+        LinkedList<CargaEntity> cargas = new LinkedList<>();
+        if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
+            cargas = null;
+        } else {
+            
+            for (CargaEntity cargasE : viaje.get(0).getCargas()) {
+                cargas.add(cargasE);
+            }
+        }
+        return cargas;
     }
 }

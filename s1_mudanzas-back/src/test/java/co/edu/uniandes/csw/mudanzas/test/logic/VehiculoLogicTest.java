@@ -6,9 +6,9 @@
 package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
+import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,36 +31,37 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Samuel Bernal Neira
  */
 @RunWith(Arquillian.class)
-public class VehiculoLogicTest 
-{
-  
-    PodamFactory factory = new PodamFactoryImpl();
-    
-    
-     @Inject
+public class VehiculoLogicTest {
+
+    private PodamFactory factory = new PodamFactoryImpl();
+
+    @Inject
     private VehiculoLogic VLogic;
-    
+
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
      */
     @PersistenceContext
     private EntityManager em;
-    
-     /**
+
+    /**
      * Variable para martcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
      */
     @Inject
     UserTransaction utx;
-    
+
     /**
      * Lista que tiene los datos de prueba.
      */
     private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
-   
-    
+    /**
+     * Atributo que almacena un usuario duenio de muchas tarjetas.
+     */
+    private ProveedorEntity proveedorData;
+
     /**
      *
      * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
@@ -69,8 +70,7 @@ public class VehiculoLogicTest
      * dependencias.
      */
     @Deployment
-    public static JavaArchive createDeployment() 
-    {
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VehiculoEntity.class.getPackage())
                 .addPackage(VehiculoLogic.class.getPackage())
@@ -97,26 +97,32 @@ public class VehiculoLogicTest
             }
         }
     }
+
     private void insertData() {
+
+        ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
+        proveedor.setLogin("samuel");
+        em.persist(proveedor);
+        proveedorData = proveedor;
+
         for (int i = 0; i < 3; i++) {
 
             VehiculoEntity entity = factory.manufacturePojo(VehiculoEntity.class);
-
+            entity.setProveedor(proveedorData);
             em.persist(entity);
-
             data.add(entity);
         }
     }
-    private void clearData() 
-    {
+
+    private void clearData() {
         em.createQuery("delete from VehiculoEntity").executeUpdate();
+        em.createQuery("delete from ProveedorEntity").executeUpdate();
     }
-    
+
     @Test
-    public void createVehiculoTest() throws BusinessLogicException
-    {
+    public void createVehiculoTest() throws BusinessLogicException {
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
-        VehiculoEntity result = VLogic.crearVehiculo(newEntity);
+        VehiculoEntity result = VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
         Assert.assertNotNull(result);
 
         VehiculoEntity entity = em.find(VehiculoEntity.class, result.getId());
@@ -124,14 +130,12 @@ public class VehiculoLogicTest
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getPlaca(), entity.getPlaca());
     }
-    
+
     @Test(expected = BusinessLogicException.class)
-    public void createVehiculoConMismaPlaca() throws BusinessLogicException
-    {
+    public void createVehiculoConMismaPlaca() throws BusinessLogicException {
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
         newEntity.setPlaca(data.get(0).getPlaca());
-        VLogic.crearVehiculo(newEntity);
+        VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
     }
-    
-    
+
 }
