@@ -30,7 +30,7 @@ public class ViajesLogic {
      * @return
      * @throws BusinessLogicException 
      */
-    public ViajesEntity createViajes(ViajesEntity viajesEntity) throws BusinessLogicException {
+    public ViajesEntity createViajes(ViajesEntity viajesEntity, List<CargaEntity> cargas) throws BusinessLogicException {
         double tiempoT = 0.0;
         double distance = 0.0;
         for (CargaEntity carga : viajesEntity.getCargas()) {
@@ -72,6 +72,7 @@ public class ViajesLogic {
         if(viajesEntity.getCargas().isEmpty()||viajesEntity.getCargas()==null){
             throw new BusinessLogicException("El viaje no puede no tener cargas");
         }
+        viajesEntity.setCargas(cargas);
         persistence.create(viajesEntity);
         return viajesEntity;
     }
@@ -127,5 +128,5 @@ public class ViajesLogic {
             throw new BusinessLogicException("No hay cargas para un id: " + id);
         }
         return car; 
-    }   
+    }
 }

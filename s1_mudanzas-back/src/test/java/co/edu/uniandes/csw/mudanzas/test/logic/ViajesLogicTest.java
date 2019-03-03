@@ -146,7 +146,7 @@ public class ViajesLogicTest {
          * 1336.486711011556 * 21);
          */
         ViajesEntity newEntity = factory.manufacturePojo(ViajesEntity.class);
-        ViajesEntity result = viajesLogic.createViajes(newEntity);
+        ViajesEntity result = viajesLogic.createViajes(newEntity, newEntity.getCargas());
         Assert.assertNotNull(result);
         ViajesEntity entity = em.find(ViajesEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -168,7 +168,7 @@ public class ViajesLogicTest {
     public void createVIajesConVolumen0() throws BusinessLogicException {
         ViajesEntity newEntity = factory.manufacturePojo(ViajesEntity.class);
         newEntity.setGastoGasolina(0);
-        viajesLogic.createViajes(newEntity);
+        viajesLogic.createViajes(newEntity,newEntity.getCargas());
     }
 
     /**

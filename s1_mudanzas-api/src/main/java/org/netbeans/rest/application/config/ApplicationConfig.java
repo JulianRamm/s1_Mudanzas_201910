@@ -38,7 +38,6 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.CargasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorVehiculoResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorViajesResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorConductorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
@@ -49,7 +48,6 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoAgendaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
 }
     
 }
