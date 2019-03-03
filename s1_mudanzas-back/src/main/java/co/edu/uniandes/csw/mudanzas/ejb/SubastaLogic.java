@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mudanzas.ejb;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.SubastaPersistence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -31,5 +32,50 @@ public class SubastaLogic {
         }
         return persistence.create(subEntity);
     }
-
+    
+    public List<SubastaEntity> getOfertas()
+    {
+        return persistence.findAll();
+    }
+    
+    public List<SubastaEntity> getSubastassUsuario(String loginUsuario)
+    {
+        return persistence.findByUser(loginUsuario);
+    }
+    
+    public List<SubastaEntity> getSubastasProveedor(String loginProveedor)
+    {
+        return persistence.findByProveedor(loginProveedor);
+    }
+    
+    
+    public SubastaEntity getSubastaUsuario(Long idSubasta, String loginUsuario) throws BusinessLogicException
+    {
+        SubastaEntity retornable = persistence.findOneByUser(loginUsuario, idSubasta);
+        if(retornable == null)
+        {
+            throw new BusinessLogicException("La subasta buscada no existe");
+        }
+        return retornable;
+    }
+    
+    public SubastaEntity getSubastaProveedor(Long idSubasta, String loginProveedor) throws BusinessLogicException
+    {
+        SubastaEntity retornable = persistence.findOneByProveedor(loginProveedor, idSubasta);
+        if(retornable == null)
+        {
+            throw new BusinessLogicException("La subasta buscada no existe");
+        }
+        return retornable;
+    }
+    
+    public void delete(Long idSubasta)
+    {
+        persistence.delete(idSubasta);
+    }
+    
+    public SubastaEntity update(SubastaEntity cambio)
+    {
+        return persistence.update(cambio);
+    }
 }
