@@ -56,6 +56,15 @@ public class OfertaDTO {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
+
+    public OfertaEntity toEntity() {
+        OfertaEntity oferEntity = new OfertaEntity();
+       oferEntity.setId(idOferta);
+       oferEntity.setComentario(comentario);
+       oferEntity.setValor(valor);
+        
+        return oferEntity;
+    }
     
     
     

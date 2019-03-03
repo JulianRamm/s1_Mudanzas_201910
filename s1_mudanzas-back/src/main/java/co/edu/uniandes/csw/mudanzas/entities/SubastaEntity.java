@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.transaction.UserTransaction;
 import javax.persistence.OneToMany;
@@ -61,6 +63,24 @@ public class SubastaEntity extends BaseEntity implements Serializable{
     {
                 
     }
+
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<OfertaEntity> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<OfertaEntity> ofertas) {
+        this.ofertas = ofertas;
+    }
+    
+    
     /**
      * @return the valorInicial
      */

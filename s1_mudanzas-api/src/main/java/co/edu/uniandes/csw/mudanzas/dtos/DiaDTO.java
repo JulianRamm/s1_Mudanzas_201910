@@ -20,9 +20,9 @@ public class DiaDTO implements Serializable
     
     private boolean disponibilidad;
     
-    private Time horaInicio;
+    private Date horaInicio;
     
-    private Time horaFin;
+    private Date horaFin;
     
     private Date diaActual;
     
@@ -65,7 +65,7 @@ public class DiaDTO implements Serializable
     /**
      * @return the horaPartida
      */
-    public Time getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
@@ -79,7 +79,7 @@ public class DiaDTO implements Serializable
     /**
      * @return the horaLlegada
      */
-    public Time getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 

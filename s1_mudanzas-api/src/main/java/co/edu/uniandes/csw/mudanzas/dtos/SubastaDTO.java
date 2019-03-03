@@ -59,6 +59,8 @@ public class SubastaDTO {
     public SubastaEntity toEntity() {
         SubastaEntity subEntity = new SubastaEntity();
         subEntity.setId(idSubasta);
+        subEntity.setValorFinal(valorFinal);
+        subEntity.setValorInicial(valorInicial);
         return subEntity;
     }
 
