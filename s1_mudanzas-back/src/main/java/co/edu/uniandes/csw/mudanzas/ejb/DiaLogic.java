@@ -12,15 +12,17 @@ import static java.lang.Character.isDigit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author Samuel Bernal Neira
  */
+@Stateless
 public class DiaLogic 
 {
-     @Inject
+   @Inject
    private DiaPersistence per;
     
     public DiaEntity crearDia(DiaEntity entity) throws BusinessLogicException
