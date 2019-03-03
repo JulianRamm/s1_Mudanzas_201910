@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -36,14 +35,11 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.ExceptionMapperA.class);
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.WebApplicationExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorConductorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasProveedorResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoAgendaResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
 }
     
 }

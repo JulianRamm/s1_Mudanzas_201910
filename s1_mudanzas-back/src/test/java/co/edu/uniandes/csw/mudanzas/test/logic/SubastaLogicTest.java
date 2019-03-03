@@ -94,8 +94,11 @@ public class SubastaLogicTest {
     @Test
     public void createSubastaTest() throws BusinessLogicException {
         SubastaEntity ManufacturedEntity = factory.manufacturePojo(SubastaEntity.class);
-        SubastaEntity resultado = subastaLogic.createSubasta(ManufacturedEntity);
-        Assert.assertNotNull(resultado);
+        SubastaEntity subcreada = subastaLogic.createSubasta(ManufacturedEntity);
+        Assert.assertNotNull(subcreada);
+        SubastaEntity entidadFound = em.find(SubastaEntity.class, subcreada.getId());
+        Assert.assertEquals(ManufacturedEntity.getId(), entidadFound.getId());
+
     }
 
 }
