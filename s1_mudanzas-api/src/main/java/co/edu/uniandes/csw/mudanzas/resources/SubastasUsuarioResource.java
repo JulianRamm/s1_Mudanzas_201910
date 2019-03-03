@@ -57,6 +57,7 @@ public class SubastasUsuarioResource {
     @GET
     public List<SubastaDTO> getSubastas(@PathParam("login") String login)
     {
+        List<SubastaDTO> listaSubastas = listEntity2DTO(subLogic);
         return null;
     }
     
@@ -131,5 +132,7 @@ public class SubastasUsuarioResource {
         }
         return lista;
     }
+    
+    
     
 }
