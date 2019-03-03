@@ -180,7 +180,7 @@ public class ViajesPersistenceTest {
         Assert.assertEquals(newEntity.getId(), resp.getId());
     }
     @Test
-    public void encontrarCargasTest(){
+    public void getCargasDadoUnIdTest(){
         ViajesEntity entidad = data.get(0);
         List<CargaEntity> nuevo = persistence.getCargasDadoUnId(entidad.getId());
         Assert.assertNotNull(nuevo);
