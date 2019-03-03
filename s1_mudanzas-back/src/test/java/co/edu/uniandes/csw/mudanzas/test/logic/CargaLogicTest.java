@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -124,7 +125,6 @@ public class CargaLogicTest {
         em.persist(usuario);
         usuarioData = usuario;
         for (int i = 0; i < 3; i++) {
-
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
             entity.setUsuario(usuarioData);
             em.persist(entity);
@@ -180,7 +180,7 @@ public class CargaLogicTest {
         for (CargaEntity entity : list) {
             boolean found = false;
             for (CargaEntity storedEntity : data) {
-                if (entity.getId() == (storedEntity.getId())) {
+                if (Objects.equals(entity.getId(), storedEntity.getId())) {
                     found = true;
                 }
             }
@@ -243,5 +243,48 @@ public class CargaLogicTest {
         cargaLogic.deleteCarga(entity.getId());
         CargaEntity deleted = em.find(CargaEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * test de buscar una carga con usuario
+     *
+     * @throws BusinessLogicException
+     */
+    @Test
+    public void getCargaUsuarioTest() throws BusinessLogicException {
+        CargaEntity entity = data.get(0);
+        CargaEntity resultEntity = cargaLogic.getCargaUsuario(entity.getUsuario().getLogin(), entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(resultEntity.getId(), entity.getId());
+        Assert.assertEquals(resultEntity.getDatosEnvio(), entity.getDatosEnvio());
+        Assert.assertEquals(resultEntity.getDirecciones(), entity.getDirecciones());
+        Assert.assertEquals(resultEntity.getImagenes(), entity.getImagenes());
+        Assert.assertEquals(resultEntity.getLugarLlegada(), entity.getLugarLlegada());
+        Assert.assertEquals(resultEntity.getLugarSalida(), entity.getLugarSalida());
+        Assert.assertEquals(resultEntity.getObservaciones(), entity.getObservaciones());
+        Assert.assertEquals(resultEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(resultEntity.getViaje(), entity.getViaje());
+        Assert.assertEquals(resultEntity.getVolumen(), entity.getVolumen());
+        CargaEntity otro = cargaLogic.getCargaUsuario(null, Long.MAX_VALUE);
+        Assert.assertNull(otro);
+    }
+
+    /**
+     * test de obtener una lista de cargas dado un login de usuario
+     *
+     * @throws BusinessLogicException
+     */
+    @Test
+    public void getCargasTest() throws BusinessLogicException {
+        CargaEntity entity = data.get(0);
+        List<CargaEntity> resultEntity = cargaLogic.getCargas(entity.getUsuario().getLogin());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(3, resultEntity.size());
+        for(CargaEntity car: resultEntity){
+            for(CargaEntity car1: data){
+                Assert.assertEquals(car, car1);
+            }
+        }
     }
 }

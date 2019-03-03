@@ -86,11 +86,10 @@ public class TarjetaDeCreditoPersistence {
      * Busca una tarjeta de credito por el login del titular de la cuenta.
      *
      * @param login del usuario que queremos buscar
-     * @param titularCuenta el nombre del titular de la cuenta.
      * @return la tarjeta de credito que pertenece al usuario que entra por
      * parametro.
      */
-    public TarjetaDeCreditoEntity findTarjetaPorLoginPropietario(String login, Long idTarjeta) {
+    public TarjetaDeCreditoEntity findTarjetaPorLoginUsuario(String login, Long idTarjeta) {
         TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
         query = query.setParameter("login", login);
         List<UsuarioEntity> duenio = query.getResultList();

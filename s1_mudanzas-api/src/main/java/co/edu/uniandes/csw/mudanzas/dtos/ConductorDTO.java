@@ -95,9 +95,4 @@ public class ConductorDTO {
         conductor.setCalificacion(this.getCalificacion());
         return conductor;
     }
-
-    ConductorEntity toEntity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

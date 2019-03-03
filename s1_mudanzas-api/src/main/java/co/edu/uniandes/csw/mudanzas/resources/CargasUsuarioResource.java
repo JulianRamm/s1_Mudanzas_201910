@@ -53,6 +53,7 @@ public class CargasUsuarioResource {
      * @param login del usuario que se esta buscando.
      * @return JSONArray {@link CargaDTO} - Las cargas encontradas en el
      * usuario. Si no hay ninguno retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     public List<CargaDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException {
@@ -68,6 +69,7 @@ public class CargasUsuarioResource {
      * @param idCarga Identificador de la carga que se esta buscando. Este debe
      * ser una cadena de dígitos.
      * @return JSON {@link CargaDTO} - La Carga buscada
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     @Path("{idCarga: \\d+}")
@@ -85,7 +87,9 @@ public class CargasUsuarioResource {
      * URL. Se devuelve la carga que se guarda en el usuario.
      *
      * @param login del usuario que se esta actualizando.
+     * @param carga
      * @return JSON {@link CargaDTO} - La carga guardada en el usuario.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
     public CargaDTO crearCarga(@PathParam("login") String login, CargaDTO carga) throws BusinessLogicException {
@@ -104,6 +108,7 @@ public class CargasUsuarioResource {
      * debe ser una cadena de dígitos.
      * @param carga
      * @return JSON {@link CargaDTO} - La Carga Actualizada
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @PUT
     @Path("{idCarga: \\d+}")
