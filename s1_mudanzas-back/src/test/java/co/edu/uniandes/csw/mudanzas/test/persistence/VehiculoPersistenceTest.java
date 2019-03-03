@@ -122,4 +122,92 @@ public class VehiculoPersistenceTest
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
     
+      @Test
+    public void deleteVehiculoTest() {
+        VehiculoEntity entidad = data.get(0);
+        VPersistence.delete(entidad.getId());
+        VehiculoEntity borrado = em.find(VehiculoEntity.class, entidad.getId());
+        Assert.assertNull(borrado);
+    }
+    
+    @Test
+    public void updateVehiculoTest() {
+        VehiculoEntity entidad = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        VehiculoEntity cambiada = factory.manufacturePojo(VehiculoEntity.class);
+
+        cambiada.setId(entidad.getId());
+
+        VPersistence.update(cambiada);
+
+        VehiculoEntity encontrada = em.find(VehiculoEntity.class, entidad.getId());
+
+        Assert.assertEquals(cambiada.getNumeroConductores(), encontrada.getNumeroConductores());
+        Assert.assertEquals(cambiada.getId(), encontrada.getId());
+        Assert.assertEquals(cambiada.getMarca(), encontrada.getMarca());
+        Assert.assertEquals(cambiada.getColor(), encontrada.getColor());
+        Assert.assertEquals(cambiada.getPlaca(), encontrada.getPlaca());
+    }
+    
+     @Test
+    public void getVehiculoTest() {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity nuevo = VPersistence.find(entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getNumeroConductores(), nuevo.getNumeroConductores());
+        Assert.assertEquals(entidad.getId(), nuevo.getId());
+        Assert.assertEquals(entidad.getMarca(), nuevo.getMarca());
+        Assert.assertEquals(entidad.getColor(), nuevo.getColor());
+        Assert.assertEquals(entidad.getPlaca(), nuevo.getPlaca());
+    }
+    
+    @Test
+    public void buscarVehiculoPorPlacaTest() {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity nuevo = VPersistence.findByPlaca(entidad.getPlaca());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getPlaca(), nuevo.getPlaca());
+        nuevo = VPersistence.findByPlaca(null);
+        Assert.assertNull(nuevo);
+    }
+
+    @Test
+    public void buscarVehiculoPorAgenda() {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity nuevo = VPersistence.findByDia(entidad.getAgenda().getId(),entidad.getPlaca());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getAgenda().getId(), nuevo.getAgenda().getId());
+      //  nuevo = VPersistence.findByDia(null);
+     //   Assert.assertNull(nuevo);
+    }
+    
+    @Test
+    public void buscarVehiculoPorUbicacionActual() {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity nuevo = VPersistence.findByUbicacionActual(entidad.getUbicacionActual().getIdPar());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getUbicacionActual(), nuevo.getUbicacionActual());
+    //    nuevo = VPersistence.findByUbicacionActual(null);
+    //    Assert.assertNull(nuevo);
+    }
+    
+     @Test
+    public void getVehiculosTest() {
+        List<VehiculoEntity> lista = VPersistence.findAll();
+        Assert.assertEquals(data.size(), lista.size());
+
+        for (VehiculoEntity enLista : lista) {
+            boolean loEncontre = false;
+            for (VehiculoEntity enData : data) {
+                if (enLista.getId().equals(enData.getId()));
+                loEncontre = true;
+            }
+            Assert.assertTrue(loEncontre);
+        }
+
+    }
+    
+    
+
+    
 }

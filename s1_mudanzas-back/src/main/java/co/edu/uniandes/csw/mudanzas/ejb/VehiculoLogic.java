@@ -44,23 +44,23 @@ public class VehiculoLogic {
             throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getPlaca() + "\"");
         }
         //Verificacion de un vehiculo con id unico.
-        if (vehiculoPersistence.findByUbicacionActual(entity.getUbicacionActual()) != null) {
+        if (vehiculoPersistence.findByUbicacionActual(entity.getUbicacionActual().getId()) != null) {
             throw new BusinessLogicException("Ya existe un vehiculo con el id de ubicación actual: \"" + entity.getUbicacionActual().getIdPar() + "\"");
         }
         //Verificación de un vehiculo con una agenda única.
-        if (vehiculoPersistence.findByDia(entity.getAgenda()) != null) {
+        if (vehiculoPersistence.findByDia(entity.getAgenda().getId(), entity.getPlaca()) != null) {
             throw new BusinessLogicException("Ya existe un vehiculo con la agenda: \"" + entity.getAgenda().getId() + "\"");
 
         }
         //Verificación que marca no tenga carácteres especiales, no sea vacia y su longitud sea menor a 25 carácteres
-        boolean marcaCorrectFormat = false;
+        boolean marcaCorrectFormat = true;
         char[] caracteresEspeciales = "!#$%&/()=?¡¿_{}´+¨*~[]".toCharArray();
         if (entity.getMarca().equals("")) {
             marcaCorrectFormat = false;
         } else {
             marcaCorrectFormat = true;
         }
-        for (int i = 0; i < caracteresEspeciales.length; i++) {
+        for (int i = 0; i < caracteresEspeciales.length && marcaCorrectFormat; i++) {
             if (entity.getMarca().indexOf(caracteresEspeciales[i]) > 0) {
                 marcaCorrectFormat = false;
             } else {
@@ -72,11 +72,11 @@ public class VehiculoLogic {
         }
 
         //Verificación que el color tenga carácteres especiales, no sea vacia y su longitud sea menor a 25 carácteres
-        boolean colorCorrectFormat = false;
+        boolean colorCorrectFormat = true;
         if (entity.getMarca().equals("")) {
             colorCorrectFormat = false;
         }
-        for (int i = 0; i < caracteresEspeciales.length; i++) {
+        for (int i = 0; i < caracteresEspeciales.length && colorCorrectFormat; i++) {
             if (entity.getColor().indexOf(caracteresEspeciales[i]) > 0) {
                 colorCorrectFormat = false;
             } else {
@@ -88,8 +88,15 @@ public class VehiculoLogic {
         }
 
         //Verificación de nulidad para marca, color, agenda, placa y ubicaciónActual
-        if (entity.getMarca() == null || entity.getColor() == null || entity.getAgenda() == null || entity.getPlaca() == null || entity.getUbicacionActual() == null) {
+        if (entity.getMarca() == null || entity.getColor() == null || entity.getAgenda() == null || entity.getPlaca() == null || entity.getUbicacionActual() == null ) {
             throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
+        }
+        
+        //Verificación de manejo correcto de rendimiento
+        
+        if(entity.getRendimiento()<=0)
+        {
+            throw new BusinessLogicException("El rendimiento del vehiculo no puede ser negativo ni tampoco 0.");
         }
 
         //Verificación del numero de conductores posibles a los que un vehículo puede estar adscrito.

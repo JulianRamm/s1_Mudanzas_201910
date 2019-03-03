@@ -118,24 +118,112 @@ public class VehiculoLogicTest {
         em.createQuery("delete from VehiculoEntity").executeUpdate();
         em.createQuery("delete from ProveedorEntity").executeUpdate();
     }
+    
+    
+   
+
 
     @Test
     public void createVehiculoTest() throws BusinessLogicException {
-        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
-        VehiculoEntity result = VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
-        Assert.assertNotNull(result);
-
-        VehiculoEntity entity = em.find(VehiculoEntity.class, result.getId());
-
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getPlaca(), entity.getPlaca());
+        VehiculoEntity nuevaEntidad = factory.manufacturePojo(VehiculoEntity.class);
+        nuevaEntidad.setNumeroConductores(4);
+        nuevaEntidad.setMarca("Ejm Marca");
+        nuevaEntidad.setColor("Azul");
+        nuevaEntidad.setPlaca("BYC943");
+        nuevaEntidad.setRendimiento(100);
+        VehiculoEntity resultado = VLogic.crearVehiculo(nuevaEntidad, proveedorData.getLogin());
+        Assert.assertNotNull(resultado);
+        VehiculoEntity entidad = em.find(VehiculoEntity.class, resultado.getId());
+        Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
+        Assert.assertEquals(nuevaEntidad.getNumeroConductores(), entidad.getNumeroConductores());
+        Assert.assertEquals(nuevaEntidad.getMarca(), entidad.getMarca());
+        Assert.assertEquals(nuevaEntidad.getColor(), entidad.getColor());
+        Assert.assertEquals(nuevaEntidad.getPlaca(), entidad.getPlaca());
+        Assert.assertEquals(nuevaEntidad.getRendimiento(), entidad.getRendimiento());
+    }
+    
+    @Test
+    //(expected = BusinessLogicException.class)
+    public void nullTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        VehiculoEntity veh = factory.manufacturePojo(VehiculoEntity.class);
+        veh.setPlaca(null);
+        //llamamos al manager de persistencia, en este caso no se creara
+        VLogic.crearVehiculo(veh, proveedorData.getLogin());
     }
 
-    @Test(expected = BusinessLogicException.class)
+    @Test
+    //(expected = BusinessLogicException.class)
     public void createVehiculoConMismaPlaca() throws BusinessLogicException {
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
         newEntity.setPlaca(data.get(0).getPlaca());
         VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
+    }
+    
+    @Test
+    //(expected = BusinessLogicException.class)
+    public void createVehiculoConMismaAgenda() throws BusinessLogicException {
+        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
+        newEntity.setAgenda(data.get(0).getAgenda());
+        VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
+    }
+    
+    @Test
+    //(expected = BusinessLogicException.class)
+    public void createVehiculoConMismaUbicacionActual() throws BusinessLogicException {
+        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
+        newEntity.setUbicacionActual(data.get(0).getUbicacionActual());
+        VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
+    }
+    
+    /**
+     * Prueba la regla de negocio para la placa del vehiculo
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void PlacaTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
+        vec.setPlaca("B0GA234");
+        //llamamos al manager de persistencia, en este caso no se creara
+        VLogic.crearVehiculo(vec, proveedorData.getLogin());
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void MarcaTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
+        vec.setMarca("Bugati/*-+");
+        //llamamos al manager de persistencia, en este caso no se creara
+        VLogic.crearVehiculo(vec, proveedorData.getLogin());
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void ColorTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
+        vec.setColor("B0G234");
+        //llamamos al manager de persistencia, en este caso no se creara
+        VLogic.crearVehiculo(vec, proveedorData.getLogin());
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void numeroConductoresTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
+        vec.setNumeroConductores(44);
+        //llamamos al manager de persistencia, en este caso no se creara
+        VLogic.crearVehiculo(vec, proveedorData.getLogin());
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void RendimientoTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
+        vec.setRendimiento(-34);
+        //llamamos al manager de persistencia, en este caso no se creara
+        VLogic.crearVehiculo(vec, proveedorData.getLogin());
     }
 
 }

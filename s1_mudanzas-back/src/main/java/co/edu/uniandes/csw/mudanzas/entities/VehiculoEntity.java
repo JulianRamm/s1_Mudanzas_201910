@@ -21,9 +21,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
-    @PodamExclude
-    @ManyToOne
-    private ProveedorEntity proveedor;
+    
     private static final long serialVersionUID = 1L;
 
     private String placa;
@@ -40,7 +38,12 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     private String dimensiones;
 
-
+    /**
+     * Atributo que modela la lista de vehiculos de un conductor
+     */
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
     /**
      * Atributo que modela la lista de vehiculos de un conductor
      */
