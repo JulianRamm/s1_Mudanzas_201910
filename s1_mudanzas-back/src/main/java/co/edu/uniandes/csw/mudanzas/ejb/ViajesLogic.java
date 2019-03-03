@@ -111,7 +111,11 @@ public class ViajesLogic {
     public void deleteViaje(Long id)throws BusinessLogicException{
         persistence.delete(id);       
     }
-    public List<CargaEntity> getCargasDadoUnId(Long id){
-        return persistence.getCargasDadoUnId(id);
+    public List<CargaEntity> getCargasDadoUnId(Long id) throws BusinessLogicException{
+        List<CargaEntity> car = persistence.getCargasDadoUnId(id);
+        if(car==null){
+            throw new BusinessLogicException("No hay cargas para un id: " + id);
+        }
+        return car; 
     }   
 }

@@ -20,6 +20,11 @@ public class OfertaEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor;
+    
+    
+    @PodamExclude
+    @ManyToOne
+    private SubastaEntity subasta;
      /**
      * Atributo que representa comentario dado por el proveedor. 
      */
@@ -33,6 +38,14 @@ public class OfertaEntity extends BaseEntity implements Serializable{
     public OfertaEntity()
     {
         
+    }
+
+    public SubastaEntity getSubasta() {
+        return subasta;
+    }
+
+    public void setSubasta(SubastaEntity subasta) {
+        this.subasta = subasta;
     }
 
     /**

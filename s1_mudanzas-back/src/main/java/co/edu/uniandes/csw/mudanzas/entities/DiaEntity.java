@@ -6,11 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -26,11 +22,11 @@ public class DiaEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.TIME)
-    private Time horaInicio;
+    @Temporal(TemporalType.DATE)
+    private Date horaInicio;
 
-    @Temporal(TemporalType.TIME)
-    private Time horaFin;
+    @Temporal(TemporalType.DATE)
+    private Date horaFin;
 
     @Temporal(TemporalType.DATE)
     private Date diaActual;
@@ -48,28 +44,28 @@ public class DiaEntity extends BaseEntity implements Serializable {
     /**
      * @return the horaSalida
      */
-    public Time getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaSalida the horaSalida to set
      */
-    public void setHoraInicio(Time horaSalida) {
+    public void setHoraInicio(Date horaSalida) {
         this.horaInicio = horaSalida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public Time getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(Time horaLlegada) {
+    public void setHoraFin(Date horaLlegada) {
         this.horaFin = horaLlegada;
     }
 

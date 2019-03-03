@@ -28,6 +28,7 @@ public class CargaLogic {
     /**
      * método que crea una carga y verifica que se cumplan las reglas de negocio
      * @param cargaEntity
+     * @param login
      * @return
      * @throws BusinessLogicException 
      */
@@ -104,6 +105,13 @@ public class CargaLogic {
     public void deleteCarga(Long id){
         persistence.delete(id);
     }
+    /**
+     * retorna las cargas de un usuario
+     * @param login
+     * @param id
+     * @return
+     * @throws BusinessLogicException 
+     */
     public CargaEntity getCargaUsuario(String login, Long id) throws BusinessLogicException{
         CargaEntity carga=persistence.findCargaPorLoginPropietario(login, id);
         if(carga==null){
@@ -120,7 +128,7 @@ public class CargaLogic {
     public List<CargaEntity> getCargas(String login) throws BusinessLogicException{
         List<CargaEntity> cargas=usuarioPer.findUsuarioPorLogin(login).getCargas();
         if(cargas==null){
-            throw new BusinessLogicException("No hay cargas para este usuario con login");
+            throw new BusinessLogicException("No hay cargas para este usuario con login: "+ login);
         }
         return cargas;
     }
