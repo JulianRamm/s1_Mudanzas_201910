@@ -8,9 +8,13 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
+import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
+import static com.sun.enterprise.security.perms.SMGlobalPolicyUtil.CommponentType.car;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
@@ -71,7 +75,7 @@ public class CargaLogicTest {
      * Atributo que almacena un usuario duenio de muchas tarjetas.
      */
     private UsuarioEntity usuarioData;
-
+    private ViajesEntity viajeData;
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -121,12 +125,16 @@ public class CargaLogicTest {
      * pruebas.
      */
     private void insertData() {
+        ViajesEntity viaje=factory.manufacturePojo(ViajesEntity.class);
+        em.persist(viaje);
+        viajeData = viaje;
         UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
         em.persist(usuario);
         usuarioData = usuario;
         for (int i = 0; i < 3; i++) {
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
             entity.setUsuario(usuarioData);
+            entity.setViaje(viajeData);
             em.persist(entity);
             data.add(entity);
         }
@@ -140,8 +148,14 @@ public class CargaLogicTest {
      */
     @Test
     public void createCargaTest() throws BusinessLogicException {
-        CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
+        CargaEntity newEntity = data.get(0);
         newEntity.setVolumen(344);
+        Date a = new Date(2019, 4, 25, 10, 0);
+        Date b = new Date(2019,4,25,20,0);
+        Date c= new Date(2019,4,25,2,0);
+        newEntity.getViaje().setTiempo(b.getHours());
+        newEntity.setFechaEstimadaLlegada(a);
+        newEntity.setFechaEnvio(c);
         CargaEntity result = cargaLogic.createCarga(newEntity, usuarioData.getLogin());
         Assert.assertNotNull(result);
         CargaEntity entity = em.find(CargaEntity.class, result.getId());
@@ -266,8 +280,6 @@ public class CargaLogicTest {
         Assert.assertEquals(resultEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(resultEntity.getViaje(), entity.getViaje());
         Assert.assertEquals(resultEntity.getVolumen(), entity.getVolumen());
-        CargaEntity otro = cargaLogic.getCargaUsuario(null, Long.MAX_VALUE);
-        Assert.assertNull(otro);
     }
 
     /**
@@ -281,10 +293,10 @@ public class CargaLogicTest {
         List<CargaEntity> resultEntity = cargaLogic.getCargas(entity.getUsuario().getLogin());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(3, resultEntity.size());
-        for(CargaEntity car: resultEntity){
-            for(CargaEntity car1: data){
-                Assert.assertEquals(car, car1);
-            }
-        }
+        Assert.assertTrue(listEqualsIgnoreOrder(resultEntity, data));
+    }
+
+    public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
+        return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
 }
