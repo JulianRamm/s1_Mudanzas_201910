@@ -36,13 +36,13 @@ public class ViajesEntity extends BaseEntity implements Serializable {
             mappedBy = "viaje",
             fetch = FetchType.LAZY
     )
-    List<CargaEntity> cargas;
+    private List<CargaEntity> cargas;
     /**
      * conducto asignado en el viaje
      */
     @PodamExclude
     @OneToOne
-    ConductorEntity conductorEntity;
+    private ConductorEntity conductorEntity;
     
     private String lugarSalida;
 
