@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.OfertaDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.OfertaLogic;
+import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -21,7 +23,7 @@ public class OfertaProveedorResource {
     
     private static final Logger LOGGER = Logger.getLogger(OfertaProveedorResource.class.getName());
 
-  
+    private OfertaLogic oferLogic;
     
     /**
      * Busca la oferta con el idOferta asociado dentro del proveedor con el login asociado.
@@ -31,9 +33,9 @@ public class OfertaProveedorResource {
      */
     @GET
     @Path("{idOferta: \\d+}")
-    public OfertaDTO getOfrerta(@PathParam("login") String login)
+    public OfertaDTO getOfrerta(@PathParam("login") String login) throws BusinessLogicException
     {
-        return null;
+        return new OfertaDTO(oferLogic.getOfertaProveedor(Long.MIN_VALUE, login));
     }
     
     /**

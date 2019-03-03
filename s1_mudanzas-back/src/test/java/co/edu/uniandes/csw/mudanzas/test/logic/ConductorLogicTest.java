@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.ConductorLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
 import java.util.ArrayList;
@@ -110,7 +111,8 @@ public class ConductorLogicTest {
     public void createConductorTest() throws BusinessLogicException {
         PodamFactory factory = new PodamFactoryImpl();
         ConductorEntity newEntity = factory.manufacturePojo(ConductorEntity.class);
-        ConductorEntity result = conLogic.crearConductor(newEntity);
+        ProveedorEntity newProveedor = factory.manufacturePojo(ProveedorEntity.class);
+        ConductorEntity result = conLogic.crearConductor(newEntity, newProveedor.getLogin() );
         Assert.assertNotNull(result);
 
         ConductorEntity entity = em.find(ConductorEntity.class, result.getId());
@@ -119,6 +121,8 @@ public class ConductorLogicTest {
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
 
+    
+
     @Test(expected = BusinessLogicException.class)
     public void createConductorConMismoNombre() throws BusinessLogicException {
         PodamFactory factory = new PodamFactoryImpl();
@@ -126,5 +130,6 @@ public class ConductorLogicTest {
         newEntity.setNombre(data.get(0).getNombre());
         conLogic.crearConductor(newEntity);
     }
+
 
 }

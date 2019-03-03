@@ -71,7 +71,7 @@ public class DiaDTO implements Serializable
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraInicio(Time horaPartida) {
+    public void setHoraInicio(Date horaPartida) {
         this.horaInicio = horaPartida;
     }
 
@@ -85,7 +85,7 @@ public class DiaDTO implements Serializable
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(Time horaLlegada) {
+    public void setHoraFin(Date horaLlegada) {
         this.horaFin = horaLlegada;
     }
 
