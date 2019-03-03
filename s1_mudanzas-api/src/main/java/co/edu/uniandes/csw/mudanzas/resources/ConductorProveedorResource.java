@@ -27,7 +27,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Daniel MAchado
  */
-public class ProveedorConductorResource 
+public class ConductorProveedorResource 
 {
     
      private static final Logger LOGGER = Logger.getLogger(TarjetasUsuarioResource.class.getName());
@@ -86,7 +86,7 @@ public class ProveedorConductorResource
      * @return JSON {@link TarjetaDeCreditoDTO} - La tarjeta guardada en el
      * usuario.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
-     *
+     */
     @POST
     public ConductorDTO crearConductor(@PathParam("login") String login, ConductorDTO conductor) throws WebApplicationException, BusinessLogicException {
         if (conductorLogic.getConductor(login, conductor.getId()) != null) {
@@ -95,27 +95,28 @@ public class ProveedorConductorResource
         ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.crearConductor(conductor.toEntity(), login));
         return conductorDTO;
     }
-    */
     
-    @GET
-    @Path("{idConductor: \\d+}")
-    public List<ConductorDTO> darConductorConId(@PathParam("login") String login, @PathParam("idConductor") Long pIdConductor)
-    {
-        return null;
-    }
-    
-    @POST
-    @Path("{idConductor: \\d+}")
-    public List<ConductorDTO> CrearConductorConId(@PathParam("login") String login, @PathParam("Conductor") ConductorDTO pConductor, @PathParam("idConductor") Long pIdConductor)
-    {
-        return null;
-    }
-    
+    /**
+     * Remplaza una instancia de Tarjeta de Credito asociada a una instancia del
+     * Usuario
+     *
+     * @param login del usuario que se esta remplazando.
+     * @param idConductor Identificador de la tarjeta que se desea actualizar.
+     * Este debe ser una cadena de dígitos.
+     * @param conductor
+     * @return JSON {@link TarjetaDeCreditoDTO} - La Tarjeta de Credito
+     * Actualizada
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     */
     @PUT
     @Path("{idConductor: \\d+}")
-    public ConductorDTO CambiarConductorConId(@PathParam("login") String login, @PathParam("Conductor") ConductorDTO pConductor, @PathParam("idConductor") Long pIdConductor)
-    {
-        return null;
+    public ConductorDTO cambiarConductor(@PathParam("login") String login, @PathParam("idConductor") Long idConductor, ConductorDTO conductor) throws WebApplicationException, BusinessLogicException {
+        conductor.setId(idConductor);
+        if (conductorLogic.getConductor(login, idConductor) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idConductor + " no existe.", 404);
+        }
+        ConductorDTO dto = new ConductorDTO(conductorLogic.updateConductor(conductor.toEntity()));
+        return dto;
     }
     
     @DELETE

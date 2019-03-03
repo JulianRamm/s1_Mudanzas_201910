@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,46 +21,50 @@ import javax.inject.Inject;
  */
 @Stateless
 public class CargaLogic {
-    
+
     @Inject
     private CargaPersistence persistence;
     @Inject
-    private UsuarioPersistence usuarioPer; 
+    private UsuarioPersistence usuarioPer;
+
     /**
      * método que crea una carga y verifica que se cumplan las reglas de negocio
+     *
      * @param cargaEntity
      * @param login
      * @return
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
-    public CargaEntity createCarga(CargaEntity cargaEntity, String login) throws BusinessLogicException{
+    public CargaEntity createCarga(CargaEntity cargaEntity, String login) throws BusinessLogicException {
         UsuarioEntity usuarioEntity = usuarioPer.findUsuarioPorLogin(login);
-        
-        if(cargaEntity.getVolumen()<=0){
+
+        if (cargaEntity.getVolumen() <= 0) {
             throw new BusinessLogicException("El volumen no puede ser 0 o menor a cero");
         }
-        if(cargaEntity.getVolumen()==1){
+        if (cargaEntity.getVolumen() == 1) {
             throw new BusinessLogicException("El volumen no puede ser 1");
         }
-        if(cargaEntity.getImagenes().isEmpty()){
-             throw new BusinessLogicException("Las imagenes no puyeden ser vacias");
+        if (cargaEntity.getImagenes().isEmpty()) {
+            throw new BusinessLogicException("Las imagenes no puyeden ser vacias");
         }
-        if(cargaEntity.getLugarLlegada()==null||cargaEntity.getLugarLlegada().equals("")){
+        if (cargaEntity.getLugarLlegada() == null || cargaEntity.getLugarLlegada().equals("")) {
             throw new BusinessLogicException("El lugar de llegada no puede ser null");
         }
-        if(cargaEntity.getLugarSalida()==null||cargaEntity.getLugarSalida().equals("")){
+        if (cargaEntity.getLugarSalida() == null || cargaEntity.getLugarSalida().equals("")) {
             throw new BusinessLogicException("El lugar de salida no puede ser null");
         }
-        /**
-        LocalDateTime tiempo= cargaEntity.getFechaEnvio().plusHours(cargaEntity.getViaje().getTiempo());
-        if(!(cargaEntity.getFechaEstimadaLlegada().isAfter(tiempo.minusHours(8))&&cargaEntity.getFechaEstimadaLlegada().isBefore(tiempo.plusHours(8)))){
+        Date a= cargaEntity.getFechaEstimadaLlegada();
+        Date b=new Date(cargaEntity.getFechaEstimadaLlegada().getYear(),cargaEntity.getFechaEstimadaLlegada().getMonth(),cargaEntity.getFechaEstimadaLlegada().getDate(),cargaEntity.getViaje().getTiempo(),cargaEntity.getFechaEstimadaLlegada().getSeconds());
+        Date c=cargaEntity.getFechaEnvio();
+        double tiempo=(Math.abs(a.getTime()-b.getTime()))/3.6E6;
+        double tiempo2=(a.getTime()-c.getTime())/3.6E6;
+        if ((tiempo2 >= tiempo - 8 && tiempo2 <= tiempo2 + 8)==false) {
             throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
         }
-        */
-        if(cargaEntity.getFechaEnvio()==null){
+        if (cargaEntity.getFechaEnvio() == null) {
             throw new BusinessLogicException("la fecha de envío no pued e ser null");
         }
-        if(cargaEntity.getDatosEnvio()==null||cargaEntity.getDatosEnvio().equals("")){
+        if (cargaEntity.getDatosEnvio() == null || cargaEntity.getDatosEnvio().equals("")) {
             throw new BusinessLogicException("los datos de envío no puede ser null o vacío");
         }
         cargaEntity.setUsuario(usuarioEntity);
@@ -67,68 +72,79 @@ public class CargaLogic {
         persistence.create(cargaEntity);
         return cargaEntity;
     }
+
     /**
      * método que devuelve todas las cargas encontradas
-     * @return 
+     *
+     * @return
      */
-    public List<CargaEntity> getCargas(){
-        List<CargaEntity> cargas=persistence.findAll();
+    public List<CargaEntity> getCargas() {
+        List<CargaEntity> cargas = persistence.findAll();
         return cargas;
     }
+
     /**
      * método que retorna una carga dado su id
+     *
      * @param id
-     * @return 
+     * @return
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public CargaEntity getCarga(long id) throws BusinessLogicException{
-        CargaEntity carga= persistence.find(id);
-        if(carga==null){
+    public CargaEntity getCarga(long id) throws BusinessLogicException {
+        CargaEntity carga = persistence.find(id);
+        if (carga == null) {
             throw new BusinessLogicException("No existe una carga con id: " + id);
         }
         return carga;
     }
-    
+
     /**
      * métodoq que actualiza una carga
+     *
      * @param cargaEntity
-     * @return 
+     * @return
      */
-    public CargaEntity updateCarga(CargaEntity cargaEntity){
-        CargaEntity carga= persistence.update(cargaEntity);
+    public CargaEntity updateCarga(CargaEntity cargaEntity) {
+        CargaEntity carga = persistence.update(cargaEntity);
         return carga;
     }
+
     /**
      * método que elimina una carga
+     *
      * @param id
      */
-    public void deleteCarga(Long id){
+    public void deleteCarga(Long id) {
         persistence.delete(id);
     }
+
     /**
      * retorna las cargas de un usuario
+     *
      * @param login
      * @param id
      * @return
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
-    public CargaEntity getCargaUsuario(String login, Long id) throws BusinessLogicException{
-        CargaEntity carga=persistence.findCargaPorLoginPropietario(login, id);
-        if(carga==null){
+    public CargaEntity getCargaUsuario(String login, Long id) throws BusinessLogicException {
+        CargaEntity carga = persistence.findCargaPorLoginPropietario(login, id);
+        if (carga == null) {
             throw new BusinessLogicException("No existe una carga con ese login");
         }
         return carga;
     }
+
     /**
      * devuelve todas las cargas para un usuario en específico
+     *
      * @param login
      * @return
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
-    public List<CargaEntity> getCargas(String login) throws BusinessLogicException{
-        List<CargaEntity> cargas=usuarioPer.findUsuarioPorLogin(login).getCargas();
-        if(cargas==null){
-            throw new BusinessLogicException("No hay cargas para este usuario con login: "+ login);
+    public List<CargaEntity> getCargas(String login) throws BusinessLogicException {
+        List<CargaEntity> cargas = usuarioPer.findUsuarioPorLogin(login).getCargas();
+        if (cargas == null) {
+            throw new BusinessLogicException("No hay cargas para este usuario con login: " + login);
         }
         return cargas;
     }

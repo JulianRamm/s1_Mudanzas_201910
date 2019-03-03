@@ -29,7 +29,7 @@ public class ConductorLogic
     @Inject
     private ProveedorPersistence proveedorPer;
     
-    public ConductorEntity crearConductor(ConductorEntity conductor)throws BusinessLogicException
+    public ConductorEntity crearConductor(ConductorEntity conductor, String login)throws BusinessLogicException
     {
         if(conductorPer.find(conductor.getId())!= null)
         {
