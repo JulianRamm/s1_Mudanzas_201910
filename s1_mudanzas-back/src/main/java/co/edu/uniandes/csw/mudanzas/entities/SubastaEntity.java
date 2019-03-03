@@ -90,7 +90,6 @@ public class SubastaEntity extends BaseEntity implements Serializable{
         this.ofertas = ofertas;
     }
     
-    
     /**
      * @return the valorInicial
      */
