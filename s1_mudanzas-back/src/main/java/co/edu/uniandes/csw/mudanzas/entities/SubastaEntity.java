@@ -20,50 +20,44 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Andres Gonzalez
  */
 @Entity
-public class SubastaEntity extends BaseEntity implements Serializable{
-   
-    
+public class SubastaEntity extends BaseEntity implements Serializable {
+
     private String subastaId;
-     /**
-     * Atributo que representa el valor inicial de la subasta dado por el usuario. 
+    /**
+     * Atributo que representa el valor inicial de la subasta dado por el
+     * usuario.
      */
     private double valorInicial;
-    
-     /**
-     * Atributo que representa el valor final(actual) de la subasta. 
+
+    /**
+     * Atributo que representa el valor final(actual) de la subasta.
      */
     private double valorFinal;
-    
-    
 
     @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor;
-    
+
     @PodamExclude
     @ManyToOne()
     private UsuarioEntity usuario;
-    
-    
+
     @PodamExclude
     @OneToMany(
             mappedBy = "subasta",
             fetch = FetchType.LAZY
     )
     private List<OfertaEntity> ofertas;
-    
-    
+
     /**
      * Variable para martcar las transacciones del em anterior cuando se
      * crean/borran datos para las pruebas.
      */
     @Inject
     private UserTransaction utx;
-    
-    
-    public SubastaEntity()
-    {
-                
+
+    public SubastaEntity() {
+
     }
 
     public String getSubastaId() {
@@ -89,8 +83,7 @@ public class SubastaEntity extends BaseEntity implements Serializable{
     public void setOfertas(List<OfertaEntity> ofertas) {
         this.ofertas = ofertas;
     }
-    
-    
+
     /**
      * @return the valorInicial
      */
@@ -132,12 +125,4 @@ public class SubastaEntity extends BaseEntity implements Serializable{
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
     }
-    
-    
-    
-    
-    
-    
-  
-    
 }
