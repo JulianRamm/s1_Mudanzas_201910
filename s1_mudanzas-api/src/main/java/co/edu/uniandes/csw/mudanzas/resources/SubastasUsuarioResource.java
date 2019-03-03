@@ -76,25 +76,7 @@ public class SubastasUsuarioResource {
         return new SubastaDTO(subastaLogic.getSubastaUsuario(idSubasta, login));
     }
     
-    /**
-     * Guarda una subasta dentro de un usuario con la informacion que recibe el
-     * la URL. Se devuelve la subasta que se guarda en el usuario.
-     *
-     * @param login del usuario que se esta
-     * actualizando.
-     * @param idSubasta Identificador de la subasta que se desea guardar. Este debe
-     * ser una cadena de dígitos.
-     * @return JSON {@link SubastaDTO} - La subasta guardada en el usuario.
-     */
-    @POST
-    @Path("{idSubasta: \\d+}")
-    public SubastaDTO crearSubastaFROMUSUARIO(@PathParam("login") String login,@PathParam("idSubasta") Long idSubasta)
-    {
-        SubastaDTO newSubasta = new SubastaDTO();
-        
-        SubastaPersistence subPersist = new SubastaPersistence();
-        return null;
-    }
+    
     
     @POST
     public SubastaDTO createSubasta(SubastaDTO subDTO) throws Exception
