@@ -97,7 +97,7 @@ public class ViajesPersistence {
         if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
             cargas = null;
         } else {
-            
+
             for (CargaEntity cargasE : viaje.get(0).getCargas()) {
                 cargas.add(cargasE);
             }

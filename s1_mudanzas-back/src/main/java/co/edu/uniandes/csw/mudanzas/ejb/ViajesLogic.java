@@ -107,10 +107,20 @@ public class ViajesLogic {
         ViajesEntity viaje =persistence.update(viajesEntity);
         return viaje;
     }
-    
+    /**
+     * elimina un viaje con id especificado
+     * @param id
+     * @throws BusinessLogicException 
+     */
     public void deleteViaje(Long id)throws BusinessLogicException{
         persistence.delete(id);       
     }
+    /**
+     * devuelve las cargas de un viaje especificado
+     * @param id
+     * @return
+     * @throws BusinessLogicException 
+     */
     public List<CargaEntity> getCargasDadoUnId(Long id) throws BusinessLogicException{
         List<CargaEntity> car = persistence.getCargasDadoUnId(id);
         if(car==null){
