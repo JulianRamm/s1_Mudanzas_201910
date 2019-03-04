@@ -32,6 +32,14 @@ public class SubastaDetailDTO extends SubastaDTO {
             }
         }
     }
+
+    public List<OfertaDTO> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<OfertaDTO> ofertas) {
+        this.ofertas = ofertas;
+    }
     
     @Override
     public SubastaEntity toEntity()
