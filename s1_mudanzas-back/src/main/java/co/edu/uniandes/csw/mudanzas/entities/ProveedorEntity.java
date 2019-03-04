@@ -18,7 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class ProveedorEntity extends BaseEntity implements Serializable{
-    
+
     
     private String login;
     
@@ -34,11 +34,11 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private String telefono;
     
-    private int numeroVehiculos;
+    private Integer numeroVehiculos;
     
-    private int dineroDisponible;
+    private Integer dineroDisponible;
     
-    private int calificacion;
+    private Double calificacion;
     
     @PodamExclude
     @OneToMany(
@@ -104,7 +104,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         this.dineroDisponible = dineroDisponible;
     }
 
-    public void setCalificacion(Integer calificacion) {
+    public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
 
@@ -122,9 +122,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
 
     public void setVehiculos(List<VehiculoEntity> vehiculos) {
         this.vehiculos = vehiculos;
-    }
-
-    
+    }    
     
     public String getLogin() {
         return login;
@@ -154,15 +152,15 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         return telefono;
     }
 
-    public int getNumeroVehiculos() {
+    public Integer getNumeroVehiculos() {
         return numeroVehiculos;
     }
 
-    public int getDineroDisponible() {
+    public Integer getDineroDisponible() {
         return dineroDisponible;
     }
 
-    public int getCalificacion() {
+    public Double getCalificacion() {
         return calificacion;
     }
 
