@@ -150,7 +150,7 @@ public class TarjetaDeCreditoPersistenceTest {
      * Prueba, obtiene de la base de datos todas las tarjetas que han sido
      * creadas...
      */
-    @Test
+   @Test
     public void getTarjetasTest() {
         List<TarjetaDeCreditoEntity> lista = tp.findAll();
         Assert.assertEquals(data.size(), lista.size());
@@ -158,7 +158,7 @@ public class TarjetaDeCreditoPersistenceTest {
         for (TarjetaDeCreditoEntity enLista : lista) {
             boolean loEncontre = false;
             for (TarjetaDeCreditoEntity enData : data) {
-                if (enLista.getId().equals(enData.getId()));
+                if (enLista.getId().equals(enData.getId()))
                 loEncontre = true;
             }
             Assert.assertTrue(loEncontre);

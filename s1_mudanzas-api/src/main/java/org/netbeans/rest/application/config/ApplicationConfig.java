@@ -38,11 +38,6 @@ public class ApplicationConfig extends Application {
         return resources;
     }
 
-    /**
-     * Do not modify addRestResourceClasses() method. It is automatically
-     * populated with all resources defined in the project. If required, comment
-     * out calling this method in getClasses().
-     */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.mudanzas.filters.CORSFilter.class);
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.BusinessLogicExceptionMapper.class);
@@ -57,8 +52,6 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
-
     }
-
 
 }
