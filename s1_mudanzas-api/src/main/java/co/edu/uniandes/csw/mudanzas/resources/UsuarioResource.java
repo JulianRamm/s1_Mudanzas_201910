@@ -75,6 +75,7 @@ public class UsuarioResource {
      *
      * @param login del usuario que se esta buscando.
      * @return JSON {@link UsuarioDTO} - El usuario buscado.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     @Path("{login}")
@@ -98,7 +99,7 @@ public class UsuarioResource {
     @PUT
     @Path("{login}")
     public UsuarioDetailDTO updateUsuario(@PathParam("login") String login, UsuarioDetailDTO usuario) throws WebApplicationException, BusinessLogicException {
-        usuario.setDTOLogin(login);
+        usuario.setLogin(login);
         if (usuarioLogic.getUsuario(login) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
         }
