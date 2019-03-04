@@ -158,9 +158,9 @@ public class ViajesLogicTest {
         ViajesEntity newEntity = data.get(0);
         newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
         newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
-        ViajesEntity result = viajesLogic.createViajes(newEntity, newEntity.getCargas());
+        ViajesEntity result = viajesLogic.createViajes(newEntity);
         Assert.assertNotNull(result);
-        ViajesEntity entity = viajesLogic.createViajes(newEntity, newEntity.getCargas());
+        ViajesEntity entity = viajesLogic.createViajes(newEntity);
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCargas(), entity.getCargas());
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
@@ -180,7 +180,7 @@ public class ViajesLogicTest {
     public void createVIajesConVolumen0() throws BusinessLogicException {
         ViajesEntity newEntity = data.get(0);
         newEntity.setGastoGasolina(0);
-        viajesLogic.createViajes(newEntity, newEntity.getCargas());
+        viajesLogic.createViajes(newEntity);
     }
 
     /**
