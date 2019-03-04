@@ -39,7 +39,7 @@ public class ConductorViajesResource {
     @POST
     public ViajesDTO createVije(ViajesDTO viajeDTO) throws BusinessLogicException{
         ViajesEntity viajesEntity = viajeDTO.toEntity();
-        ViajesEntity nuevoViajeEntity = viajesLogic.createViajes(viajesEntity);
+        ViajesEntity nuevoViajeEntity = viajesLogic.createViajes(viajesEntity );
         ViajesDTO nuevoViajeDTO = new ViajesDTO(nuevoViajeEntity);
         return nuevoViajeDTO;
     }
