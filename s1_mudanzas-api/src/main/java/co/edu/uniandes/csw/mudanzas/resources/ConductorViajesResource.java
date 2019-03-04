@@ -37,9 +37,15 @@ public class ConductorViajesResource {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public ViajesDTO createVije(ViajesDTO viajeDTO) throws BusinessLogicException{
+    public ViajesDTO createViaje(ViajesDTO viajeDTO) throws BusinessLogicException, WebApplicationException{
         ViajesEntity viajesEntity = viajeDTO.toEntity();
-        ViajesEntity nuevoViajeEntity = viajesLogic.createViajes(viajesEntity );
+        ViajesEntity nuevoViajeEntity;
+        try{
+            nuevoViajeEntity=viajesLogic.createViajes(viajesEntity);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+        }
         ViajesDTO nuevoViajeDTO = new ViajesDTO(nuevoViajeEntity);
         return nuevoViajeDTO;
     }

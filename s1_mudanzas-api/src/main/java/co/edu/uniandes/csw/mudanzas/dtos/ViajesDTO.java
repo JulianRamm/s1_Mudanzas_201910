@@ -21,7 +21,7 @@ public class ViajesDTO implements Serializable {
      * id del viaje
      */
 
-    private long id;
+    private Long id;
 
     /**
      * direcciòn del lugar de salida del viaje
@@ -36,12 +36,12 @@ public class ViajesDTO implements Serializable {
     /**
      * tiempo que se va a demorar el viaje acorde con la distancia
      */
-    private int tiempo;
+    private Integer tiempo;
 
     /**
      * gasolina que se va a necesitar para completar el viaje
      */
-    private int gastoGasolina;
+    private Integer gastoGasolina;
 
     /**
      * clima actual de la posiciòn en la que se encuentra el conductor
@@ -62,7 +62,7 @@ public class ViajesDTO implements Serializable {
     /**
      * @return the id
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
