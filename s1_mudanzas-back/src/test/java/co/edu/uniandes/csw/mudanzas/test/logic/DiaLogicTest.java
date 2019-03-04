@@ -10,7 +10,13 @@ import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -117,33 +123,110 @@ public class DiaLogicTest
     @Test
     public void createAgendaTest() throws BusinessLogicException
     {
-        DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
-        DiaEntity result = DLogic.crearDia(newEntity);
-        Assert.assertNotNull(result);
-
-        DiaEntity entity = em.find(DiaEntity.class, result.getId());
-
-        Assert.assertEquals(newEntity.getId(), entity.getId());
+        
+      DiaEntity nuevaEntidad = factory.manufacturePojo(DiaEntity.class);
+     nuevaEntidad.setHoraInicio(toDateTime("08:02:11"));
+      nuevaEntidad.setHoraFin(toDateTime("10:02:11"));
+     nuevaEntidad.setDiaActual(toDate("02/03/2019"));
+      nuevaEntidad.setIsDisponibilidad(true);
+      DiaEntity resultado = DLogic.crearDia(nuevaEntidad);
+      Assert.assertNotNull(resultado);
+      DiaEntity entidad = em.find(DiaEntity.class, resultado.getId());
+      Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
+      Assert.assertEquals(nuevaEntidad.getHoraInicio(), entidad.getHoraInicio());
+        Assert.assertEquals(nuevaEntidad.getHoraFin(), entidad.getHoraFin());
+        Assert.assertEquals(nuevaEntidad.getDiaActual(), entidad.getDiaActual());
+       Assert.assertEquals(nuevaEntidad.getIsDisponibilidad(), entidad.getIsDisponibilidad());
+   
     }
-    // @Test
-   // public void createUsuarioTest() throws BusinessLogicException {
-     //   DiaEntity nuevaEntidad = factory.manufacturePojo(DiaEntity.class);
-     //   nuevaEntidad.setHoraInicio("08:02:11");
-    //    nuevaEntidad.setHoraFin("10:02:11");
-    //    nuevaEntidad.setDiaActual("02/03/2019");
-    //    nuevaEntidad.setELogin("lm.gomezl");
-    //    nuevaEntidad.setEPassword("M0v345Y!");
-    //    nuevaEntidad.setECorreoElectronico("moveasy_desarrollo@uniandes.com");
-    //    UsuarioEntity resultado = usuarioLogic.crearUsuario(nuevaEntidad);
-    //    Assert.assertNotNull(resultado);
-    //    UsuarioEntity entidad = em.find(UsuarioEntity.class, resultado.getId());
-     //   Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
-    //    Assert.assertEquals(nuevaEntidad.getENombre(), entidad.getENombre());
-    //    Assert.assertEquals(nuevaEntidad.getEApellido(), entidad.getEApellido());
-   //     Assert.assertEquals(nuevaEntidad.getECiudadDeOrigen(), entidad.getECiudadDeOrigen());
-    //    Assert.assertEquals(nuevaEntidad.getECorreoElectronico(), entidad.getECorreoElectronico());
-     //   Assert.assertEquals(nuevaEntidad.getEPassword(), entidad.getEPassword());
-      //  Assert.assertEquals(nuevaEntidad.getELogin(), entidad.getELogin());
-   // }
+    private LocalDateTime toDateTime(String pHora)
+    {
+        LocalDateTime rta = null;
+        try
+        {
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("hh:mm:ss");
+        LocalDateTime date = LocalDateTime.parse(pHora, form);
+        rta = date;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+    private LocalDate toDate(String pDia)
+    {
+        LocalDate rta = null;
+        try
+        {
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(pDia, form);
+        rta = date;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return rta;
+    }
+    
+    /**
+     * Prueba que valida que no se puede crear una usuario si este es nulo.
+     *
+     * @throws BusinessLogicException si no se cumple esta regla de negocio.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void nullTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
+        usr.setDiaActual(null);
+        //llamamos al manager de persistencia, en este caso no se creara
+        DLogic.crearDia(usr);
+    }
+    
+    /**
+     * Prueba la regla de negocio para el correo electronico del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void horaInicioTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
+        usr.setHoraInicio(toDateTime("123456"));
+        //llamamos al manager de persistencia, en este caso no se creara
+        DLogic.crearDia(usr);
+    }
+    
+     /**
+     * Prueba la regla de negocio para el correo electronico del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void horaFinTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
+        usr.setHoraFin(toDateTime("456789"));
+        //llamamos al manager de persistencia, en este caso no se creara
+        DLogic.crearDia(usr);
+    }
+    
+     /**
+     * Prueba la regla de negocio para el correo electronico del usuario
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void diaActualTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
+        usr.setDiaActual(toDate("123456"));
+        //llamamos al manager de persistencia, en este caso no se creara
+        DLogic.crearDia(usr);
+    }
+    
+    
+    
     
 }

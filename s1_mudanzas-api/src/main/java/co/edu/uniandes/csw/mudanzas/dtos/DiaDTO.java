@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import java.io.Serializable;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -20,11 +21,11 @@ public class DiaDTO implements Serializable
     
     private boolean disponibilidad;
     
-    private Date horaInicio;
+    private LocalDateTime horaInicio;
     
-    private Date horaFin;
+    private LocalDateTime horaFin;
     
-    private Date diaActual;
+    private LocalDate diaActual;
     
     public DiaDTO(DiaEntity entity)
     {
@@ -65,42 +66,42 @@ public class DiaDTO implements Serializable
     /**
      * @return the horaPartida
      */
-    public Date getHoraInicio() {
+    public LocalDateTime getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraInicio(Date horaPartida) {
+    public void setHoraInicio(LocalDateTime horaPartida) {
         this.horaInicio = horaPartida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public Date getHoraFin() {
+    public LocalDateTime getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(Date horaLlegada) {
+    public void setHoraFin(LocalDateTime horaLlegada) {
         this.horaFin = horaLlegada;
     }
 
     /**
      * @return the diaActual
      */
-    public Date getDiaActual() {
+    public LocalDate getDiaActual() {
         return diaActual;
     }
 
     /**
      * @param diaActual the diaActual to set
      */
-    public void setDiaActual(Date diaActual) {
+    public void setDiaActual(LocalDate diaActual) {
         this.diaActual = diaActual;
     }
 

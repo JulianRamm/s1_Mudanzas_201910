@@ -6,11 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -22,14 +21,11 @@ public class DiaEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.DATE)
-    private Date horaInicio;
+    private LocalDateTime horaInicio;
 
-    @Temporal(TemporalType.DATE)
-    private Date horaFin;
+    private LocalDateTime horaFin;
 
-    @Temporal(TemporalType.DATE)
-    private Date diaActual;
+    private LocalDate diaActual;
 
     private boolean isDisponibilidad;
 
@@ -44,28 +40,28 @@ public class DiaEntity extends BaseEntity implements Serializable {
     /**
      * @return the horaSalida
      */
-    public Date getHoraInicio() {
+    public LocalDateTime getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaSalida the horaSalida to set
      */
-    public void setHoraInicio(Date horaSalida) {
+    public void setHoraInicio(LocalDateTime horaSalida) {
         this.horaInicio = horaSalida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public Date getHoraFin() {
+    public LocalDateTime getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(Date horaLlegada) {
+    public void setHoraFin(LocalDateTime horaLlegada) {
         this.horaFin = horaLlegada;
     }
 
@@ -100,15 +96,17 @@ public class DiaEntity extends BaseEntity implements Serializable {
     /**
      * @return the diaActual
      */
-    public Date getDiaActual() {
+    public LocalDate getDiaActual() {
         return diaActual;
     }
 
     /**
      * @param diaActual the diaActual to set
      */
-    public void setDiaActual(Date diaActual) {
+    public void setDiaActual(LocalDate diaActual) {
         this.diaActual = diaActual;
     }
+
+   
 
 }

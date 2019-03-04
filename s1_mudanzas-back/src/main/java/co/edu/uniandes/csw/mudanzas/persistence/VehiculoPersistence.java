@@ -55,7 +55,7 @@ public class VehiculoPersistence {
         return rta;
     }
 
-    public VehiculoEntity findByUbicacionActual(long pId) {
+    public VehiculoEntity findByUbicacionActual(Long pId) {
         VehiculoEntity rta;
         TypedQuery<VehiculoEntity> query = em.createQuery("select o from VehiculoEntity o where o.ubicacionActual.idPar = :pUbicacionActual", VehiculoEntity.class);
         query = query.setParameter("pUbicacionActual", pId);
