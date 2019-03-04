@@ -33,12 +33,12 @@ public class SubastaLogic {
         return persistence.create(subEntity);
     }
     
-    public List<SubastaEntity> getOfertas()
+    public List<SubastaEntity> getSubastas()
     {
         return persistence.findAll();
     }
     
-    public List<SubastaEntity> getSubastassUsuario(String loginUsuario)
+    public List<SubastaEntity> getSubastasUsuario(String loginUsuario)
     {
         return persistence.findByUser(loginUsuario);
     }

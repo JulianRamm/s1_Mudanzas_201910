@@ -69,8 +69,9 @@ public class SubastasProveedorResource {
      */
     @POST
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO crearSubasta(@PathParam("login") String login,@PathParam("idSubasta") Long idSubasta)
+    public SubastaDTO crearSubasta(@PathParam("login") String login,@PathParam("idSubasta") Long idSubasta) throws BusinessLogicException
     {
+        subastalogic.getSubastaProveedor(idSubasta, login);
         return null;
     }
     
@@ -85,10 +86,11 @@ public class SubastasProveedorResource {
      */
     @PUT
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta){
+    public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException{
        
-        
-        return null;
+        SubastaEntity subEnty= subastalogic.getSubastaProveedor(idSubasta, login);
+        SubastaDTO subDTO = new SubastaDTO(subEnty);
+        return subDTO;
     }
     
     /**

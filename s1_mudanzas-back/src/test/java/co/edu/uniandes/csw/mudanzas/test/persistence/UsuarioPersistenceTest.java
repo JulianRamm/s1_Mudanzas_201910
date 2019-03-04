@@ -144,7 +144,7 @@ public class UsuarioPersistenceTest {
         for (UsuarioEntity enLista : lista) {
             boolean loEncontre = false;
             for (UsuarioEntity enData : data) {
-                if (enLista.getId().equals(enData.getId()));
+                if (enLista.getId().equals(enData.getId()))
                 loEncontre = true;
             }
             Assert.assertTrue(loEncontre);
