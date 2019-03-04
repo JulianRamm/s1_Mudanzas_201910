@@ -33,7 +33,7 @@ public class CargaDTO implements Serializable {
     /**
      * volumen de la carga en metros al cubo
      */
-    private int volumen;
+    private Integer volumen;
 
     /**
      * lista encadenada de im�genes de la carga del env�o
@@ -68,7 +68,7 @@ public class CargaDTO implements Serializable {
     /**
      * id de la carga
      */
-    private long id;
+    private Long id;
 
     /**
      * Constructor por defecto

@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -15,6 +18,8 @@ public class ProveedorDTO implements Serializable{
 
 
    
+    private Long id;
+    
     private String login;
     
     private String password;
@@ -29,13 +34,37 @@ public class ProveedorDTO implements Serializable{
     
     private Integer dineroDisponible;
     
-    private Integer clasificacion;
+    private Integer numeroVehiculos;
+    
+    private Double clasificacion;
     
     private String logotipo;
 
     
     public ProveedorDTO(){
         
+    }
+    
+    /**
+     * Convertir Entity a DTO
+     *
+     * @param entidad ProveedorEntity que se va a convertir en DTO
+     */
+    public ProveedorDTO(ProveedorEntity entidad){
+        
+        if(entidad != null){
+            this.id = entidad.getId(); 
+            this.login = entidad.getLogin();
+            this.nombre = entidad.getNombre();
+            this.password = entidad.getPassword();
+            this.correoElectronico = entidad.getCorreoElectronico();
+            this.numeroTelefono = entidad.getTelefono();
+            this.ciudadOrigen = entidad.getCiudadOrigen();
+            this.dineroDisponible = entidad.getDineroDisponible();
+            this.numeroVehiculos = entidad.getNumeroVehiculos();
+            this.logotipo = entidad.getLogotipo();
+            this.clasificacion = entidad.getCalificacion();
+        }
     }
     
     
@@ -67,12 +96,20 @@ public class ProveedorDTO implements Serializable{
         return dineroDisponible;
     }
 
-    public Integer getClasificacion() {
+    public Double getClasificacion() {
         return clasificacion;
     }
 
     public String getLogotipo() {
         return logotipo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Integer getNumeroVehiculos() {
+        return numeroVehiculos;
     }
     
     public void setLogin(String login) {
@@ -103,12 +140,50 @@ public class ProveedorDTO implements Serializable{
         this.dineroDisponible = dineroDisponible;
     }
 
-    public void setClasificacion(Integer clasificacion) {
+    public void setClasificacion(Double clasificacion) {
         this.clasificacion = clasificacion;
     }
 
     public void setLogotipo(String logotipo) {
         this.logotipo = logotipo;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNumeroVehiculos(Integer numeroVehiculos) {
+        this.numeroVehiculos = numeroVehiculos;
+    }
+    
+    /**
+     * Metodo que convierte el ProveedorDTO a un ProveedorEnity
+     *
+     * @return ProveedorEntity el proveedor DTO ya convertido.
+     */
+    public ProveedorEntity  toEntity(){
+        
+        ProveedorEntity entidad = new ProveedorEntity();
+        entidad.setId(this.id);
+        entidad.setLogin(this.login);
+        entidad.setNombre(this.nombre);
+        entidad.setPassword(this.password);
+        entidad.setCorreoElectronico(this.correoElectronico);
+        entidad.setCiudadOrigen(this.ciudadOrigen);
+        entidad.setCalificacion(this.clasificacion);
+        entidad.setNumeroVehiculos(this.numeroVehiculos);
+        entidad.setTelefono(this.numeroTelefono);
+        entidad.setLogotipo(this.logotipo);
+        entidad.setDineroDisponible(this.dineroDisponible);
+        return entidad;
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+    
+    
+    
     
 }
