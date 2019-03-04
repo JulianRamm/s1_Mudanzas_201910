@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Samuel Bernal Neira
+ * @author Daniel Machado
  */
 @RunWith(Arquillian.class)
 public class ConductorPersistenceTest 
@@ -53,7 +52,7 @@ public class ConductorPersistenceTest
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<ConductorEntity> data = new ArrayList<ConductorEntity>();
+    private List<ConductorEntity> data = new ArrayList<>();
     
     
     private PodamFactory factory = new PodamFactoryImpl();
