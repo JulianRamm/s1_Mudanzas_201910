@@ -31,7 +31,7 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela la calificacion de un conductor
      */
-    private double calificacion;
+    private Double calificacion;
     /**
      * Atributo que modela el numero de telefono de un conductor
      */
@@ -80,14 +80,14 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     /**
      * @return the calificacion
      */
-    public double getCalificacion() {
+    public Double getCalificacion() {
         return calificacion;
     }
 
     /**
      * @param calificacion the calificacion to set
      */
-    public void setCalificacion(double calificacion) {
+    public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
 

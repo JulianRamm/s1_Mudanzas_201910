@@ -27,7 +27,8 @@ public class SubastasProveedorResource {
     private static final Logger LOGGER = Logger.getLogger(SubastasProveedorResource.class.getName());
     
     private SubastaLogic subastalogic;
-     /**
+     
+    /**
      * Busca y devuelve todas las subastas que existen en el proveedor.
      *
      * @param login del proveedor que se esta buscando.
@@ -41,14 +42,14 @@ public class SubastasProveedorResource {
         return listEntity2DTO(subastalogic.getSubastasProveedor(login));
     }
     
-     /**
-     * Busca la subasta con el idSubasta asociado dentro del proveedor con el login asociado.
-     *
-     * @param login del proveedor que se esta buscando.
-     * @param idSubasta Identificador de la subasta que se esta buscando. Este debe
-     * ser una cadena de dígitos.
-     * @return JSON {@link SubastaDTO} - La Subasta buscada
-     */
+    /**
+    * Busca la subasta con el idSubasta asociado dentro del proveedor con el login asociado.
+    *
+    * @param login del proveedor que se esta buscando.
+    * @param idSubasta Identificador de la subasta que se esta buscando. Este debe
+    * ser una cadena de dígitos.
+    * @return JSON {@link SubastaDTO} - La Subasta buscada
+    */
     @GET
     @Path("{idSubasta: \\d+}")
     public SubastaDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException
@@ -89,7 +90,8 @@ public class SubastasProveedorResource {
         
         return null;
     }
-/**
+    
+    /**
      * Convierte una lista de entidades en lista de DTOs
      *
      * @param subastasList la lista de entidades a convertir

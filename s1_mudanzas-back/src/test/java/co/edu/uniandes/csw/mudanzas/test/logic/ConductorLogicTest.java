@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 import co.edu.uniandes.csw.mudanzas.ejb.ConductorLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
 import java.util.ArrayList;
