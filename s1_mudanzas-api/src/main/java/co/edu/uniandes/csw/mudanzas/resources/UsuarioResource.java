@@ -54,7 +54,7 @@ public class UsuarioResource {
     public UsuarioDTO crearUsuario(UsuarioDTO usuario) throws BusinessLogicException {
         UsuarioEntity usuarioEntity = usuario.toEntity();
         UsuarioEntity nuevoUsuarioEntity = usuarioLogic.crearUsuario(usuarioEntity);
-        UsuarioDTO nuevoDTO = new UsuarioDTO(nuevoUsuarioEntity);
+        UsuarioDTO nuevoDTO = new UsuarioDetailDTO(nuevoUsuarioEntity);
         return nuevoDTO;
     }
 
@@ -79,7 +79,7 @@ public class UsuarioResource {
      */
     @GET
     @Path("{login}")
-    public UsuarioDTO getUsuario(@PathParam("login") String login) throws WebApplicationException, BusinessLogicException {
+    public UsuarioDetailDTO getUsuario(@PathParam("login") String login) throws WebApplicationException, BusinessLogicException {
         UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(login);
         if (usuarioEntity == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
