@@ -57,7 +57,7 @@ public class SubastasUsuarioResource {
     @GET
     public List<SubastaDTO> getSubastas(@PathParam("login") String login)
     {
-        List<SubastaDTO> listaSubastas = listEntity2DTO(subastaLogic.getSubastassUsuario(login));
+        List<SubastaDTO> listaSubastas = listEntity2DTO(subastaLogic.getSubastasUsuario(login));
         return listaSubastas;
     }
     

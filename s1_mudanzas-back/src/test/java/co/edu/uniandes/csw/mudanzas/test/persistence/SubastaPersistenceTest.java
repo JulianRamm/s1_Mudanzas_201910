@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.SubastaPersistence;
+import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -41,7 +42,7 @@ public class SubastaPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private List<SubastaEntity> data;
+    private List<SubastaEntity> data = new LinkedList<SubastaEntity>();
 
     private PodamFactory factory = new PodamFactoryImpl();
 
@@ -110,7 +111,6 @@ public class SubastaPersistenceTest {
             subEntity.setProveedor(prv);
 
             em.persist(subEntity);
-
             data.add(subEntity);
         }
     }
@@ -138,7 +138,7 @@ public class SubastaPersistenceTest {
         for (SubastaEntity actual : listaEn) {
             boolean loEncontre = false;
             for (SubastaEntity enData : data) {
-                if (actual.getId().equals(enData.getId()));
+                if (actual.getId().equals(enData.getId()))
                 loEncontre = true;
             }
             Assert.assertTrue(loEncontre);
@@ -146,7 +146,7 @@ public class SubastaPersistenceTest {
     }
 
     @Test
-    public void getTarjetaTest() {
+    public void getSubastaTest() {
         SubastaEntity entidad = data.get(0);
         SubastaEntity subEncontrada = SubPer.find(entidad.getId());
         Assert.assertNotNull(subEncontrada);
@@ -160,7 +160,7 @@ public class SubastaPersistenceTest {
     }
 
     @Test
-    public void deleteTarjetaTest() {
+    public void deleteSubastaTest() {
         SubastaEntity entidad = data.get(0);
         SubPer.delete(entidad.getId());
         SubastaEntity borrado = em.find(SubastaEntity.class, entidad.getId());
@@ -168,7 +168,7 @@ public class SubastaPersistenceTest {
     }
 
     @Test
-    public void updateTarjetaTest() {
+    public void updateSubastaTest() {
         SubastaEntity entidad = data.get(0);
 
         SubastaEntity cambiada = factory.manufacturePojo(SubastaEntity.class);
@@ -176,23 +176,24 @@ public class SubastaPersistenceTest {
         cambiada.setId(entidad.getId());
 
         SubPer.update(cambiada);
+        
 
         SubastaEntity subEncontrada = em.find(SubastaEntity.class, entidad.getId());
 
         Assert.assertNotNull(subEncontrada);
-        Assert.assertTrue(entidad.getValorInicial() == subEncontrada.getValorInicial());
-        Assert.assertEquals(entidad.getId(), subEncontrada.getId());
-        Assert.assertEquals(entidad.getUsuario(), subEncontrada.getUsuario());
-        Assert.assertTrue(entidad.getValorFinal() == subEncontrada.getValorFinal());
-        Assert.assertEquals(entidad.getProveedor(), subEncontrada.getProveedor());
-        Assert.assertEquals(entidad.getOfertas(), subEncontrada.getOfertas());
+        Assert.assertTrue(cambiada.getValorInicial() == subEncontrada.getValorInicial());
+        Assert.assertEquals(cambiada.getId(), subEncontrada.getId());
+        Assert.assertEquals(cambiada.getUsuario(), subEncontrada.getUsuario());
+        Assert.assertTrue(cambiada.getValorFinal() == subEncontrada.getValorFinal());
+        Assert.assertEquals(cambiada.getProveedor(), subEncontrada.getProveedor());
+        Assert.assertEquals(cambiada.getOfertas(), subEncontrada.getOfertas());
     }
 
     /**
      * Prueba para buscar una tarjeta por el nombre de su propietario.
      */
     @Test
-    public void buscarTarjetaPorLogin() {
+    public void buscarSubastaPorLogin() {
         SubastaEntity prueba = data.get(0);
         SubastaEntity nuevo = SubPer.findOneByUser(prueba.getUsuario().getLogin(), prueba.getId());
         Assert.assertNotNull(nuevo);
