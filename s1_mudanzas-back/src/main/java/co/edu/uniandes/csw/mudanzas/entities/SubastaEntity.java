@@ -83,7 +83,6 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     public void setOfertas(List<OfertaEntity> ofertas) {
         this.ofertas = ofertas;
     }
-
     /**
      * @return the valorInicial
      */
