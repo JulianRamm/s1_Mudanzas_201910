@@ -5,10 +5,12 @@
  */
 package co.edu.uniandes.csw.mudanzas.ejb;
 
+import javax.ejb.Stateless;
+
 /**
  *
  * @author je.osorio
- */
+ */@Stateless
 public class DireccionLogic {
     
 }

@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.ArrayList;
@@ -51,6 +50,8 @@ public class UsuarioPersistenceTest {
      */
     @Inject
     UserTransaction utx;
+
+    private PodamFactory factory = new PodamFactoryImpl();
 
     /**
      * Lista que tiene los datos de prueba.
@@ -104,7 +105,6 @@ public class UsuarioPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
@@ -144,7 +144,7 @@ public class UsuarioPersistenceTest {
         for (UsuarioEntity enLista : lista) {
             boolean loEncontre = false;
             for (UsuarioEntity enData : data) {
-                if (enLista.getId().equals(enData.getId()));
+                if (enLista.getId().equals(enData.getId()))
                 loEncontre = true;
             }
             Assert.assertTrue(loEncontre);
@@ -199,7 +199,6 @@ public class UsuarioPersistenceTest {
         UsuarioEntity nuevo = ep.findUsuarioPorLogin(entidad.getLogin());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getLogin(), nuevo.getLogin());
-
         nuevo = ep.findUsuarioPorLogin(null);
         Assert.assertNull(nuevo);
     }

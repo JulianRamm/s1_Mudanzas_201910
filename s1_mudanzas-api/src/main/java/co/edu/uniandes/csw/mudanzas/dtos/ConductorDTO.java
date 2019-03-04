@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,10 +7,13 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 
 /**
  *
- * @author estudiante
+ * @author Daniel Machado
  */
 public class ConductorDTO {
 
@@ -17,9 +21,13 @@ public class ConductorDTO {
 
     private Long id;
 
-    private double calificacion;
+    private Double calificacion;
 
     private String telefono;
+    
+    public ConductorDTO(){
+        
+    }
 
     public ConductorDTO(ConductorEntity entity) {
         if (entity != null) {
@@ -84,6 +92,20 @@ public class ConductorDTO {
      */
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    
+    public ConductorEntity toEntity() {
+        ConductorEntity conductor = new ConductorEntity();
+        conductor.setId(this.getId());
+        conductor.setNombre(this.getNombre());
+        conductor.setTelefono(this.getTelefono());
+        conductor.setCalificacion(this.getCalificacion());
+        return conductor;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
 }

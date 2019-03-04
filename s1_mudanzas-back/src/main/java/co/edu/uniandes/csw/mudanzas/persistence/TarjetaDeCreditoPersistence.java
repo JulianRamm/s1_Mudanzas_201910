@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -68,8 +69,7 @@ public class TarjetaDeCreditoPersistence {
      * @param tarjetaId de la base de datos.
      */
     public void delete(Long tarjetaId) {
-        TarjetaDeCreditoEntity entidad = em.find(TarjetaDeCreditoEntity.class, tarjetaId);
-        em.remove(entidad);
+        em.remove(find(tarjetaId));
     }
 
     /**
@@ -83,23 +83,29 @@ public class TarjetaDeCreditoPersistence {
     }
 
     /**
-     * Busca una tarjeta de credito por el nombre del titular de la cuenta.
+     * Busca una tarjeta de credito por el login del titular de la cuenta.
      *
-     * @param titularCuenta el nombre del titular de la cuenta.
+     * @param login del usuario que queremos buscar
      * @return la tarjeta de credito que pertenece al usuario que entra por
      * parametro.
      */
-    public TarjetaDeCreditoEntity findTarjetaPorPropietario(String titularCuenta) {
-        TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.titularCuenta = :titularCuenta", TarjetaDeCreditoEntity.class);
-        query = query.setParameter("titularCuenta", titularCuenta);
-        List<TarjetaDeCreditoEntity> duenio = query.getResultList();
-        TarjetaDeCreditoEntity resultado;
+    public TarjetaDeCreditoEntity findTarjetaPorLoginUsuario(String login, Long idTarjeta) {
+        TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
+        query = query.setParameter("login", login);
+        List<UsuarioEntity> duenio = query.getResultList();
+        TarjetaDeCreditoEntity resultado = null;
         if (duenio == null) {
             resultado = null;
         } else if (duenio.isEmpty()) {
             resultado = null;
+        } else if (duenio.get(0).getTarjetas() == null) {
+            resultado = null;
         } else {
-            resultado = duenio.get(0);
+            for (TarjetaDeCreditoEntity t : duenio.get(0).getTarjetas()) {
+                if (t.getId() == idTarjeta) {
+                    resultado = t;
+                }
+            }
         }
         return resultado;
     }

@@ -7,11 +7,9 @@ package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.transaction.UserTransaction;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -61,14 +59,21 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    List<TarjetaDeCreditoEntity> tarjetas;   
-    
+    private List<TarjetaDeCreditoEntity> tarjetas;
+
+    /**
+     * Lista, coleccion que contiene todas las subastas de ese usuario.
+     */
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    List<SubastaEntity> subastas;
+    private List<SubastaEntity> subastas;
+
+    /**
+     * Lista, coleccion que contiene todas las cargas de ese usuario.
+     */
     @PodamExclude
     @OneToMany(
             mappedBy = "usuario",
@@ -193,5 +198,19 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
      */
     public void setCargas(List<CargaEntity> cargas) {
         this.cargas = cargas;
+    }
+
+    /**
+     * @return the subastas
+     */
+    public List<SubastaEntity> getSubastas() {
+        return subastas;
+    }
+
+    /**
+     * @param subastas the subastas to set
+     */
+    public void setSubastas(List<SubastaEntity> subastas) {
+        this.subastas = subastas;
     }
 }

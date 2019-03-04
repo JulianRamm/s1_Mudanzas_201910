@@ -82,12 +82,37 @@ public class ProveedorPersistence {
     public ProveedorEntity findProveedorPorLogin(String login) {
         TypedQuery query = em.createQuery("Select e from ProveedorEntity e where e.login = :login", ProveedorEntity.class);
         query = query.setParameter("login", login);
-        ProveedorEntity duenio = (ProveedorEntity) query.getSingleResult();
+        List<ProveedorEntity> duenio = query.getResultList();
         ProveedorEntity resultado;
         if (duenio == null) {
             resultado = null;
-        }else {
-            resultado = duenio;
+        }else if(duenio.isEmpty()){
+            resultado = null;
+        }
+        else {
+            resultado = duenio.get(0);
+        }
+        return resultado;
+    }
+    
+    /**
+     * Busca a un proveedor por su nombre
+     *
+     * @param nombre el nombre de proveedor que se desea buscar
+     * @return el proveedor completo con ese nombre
+     */
+    public ProveedorEntity findProveedorPorNombre(String nombre) {
+        TypedQuery query = em.createQuery("Select e from ProveedorEntity e where e.nombre = :nombre", ProveedorEntity.class);
+        query = query.setParameter("nombre", nombre);
+        List<ProveedorEntity> duenio = query.getResultList();
+        ProveedorEntity resultado;
+        if (duenio == null) {
+            resultado = null;
+        }else if(duenio.isEmpty()){
+            resultado = null;
+        }
+        else {
+            resultado = duenio.get(0);
         }
         return resultado;
     }

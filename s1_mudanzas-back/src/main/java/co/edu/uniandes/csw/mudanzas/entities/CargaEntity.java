@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,8 +44,12 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * usuario de la carga
      */
+    @PodamExclude
     @ManyToOne()
     private UsuarioEntity usuario;
+    /**
+     * datos del envío
+     */
     private String datosEnvio;
 
     /**
@@ -72,24 +75,20 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * fecha estimada de llegada definida por el proveedor
      */
+    
     @Temporal(TemporalType.DATE)
     private Date fechaEstimadaLlegada;
 
     /**
      * fecha en la que la carga va a ser trasladada
      */
-    @Temporal(TemporalType.DATE)
+     @Temporal(TemporalType.DATE)
     private Date fechaEnvio;
 
     /**
      * observaciones sadicionales definidas por el cliente
      */
     private String observaciones;
-
-    /**
-     *
-     */
-    private int valorInicialS;
     
     /**
      * @return the datosEnvio
@@ -203,19 +202,6 @@ public class CargaEntity extends BaseEntity implements Serializable{
         this.observaciones = observaciones;
     }
 
-    /**
-     * @return the valorInicialS
-     */
-    public int getValorInicialS() {
-        return valorInicialS;
-    }
-
-    /**
-     * @param valorInicialS the valorInicialS to set
-     */
-    public void setValorInicialS(int valorInicialS) {
-        this.valorInicialS = valorInicialS;
-    }
     /**
      * Constructor por defecto
      */

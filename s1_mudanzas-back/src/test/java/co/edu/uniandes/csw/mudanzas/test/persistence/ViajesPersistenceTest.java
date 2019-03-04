@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
+import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
 import java.util.ArrayList;
@@ -177,6 +178,16 @@ public class ViajesPersistenceTest {
         ViajesEntity resp = em.find(ViajesEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getId(), resp.getId());
+    }
+    @Test
+    public void getCargasDadoUnIdTest(){
+        ViajesEntity entidad = data.get(0);
+        List<CargaEntity> nuevo = persistence.getCargasDadoUnId(entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getCargas().size(), nuevo.size());
+        Assert.assertEquals(entidad.getCargas(), nuevo);
+        nuevo = persistence.getCargasDadoUnId(null);
+        Assert.assertNull(nuevo);
     }
 
 }

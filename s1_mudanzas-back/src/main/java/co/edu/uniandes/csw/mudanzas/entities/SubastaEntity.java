@@ -6,8 +6,13 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.transaction.UserTransaction;
+import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -15,27 +20,68 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Andres Gonzalez
  */
 @Entity
-public class SubastaEntity extends BaseEntity implements Serializable{
-    @PodamExclude
-    @ManyToOne
-    private ProveedorEntity proveedor;
-     /**
-     * Atributo que representa el valor inicial de la subasta dado por el usuario. 
+public class SubastaEntity extends BaseEntity implements Serializable {
+
+    private String subastaId;
+    /**
+     * Atributo que representa el valor inicial de la subasta dado por el
+     * usuario.
      */
     private double valorInicial;
-    
-     /**
-     * Atributo que representa el valor final(actual) de la subasta. 
+
+    /**
+     * Atributo que representa el valor final(actual) de la subasta.
      */
     private double valorFinal;
 
     @PodamExclude
     @ManyToOne()
+    private ProveedorEntity proveedor;
+
+    @PodamExclude
+    @ManyToOne()
     private UsuarioEntity usuario;
-    
-    public SubastaEntity()
-    {
-                
+
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "subasta",
+            fetch = FetchType.LAZY
+    )
+    private List<OfertaEntity> ofertas;
+
+    /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
+    @Inject
+    private UserTransaction utx;
+
+    public SubastaEntity() {
+
+    }
+
+    public String getSubastaId() {
+        return subastaId;
+    }
+
+    public void setSubastaId(String subastaId) {
+        this.subastaId = subastaId;
+    }
+
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<OfertaEntity> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<OfertaEntity> ofertas) {
+        this.ofertas = ofertas;
     }
     /**
      * @return the valorInicial
@@ -75,12 +121,7 @@ public class SubastaEntity extends BaseEntity implements Serializable{
     /**
      * @param proveedor the proveedor to set
      */
-    public void setProveedor(ProveedorEntity proveedor) {
-        this.proveedor = proveedor;
+    public void setProveedor(ProveedorEntity prove) {
+        proveedor = prove;
     }
-    
-    
-    
-  
-    
 }

@@ -10,14 +10,14 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Daniel Machado
  */
 @Entity
 public class ConductorEntity extends BaseEntity implements Serializable {
@@ -31,7 +31,7 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela la calificacion de un conductor
      */
-    private double calificacion;
+    private Double calificacion;
     /**
      * Atributo que modela el numero de telefono de un conductor
      */
@@ -42,7 +42,7 @@ public class ConductorEntity extends BaseEntity implements Serializable {
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
-    @OneToMany(mappedBy = "conductor", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "conductor", fetch = FetchType.LAZY)
     private List<VehiculoEntity> vehiculos;
     /**
      * Atributo que modela el proveeedor al cual el conductor está adscrito.
@@ -80,14 +80,14 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     /**
      * @return the calificacion
      */
-    public double getCalificacion() {
+    public Double getCalificacion() {
         return calificacion;
     }
 
     /**
      * @param calificacion the calificacion to set
      */
-    public void setCalificacion(double calificacion) {
+    public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
 

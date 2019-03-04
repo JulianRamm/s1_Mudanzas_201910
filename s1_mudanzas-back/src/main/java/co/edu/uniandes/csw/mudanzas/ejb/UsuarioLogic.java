@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.List;
-import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 

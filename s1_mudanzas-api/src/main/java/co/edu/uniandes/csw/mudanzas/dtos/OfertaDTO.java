@@ -5,13 +5,16 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
+import java.io.Serializable;
+
 /**
  *
  * @author aj.gonzalezt
  */
-public class OfertaDTO {
+public class OfertaDTO implements Serializable {
  
-    private int valor;
+    private double valor;
      
     private Long idOferta;
     
@@ -22,11 +25,20 @@ public class OfertaDTO {
         
     }
 
-    public int getValor() {
+    
+    public OfertaDTO(OfertaEntity oferEntity)
+    {
+        setComentario(oferEntity.getComentario());
+        setValor(oferEntity.getValor());
+        setidOferta(oferEntity.getId());
+       
+    }
+ 
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -44,6 +56,15 @@ public class OfertaDTO {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public OfertaEntity toEntity() {
+        OfertaEntity oferEntity = new OfertaEntity();
+       oferEntity.setId(idOferta);
+       oferEntity.setComentario(comentario);
+       oferEntity.setValor(valor);
+        
+        return oferEntity;
     }
     
     

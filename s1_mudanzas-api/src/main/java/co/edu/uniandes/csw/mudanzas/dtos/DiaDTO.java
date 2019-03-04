@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Time;
 import java.util.Date;
 
 /**

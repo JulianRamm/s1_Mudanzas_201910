@@ -30,9 +30,9 @@ public class ProveedorResource
 {
     
     @Path("{login}/conductores")
-    public Class<ProveedorConductorResource> getProveedorConductorResource(@PathParam("login") String login)
+    public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)
     {
-        return ProveedorConductorResource.class;
+        return ConductorProveedorResource.class;
     }
     
     private static final Logger LOGGER = Logger.getLogger(ProveedorResource.class.getName());
@@ -99,9 +99,27 @@ public class ProveedorResource
      * @return El servicio de subastas para este proveedor en particular.
      */
     @Path("{login}/subastas")
-    public Class<SubastasProveedorResource> getSubastasUsuarioResource(@PathParam("login") String login)
+    public Class<SubastasProveedorResource> getSubastasProveedorResource(@PathParam("login") String login)
     {
         return SubastasProveedorResource.class;
+    }
+    
+    /**
+     * Conexión con el servicio de vehiculos para un proveedor.
+     * {@link VehiculosProveedorResource}
+     *
+     * Este método conecta la ruta de /proveedores con las rutas de /vehiculos que
+     * dependen del proveedor, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las subastas de un proveedor.
+     *
+     * @param login El login del proveedor con respecto al cual se
+     * accede al servicio.
+     * @return El servicio de subastas para este proveedor en particular.
+     */
+    @Path("{login}/vehiculos")
+    public Class<VehiculosProveedorResource> getVehiculosProveedorResource(@PathParam("login") String login)
+    {
+        return VehiculosProveedorResource.class;
     }
     
     

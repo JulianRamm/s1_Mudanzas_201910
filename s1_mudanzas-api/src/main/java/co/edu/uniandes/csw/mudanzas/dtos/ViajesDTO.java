@@ -7,19 +7,21 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
  * @author je.osorio
  */
-public class ViajeDTO implements Serializable {
+public class ViajesDTO implements Serializable {
 
     /**
      * id del viaje
      */
 
-    private long id;
+    private Long id;
 
     /**
      * direcciòn del lugar de salida del viaje
@@ -34,12 +36,12 @@ public class ViajeDTO implements Serializable {
     /**
      * tiempo que se va a demorar el viaje acorde con la distancia
      */
-    private int tiempo;
+    private Integer tiempo;
 
     /**
      * gasolina que se va a necesitar para completar el viaje
      */
-    private int gastoGasolina;
+    private Integer gastoGasolina;
 
     /**
      * clima actual de la posiciòn en la que se encuentra el conductor
@@ -48,15 +50,19 @@ public class ViajeDTO implements Serializable {
     /**
      * hora de salida del viaje
      */
-    private LocalDateTime horaPartida;
+    private Date horaPartida;
     /**
      * hora de llegada del viaje
      */
-    private LocalDateTime horaLlegada;
+    private Date horaLlegada;
+    /**
+     * conductor del viaje
+     */
+    private ConductorDTO conductor;
     /**
      * @return the id
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -140,7 +146,7 @@ public class ViajeDTO implements Serializable {
     /**
      * constructor de un objeto que toma la definiciòn de la clase viaje
      */
-    public ViajeDTO() {
+    public ViajesDTO() {
 
     }
 
@@ -149,14 +155,22 @@ public class ViajeDTO implements Serializable {
      *
      * @param viajesEntity
      */
-    public ViajeDTO(ViajesEntity viajesEntity) {
+    public ViajesDTO(ViajesEntity viajesEntity) {
         if (viajesEntity != null) {
+            this.id=viajesEntity.getId();
             this.clima = viajesEntity.getClima();
             this.gastoGasolina = viajesEntity.getGastoGasolina();
-            this.id = viajesEntity.getId();
             this.lugarLlegada = viajesEntity.getLugarLlegada();
             this.lugarSalida = viajesEntity.getLugarSalida();
             this.tiempo = viajesEntity.getTiempo();
+            this.horaLlegada = viajesEntity.getHoraLlegada();
+            this.horaPartida = viajesEntity.getHoraPartida();
+            if(viajesEntity.getConductorEntity()!=null){
+                this.conductor = new ConductorDTO(viajesEntity.getConductorEntity());
+            }
+            else{
+                this.conductor=null;
+            }
         }
     }
 
@@ -168,34 +182,57 @@ public class ViajeDTO implements Serializable {
         viajesEntity.setLugarLlegada(this.lugarLlegada);
         viajesEntity.setLugarSalida(this.lugarSalida);
         viajesEntity.setTiempo(this.tiempo);
+        viajesEntity.setHoraLlegada(this.horaLlegada);
+        viajesEntity.setHoraPartida(this.horaPartida);
+        if(this.conductor!=null){
+            viajesEntity.setConductorEntity(this.conductor.toEntity());
+        }
         return viajesEntity;
     }
 
     /**
      * @return the horaPartida
      */
-    public LocalDateTime getHoraPartida() {
+    public Date getHoraPartida() {
         return horaPartida;
     }
 
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraPartida(LocalDateTime horaPartida) {
+    public void setHoraPartida(Date horaPartida) {
         this.horaPartida = horaPartida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraLlegada() {
+    public Date getHoraLlegada() {
         return horaLlegada;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraLlegada(LocalDateTime horaLlegada) {
+    public void setHoraLlegada(Date horaLlegada) {
         this.horaLlegada = horaLlegada;
+    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the conductor
+     */
+    public ConductorDTO getConductor() {
+        return conductor;
+    }
+
+    /**
+     * @param conductor the conductor to set
+     */
+    public void setConductor(ConductorDTO conductor) {
+        this.conductor = conductor;
     }
 }

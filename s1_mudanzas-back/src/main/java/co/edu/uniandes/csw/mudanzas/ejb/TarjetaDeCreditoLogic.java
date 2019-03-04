@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.mudanzas.ejb;
 
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
+import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -26,22 +27,37 @@ public class TarjetaDeCreditoLogic {
      * Variable para acceder a la persistencia de la tarjeta.
      */
     @Inject
-    private TarjetaDeCreditoPersistence persistence;
+    private TarjetaDeCreditoPersistence tarjetaPersistence;
+
+    /**
+     * Atributo que inyecta la persistencia del usuario en la logica.
+     */
+    @Inject
+    private UsuarioPersistence usuarioPersistence;
 
     /**
      * Crea una tarjeta en la persistencia.
      *
      * @param tarjeta La entidad que representa la tarjeta a persistir.
+     * @param username
      * @return La entiddad de la tarjeta luego de persistirla.
      * @throws BusinessLogicException Si la tarjeta a persistir ya existe.
      */
-    public TarjetaDeCreditoEntity crearTarjeta(TarjetaDeCreditoEntity tarjeta) throws BusinessLogicException {
+    public TarjetaDeCreditoEntity crearTarjeta(TarjetaDeCreditoEntity tarjeta, String username) throws BusinessLogicException {
 
-        //Verificacion de existencia
-        if (persistence.find(tarjeta.getId()) != null) {
-            throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
+        UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
+
+        if (usuarioEntity == null) {
+            throw new BusinessLogicException("No existe ningun usuario \"" + username + "\"");
         }
 
+        //Verificacion de existencia
+        for (TarjetaDeCreditoEntity tarjetaE : usuarioEntity.getTarjetas()) {
+            if (tarjeta.getId() == tarjetaE.getId()) {
+                throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
+            }
+        }
+        tarjeta.setUsuario(usuarioEntity);
         //Verificacion de "nulidad"
         if (tarjeta.getTitularCuenta() == null
                 || tarjeta.getNombreTarjeta() == null
@@ -55,7 +71,7 @@ public class TarjetaDeCreditoLogic {
             throw new BusinessLogicException("El nombre de la tarjeta o del propietario solo puede contener letras");
         }
         String codigoS = tarjeta.getCodigoSeguridad() + "";
-        String serial = tarjeta.getNumeroSerial() + "";
+        String serial = tarjeta.getNumeroSerial();
         if (!codigoS.matches("[0-9]{1,3}+")
                 || !serial.matches("[0-9]{12,19}+")) {
             throw new BusinessLogicException("Los digitos de la tarjeta o cs no son validos");
@@ -63,11 +79,11 @@ public class TarjetaDeCreditoLogic {
         //verificacion de fecha de expedicion
         Date fechaV = tarjeta.getFechaVencimiento();
         Calendar cal = Calendar.getInstance();
-        if (fechaV.getMonth() > cal.get(Calendar.MONTH) && fechaV.getYear() > cal.get(Calendar.YEAR)) {
+        if (cal.get(Calendar.MONTH) > fechaV.getMonth() && cal.get(Calendar.YEAR) > fechaV.getYear()) {
             throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
         }
-
-        tarjeta = persistence.create(tarjeta);
+        usuarioEntity.getTarjetas().add(tarjeta);
+        tarjetaPersistence.create(tarjeta);
         return tarjeta;
     }
 
@@ -77,7 +93,18 @@ public class TarjetaDeCreditoLogic {
      * @return una lista de tarjetas.
      */
     public List<TarjetaDeCreditoEntity> getTarjetas() {
-        List<TarjetaDeCreditoEntity> tarjetas = persistence.findAll();
+        List<TarjetaDeCreditoEntity> tarjetas = tarjetaPersistence.findAll();
+        return tarjetas;
+    }
+
+    /**
+     * Obtener todas las tarjetas existentes en la base de datos que le
+     * pertencen a un usuario en especifico.
+     *
+     * @return una lista de tarjetas de ese usuario.
+     */
+    public List<TarjetaDeCreditoEntity> getTarjetasUsuario(String login) {
+        List<TarjetaDeCreditoEntity> tarjetas = usuarioPersistence.findUsuarioPorLogin(login).getTarjetas();
         return tarjetas;
     }
 
@@ -89,7 +116,7 @@ public class TarjetaDeCreditoLogic {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public TarjetaDeCreditoEntity getTarjeta(Long tarjetaId) throws BusinessLogicException {
-        TarjetaDeCreditoEntity tarjetaEntity = persistence.find(tarjetaId);
+        TarjetaDeCreditoEntity tarjetaEntity = tarjetaPersistence.find(tarjetaId);
         if (tarjetaEntity == null) {
             throw new BusinessLogicException("No existe tal tarjeta con id: " + tarjetaId);
         }
@@ -99,15 +126,15 @@ public class TarjetaDeCreditoLogic {
     /**
      * Obtener un tarjeta por medio de su login.
      *
-     * @param usuarioTitular: nombre del propietario de la tarjeta para ser
+     * @param login: nombre del propietario de la tarjeta para ser
      * buscado.
      * @return la tarjeta solicitado por medio de su login.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public TarjetaDeCreditoEntity getTarjeta(String usuarioTitular) throws BusinessLogicException {
-        TarjetaDeCreditoEntity usuarioEntity = persistence.findTarjetaPorPropietario(usuarioTitular);
+    public TarjetaDeCreditoEntity getTarjeta(String login, Long idTarjeta) throws BusinessLogicException {
+        TarjetaDeCreditoEntity usuarioEntity = tarjetaPersistence.findTarjetaPorLoginUsuario(login, idTarjeta);
         if (usuarioEntity == null) {
-            throw new BusinessLogicException("No existe tal tarjeta con propietario de nombre: " + usuarioTitular);
+            throw new BusinessLogicException("No existe tal tarjeta con propietario de login: " + login);
         }
         return usuarioEntity;
     }
@@ -120,7 +147,7 @@ public class TarjetaDeCreditoLogic {
      * @return la tarjeta con los cambios actualizados en la base de datos.
      */
     public TarjetaDeCreditoEntity updateTarjeta(TarjetaDeCreditoEntity nuevaTarjeta) {
-        TarjetaDeCreditoEntity tarjetaEntity = persistence.update(nuevaTarjeta);
+        TarjetaDeCreditoEntity tarjetaEntity = tarjetaPersistence.update(nuevaTarjeta);
         return tarjetaEntity;
     }
 
@@ -132,6 +159,6 @@ public class TarjetaDeCreditoLogic {
      * credito.
      */
     public void deleteTarjeta(Long tarjetaId) throws BusinessLogicException {
-        persistence.delete(tarjetaId);
+        tarjetaPersistence.delete(tarjetaId);
     }
 }
