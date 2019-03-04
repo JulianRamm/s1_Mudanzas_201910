@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Samuel Bernal Neira 
+ * @author Daniel Machado
  */
 @Stateless
 public class ConductorLogic 
@@ -35,12 +35,25 @@ public class ConductorLogic
         {
             throw new BusinessLogicException("Ya existe un conductor con el id: \"" + conductor.getId() + "\"");
         }
-        
-        if(conductorPer.findByName(conductor.getNombre())!= null)
+        else if(proveedorPer.findProveedorPorLogin(login) == null)
+        {
+            throw new BusinessLogicException("el proveedor con el login dado no existe");
+        }    
+        else if(conductorPer.findByName(conductor.getNombre())!= null)
         {
             throw new BusinessLogicException("Ya existe un conductor con el nombre: \"" + conductor.getNombre() + "\"");
         }
-        conductor = conductorPer.create(conductor);
+        else if(!conductor.getNombre().matches("([a-zA-Z ]+){2,}"))
+        {
+            throw new BusinessLogicException("el nombre ingresado no es valido");
+        }
+        else if(conductor.getTelefono().matches("[0-9]{7,10}+"))
+        {
+            throw new BusinessLogicException("el numero telefonico ingresado no es valido");
+        }               
+        else{
+            conductor = conductorPer.create(conductor);
+        }
         
         return conductor;
     }
@@ -115,10 +128,8 @@ public class ConductorLogic
      * Borrar un conductor
      *
      * @param conductorId: id del conductor a borrar
-     * @throws BusinessLogicException Si el tarjeta a eliminar tiene tarjetas de
-     * credito.
      */
-    public void deleteConductor(Long conductorId) throws BusinessLogicException {
+    public void deleteConductor(Long conductorId) {
         conductorPer.delete(conductorId);
     }
        
