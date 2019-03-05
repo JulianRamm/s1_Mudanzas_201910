@@ -37,12 +37,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
-					"port": "{{port}}",
+					"port": "{{puerto}}",
 					"path": [
 						"s1_mudanzas-api",
 						"api",
@@ -104,12 +104,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuario1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
-					"port": "{{port}}",
+					"port": "{{puerto}}",
 					"path": [
 						"s1_mudanzas-api",
 						"api",
@@ -142,12 +142,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuario2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
-					"port": "{{port}}",
+					"port": "{{puerto}}",
 					"path": [
 						"s1_mudanzas-api",
 						"api",
@@ -189,12 +189,12 @@
 					"raw": "{\n    \"apellido\": \"Bernal Neira\",\n    \"ciudadDeOrigen\": \"Bogota\",\n    \"correoElectronico\": \"s.bernaln@uniandes.edu.co\",\n    \"login\": \"samuelbernal\",\n    \"nombre\": \"Samuel\",\n    \"password\": \"Qwerty3@\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
-					"port": "{{port}}",
+					"port": "{{puerto}}",
 					"path": [
 						"s1_mudanzas-api",
 						"api",
@@ -233,12 +233,12 @@
 					"raw": "{\n    \"apellido\": \"Bernal Neira\",\n    \"ciudadDeOrigen\": \"Bogota\",\n    \"correoElectronico\": \"s.bernaln@uniandes.edu.co\",\n    \"login\": \"samuelbernal\",\n    \"nombre\": \"Samuel\",\n    \"password\": \"Qwerty4!\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{nuevoUsuario}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{nuevoUsuario}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
-					"port": "{{port}}",
+					"port": "{{puerto}}",
 					"path": [
 						"s1_mudanzas-api",
 						"api",
@@ -271,12 +271,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{nuevoUsuario}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{nuevoUsuario}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
-					"port": "{{port}}",
+					"port": "{{puerto}}",
 					"path": [
 						"s1_mudanzas-api",
 						"api",
@@ -290,25 +290,25 @@
 	],
 	"variable": [
 		{
-			"id": "14a7b1a6-89c3-4869-ba63-3ab7ceac717a",
+			"id": "ca004a34-1935-4cfd-9f30-aab35a83d6ed",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "4c8245ff-c186-4cf2-b02f-5553aab01d26",
+			"id": "18d8572f-d847-45ee-aedc-c1dc74f9a17f",
 			"key": "puerto",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "3bf26882-e72a-4445-a525-0072da207d07",
+			"id": "d90b4ba2-fe95-4fa1-9481-4aca6afacb2f",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "968ec438-b882-406f-9593-15f573c11453",
+			"id": "b3c25833-494b-404d-8566-7478fed7696e",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"
