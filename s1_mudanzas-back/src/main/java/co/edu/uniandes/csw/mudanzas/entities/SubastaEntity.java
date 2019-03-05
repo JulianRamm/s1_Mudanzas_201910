@@ -35,7 +35,7 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     private double valorFinal;
 
     @PodamExclude
-    @ManyToOne
+    @ManyToOne()
     private ProveedorEntity proveedor;
 
     @PodamExclude
@@ -121,7 +121,7 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     /**
      * @param proveedor the proveedor to set
      */
-    public void setProveedor(ProveedorEntity proveedor) {
-        this.proveedor = proveedor;
+    public void setProveedor(ProveedorEntity prove) {
+        proveedor = prove;
     }
 }
