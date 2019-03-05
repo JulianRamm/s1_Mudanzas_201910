@@ -141,9 +141,6 @@ public class TarjetaDeCreditoPersistenceTest {
         //Buscamos ese usuario directamente en la BD
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, tarjetae.getId());
 
-        //verificamos que el mismo que cree en mi propio metodo sea el mismo que relamente se creo en la BD.
-        Assert.assertEquals(trjt.getTitularCuenta(), entity.getTitularCuenta());
-
     }
 
     /**
@@ -178,7 +175,6 @@ public class TarjetaDeCreditoPersistenceTest {
         Assert.assertEquals(entidad.getId(), nuevo.getId());
         Assert.assertEquals(entidad.getNombreTarjeta(), nuevo.getNombreTarjeta());
         Assert.assertEquals(entidad.getNumeroSerial(), nuevo.getNumeroSerial());
-        Assert.assertEquals(entidad.getTitularCuenta(), nuevo.getTitularCuenta());
     }
 
     /**
@@ -211,21 +207,6 @@ public class TarjetaDeCreditoPersistenceTest {
         Assert.assertEquals(cambiada.getId(), encontrada.getId());
         Assert.assertEquals(cambiada.getNombreTarjeta(), encontrada.getNombreTarjeta());
         Assert.assertEquals(cambiada.getNumeroSerial(), encontrada.getNumeroSerial());
-        Assert.assertEquals(cambiada.getTitularCuenta(), encontrada.getTitularCuenta());
-    }
-
-    /**
-     * Prueba para buscar una tarjeta por el nombre de su propietario.
-     */
-    @Test
-    public void buscarTarjetaPorLogin() {
-        TarjetaDeCreditoEntity entidad = data.get(0);
-        TarjetaDeCreditoEntity nuevo = tp.findTarjetaPorLoginUsuario(entidad.getUsuario().getLogin(), entidad.getId());
-        Assert.assertNotNull(nuevo);
-        Assert.assertEquals(entidad.getUsuario().getLogin(), nuevo.getUsuario().getLogin());
-
-        nuevo = tp.findTarjetaPorLoginUsuario(entidad.getUsuario().getLogin(), null);
-        Assert.assertNull(nuevo);
     }
 
 }

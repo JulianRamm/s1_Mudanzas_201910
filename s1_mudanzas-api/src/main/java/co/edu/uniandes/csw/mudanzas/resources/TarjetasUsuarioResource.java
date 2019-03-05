@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
@@ -69,12 +70,12 @@ public class TarjetasUsuarioResource {
     @GET
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO getTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException, BusinessLogicException {
-        TarjetaDeCreditoEntity tarjeta = tarjetaLogic.getTarjeta(login, idTarjeta);
-        if (tarjeta == null) {
+        try {
+            TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.getTarjeta(login, idTarjeta));
+            return tarjetaDTO;
+        } catch (BusinessLogicException e) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idTarjeta + " no existe.", 404);
         }
-        TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjeta);
-        return tarjetaDTO;
     }
 
     /**
@@ -90,11 +91,13 @@ public class TarjetasUsuarioResource {
      */
     @POST
     public TarjetaDeCreditoDTO crearTarjeta(@PathParam("login") String login, TarjetaDeCreditoDTO tarjeta) throws WebApplicationException, BusinessLogicException {
-        if (tarjetaLogic.getTarjeta(login, tarjeta.getIdTarjeta()) != null) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + tarjeta.getIdTarjeta() + " ya existe.", 412);
+        try {
+            TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.crearTarjeta(tarjeta.toEntity(), login));
+            return tarjetaDTO;
+        } catch (BusinessLogicException e) {
+            e.printStackTrace();
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + tarjeta.getId() + " ya existe.", 412);
         }
-        TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.crearTarjeta(tarjeta.toEntity(), login));
-        return tarjetaDTO;
     }
 
     /**
@@ -110,12 +113,22 @@ public class TarjetasUsuarioResource {
     @PUT
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO cambiarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws WebApplicationException, BusinessLogicException {
-        tarjeta.setIdTarjeta(idTarjeta);
+        tarjeta.setId(idTarjeta);
         if (tarjetaLogic.getTarjeta(login, idTarjeta) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idTarjeta + " no existe.", 404);
         }
         TarjetaDeCreditoDTO dto = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(tarjeta.toEntity()));
         return dto;
+    }
+    
+    @DELETE
+    @Path("{idTarjeta: \\d+}")
+    public void borrarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta) throws BusinessLogicException {
+        TarjetaDeCreditoEntity tarj = tarjetaLogic.getTarjeta(login, idTarjeta);
+        if(tarj == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idTarjeta + " no existe.", 404);
+        }
+        tarjetaLogic.deleteTarjeta(login, idTarjeta);
     }
 
     /**
