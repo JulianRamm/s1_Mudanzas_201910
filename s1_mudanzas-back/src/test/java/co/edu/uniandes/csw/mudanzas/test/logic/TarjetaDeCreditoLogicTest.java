@@ -329,7 +329,7 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(1);
-        tarjetaLogic.deleteTarjeta(entidad.getId());
+        tarjetaLogic.deleteTarjeta(usuarioData.getLogin(), entidad.getId());
         TarjetaDeCreditoEntity borrar = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }

@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "d87ec170-9086-468a-b0af-cad7c5295dba",
+		"name": "TarjetasUsuarioResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tarjetas Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5df2fe17-e54c-4417-9ffb-4fcabf23f09c",
+						"exec": [
+							"tests[\"No genera error el GET de tarjetas\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario1}}/tarjetas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario1}}",
+						"tarjetas"
+					]
+				},
+				"description": "Request para obtener todas las tarjetas de un usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjetas Usuario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5df2fe17-e54c-4417-9ffb-4fcabf23f09c",
+						"exec": [
+							"tests[\"No genera error el GET de tarjetas\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario2}}/tarjetas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario2}}",
+						"tarjetas"
+					]
+				},
+				"description": "Request para obtener todas las tarjetas de un usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjeta Especifica 1 Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de tarjeta especifica\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario1}}/tarjetas/{{t1u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario1}}",
+						"tarjetas",
+						"{{t1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjeta Especifica 2 Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de tarjeta especifica\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario1}}/tarjetas/{{t2u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario1}}",
+						"tarjetas",
+						"{{t2u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjeta Especifica 1 Usuario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de tarjeta especifica\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario2}}/tarjetas/{{t1u2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario2}}",
+						"tarjetas",
+						"{{t1u2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjeta Especifica 2 Usuario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de tarjeta especifica\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario2}}/tarjetas/{{t2u2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario2}}",
+						"tarjetas",
+						"{{t2u2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjeta Nueva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aca15998-a648-48b7-8c2f-d88bd97252ff",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"nuevaTarjeta\",data.id);",
+							"tests[\"No genera error el POST de una tarjeta especifica\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"codigoSeguridad\": 953,\n    \"fechaVencimiento\": \"2020-02-10T00:00:00-05:00\",\n    \"nombreTarjeta\": \"Tarjeta terciaria\",\n    \"numeroSerial\": \"123456789102\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario1}}/tarjetas/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario1}}",
+						"tarjetas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarjeta de un Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ff82228-06d0-4768-8e3e-8fd12a6f0e96",
+						"exec": [
+							"tests[\"No genera error el DELETE de tarjeta\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/s1_mudanzas-api/api/usuarios/{{usuario1}}/tarjetas/{{nuevaTarjeta}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuario1}}",
+						"tarjetas",
+						"{{nuevaTarjeta}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "61052994-ac2c-45f8-9a3a-a79ff88d0430",
+			"key": "ip",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"id": "eed929a3-f98f-40f4-b6fb-2473ab585ab4",
+			"key": "port",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"id": "c059ee1d-600c-4085-8e9d-8b6a597366d7",
+			"key": "usuario1",
+			"value": "luismigolondo",
+			"type": "string"
+		},
+		{
+			"id": "7ff3a662-f67a-4d8e-a32b-fb7a6b9dbb79",
+			"key": "usuario2",
+			"value": "julianosorio",
+			"type": "string"
+		},
+		{
+			"id": "5aa48f0d-2cc1-466c-a8f0-a7e79c963499",
+			"key": "t1u1",
+			"value": "10003",
+			"type": "string"
+		},
+		{
+			"id": "1ccafa0b-d46a-400b-b67d-8ed36ffbba82",
+			"key": "t2u1",
+			"value": "10004",
+			"type": "string"
+		},
+		{
+			"id": "91a45327-bea1-4b90-a0fe-d5d4f46498d1",
+			"key": "t1u2",
+			"value": "10005",
+			"type": "string"
+		},
+		{
+			"id": "da2d7189-b1cd-468f-a55c-287cee88aa10",
+			"key": "t2u2",
+			"value": "10006",
+			"type": "string"
+		}
+	]
+}

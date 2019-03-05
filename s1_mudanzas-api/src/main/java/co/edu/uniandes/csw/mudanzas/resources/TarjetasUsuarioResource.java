@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
@@ -94,6 +95,7 @@ public class TarjetasUsuarioResource {
             TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.crearTarjeta(tarjeta.toEntity(), login));
             return tarjetaDTO;
         } catch (BusinessLogicException e) {
+            e.printStackTrace();
             throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + tarjeta.getId() + " ya existe.", 412);
         }
     }
@@ -117,6 +119,16 @@ public class TarjetasUsuarioResource {
         }
         TarjetaDeCreditoDTO dto = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(tarjeta.toEntity()));
         return dto;
+    }
+    
+    @DELETE
+    @Path("{idTarjeta: \\d+}")
+    public void borrarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") Long idTarjeta) throws BusinessLogicException {
+        TarjetaDeCreditoEntity tarj = tarjetaLogic.getTarjeta(login, idTarjeta);
+        if(tarj == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idTarjeta + " no existe.", 404);
+        }
+        tarjetaLogic.deleteTarjeta(login, idTarjeta);
     }
 
     /**

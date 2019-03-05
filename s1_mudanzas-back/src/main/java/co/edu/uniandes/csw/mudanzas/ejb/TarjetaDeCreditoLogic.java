@@ -10,6 +10,8 @@ import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.TarjetaDeCreditoPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -48,14 +50,12 @@ public class TarjetaDeCreditoLogic {
         UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
 
         if (usuarioEntity == null) {
-            System.err.println("#######################usuario null#########################");
             throw new BusinessLogicException("No existe ningun usuario \"" + username + "\"");
         }
 
         //Verificacion de existencia
         for (TarjetaDeCreditoEntity tarjetaE : usuarioEntity.getTarjetas()) {
             if (tarjeta.getId() == tarjetaE.getId()) {
-                System.err.println("#######################ya hay un id#########################");
                 throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
             }
         }
@@ -63,30 +63,32 @@ public class TarjetaDeCreditoLogic {
         //Verificacion de "nulidad"
         if (tarjeta.getNombreTarjeta() == null
                 || tarjeta.getNumeroSerial() == null) {
-            System.err.println("########################serial o nombre nulo#########################");
             throw new BusinessLogicException("Los campos no pueden ser nulos");
         }
 
         //Verificacion de formato para el nombre de la tarjeta y del propietario
         if (!tarjeta.getNombreTarjeta().matches("([a-zA-Z ]+){2,}")) {
-            System.err.println("#######################nombre de tarjeta no valido#########################");
             throw new BusinessLogicException("El nombre de la tarjeta o del propietario solo puede contener letras");
         }
         String codigoS = tarjeta.getCodigoSeguridad() + "";
         String serial = tarjeta.getNumeroSerial();
         if (!codigoS.matches("[0-9]{1,3}+")
                 || !serial.matches("[0-9]{12,19}+")) {
-            System.err.println("#######################serial o seguridad no valido#########################");
-
             throw new BusinessLogicException("Los digitos de la tarjeta o cs no son validos");
         }
         //verificacion de fecha de expedicion
         Date fechaV = tarjeta.getFechaVencimiento();
-        Calendar cal = Calendar.getInstance();
-        if (cal.get(Calendar.MONTH) > fechaV.getMonth() && cal.get(Calendar.YEAR) > fechaV.getYear()) {
-            throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
+        LocalDate vencimiento = fechaV.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int monthV = vencimiento.getMonthValue();
+        int yearV = vencimiento.getYear();
+
+        Date hoy = new Date();
+        LocalDate localDate = hoy.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int esteMes = localDate.getMonthValue();
+        int esteAnio = localDate.getYear();
+        if (esteMes > monthV && esteAnio > yearV) {
+            throw new BusinessLogicException("Esta tarjeta de credito ha expedido: Mes de ven: " + monthV + " Año de ven: " + yearV + " este mes: " + esteMes + " este año: " + esteAnio);
         }
-        Long ifi = tarjeta.getId();
         usuarioEntity.getTarjetas().add(tarjeta);
         tarjetaPersistence.create(tarjeta);
         usuarioPersistence.update(usuarioEntity);
@@ -132,8 +134,7 @@ public class TarjetaDeCreditoLogic {
     /**
      * Obtener un tarjeta por medio de su login.
      *
-     * @param login: nombre del propietario de la tarjeta para ser
-     * buscado.
+     * @param login: nombre del propietario de la tarjeta para ser buscado.
      * @return la tarjeta solicitado por medio de su login.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
@@ -166,7 +167,11 @@ public class TarjetaDeCreditoLogic {
      * @throws BusinessLogicException Si el tarjeta a eliminar tiene tarjetas de
      * credito.
      */
-    public void deleteTarjeta(Long tarjetaId) throws BusinessLogicException {
+    public void deleteTarjeta(String login, Long tarjetaId) throws BusinessLogicException {
+        TarjetaDeCreditoEntity trj = getTarjeta(login, tarjetaId);
+        UsuarioEntity pertenece = trj.getUsuario();
+        pertenece.getTarjetas().remove(trj);
         tarjetaPersistence.delete(tarjetaId);
+        usuarioPersistence.update(pertenece);
     }
 }
