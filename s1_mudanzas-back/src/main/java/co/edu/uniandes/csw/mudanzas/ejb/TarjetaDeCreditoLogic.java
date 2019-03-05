@@ -48,32 +48,36 @@ public class TarjetaDeCreditoLogic {
         UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
 
         if (usuarioEntity == null) {
+            System.err.println("#######################usuario null#########################");
             throw new BusinessLogicException("No existe ningun usuario \"" + username + "\"");
         }
 
         //Verificacion de existencia
         for (TarjetaDeCreditoEntity tarjetaE : usuarioEntity.getTarjetas()) {
             if (tarjeta.getId() == tarjetaE.getId()) {
+                System.err.println("#######################ya hay un id#########################");
                 throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + tarjeta.getId() + "\"");
             }
         }
         tarjeta.setUsuario(usuarioEntity);
         //Verificacion de "nulidad"
-        if (tarjeta.getTitularCuenta() == null
-                || tarjeta.getNombreTarjeta() == null
+        if (tarjeta.getNombreTarjeta() == null
                 || tarjeta.getNumeroSerial() == null) {
+            System.err.println("########################serial o nombre nulo#########################");
             throw new BusinessLogicException("Los campos no pueden ser nulos");
         }
 
         //Verificacion de formato para el nombre de la tarjeta y del propietario
-        if (!tarjeta.getNombreTarjeta().matches("([a-zA-Z ]+){2,}")
-                || !tarjeta.getTitularCuenta().matches("([a-zA-Z ]+){2,}")) {
+        if (!tarjeta.getNombreTarjeta().matches("([a-zA-Z ]+){2,}")) {
+            System.err.println("#######################nombre de tarjeta no valido#########################");
             throw new BusinessLogicException("El nombre de la tarjeta o del propietario solo puede contener letras");
         }
         String codigoS = tarjeta.getCodigoSeguridad() + "";
         String serial = tarjeta.getNumeroSerial();
         if (!codigoS.matches("[0-9]{1,3}+")
                 || !serial.matches("[0-9]{12,19}+")) {
+            System.err.println("#######################serial o seguridad no valido#########################");
+
             throw new BusinessLogicException("Los digitos de la tarjeta o cs no son validos");
         }
         //verificacion de fecha de expedicion
@@ -82,8 +86,10 @@ public class TarjetaDeCreditoLogic {
         if (cal.get(Calendar.MONTH) > fechaV.getMonth() && cal.get(Calendar.YEAR) > fechaV.getYear()) {
             throw new BusinessLogicException("Esta tarjeta de credito ha expedido");
         }
+        Long ifi = tarjeta.getId();
         usuarioEntity.getTarjetas().add(tarjeta);
         tarjetaPersistence.create(tarjeta);
+        usuarioPersistence.update(usuarioEntity);
         return tarjeta;
     }
 
@@ -132,11 +138,13 @@ public class TarjetaDeCreditoLogic {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public TarjetaDeCreditoEntity getTarjeta(String login, Long idTarjeta) throws BusinessLogicException {
-        TarjetaDeCreditoEntity usuarioEntity = tarjetaPersistence.findTarjetaPorLoginUsuario(login, idTarjeta);
-        if (usuarioEntity == null) {
-            throw new BusinessLogicException("No existe tal tarjeta con propietario de login: " + login);
+        List<TarjetaDeCreditoEntity> tarjetas = usuarioPersistence.findUsuarioPorLogin(login).getTarjetas();
+        TarjetaDeCreditoEntity tarjeta = tarjetaPersistence.find(idTarjeta);
+        int index = tarjetas.indexOf(tarjeta);
+        if (index >= 0) {
+            return tarjetas.get(index);
         }
-        return usuarioEntity;
+        throw new BusinessLogicException("No existe tal tarjeta con propietario de login: " + login);
     }
 
     /**
