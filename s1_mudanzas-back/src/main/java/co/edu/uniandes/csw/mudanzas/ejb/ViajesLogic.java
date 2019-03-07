@@ -23,7 +23,7 @@ import javax.inject.Inject;
 public class ViajesLogic {
 
     @Inject
-    private ViajesPersistence persistence;
+    private ViajesPersistence viajesPersistence;
     /**
      * método que crea un viaje y verifica las reglas de negocio definidas
      * @param viajesEntity
@@ -72,7 +72,7 @@ public class ViajesLogic {
         if(viajesEntity.getCargas().isEmpty()||viajesEntity.getCargas()==null){
             throw new BusinessLogicException("El viaje no puede no tener cargas");
         }
-        persistence.create(viajesEntity);
+        viajesPersistence.create(viajesEntity);
         return viajesEntity;
     }
     
@@ -81,7 +81,7 @@ public class ViajesLogic {
      * @return 
      */
     public List<ViajesEntity> getViajes() {
-        List<ViajesEntity> viajes = persistence.findAll();
+        List<ViajesEntity> viajes = viajesPersistence.findAll();
         return viajes;
     }
     
@@ -92,7 +92,7 @@ public class ViajesLogic {
      * @throws BusinessLogicException 
      */
     public ViajesEntity getViaje(Long id)throws BusinessLogicException{
-        ViajesEntity viajeEntity=persistence.find(id);
+        ViajesEntity viajeEntity=viajesPersistence.find(id);
         if(viajeEntity==null){
             throw new BusinessLogicException("No existe un viaje con id: "+ id);
         }
@@ -104,15 +104,15 @@ public class ViajesLogic {
      * @return 
      */
     public ViajesEntity updateViaje(ViajesEntity viajesEntity){
-        ViajesEntity viaje =persistence.update(viajesEntity);
+        ViajesEntity viaje =viajesPersistence.update(viajesEntity);
         return viaje;
     }
     
     public void deleteViaje(Long id)throws BusinessLogicException{
-        persistence.delete(id);       
+        viajesPersistence.delete(id);       
     }
     public List<CargaEntity> getCargasDadoUnId(Long id) throws BusinessLogicException{
-        List<CargaEntity> car = persistence.getCargasDadoUnId(id);
+        List<CargaEntity> car = viajesPersistence.getCargasDadoUnId(id);
         if(car==null){
             throw new BusinessLogicException("No hay cargas para un id: " + id);
         }

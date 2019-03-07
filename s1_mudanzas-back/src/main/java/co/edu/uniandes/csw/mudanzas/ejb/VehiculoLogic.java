@@ -5,8 +5,11 @@
  */
 package co.edu.uniandes.csw.mudanzas.ejb;
 
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.ProveedorPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import static java.lang.Character.isDigit;
@@ -27,6 +30,9 @@ public class VehiculoLogic {
      */
     @Inject
     private VehiculoPersistence vehiculoPersistence;
+    
+    @Inject
+    private ConductorPersistence conductorPersistence;
 
     /**
      * Atributo que inyecta la persistencia del prioveedor en la logica.
@@ -35,7 +41,13 @@ public class VehiculoLogic {
     private ProveedorPersistence proveedorPersistence;
 
     public VehiculoEntity crearVehiculo(VehiculoEntity entity, String login) throws BusinessLogicException {
-       
+        ProveedorEntity prov = proveedorPersistence.findProveedorPorLogin(login);        
+        if(prov == null)
+        {
+            throw new BusinessLogicException("No existe ningun proveedor de login: " + login);
+        }
+        entity.setProveedor(prov);
+        
         if(entity.getNumeroConductores()>8)
         {
             throw new BusinessLogicException("El Vehiculo tiene mas conductores que el limite");
@@ -51,11 +63,9 @@ public class VehiculoLogic {
      //   {
      //       throw new BusinessLogicException("La marca: \"" + entity.getMarca() + "no tiene un formato valido\"");
      //   }
-        
-        
-        
-
-        entity = vehiculoPersistence.create(entity);
+        prov.getVehiculos().add(entity);
+        vehiculoPersistence.create(entity);
+        proveedorPersistence.update(prov);
         return entity;
     }
 
@@ -88,18 +98,39 @@ public class VehiculoLogic {
     /**
      * Obtener un vehiculo por medio de su placa.
      *
+     * @param loginP login del proveedor. 
      * @param placa: id del vehiculo para ser buscado.
      * @return el vehiculo solicitado por medio de su id.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public VehiculoEntity getVehiculoPlaca(String placa) throws BusinessLogicException {
+    public VehiculoEntity getVehiculoPlacaProveedor(String loginP, String placa) throws BusinessLogicException {
+        List<VehiculoEntity> vehiculos = proveedorPersistence.findProveedorPorLogin(loginP).getVehiculos();
         VehiculoEntity vehiculoEntity = vehiculoPersistence.findByPlaca(placa);
-        if (vehiculoEntity == null) {
-            throw new BusinessLogicException("No existe tal vehiculo con placa: " + placa);
+        int index = vehiculos.indexOf(vehiculoEntity);
+        if (index >= 0) {
+            return vehiculos.get(index);
         }
-        return vehiculoEntity;
+        throw new BusinessLogicException("No existe tal vehiculo con un proveedor de login: " + loginP);
     }
 
+    /**
+     * Obtener un vehiculo por medio de su placa.
+     *
+     * @param idC id del conductor
+     * @param placa: id del vehiculo para ser buscado.
+     * @return el vehiculo solicitado por medio de su id.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     */
+    public VehiculoEntity getVehiculoPlacaConductor(Long idC, String placa) throws BusinessLogicException {
+        List<VehiculoEntity> vehiculos = conductorPersistence.find(idC).getVehiculos();
+        VehiculoEntity vehiculoEntity = vehiculoPersistence.findByPlaca(placa);
+        int index = vehiculos.indexOf(vehiculoEntity);
+        if (index >= 0) {
+            return vehiculos.get(index);
+        }
+        throw new BusinessLogicException("No existe tal vehiculo con un conductor de id: " + idC);
+    }
+    
     /**
      * Obtener un vehiculo por medio de su login.
      *

@@ -64,7 +64,7 @@ public class VehiculosProveedorResource {
      * login asociado.
      *
      * @param login del priveedor que se esta buscando.
-     * @param idVehiculo Identificador del vehiculo que se esta buscando. Este
+     * @param placa del vehiculo que se va a asignar
      * debe ser una cadena de dígitos.
      * @return JSON {@link VehiculoDTO} - El vehiculo buscado buscada
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
@@ -92,11 +92,12 @@ public class VehiculosProveedorResource {
      */
     @POST
     public VehiculoDTO crearVehiculo(@PathParam("login") String login, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
-        if (vehiculoLogic.getVehiculoProveedor(login, vehiculo.getPlaca()) != null) {
-            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + vehiculo.getPlaca() + " ya existe.", 412);
+        try {
+            VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculoLogic.crearVehiculo(vehiculo.toEntity(), login));
+            return vehiculoDTO;
+        } catch(BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + vehiculo.getPlaca() + " ya existe..." ,412);
         }
-        VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculoLogic.crearVehiculo(vehiculo.toEntity(), login));
-        return vehiculoDTO;
     }
 
     /**

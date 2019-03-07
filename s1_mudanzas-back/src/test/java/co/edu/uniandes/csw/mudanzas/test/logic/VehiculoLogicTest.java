@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -61,7 +63,7 @@ public class VehiculoLogicTest {
      * Atributo que almacena un usuario duenio de muchas tarjetas.
      */
     private ProveedorEntity proveedorData;
-
+    
     /**
      *
      * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
@@ -74,6 +76,7 @@ public class VehiculoLogicTest {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VehiculoEntity.class.getPackage())
                 .addPackage(VehiculoLogic.class.getPackage())
+                .addPackage(VehiculoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -85,6 +88,7 @@ public class VehiculoLogicTest {
     public void configTest() {
         try {
             utx.begin();
+            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
@@ -126,13 +130,20 @@ public class VehiculoLogicTest {
     @Test
     public void createVehiculoTest() throws BusinessLogicException {
         VehiculoEntity nuevaEntidad = factory.manufacturePojo(VehiculoEntity.class);
+        //arregalar para que funcionen las reglas de negocio...
         nuevaEntidad.setNumeroConductores(4);
-        VehiculoEntity resultado = VLogic.crearVehiculo(nuevaEntidad, proveedorData.getLogin());
-        Assert.assertNotNull(resultado);
-        VehiculoEntity entidad = em.find(VehiculoEntity.class, resultado.getId());
-      //  Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
-        Assert.assertEquals(nuevaEntidad.getNumeroConductores(), entidad.getNumeroConductores());
+        nuevaEntidad.setColor("Limon");
+        //-----
+        String loginP = proveedorData.getLogin();
+        VehiculoEntity resultado = VLogic.crearVehiculo(nuevaEntidad, loginP);
         
+        Assert.assertNotNull(resultado);
+        
+        VehiculoEntity entidad = VLogic.getVehiculoPlacaProveedor(loginP, resultado.getPlaca());
+        Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
+        Assert.assertEquals(nuevaEntidad.getNumeroConductores(), entidad.getNumeroConductores());
+        Assert.assertEquals(nuevaEntidad.getProveedor().getLogin(), entidad.getProveedor().getLogin());
+
     }
     
    // @Test

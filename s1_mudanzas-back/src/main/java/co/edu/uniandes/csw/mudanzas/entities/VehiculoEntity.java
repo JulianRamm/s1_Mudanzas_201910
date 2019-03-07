@@ -6,7 +6,8 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @ManyToMany
-    private List<ConductorEntity> conductor;
+    private List<ConductorEntity> conductor = new ArrayList<>();
 
     @PodamExclude
     @OneToOne
