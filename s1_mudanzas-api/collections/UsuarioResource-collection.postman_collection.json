@@ -290,25 +290,25 @@
 	],
 	"variable": [
 		{
-			"id": "ca004a34-1935-4cfd-9f30-aab35a83d6ed",
+			"id": "944cab6b-a669-46b5-9586-69b6283077ac",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "18d8572f-d847-45ee-aedc-c1dc74f9a17f",
+			"id": "7d68eac2-6fad-428f-8c61-eda3c9b3bf52",
 			"key": "puerto",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "d90b4ba2-fe95-4fa1-9481-4aca6afacb2f",
+			"id": "80515aa2-125a-4691-963d-7cd7e84821c7",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "b3c25833-494b-404d-8566-7478fed7696e",
+			"id": "43205b3f-88ee-483e-b056-ac54249caff2",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"
