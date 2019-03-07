@@ -5,12 +5,15 @@
  */
 package co.edu.uniandes.csw.mudanzas.entities;
 
+import co.edu.uniandes.csw.mudanzas.podam.DateStrategy;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -19,13 +22,16 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class DiaEntity extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  //  private static final long serialVersionUID = 1L;
 
-    private LocalDateTime horaInicio;
-
-    private LocalDateTime horaFin;
-
-    private LocalDate diaActual;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @PodamStrategyValue(DateStrategy.class)
+    private Date horaInicio;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @PodamStrategyValue(DateStrategy.class)
+    private Date horaFin;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date diaActual;
 
     private boolean isDisponibilidad;
 
@@ -40,28 +46,28 @@ public class DiaEntity extends BaseEntity implements Serializable {
     /**
      * @return the horaSalida
      */
-    public LocalDateTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaSalida the horaSalida to set
      */
-    public void setHoraInicio(LocalDateTime horaSalida) {
+    public void setHoraInicio(Date horaSalida) {
         this.horaInicio = horaSalida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(LocalDateTime horaLlegada) {
+    public void setHoraFin(Date horaLlegada) {
         this.horaFin = horaLlegada;
     }
 
@@ -96,14 +102,14 @@ public class DiaEntity extends BaseEntity implements Serializable {
     /**
      * @return the diaActual
      */
-    public LocalDate getDiaActual() {
+    public Date getDiaActual() {
         return diaActual;
     }
 
     /**
      * @param diaActual the diaActual to set
      */
-    public void setDiaActual(LocalDate diaActual) {
+    public void setDiaActual(Date diaActual) {
         this.diaActual = diaActual;
     }
 

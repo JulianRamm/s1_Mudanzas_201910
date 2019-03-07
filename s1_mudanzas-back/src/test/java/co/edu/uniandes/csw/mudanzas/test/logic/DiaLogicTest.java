@@ -11,9 +11,9 @@ import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -139,14 +139,14 @@ public class DiaLogicTest
        Assert.assertEquals(nuevaEntidad.getIsDisponibilidad(), entidad.getIsDisponibilidad());
    
     }
-    private LocalDateTime toDateTime(String pHora)
+    private Date toDateTime(String pHora)
     {
-        LocalDateTime rta = null;
+        Date rta = null;
         try
         {
         DateTimeFormatter form = DateTimeFormatter.ofPattern("hh:mm:ss");
-        LocalDateTime date = LocalDateTime.parse(pHora, form);
-        rta = date;
+      //  Date date = Date.parse(pHora, form);
+     //   rta = date;
         }
         catch(Exception e)
         {
@@ -154,19 +154,18 @@ public class DiaLogicTest
         }
         return rta;
     }
-    private LocalDate toDate(String pDia)
+    private Date toDate(String pDia)
     {
-        LocalDate rta = null;
-        try
-        {
-        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate date = LocalDate.parse(pDia, form);
-        rta = date;
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+        Date rta = null;
+       SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+       try
+       {
+       rta = sdf.parse(pDia);
+       }
+       catch(ParseException e)
+       {
+           e.printStackTrace();
+       }
         return rta;
     }
     
@@ -185,7 +184,7 @@ public class DiaLogicTest
     }
     
     /**
-     * Prueba la regla de negocio para el correo electronico del usuario
+     * Prueba la regla de negocio para la hora de inicio del vehiculo
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
@@ -224,6 +223,37 @@ public class DiaLogicTest
         usr.setDiaActual(toDate("123456"));
         //llamamos al manager de persistencia, en este caso no se creara
         DLogic.crearDia(usr);
+    }
+    
+    /**
+     * Prueba la eliminacion de un usuario.
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
+    @Test
+    public void deleteUsuarioTest() throws BusinessLogicException {
+        DiaEntity entidad = data.get(1);
+        DLogic.deleteUsuario(entidad.getId());
+        DiaEntity borrar = em.find(DiaEntity.class, entidad.getId());
+        Assert.assertNull(borrar);
+    }
+    
+    /**
+     * Prueba la obtencion de un usuario por su id
+     *
+     * @throws BusinessLogicException si no se cumple la regla de negocio
+     */
+    @Test
+    public void getUsuarioPorIdTest() throws BusinessLogicException {
+        DiaEntity entidad = data.get(0);
+        DiaEntity resultado = DLogic.getDia(entidad.getId());
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(resultado.getId(), entidad.getId());
+        Assert.assertEquals(resultado.getHoraInicio(), entidad.getHoraInicio());
+        Assert.assertEquals(resultado.getHoraFin(), entidad.getHoraFin());
+        Assert.assertEquals(resultado.getDiaActual(), entidad.getDiaActual());
+        Assert.assertEquals(resultado.getIsDisponibilidad(), entidad.getIsDisponibilidad());
+        
     }
     
     

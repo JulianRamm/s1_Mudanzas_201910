@@ -184,11 +184,12 @@ public class VehiculoPersistenceTest
     @Test
     public void buscarVehiculoPorUbicacionActual() {
         VehiculoEntity entidad = data.get(0);
+       // entidad.setUbicacionActual();
         VehiculoEntity nuevo = VPersistence.findByUbicacionActual(entidad.getUbicacionActual().getIdPar());
         Assert.assertNotNull(nuevo);
-        Assert.assertEquals(entidad.getUbicacionActual(), nuevo.getUbicacionActual());
-    //    nuevo = VPersistence.findByUbicacionActual(null);
-    //    Assert.assertNull(nuevo);
+        Assert.assertEquals(entidad.getUbicacionActual().getIdPar(), nuevo.getUbicacionActual().getIdPar());
+        nuevo = VPersistence.findByUbicacionActual(null);
+        Assert.assertNull(nuevo);
     }
     
      @Test

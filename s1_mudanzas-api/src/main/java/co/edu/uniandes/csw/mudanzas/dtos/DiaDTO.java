@@ -21,11 +21,11 @@ public class DiaDTO implements Serializable
     
     private boolean disponibilidad;
     
-    private LocalDateTime horaInicio;
+    private Date horaInicio;
     
-    private LocalDateTime horaFin;
+    private Date horaFin;
     
-    private LocalDate diaActual;
+    private Date diaActual;
     
     public DiaDTO(DiaEntity entity)
     {
@@ -66,42 +66,42 @@ public class DiaDTO implements Serializable
     /**
      * @return the horaPartida
      */
-    public LocalDateTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
     /**
      * @param horaPartida the horaPartida to set
      */
-    public void setHoraInicio(LocalDateTime horaPartida) {
+    public void setHoraInicio(Date horaPartida) {
         this.horaInicio = horaPartida;
     }
 
     /**
      * @return the horaLlegada
      */
-    public LocalDateTime getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
     /**
      * @param horaLlegada the horaLlegada to set
      */
-    public void setHoraFin(LocalDateTime horaLlegada) {
+    public void setHoraFin(Date horaLlegada) {
         this.horaFin = horaLlegada;
     }
 
     /**
      * @return the diaActual
      */
-    public LocalDate getDiaActual() {
+    public Date getDiaActual() {
         return diaActual;
     }
 
     /**
      * @param diaActual the diaActual to set
      */
-    public void setDiaActual(LocalDate diaActual) {
+    public void setDiaActual(Date diaActual) {
         this.diaActual = diaActual;
     }
 

@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import static java.lang.Character.isDigit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -48,23 +52,23 @@ public class DiaLogic
      //       throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getVehiculo().getPlaca() + "\"");
      //   }
         // Verificación que la hora inicial no sea mayor o igual a la final
-        if(!entity.getHoraInicio().isBefore(entity.getHoraFin()))
+        if(!entity.getHoraInicio().before(entity.getHoraFin()))
         {
           throw new BusinessLogicException("La hora inicial no puede ser mayor o igual a la hora final");
 
         }
         // Verificacion del formato correcto para la hora inicial
-        if(!isValidFormat("hh:mm:ss", entity.getHoraInicio().toString(), Locale.ENGLISH))
+        if(!isValidTimeFormat(entity.getHoraInicio().toString()))
         {
             throw new BusinessLogicException("El formato para la hora inicial no es valido");
         }
          // Verificacion del formato correcto para la hora final
-        if(!isValidFormat("hh/mm/ss", entity.getHoraFin().toString(), Locale.ENGLISH))
+        if(!isValidTimeFormat(entity.getHoraFin().toString()))
         {
             throw new BusinessLogicException("El formato para la hora Final no es valido");
         }
         
-        if(! isValidFormat("dd/MM/yyyy", entity.getHoraFin().toString(), Locale.ENGLISH))
+        if(! isValidDateFormat("dd/MM/yyyy", entity.getDiaActual().toString()))
         {
             throw new BusinessLogicException("El formato para el día actual no es valido");
         }
@@ -84,40 +88,36 @@ public class DiaLogic
         return entity;
     }
     
-    private boolean isValidFormat(String formato, String valor, Locale locale)
+    private boolean isValidDateFormat(String formato, String valor)
     {
-        boolean res =  false;
-        LocalDateTime ldt = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato, locale);
+      boolean rta = false;
+      if(valor == null)
+      {
+          rta = false;
+      }
+        SimpleDateFormat sdf = new SimpleDateFormat(formato);
+        sdf.setLenient(false);
         try
         {
-            ldt = LocalDateTime.parse(valor, formatter);
-            String rta = ldt.format(formatter);
-            res = rta.equals(valor);
+            Date date = sdf.parse(valor);
         }
-        catch(DateTimeParseException e)
+        catch (ParseException e)
         {
-            try 
-            {
-                LocalDate ld = LocalDate.parse(valor, formatter);
-                String rta = ld.format(formatter);
-                res = rta.equals(valor);
-            }
-            catch(DateTimeParseException exp)
-            {
-                try
-                {
-                    LocalDateTime lt = LocalDateTime.parse(valor, formatter);
-                    String rta = lt.format(formatter);
-                    res = rta.equals(valor);
-                }
-                catch(DateTimeParseException e2)
-                {
-                    
-                }
-            }
+            e.printStackTrace();
+            rta = false;
         }
-        return res;
+        rta = true;
+      return rta;
+    }
+    
+    private boolean isValidTimeFormat(String valor)
+    {
+        boolean rta = false;
+        String formato= "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+        Pattern patern = Pattern.compile(formato);
+        Matcher matcher = patern.matcher(valor);
+        rta = matcher.matches();
+        return rta;
     }
     
     /**
@@ -142,7 +142,7 @@ public class DiaLogic
      * ejemplo el nombre.
      * @return el usuario con los cambios actualizados en la base de datos.
      */
-    public DiaEntity updateUsuario(DiaEntity nuevoDia) {
+    public DiaEntity updateDia(DiaEntity nuevoDia) {
         DiaEntity usuarioEntity = per.update(nuevoDia);
         return usuarioEntity;
     }

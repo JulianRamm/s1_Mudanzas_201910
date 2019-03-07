@@ -51,7 +51,7 @@ public class CargaLogic {
             throw new BusinessLogicException("El lugar de salida no puede ser null");
         }
         /**
-        LocalDateTime tiempo= cargaEntity.getFechaEnvio().plusHours(cargaEntity.getViaje().getTiempo());
+        Date tiempo= cargaEntity.getFechaEnvio().plusHours(cargaEntity.getViaje().getTiempo());
         if(!(cargaEntity.getFechaEstimadaLlegada().isAfter(tiempo.minusHours(8))&&cargaEntity.getFechaEstimadaLlegada().isBefore(tiempo.plusHours(8)))){
             throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
         }
