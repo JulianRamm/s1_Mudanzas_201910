@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +60,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    private List<TarjetaDeCreditoEntity> tarjetas;
+    private List<TarjetaDeCreditoEntity> tarjetas = new ArrayList<>();
 
     /**
      * Lista, coleccion que contiene todas las subastas de ese usuario.
@@ -69,7 +70,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    private List<SubastaEntity> subastas;
+    private List<SubastaEntity> subastas = new ArrayList<>();
 
     /**
      * Lista, coleccion que contiene todas las cargas de ese usuario.
@@ -79,7 +80,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
             mappedBy = "usuario",
             fetch = FetchType.LAZY
     )
-    private List<CargaEntity> cargas;
+    private List<CargaEntity> cargas = new ArrayList<>();
 
     /**
      * Constructor por defecto de la entidad.
