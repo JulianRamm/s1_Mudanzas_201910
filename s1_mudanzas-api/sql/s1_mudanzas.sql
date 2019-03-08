@@ -16,7 +16,7 @@ insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectron
 
 /*  @Andres Gonzalez   
     Para el query de subasta: pon a los usuarios de 
-    id 10001, y 10002 en cada subasta... ponle dos 
+    id 10001, y 10002 en cada subasta... ponle dos
     subastas a cada uno. Usuario se llama usuario_id
  @Julian Osorio   
     Para el query de carga: pon a los usuarios de 

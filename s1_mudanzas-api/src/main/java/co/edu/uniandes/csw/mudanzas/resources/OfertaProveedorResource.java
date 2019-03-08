@@ -8,11 +8,13 @@ import co.edu.uniandes.csw.mudanzas.dtos.OfertaDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.OfertaLogic;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -23,6 +25,7 @@ public class OfertaProveedorResource {
     
     private static final Logger LOGGER = Logger.getLogger(OfertaProveedorResource.class.getName());
 
+     @Inject
     private OfertaLogic oferLogic;
     
     /**
@@ -50,9 +53,16 @@ public class OfertaProveedorResource {
      */
     @POST
     @Path("{idOferta: \\d+}")
-    public OfertaDTO crearOferta(@PathParam("login") String login,@PathParam("idOferta") Long idOferta)
+    public OfertaDTO crearOferta(@PathParam("login") String login, OfertaDTO oferta)
     {
-        return null;
+        try {
+            OfertaDTO ofertaDTO = new OfertaDTO(oferLogic.createOfertaProveedor(oferta.toEntity(), login));
+            return ofertaDTO;
+        }
+        catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/subastas/" + oferta.getId()+ " ya existe.", 412);
+        }
+
     }
     /**
      * Remplaza una instancia de Oferta asociada a una instancia del Proveedor
@@ -65,7 +75,12 @@ public class OfertaProveedorResource {
      */
     @PUT
     @Path("{idOferta: \\d+}")
-    public OfertaDTO cambiarOferta(@PathParam("login") String login, @PathParam("idOferta") Long idOferta){
-        return null;
-    }
+    public OfertaDTO cambiarOferta(@PathParam("login") String login, OfertaDTO oferta){
+ try {
+            OfertaDTO SubastaDTO = new OfertaDTO(oferLogic.createOfertaProveedor(oferta.toEntity(), login));
+            return SubastaDTO;
+        }
+        catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/subastas/" + oferta.getId()+ " ya existe.", 412);
+        }    }
 }

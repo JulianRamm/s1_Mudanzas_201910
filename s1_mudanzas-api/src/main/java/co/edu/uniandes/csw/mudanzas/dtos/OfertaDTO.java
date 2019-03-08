@@ -16,7 +16,7 @@ public class OfertaDTO implements Serializable {
  
     private double valor;
      
-    private Long idOferta;
+    private Long id;
     
     private String comentario;
     
@@ -30,7 +30,7 @@ public class OfertaDTO implements Serializable {
     {
         setComentario(oferEntity.getComentario());
         setValor(oferEntity.getValor());
-        setidOferta(oferEntity.getId());
+        setId(oferEntity.getId());
        
     }
  
@@ -42,12 +42,12 @@ public class OfertaDTO implements Serializable {
         this.valor = valor;
     }
 
-    public Long getidOferta() {
-        return idOferta;
+    public Long getId() {
+        return id;
     }
 
-    public void setidOferta(Long ofertaId) {
-        this.idOferta = ofertaId;
+    public void setId(Long ofertaId) {
+        this.id = ofertaId;
     }
 
     public String getComentario() {
@@ -60,7 +60,7 @@ public class OfertaDTO implements Serializable {
 
     public OfertaEntity toEntity() {
         OfertaEntity oferEntity = new OfertaEntity();
-       oferEntity.setId(idOferta);
+       oferEntity.setId(id);
        oferEntity.setComentario(comentario);
        oferEntity.setValor(valor);
         

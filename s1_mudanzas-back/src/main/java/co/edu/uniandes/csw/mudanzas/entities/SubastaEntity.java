@@ -58,7 +58,6 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     public SubastaEntity() {
 
     }
-    
     public UsuarioEntity getUsuario() {
         return usuario;
     }
