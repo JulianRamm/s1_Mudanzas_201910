@@ -22,7 +22,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class SubastaEntity extends BaseEntity implements Serializable {
 
-    private String subastaId;
     /**
      * Atributo que representa el valor inicial de la subasta dado por el
      * usuario.
@@ -35,11 +34,11 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     private double valorFinal;
 
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private ProveedorEntity proveedor;
 
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private UsuarioEntity usuario;
 
     @PodamExclude
@@ -59,15 +58,7 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     public SubastaEntity() {
 
     }
-
-    public String getSubastaId() {
-        return subastaId;
-    }
-
-    public void setSubastaId(String subastaId) {
-        this.subastaId = subastaId;
-    }
-
+    
     public UsuarioEntity getUsuario() {
         return usuario;
     }
@@ -119,7 +110,7 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @param proveedor the proveedor to set
+     * @param prove
      */
     public void setProveedor(ProveedorEntity prove) {
         proveedor = prove;

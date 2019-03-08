@@ -17,12 +17,11 @@ insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectron
 /*  @Andres Gonzalez   
     Para el query de subasta: pon a los usuarios de 
     id 10001, y 10002 en cada subasta... ponle dos 
-    subastas a cada uno. Usuario se llama usuario_id*/
-
-/*  @Julian Osorio   
+    subastas a cada uno. Usuario se llama usuario_id
+ @Julian Osorio   
     Para el query de carga: pon a los usuarios de 
     id 10001, y 10002 en cada subasta... ponle dos 
-    cargas a cada uno. Usuario se llama usuario_id*/
+    cargas a cada uno. Usuario se llama usuario_id
 insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSeguridad, titularCuenta, fechaVencimiento, usuario_id) values (10003, 'Tarjeta primaria', '123456789102', 951, 'Luis Miguel Gomez L', '02/10/2020', 10001); 
 insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSeguridad, titularCuenta, fechaVencimiento, usuario_id) values (10004, 'Tarjeta secundaria', '123456789103', 952, 'Luis Miguel Gomez L', '02/10/2020', 10001); 
 insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSeguridad, titularCuenta, fechaVencimiento, usuario_id) values (10005, 'Tarjeta primaria', '123456789104', 953, 'Julian Osorio', '02/10/2021', 10002); 
@@ -35,4 +34,8 @@ insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSa
 insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values(10002, 10001, 10001, 'haber', 69, 'allá', 'la casa de la otra esquina','01/03/2006','01/03/2006', 'observacion');
 insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values(10003, 10002, 10002, 'U are gay', 420, 'En el puente', 'Debajo del puente','01/03/2007','01/03/2007', 'cuidadito papá');
 insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values(10004, 10002, 10002, 'no u', 420, 'En mi casa', 'A la casa a donde me paso','01/03/2008','01/03/2008', 'el contenido son mis cosas');
+*/
+insert into ProveedorEntity(id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10001, 'df.machado', 'Qwerty2@', 'Daniel Inc', 'png', 'Bogota', 'dfmachado@gmail.com', '7212343', 4 , 5000000, 5);
 
+insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10001, 15000, 16000, 10001, 10001);
+insert into OfertaEntity(id, proveedor_id, subasta_id, comentario, valor) values ( 10001, 10001, 10001, 'Oferta Proveedor 1', 150);

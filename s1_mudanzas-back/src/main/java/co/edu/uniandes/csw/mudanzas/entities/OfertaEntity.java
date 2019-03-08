@@ -21,7 +21,6 @@ public class OfertaEntity extends BaseEntity implements Serializable{
     @ManyToOne
     private ProveedorEntity proveedor;
     
-    
     @PodamExclude
     @ManyToOne
     private SubastaEntity subasta;
