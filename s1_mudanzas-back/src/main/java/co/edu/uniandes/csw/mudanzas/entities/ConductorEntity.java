@@ -108,7 +108,7 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     /**
      * @return the vehiculos
      */
-    public Collection<VehiculoEntity> getVehiculos() {
+    public List<VehiculoEntity> getVehiculos() {
         return vehiculos;
     }
 

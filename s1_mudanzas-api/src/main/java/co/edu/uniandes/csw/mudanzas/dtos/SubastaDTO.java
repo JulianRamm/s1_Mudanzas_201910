@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 public class SubastaDTO implements Serializable {
 
-    private Long idSubasta;
+    private Long id;
 
     private double valorInicial;
 
@@ -26,19 +26,19 @@ public class SubastaDTO implements Serializable {
 
     public SubastaDTO(SubastaEntity subEntity) {
         if (subEntity != null) {
-            setIdSubasta(subEntity.getId());
+            setId(subEntity.getId());
             setValorFinal(subEntity.getValorFinal());
             setValorInicial(subEntity.getValorInicial());
         }
 
     }
 
-    public Long getIdSubasta() {
-        return idSubasta;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdSubasta(Long idSubasta) {
-        this.idSubasta = idSubasta;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getValorInicial() {
@@ -59,7 +59,7 @@ public class SubastaDTO implements Serializable {
 
     public SubastaEntity toEntity() {
         SubastaEntity subEntity = new SubastaEntity();
-        subEntity.setId(idSubasta);
+        subEntity.setId(id);
         subEntity.setValorFinal(valorFinal);
         subEntity.setValorInicial(valorInicial);
         return subEntity;
