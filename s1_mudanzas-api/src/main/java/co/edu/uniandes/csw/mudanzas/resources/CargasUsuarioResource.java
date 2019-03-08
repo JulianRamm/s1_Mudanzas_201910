@@ -105,14 +105,14 @@ public class CargasUsuarioResource {
     }
 
     /**
-     * Remplaza una instancia de Carga asociada a una instancia del Usuario
+     * Remplaza una instancia de Carga asociada a una instancia del
+     * Usuario
      *
      * @param login del usuario que se esta remplazando.
-     * @param idCarga Identificador de la carga que se desea actualizar. Este
-     * debe ser una cadena de dígitos.
-     * @param carga
-     * @return JSON {@link CargaDTO} - La Carga Actualizada
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     * @param idCarga Identificador de la tarjeta que se desea actualizar.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link CargaDTO} - La Tarjeta de Credito
+     * Actualizada
      */
     @PUT
     @Path("{idCarga: \\d+}")
