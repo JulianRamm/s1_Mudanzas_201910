@@ -99,26 +99,29 @@ public class SubastasUsuarioResource {
             return SubastaDTO;
         }
         catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/subastas/" + subasta.getIdSubasta() + " ya existe.", 412);
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/subastas/" + subasta.getId() + " ya existe.", 412);
         }
     }
     
     /**
-     * Remplaza una instancia de Subasta asociada a una instancia del Usuario
+     * Remplaza una instancia de Carga asociada a una instancia del
+     * Usuario
      *
-     * @param login del usuario que se esta
-     * remplazando.
-     * @param idSubasta Identificador de la subasta que se desea actualizar. Este debe
-     * ser una cadena de dígitos.
-     * @return JSON {@link SubastaDTO} - La Subasta Actualizada
+     * @param login del usuario que se esta remplazando.
+     * @param idSubasta Identificador de la tarjeta que se desea actualizar.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link SubastaDTO} - La Tarjeta de Credito
+     * Actualizada
      */
     @PUT
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException{
-        SubastaDTO subastaEncontrada = getSubasta(login, idSubasta);
-        SubastaEntity subastaEnty = subastaEncontrada.toEntity();
-        return new SubastaDTO(subastaLogic.update(subastaEnty));
-         
+    public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta, SubastaDTO subasta) throws WebApplicationException, BusinessLogicException {
+        subasta.setId(idSubasta);
+        if (subastaLogic.getSubastaUsuario(login, idSubasta) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
+        }
+        SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
+        return dto;
     }
     
     /**
