@@ -6,7 +6,8 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,9 +22,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
-    @PodamExclude
-    @ManyToOne
-    private ProveedorEntity proveedor;
+    
     private static final long serialVersionUID = 1L;
 
     private String placa;
@@ -40,13 +39,18 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
 
     private String dimensiones;
 
-
+    /**
+     * Atributo que modela la lista de vehiculos de un conductor
+     */
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
     /**
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
     @ManyToMany
-    private List<ConductorEntity> conductor;
+    private List<ConductorEntity> conductor = new ArrayList<>();
 
     @PodamExclude
     @OneToOne

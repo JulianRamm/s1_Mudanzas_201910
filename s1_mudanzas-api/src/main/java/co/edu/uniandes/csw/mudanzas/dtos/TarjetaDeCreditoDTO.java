@@ -16,25 +16,25 @@ import java.util.Date;
  *
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
- * {
- *      "id": number,
- *      "nombreTarjeta": string,
- *      "numeroSerial": string,
- *      "codigoSeguridad": number,
- *      "titularCuenta": string,
- *      "fechaVencimiento": string
- *  }
- * </pre> Por ejemplo una tarjeta se representa asi:<br>
+ {
+      "id": number,
+      "nombreTarjeta": string,
+      "numeroSerial": string,
+      "codigoSeguridad": number,
+      "usuario": string,
+      "fechaVencimiento": string
+  }
+ </pre> Por ejemplo una tarjeta se representa asi:<br>
  * <pre>
- * {
- *      "id": 321,
- *      "nombreTarjeta": "LUIS MIGUEL GOMEZ L",
- *      "numeroSerial": "987654325123",
- *      "codigoSeguridad": 951,
- *      "titularCuenta": Luis Miguel Gomez Londono,
- *      "fechaVencimiento": "24/07/2019"
- *  }
- * </pre>
+ {
+      "id": 321,
+      "nombreTarjeta": "LUIS MIGUEL GOMEZ L",
+      "numeroSerial": "987654325123",
+      "codigoSeguridad": 951,
+      "usuario": Luis Miguel Gomez Londono,
+      "fechaVencimiento": "24/07/2019"
+  }
+ </pre>
  *
  * @author Luis Miguel
  */
@@ -43,7 +43,7 @@ public class TarjetaDeCreditoDTO implements Serializable {
     /**
      * Atributo que representa el id de la tarjeta.
      */
-    private Long idTarjeta;
+    private Long id;
 
     /**
      * Atributo que representa el nombre personalizado que se le quiere dar a la
@@ -61,17 +61,17 @@ public class TarjetaDeCreditoDTO implements Serializable {
      * la tarjeta.
      */
     private int codigoSeguridad;
-
-    /**
-     * Atributo que representa el nombre del usuario titular de la cuenta.
-     */
-    private UsuarioDTO titularCuenta;
-
+    
     /**
      * Atributo que representa la fecha de vencimiento de la tarjeta de credito.
      */
     private Date fechaVencimiento;
 
+    /**
+     * Atributo que representa el nombre del usuario titular de la cuenta.
+     */
+    private UsuarioDTO usuario;
+    
     /**
      * Constructor por defecto.
      */
@@ -86,31 +86,31 @@ public class TarjetaDeCreditoDTO implements Serializable {
      */
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
         if (tarjeta != null) {
-            this.idTarjeta = tarjeta.getId();
+            this.id = tarjeta.getId();
             this.nombreTarjeta = tarjeta.getNombreTarjeta();
             this.numeroSerial = tarjeta.getNumeroSerial();
             this.codigoSeguridad = tarjeta.getCodigoSeguridad();
             this.fechaVencimiento = tarjeta.getFechaVencimiento();
             if (tarjeta.getUsuario() != null) {
-                this.titularCuenta = new UsuarioDTO(tarjeta.getUsuario());
+                this.usuario = new UsuarioDTO(tarjeta.getUsuario());
             } else {
-                this.titularCuenta = null;
+                this.usuario = null;
             }
         }
     }
 
     /**
-     * @return the idTarjeta
+     * @return the id
      */
-    public Long getIdTarjeta() {
-        return idTarjeta;
+    public Long getId() {
+        return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setIdTarjeta(Long id) {
-        this.idTarjeta = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
@@ -156,17 +156,17 @@ public class TarjetaDeCreditoDTO implements Serializable {
     }
 
     /**
-     * @return the titularCuenta
+     * @return the usuario
      */
-    public UsuarioDTO getTitularCuenta() {
-        return titularCuenta;
+    public UsuarioDTO getUsuario() {
+        return usuario;
     }
 
     /**
-     * @param titularCuenta the titularCuenta to set
+     * @param usuario the usuario to set
      */
-    public void setTitularCuenta(UsuarioDTO titularCuenta) {
-        this.titularCuenta = titularCuenta;
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
     }
 
     /**
@@ -191,11 +191,15 @@ public class TarjetaDeCreditoDTO implements Serializable {
      */
     public TarjetaDeCreditoEntity toEntity() {
         TarjetaDeCreditoEntity tarjeta = new TarjetaDeCreditoEntity();
-        tarjeta.setId(this.idTarjeta);
+        tarjeta.setId(this.id);
         tarjeta.setNumeroSerial(this.numeroSerial);
         tarjeta.setCodigoSeguridad(this.codigoSeguridad);
         tarjeta.setNombreTarjeta(this.nombreTarjeta);
         tarjeta.setFechaVencimiento(this.fechaVencimiento);
+        if (this.usuario != null)
+        {
+            tarjeta.setUsuario(this.usuario.toEntity());
+        }
         return tarjeta;
     }
 
