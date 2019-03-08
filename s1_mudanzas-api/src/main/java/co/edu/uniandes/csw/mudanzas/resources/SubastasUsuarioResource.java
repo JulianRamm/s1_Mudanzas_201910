@@ -23,6 +23,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -72,38 +73,55 @@ public class SubastasUsuarioResource {
      */
     @GET
     @Path("{idSubasta: \\d+}")
-    public SubastaDetailDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException
+    public SubastaDetailDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException
     {
-        return new SubastaDetailDTO(subastaLogic.getSubastaUsuario(idSubasta, login));
-    }
-    
-    
-    
-    @POST
-    public SubastaDTO createSubasta(SubastaDTO subDTO) throws Exception
-    {
-        SubastaEntity subentity = subDTO.toEntity();
-        SubastaEntity nuevaSubEntity = subastaLogic.createSubasta(subentity);
-        SubastaDTO nuevoSubastaDTO = new SubastaDTO(nuevaSubEntity);
-    return nuevoSubastaDTO; 
+        try {
+            SubastaDetailDTO c = new SubastaDetailDTO(subastaLogic.getSubastaUsuario(login, idSubasta));
+            return c;
+        } catch(BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/subastas/" + idSubasta + " no existe.", 404);
+        }    
     }
     
     /**
-     * Remplaza una instancia de Subasta asociada a una instancia del Usuario
+     * Guarda una carga dentro de un usuario con la informacion que recibe el la
+     * URL. Se devuelve la carga que se guarda en el usuario.
      *
-     * @param login del usuario que se esta
-     * remplazando.
-     * @param idSubasta Identificador de la subasta que se desea actualizar. Este debe
-     * ser una cadena de dígitos.
-     * @return JSON {@link SubastaDTO} - La Subasta Actualizada
+     * @param login del usuario que se esta actualizando.
+     * @param subasta
+     * @return JSON {@link SubastaDTO} - La carga guardada en el usuario.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     */
+    @POST
+    public SubastaDTO crearSubasta(@PathParam("login") String login, SubastaDTO subasta) throws WebApplicationException {
+        try {
+            SubastaDTO SubastaDTO = new SubastaDTO(subastaLogic.createSubastaUsuario(subasta.toEntity(), login));
+            return SubastaDTO;
+        }
+        catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/subastas/" + subasta.getId() + " ya existe.", 412);
+        }
+    }
+    
+    /**
+     * Remplaza una instancia de Carga asociada a una instancia del
+     * Usuario
+     *
+     * @param login del usuario que se esta remplazando.
+     * @param idSubasta Identificador de la tarjeta que se desea actualizar.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link SubastaDTO} - La Tarjeta de Credito
+     * Actualizada
      */
     @PUT
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException{
-        SubastaDTO subastaEncontrada = getSubasta(login, idSubasta);
-        SubastaEntity subastaEnty = subastaEncontrada.toEntity();
-        return new SubastaDTO(subastaLogic.update(subastaEnty));
-         
+    public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta, SubastaDTO subasta) throws WebApplicationException, BusinessLogicException {
+        subasta.setId(idSubasta);
+        if (subastaLogic.getSubastaUsuario(login, idSubasta) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
+        }
+        SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
+        return dto;
     }
     
     /**

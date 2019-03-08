@@ -8,6 +8,7 @@ import co.edu.uniandes.csw.mudanzas.dtos.OfertaDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.OfertaLogic;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -23,7 +24,7 @@ public class OfertaProveedorResource {
     
     private static final Logger LOGGER = Logger.getLogger(OfertaProveedorResource.class.getName());
 
-    
+     @Inject
     private OfertaLogic oferLogic;
     
     /**
