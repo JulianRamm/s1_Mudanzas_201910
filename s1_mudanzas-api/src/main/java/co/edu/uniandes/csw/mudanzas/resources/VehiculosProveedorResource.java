@@ -64,7 +64,7 @@ public class VehiculosProveedorResource {
      * login asociado.
      *
      * @param login del priveedor que se esta buscando.
-     * @param placa del vehiculo que se va a asignar
+     * @param placa Identificador del vehiculo que se esta buscando. Este
      * debe ser una cadena de dígitos.
      * @return JSON {@link VehiculoDTO} - El vehiculo buscado buscada
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException

@@ -3,7 +3,18 @@
   <persistence-unit name="mudanzasPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <!--Toca entity por entity, exclude-unlisted-clases = false no funciona-->
-    
+    <class>co.edu.uniandes.csw.mudanzas.entities.AgendaEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.CargaEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.ConductorEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.DiaEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.DireccionEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.OfertaEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.SubastaEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity</class>
+    <class>co.edu.uniandes.csw.mudanzas.entities.ViajesEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
  <shared-cache-mode>NONE</shared-cache-mode>
     <properties>

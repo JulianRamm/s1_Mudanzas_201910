@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
+import java.io.Serializable;
 
 /**
  *
  * @author aj.gonzalezt
  */
-public class OfertaDTO {
+public class OfertaDTO implements Serializable {
  
     private double valor;
      
