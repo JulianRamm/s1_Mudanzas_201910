@@ -50,12 +50,11 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor;
-    
+
     @PodamExclude
     @OneToOne
-    private ViajesEntity viajes;
+    private ViajesEntity viaje;
 
-    
     /**
      * Metdo constructor de la entidad de un conductor
      */
@@ -131,6 +130,20 @@ public class ConductorEntity extends BaseEntity implements Serializable {
      */
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
+    }
+
+    /**
+     * @return the viaje
+     */
+    public ViajesEntity getViaje() {
+        return viaje;
+    }
+
+    /**
+     * @param viaje the viaje to set
+     */
+    public void setViaje(ViajesEntity viaje) {
+        this.viaje = viaje;
     }
 
 }

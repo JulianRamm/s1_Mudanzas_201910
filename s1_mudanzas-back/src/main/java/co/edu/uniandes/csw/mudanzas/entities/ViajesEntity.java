@@ -68,12 +68,12 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      /**
      * hora de salida del viaje
      */
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date horaPartida;
     /**
      * hora de llegada del viaje
      */
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date horaLlegada;
 
     /**

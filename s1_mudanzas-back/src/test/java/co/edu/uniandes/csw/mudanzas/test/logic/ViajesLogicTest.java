@@ -52,7 +52,7 @@ public class ViajesLogicTest {
 
     private List<ViajesEntity> data = new ArrayList<ViajesEntity>();
     private List<CargaEntity> cargaData = new ArrayList<CargaEntity>();
-    private ConductorEntity conductor;
+    private List<ConductorEntity> conductor= new ArrayList<>();
     private List<VehiculoEntity> vehiculos = new ArrayList<VehiculoEntity>();
 
     /**
@@ -97,6 +97,7 @@ public class ViajesLogicTest {
     private void clearData() {
         em.createQuery("delete from ViajesEntity").executeUpdate();
         em.createQuery("delete from CargaEntity").executeUpdate();
+        em.createQuery("delete from ConductorEntity").executeUpdate();
     }
 
     /**
@@ -106,20 +107,25 @@ public class ViajesLogicTest {
     private void insertData() {
         ConductorEntity conductorEntity = factory.manufacturePojo(ConductorEntity.class);
         em.persist(conductorEntity);
-        conductor = conductorEntity;
+        conductor.add(conductorEntity);
+        
+        ConductorEntity conductorEntity1 = factory.manufacturePojo(ConductorEntity.class);
+        em.persist(conductorEntity1);
+        conductor.add(conductorEntity1);
+        
         VehiculoEntity ve = factory.manufacturePojo(VehiculoEntity.class);
         em.persist(ve);
         vehiculos.add(ve);
+        
         CargaEntity cargaEntity = factory.manufacturePojo(CargaEntity.class);
         em.persist(cargaEntity);
         cargaData.add(cargaEntity);
-
+        
         for (int i = 0; i < 3; i++) {
             ViajesEntity viajes = factory.manufacturePojo(ViajesEntity.class);
             em.persist(viajes);
             data.add(viajes);
             viajes.setCargas(cargaData);
-            viajes.setConductorEntity(conductor);
         }
 
     }
@@ -132,29 +138,35 @@ public class ViajesLogicTest {
     @Test
     public void createViajesTest() throws BusinessLogicException {
         /**
-         * ViajesEntity newEntity = data.get(0);
-         * newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
-         * newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
-         * newEntity.getVehiculoDelViaje().setRendimiento(21);
-         * LinkedList<DireccionEntity> dirs = new LinkedList<>();
-         * DireccionEntity dir =
-         * newEntity.getCargas().get(0).getDirecciones().get(0);
-         * dir.setId((long) 2); dir.setIdPar(1); dir.setLatitud(23);
-         * dir.setLongitud(34); dir.setIsDeSalida(false); dirs.add(dir);
-         * DireccionEntity dir1 =
-         * newEntity.getCargas().get(0).getDirecciones().get(1);
-         * dir1.setId((long) 1); dir1.setIsDeSalida(true); dir1.setLatitud(32);
-         * dir1.setLongitud(43); dir1.setIdPar(2); dirs.add(dir1);
-         * newEntity.getCargas().get(0).setDirecciones(dirs);
-         * newEntity.setTiempo((int) 4.06364); newEntity.setGastoGasolina((int)
-         * 1336.486711011556 * 21);
-         */
         ViajesEntity newEntity = data.get(0);
         newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
         newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
-        ViajesEntity result = viajesLogic.createViajes(newEntity);
+        newEntity.getVehiculoDelViaje().setRendimiento(21);
+        LinkedList<DireccionEntity> dirs = new LinkedList<>();
+        DireccionEntity dir = newEntity.getCargas().get(0).getDirecciones().get(0);
+        dir.setId((long) 2);
+        dir.setIdPar(1);
+        dir.setLatitud(23);
+        dir.setLongitud(34);
+        dir.setIsDeSalida(false);
+        dirs.add(dir);
+        DireccionEntity dir1 = newEntity.getCargas().get(0).getDirecciones().get(1);
+        dir1.setId((long) 1);
+        dir1.setIsDeSalida(true);
+        dir1.setLatitud(32);
+        dir1.setLongitud(43);
+        dir1.setIdPar(2);
+        dirs.add(dir1);
+        newEntity.getCargas().get(0).setDirecciones(dirs);
+        newEntity.setTiempo((int) 4.06364);
+        newEntity.setGastoGasolina((int) 1336.486711011556 * 21);
+        */
+        ViajesEntity newEntity = data.get(0);
+        newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
+        newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
+        ViajesEntity result = viajesLogic.createViaje(newEntity, conductor.get(0).getId());
         Assert.assertNotNull(result);
-        ViajesEntity entity = viajesLogic.createViajes(newEntity);
+        ViajesEntity entity = viajesLogic.createViaje(newEntity, conductor.get(1).getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCargas(), entity.getCargas());
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
@@ -174,7 +186,7 @@ public class ViajesLogicTest {
     public void createVIajesConVolumen0() throws BusinessLogicException {
         ViajesEntity newEntity = data.get(0);
         newEntity.setGastoGasolina(0);
-        viajesLogic.createViajes(newEntity);
+        viajesLogic.createViaje(newEntity, newEntity.getConductorEntity().getId());
     }
 
     /**
@@ -249,10 +261,6 @@ public class ViajesLogicTest {
         Assert.assertNull(deleted);
     }
 
-    /**
-     * prueba para obtener las cargas dado un id
-     * @throws BusinessLogicException
-     */
     @Test
     public void getCargasPorIdTest() throws BusinessLogicException {
         ViajesEntity entity = data.get(0);
@@ -262,13 +270,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(cargaData.size(), resultEntity.size());
         Assert.assertTrue(listEqualsIgnoreOrder(resultEntity, cargaData));
     }
-    @Test
-    public void deleteCargasDadoIdTest() throws BusinessLogicException{
-        ViajesEntity entity = data.get(0);
-        viajesLogic.deleteCargasDaodUnId(entity.getId());
-        Assert.assertEquals(null, entity.getCargas());
-        
-    }
+
     public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
