@@ -99,22 +99,21 @@ public class CargaPersistenceTest {
      */
     private void insertData() {
         UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-
-        em.persist(usr);
+        usuarioData = usr;
 
         for (int i = 0; i < 3; i++) {
 
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
 
-            entity.setUsuario(usr);
+            entity.setUsuario(usuarioData);
 
             em.persist(entity);
 
             data.add(entity);
         }
-        usr.setCargas(data);
+        usuarioData.setCargas(data);
+        em.persist(usuarioData);
 
-        usuarioData = usr;
     }
 
     /**
