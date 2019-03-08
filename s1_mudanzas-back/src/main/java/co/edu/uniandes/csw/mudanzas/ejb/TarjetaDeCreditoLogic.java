@@ -156,8 +156,19 @@ public class TarjetaDeCreditoLogic {
      * @return la tarjeta con los cambios actualizados en la base de datos.
      */
     public TarjetaDeCreditoEntity updateTarjeta(TarjetaDeCreditoEntity nuevaTarjeta) {
-        TarjetaDeCreditoEntity tarjetaEntity = tarjetaPersistence.update(nuevaTarjeta);
-        return tarjetaEntity;
+        UsuarioEntity usuario = usuarioPersistence.findUsuarioPorLogin(nuevaTarjeta.getUsuario().getLogin());
+        for(TarjetaDeCreditoEntity tc : usuario.getTarjetas())
+        {
+            if(tc.getId() == nuevaTarjeta.getId())
+            {
+                usuario.getTarjetas().remove(tc);
+                usuario.getTarjetas().add(nuevaTarjeta);
+                break;
+            }
+        }
+        usuarioPersistence.update(usuario);
+        tarjetaPersistence.update(nuevaTarjeta);
+        return nuevaTarjeta;
     }
 
     /**
