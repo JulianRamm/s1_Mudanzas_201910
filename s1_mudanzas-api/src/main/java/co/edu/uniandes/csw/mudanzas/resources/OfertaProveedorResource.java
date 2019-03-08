@@ -23,6 +23,7 @@ public class OfertaProveedorResource {
     
     private static final Logger LOGGER = Logger.getLogger(OfertaProveedorResource.class.getName());
 
+    
     private OfertaLogic oferLogic;
     
     /**

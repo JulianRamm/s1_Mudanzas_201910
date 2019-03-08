@@ -68,7 +68,8 @@ public class UsuarioPersistence {
      * @param usuarioId
      */
     public void delete(Long usuarioId) {
-        em.remove(find(usuarioId));
+        UsuarioEntity borrado = find(usuarioId);
+        em.remove(borrado);
     }
 
     /**

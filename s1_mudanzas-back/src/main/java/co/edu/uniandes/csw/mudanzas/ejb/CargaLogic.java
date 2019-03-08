@@ -30,47 +30,56 @@ public class CargaLogic {
     /**
      * método que crea una carga y verifica que se cumplan las reglas de negocio
      *
-     * @param cargaEntity
+     * @param carga
      * @param login
      * @return
      * @throws BusinessLogicException
      */
-    public CargaEntity createCarga(CargaEntity cargaEntity, String login) throws BusinessLogicException {
+    public CargaEntity createCarga(CargaEntity carga, String login) throws BusinessLogicException {
         UsuarioEntity usuarioEntity = usuarioPer.findUsuarioPorLogin(login);
-
-        if (cargaEntity.getVolumen() <= 0) {
+        if (usuarioEntity == null) {
+            throw new BusinessLogicException("No existe ningun usuario \"" + login + "\"");
+        }
+        //Verificacion de existencia
+        for (CargaEntity cargaE : usuarioEntity.getCargas()) {
+            if (carga.getId() == cargaE.getId()) {
+                throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + carga.getId() + "\"");
+            }
+        }
+        carga.setUsuario(usuarioEntity);
+        if (carga.getVolumen() <= 0) {
             throw new BusinessLogicException("El volumen no puede ser 0 o menor a cero");
         }
-        if (cargaEntity.getVolumen() == 1) {
+        if (carga.getVolumen() == 1) {
             throw new BusinessLogicException("El volumen no puede ser 1");
         }
-        if (cargaEntity.getImagenes().isEmpty()) {
+        if (carga.getImagenes().isEmpty()) {
             throw new BusinessLogicException("Las imagenes no puyeden ser vacias");
         }
-        if (cargaEntity.getLugarLlegada() == null || cargaEntity.getLugarLlegada().equals("")) {
+        if (carga.getLugarLlegada() == null || carga.getLugarLlegada().equals("")) {
             throw new BusinessLogicException("El lugar de llegada no puede ser null");
         }
-        if (cargaEntity.getLugarSalida() == null || cargaEntity.getLugarSalida().equals("")) {
+        if (carga.getLugarSalida() == null || carga.getLugarSalida().equals("")) {
             throw new BusinessLogicException("El lugar de salida no puede ser null");
         }
-        Date a= cargaEntity.getFechaEstimadaLlegada();
-        Date b=new Date(cargaEntity.getFechaEstimadaLlegada().getYear(),cargaEntity.getFechaEstimadaLlegada().getMonth(),cargaEntity.getFechaEstimadaLlegada().getDate(),cargaEntity.getViaje().getTiempo(),cargaEntity.getFechaEstimadaLlegada().getSeconds());
-        Date c=cargaEntity.getFechaEnvio();
+        Date a= carga.getFechaEstimadaLlegada();
+        Date b=new Date(carga.getFechaEstimadaLlegada().getYear(),carga.getFechaEstimadaLlegada().getMonth(),carga.getFechaEstimadaLlegada().getDate(),carga.getViaje().getTiempo(),carga.getFechaEstimadaLlegada().getSeconds());
+        Date c=carga.getFechaEnvio();
         double tiempo=(Math.abs(a.getTime()-b.getTime()))/3.6E6;
         double tiempo2=(a.getTime()-c.getTime())/3.6E6;
         if ((tiempo2 >= tiempo - 8 && tiempo2 <= tiempo2 + 8)==false) {
             throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
         }
-        if (cargaEntity.getFechaEnvio() == null) {
+        if (carga.getFechaEnvio() == null) {
             throw new BusinessLogicException("la fecha de envío no pued e ser null");
         }
-        if (cargaEntity.getDatosEnvio() == null || cargaEntity.getDatosEnvio().equals("")) {
+        if (carga.getDatosEnvio() == null || carga.getDatosEnvio().equals("")) {
             throw new BusinessLogicException("los datos de envío no puede ser null o vacío");
         }
-        cargaEntity.setUsuario(usuarioEntity);
-        usuarioEntity.getCargas().add(cargaEntity);
-        persistence.create(cargaEntity);
-        return cargaEntity;
+        usuarioEntity.getCargas().add(carga);
+        persistence.create(carga);
+        usuarioPer.update(usuarioEntity);
+        return carga;
     }
 
     /**
@@ -80,6 +89,17 @@ public class CargaLogic {
      */
     public List<CargaEntity> getCargas() {
         List<CargaEntity> cargas = persistence.findAll();
+        return cargas;
+    }
+    
+    /**
+     * Obtener todas las tarjetas existentes en la base de datos que le
+     * pertencen a un usuario en especifico.
+     *
+     * @return una lista de tarjetas de ese usuario.
+     */
+    public List<CargaEntity> getCargasUsuario(String login) {
+        List<CargaEntity> cargas = usuarioPer.findUsuarioPorLogin(login).getCargas();
         return cargas;
     }
 
@@ -114,6 +134,14 @@ public class CargaLogic {
      *
      * @param id
      */
+    public void deleteCarga(String login, Long id) throws BusinessLogicException {
+        CargaEntity crg = getCarga(login, id);
+        UsuarioEntity pertenece = crg.getUsuario();
+        pertenece.getCargas().remove(crg);
+        persistence.delete(id);
+        usuarioPer.update(pertenece);
+    }
+    
     public void deleteCarga(Long id) {
         persistence.delete(id);
     }
@@ -122,16 +150,18 @@ public class CargaLogic {
      * retorna las cargas de un usuario
      *
      * @param login
-     * @param id
+     * @param idCarga
      * @return
      * @throws BusinessLogicException
      */
-    public CargaEntity getCargaUsuario(String login, Long id) throws BusinessLogicException {
-        CargaEntity carga = persistence.findCargaPorLoginPropietario(login, id);
-        if (carga == null) {
-            throw new BusinessLogicException("No existe una carga con ese login");
+    public CargaEntity getCarga(String login, Long idCarga) throws BusinessLogicException {
+        List<CargaEntity> cargas = usuarioPer.findUsuarioPorLogin(login).getCargas();
+        CargaEntity carga = persistence.find(idCarga);
+        int index = cargas.indexOf(carga);
+        if (index >= 0) {
+            return cargas.get(index);
         }
-        return carga;
+        throw new BusinessLogicException("No existe tal carga con propietario de login: " + login);
     }
 
     /**

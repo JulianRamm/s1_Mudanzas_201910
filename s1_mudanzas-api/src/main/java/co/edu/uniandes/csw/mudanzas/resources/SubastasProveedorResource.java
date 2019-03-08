@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.SubastaDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.SubastaDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.SubastaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
@@ -26,6 +27,7 @@ public class SubastasProveedorResource {
     
     private static final Logger LOGGER = Logger.getLogger(SubastasProveedorResource.class.getName());
     
+    
     private SubastaLogic subastalogic;
      
     /**
@@ -36,7 +38,7 @@ public class SubastasProveedorResource {
      * proveedor. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<SubastaDTO> getSubastas(@PathParam("login") String login)
+    public List<SubastaDetailDTO> getSubastas(@PathParam("login") String login)
     {
         
         return listEntity2DTO(subastalogic.getSubastasProveedor(login));
@@ -52,9 +54,9 @@ public class SubastasProveedorResource {
     */
     @GET
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException
+    public SubastaDetailDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws BusinessLogicException
     {
-        return new SubastaDTO(subastalogic.getSubastaProveedor(idSubasta, login));
+        return new SubastaDetailDTO(subastalogic.getSubastaProveedor(idSubasta, login));
     }
     
         /**
@@ -99,10 +101,10 @@ public class SubastasProveedorResource {
      * @param subastasList la lista de entidades a convertir
      * @return una lista de dtos.
      */
-    public List<SubastaDTO> listEntity2DTO(List<SubastaEntity> subastasList) {
-        List<SubastaDTO> lista = new ArrayList<>();
+    public List<SubastaDetailDTO> listEntity2DTO(List<SubastaEntity> subastasList) {
+        List<SubastaDetailDTO> lista = new ArrayList<>();
         for (SubastaEntity entidad : subastasList) {
-            lista.add(new SubastaDTO(entidad));
+            lista.add(new SubastaDetailDTO(entidad));
         }
         return lista;
     }

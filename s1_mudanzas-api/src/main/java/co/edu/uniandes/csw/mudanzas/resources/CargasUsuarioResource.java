@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.CargaDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -56,8 +58,8 @@ public class CargasUsuarioResource {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
-    public List<CargaDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException {
-        List<CargaDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas(login));
+    public List<CargaDetailDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException {
+        List<CargaDetailDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas(login));
         return listaCargas;
     }
 
@@ -73,13 +75,13 @@ public class CargasUsuarioResource {
      */
     @GET
     @Path("{idCarga: \\d+}")
-    public CargaDTO getCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga) throws BusinessLogicException, WebApplicationException {
-        CargaEntity carga = cargaLogic.getCargaUsuario(login, idCarga);
-        if (carga == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
+    public CargaDetailDTO getCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga) throws WebApplicationException {
+        try {
+            CargaDetailDTO c = new CargaDetailDTO(cargaLogic.getCarga(login, idCarga));
+            return c;
+        } catch(BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idCarga + " no existe.", 404);
         }
-        CargaDTO cargaDTO = new CargaDTO(carga);
-        return cargaDTO;
     }
 
     /**
@@ -92,12 +94,14 @@ public class CargasUsuarioResource {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public CargaDTO crearCarga(@PathParam("login") String login, CargaDTO carga) throws BusinessLogicException {
-        if (cargaLogic.getCargaUsuario(login, carga.getId()) != null) {
+    public CargaDTO crearCarga(@PathParam("login") String login, CargaDTO carga) throws WebApplicationException {
+        try {
+            CargaDTO cargaDTO = new CargaDTO(cargaLogic.createCarga(carga.toEntity(), login));
+            return cargaDTO;
+        }
+        catch (BusinessLogicException e) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + carga.getId() + " ya existe.", 412);
         }
-        CargaDTO tarjetaDTO = new CargaDTO(cargaLogic.createCarga(carga.toEntity(), login));
-        return tarjetaDTO;
     }
 
     /**
@@ -114,23 +118,33 @@ public class CargasUsuarioResource {
     @Path("{idCarga: \\d+}")
     public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga, CargaDTO carga) throws WebApplicationException, BusinessLogicException {
         carga.setId(idCarga);
-        if (cargaLogic.getCargaUsuario(login, idCarga) == null) {
+        if (cargaLogic.getCarga(login, idCarga) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
         }
         CargaDTO dto = new CargaDTO(cargaLogic.updateCarga(carga.toEntity()));
         return dto;
     }
 
+    @DELETE
+    @Path("{idCarga: \\d+}")
+    public void borrarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga) throws BusinessLogicException, WebApplicationException {
+        CargaEntity carg = cargaLogic.getCarga(login, idCarga);
+        if(carg == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
+        }
+        cargaLogic.deleteCarga(login, idCarga);
+    }
+    
     /**
      * Convierte una lista de entidades en lista de DTOs
      *
      * @param cargasList
      * @return una lista de dtos.
      */
-    public List<CargaDTO> listEntity2DTO(List<CargaEntity> cargasList) {
-        List<CargaDTO> lista = new ArrayList<>();
+    public List<CargaDetailDTO> listEntity2DTO(List<CargaEntity> cargasList) {
+        List<CargaDetailDTO> lista = new ArrayList<>();
         for (CargaEntity entidad : cargasList) {
-            lista.add(new CargaDTO(entidad));
+            lista.add(new CargaDetailDTO(entidad));
         }
         return lista;
     }

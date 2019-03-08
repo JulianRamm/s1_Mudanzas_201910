@@ -60,7 +60,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private LinkedList<String> imagenes;
+    private List<String> imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -121,14 +121,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the imagenes
      */
-    public LinkedList<String> getImagenes() {
+    public List<String> getImagenes() {
         return imagenes;
     }
 
     /**
      * @param imagenes the imagenes to set
      */
-    public void setImagenes(LinkedList<String> imagenes) {
+    public void setImagenes(List<String> imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -245,10 +245,10 @@ public class CargaEntity extends BaseEntity implements Serializable{
     public LinkedList<DireccionEntity> encontrarParDirecciones(long id){
         LinkedList<DireccionEntity> res=new LinkedList<>();       
         for(DireccionEntity dir : direcciones){
-            if(dir.getIdPar()==id&&dir.getIsDeSalida()==true){
+            if(dir.getId()==id&&dir.getIsDeSalida()==true){
                 res.add(0, dir);
             }
-            else if(dir.getIdPar()==id&&dir.getIsDeSalida()==false){
+            else if(dir.getId()==id&&dir.getIsDeSalida()==false){
                 res.add(1, dir);
             }
         }
