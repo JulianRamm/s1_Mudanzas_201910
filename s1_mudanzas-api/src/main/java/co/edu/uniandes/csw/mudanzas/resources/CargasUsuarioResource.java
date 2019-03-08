@@ -59,7 +59,7 @@ public class CargasUsuarioResource {
      */
     @GET
     public List<CargaDetailDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException {
-        List<CargaDetailDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas(login));
+        List<CargaDetailDTO> listaCargas = listEntity2DTO(cargaLogic.getCargasUsuario(login));
         return listaCargas;
     }
 
