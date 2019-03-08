@@ -217,7 +217,7 @@ public class SubastaLogicTest {
         SubastaEntity real = subastasData.get(0);
         SubastaEntity pruebaPv = subastaLogic.getSubastaProveedor(real.getId(), real.getProveedor().getLogin());
 
-        SubastaEntity pruebaUs = subastaLogic.getSubastaUsuario(real.getId(), real.getUsuario().getLogin());
+        SubastaEntity pruebaUs = subastaLogic.getSubasta(real.getId(), real.getUsuario().getLogin());
         Assert.assertNotNull(pruebaUs);
         Assert.assertNotNull(pruebaPv);
         Assert.assertEquals(pruebaUs, real);
