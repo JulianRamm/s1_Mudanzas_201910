@@ -10,10 +10,7 @@
     <packaging>pom</packaging>
     <name>s1_mudanzas</name>
  
-    <modules>
-        <module>s1_mudanzas-back</module>
-        <module>s1_mudanzas-api</module>
-    </modules>
+    <modules></modules>
     
     <repositories>
         <repository>

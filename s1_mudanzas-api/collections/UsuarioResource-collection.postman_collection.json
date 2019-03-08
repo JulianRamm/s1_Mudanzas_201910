@@ -90,7 +90,7 @@
 					"script": {
 						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
 						"exec": [
-							"tests[\"No genera error el GET de un usuario especifico: \" + pm.globals.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -128,7 +128,7 @@
 					"script": {
 						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
 						"exec": [
-							"tests[\"No genera error el GET de un usuario especifico\" + pm.globals.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -167,7 +167,7 @@
 						"id": "b3c36c4d-a367-4f86-9562-4d272df6989c",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"nuevoUsuario\",data.login);",
+							"pm.environment.set(\"nuevoUsuario\", data.login);",
 							"tests[\"No genera error el POST de un usuario especifico\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
@@ -290,25 +290,25 @@
 	],
 	"variable": [
 		{
-			"id": "4e935656-4108-487f-b2a7-a870bffeeaa8",
+			"id": "de66fe8d-a112-4b88-b4b6-bab5f807f12f",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "f5f44da9-c26d-4a9b-8616-5e62e3fb8f6d",
+			"id": "623e1e83-1280-44bb-815d-5f81c6afb226",
 			"key": "puerto",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "9d378d0a-8da0-43fc-a58d-feb7d147a775",
+			"id": "4b6c529b-4d14-4152-8886-2ddb52dc5779",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "e1ea76dd-b904-4755-b59f-27ef41ff1e3e",
+			"id": "f46ad077-120a-413b-8c96-cdc968717f20",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"

@@ -6,7 +6,8 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.ConductorDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.ConductorDetailDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.ConductorDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ConductorLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
@@ -32,88 +33,90 @@ public class ConductorProveedorResource
     
      private static final Logger LOGGER = Logger.getLogger(TarjetasUsuarioResource.class.getName());
      
-     @Inject
-     private ConductorLogic conductorLogic;
-     
-     @Inject
-     private ProveedorLogic proveedorLogic;
-     
-     
+     /**
+     * Atributo que inyecta la logica de la conductor en el recurso.
+     */
+    @Inject
+    private ConductorLogic conductorLogic;
 
     /**
-     * Busca y devuelve todas las tarjetas que existen en el usuario.
-     *
-     * @param login del usuario que se esta buscando.
-     * @return JSONArray {@link TarjetaDeCreditoDTO} - Las tarjetas encontradas en el
-     * usuario. Si no hay ninguno retorna una lista vacía.
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
-    */ 
-    @GET
-    public List<ConductorDTO> getConductores(@PathParam("login") String login) throws BusinessLogicException {
-        List<ConductorDTO> listaTarjetas = listEntity2DTO(conductorLogic.getConductoresProveedor(login));
-        return listaTarjetas;
-    }
-    
+     * Atributo que inyecta la logica del proveedor en el recurso.
+     */
+    @Inject
+    private ProveedorLogic proveedorLogic;
+
     /**
-     * Busca la tarjeta con el idTarjeta asociado dentro del usuario con el
+     * Busca y devuelve todas las conductores que existen en el proveedor.
+     *
+     * @param loginProveedor del proveedor que se esta buscando.
+     * @return JSONArray {@link ConductorDTO} - Las conductores encontradas
+     * en el proveedor. Si no hay ninguno retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     */
+    @GET
+    public List<ConductorDetailDTO> getConductores(@PathParam("login") String loginProveedor) throws BusinessLogicException {
+        List<ConductorDetailDTO> listaConductores = listEntity2DTO(conductorLogic.getConductoresProveedor(loginProveedor));
+        return listaConductores;
+    }
+
+    /**
+     * Busca la conductor con el idConductor asociado dentro del proveedor con el
      * login asociado.
      *
-     * @param login del usuario que se esta buscando.
-     * @param idConductor Identificador de la tarjeta que se esta buscando. Este
+     * @param loginProveedor del proveedor que se esta buscando.
+     * @param idConductor Identificador de la conductor que se esta buscando. Este
      * debe ser una cadena de dígitos.
-     * @return JSON {@link TarjetaDeCreditoDTO} - La Tarjeta buscada
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     * @return JSON {@link ConductorDTO} - La Tarjeta buscada
      */
     @GET
-    @Path("{id: \\d+}")
-    public ConductorDTO getConductor(@PathParam("login") String login, @PathParam("idConductor") Long idConductor) throws WebApplicationException, BusinessLogicException {
-        
-        if (conductorLogic.getConductor(login, idConductor) == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idConductor + " no existe.", 404);
+    @Path("{idConductor: \\d+}")
+    public ConductorDTO getConductor(@PathParam("login") String loginProveedor, @PathParam("idConductor") Long idConductor) throws WebApplicationException {
+        try {
+            ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.getConductorProveedor(loginProveedor, idConductor));
+            return conductorDTO;
+        } catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + idConductor + " no existe.", 404);
         }
-        ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.getConductor(login, idConductor));
-        return conductorDTO;
     }
-    
-    
+
     /**
-     * Guarda una tarjeta dentro de un usuario con la informacion que recibe el
-     * la URL. Se devuelve la tarjeta que se guarda en el usuario.
+     * Guarda una conductor dentro de un proveedor con la informacion que recibe el
+     * la URL. Se devuelve la conductor que se guarda en el proveedor.
      *
-     * @param login del usuario que se esta actualizando.
-     * @param conductor {@link TarjetaDeCreditoDTO}la tarjeta que se desea
+     * @param loginProveedor del proveedor que se esta actualizando.
+     * @param conductor {@link ConductorDTO}la conductor que se desea
      * guardar. Este debe ser una cadena de dígitos.
-     * @return JSON {@link TarjetaDeCreditoDTO} - La tarjeta guardada en el
-     * usuario.
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     * @return JSON {@link ConductorDTO} - La conductor guardada en el
+     * proveedor.
      */
     @POST
-    public ConductorDTO crearConductor(@PathParam("login") String login, ConductorDTO conductor) throws WebApplicationException, BusinessLogicException {
-        if (conductorLogic.getConductor(login, conductor.getId()) != null) {
-            throw new WebApplicationException("El recurso /tarjetas/" + conductor.getId() + " ya existe.", 412);
+    public ConductorDTO crearConductor(@PathParam("login") String loginProveedor, ConductorDTO conductor) throws WebApplicationException {
+        try {
+            ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.crearConductor(conductor.toEntity(), loginProveedor));
+            return conductorDTO;
+        } catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + conductor.getId() + " ya existe.", 412);
         }
-        ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.crearConductor(conductor.toEntity(), login));
-        return conductorDTO;
     }
-    
+
     /**
      * Remplaza una instancia de Tarjeta de Credito asociada a una instancia del
      * Usuario
      *
-     * @param login del usuario que se esta remplazando.
-     * @param idConductor Identificador de la tarjeta que se desea actualizar.
+     * @param loginProveedor del proveedor que se esta remplazando.
+     * @param idConductor Identificador de la conductor que se desea actualizar.
      * Este debe ser una cadena de dígitos.
      * @param conductor
-     * @return JSON {@link TarjetaDeCreditoDTO} - La Tarjeta de Credito
+     * @return JSON {@link ConductorDTO} - La Tarjeta de Credito
      * Actualizada
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @PUT
     @Path("{idConductor: \\d+}")
-    public ConductorDTO cambiarConductor(@PathParam("login") String login, @PathParam("idConductor") Long idConductor, ConductorDTO conductor) throws WebApplicationException, BusinessLogicException {
+    public ConductorDTO cambiarConductor(@PathParam("login") String loginProveedor, @PathParam("idConductor") Long idConductor, ConductorDTO conductor) throws WebApplicationException, BusinessLogicException {
         conductor.setId(idConductor);
-        if (conductorLogic.getConductor(login, idConductor) == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idConductor + " no existe.", 404);
+        if (conductorLogic.getConductorProveedor(loginProveedor, idConductor) == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + idConductor + " no existe.", 404);
         }
         ConductorDTO dto = new ConductorDTO(conductorLogic.updateConductor(conductor.toEntity()));
         return dto;
@@ -121,21 +124,24 @@ public class ConductorProveedorResource
     
     @DELETE
     @Path("{idConductor: \\d+}")
-    public ConductorDTO BorrarConductorConId(@PathParam("login") String login, @PathParam("idConductor") Long pIdConductor)
-    {
-        return null;
+    public void borrarConductor(@PathParam("login") String loginProveedor, @PathParam("idConductor") Long idConductor) throws BusinessLogicException, WebApplicationException {
+        ConductorEntity tarj = conductorLogic.getConductorProveedor(loginProveedor, idConductor);
+        if(tarj == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + idConductor + " no existe.", 404);
+        }
+        conductorLogic.deleteConductorProveedor(loginProveedor, idConductor);
     }
-    
-    @Path("{idConductor}/vehiculos")
-    public Class<ConductorVehiculoResource> getConductorVehiculoResource(@PathParam("idConductor") Long pIdConductor)
-    {
-        return ConductorVehiculoResource.class;
-    }
-    
-    public List<ConductorDTO> listEntity2DTO(List<ConductorEntity> conductoresList) {
-        List<ConductorDTO> lista = new ArrayList<>();
+
+    /**
+     * Convierte una lista de entidades en lista de DTOs
+     *
+     * @param conductoresList la lista de entidades a convertir
+     * @return una lista de dtos.
+     */
+    public List<ConductorDetailDTO> listEntity2DTO(List<ConductorEntity> conductoresList) {
+        List<ConductorDetailDTO> lista = new ArrayList<>();
         for (ConductorEntity entidad : conductoresList) {
-            lista.add(new ConductorDTO(entidad));
+            lista.add(new ConductorDetailDTO(entidad));
         }
         return lista;
     }
