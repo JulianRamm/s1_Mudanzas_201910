@@ -167,7 +167,6 @@
 						"id": "b3c36c4d-a367-4f86-9562-4d272df6989c",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.seEnviromentVariable(\"nuevoUsuario\",data.login);",
 							"pm.environment.set(\"nuevoUsuario\", data.login);",
 							"tests[\"No genera error el POST de un usuario especifico\"] = responseCode.code === 200;"
 						],
@@ -291,25 +290,25 @@
 	],
 	"variable": [
 		{
-			"id": "9975c735-4889-49d5-9a37-c8f24815d2fb",
+			"id": "de66fe8d-a112-4b88-b4b6-bab5f807f12f",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "9f7fc38f-4b95-436a-921a-ff4ca5f18d24",
+			"id": "623e1e83-1280-44bb-815d-5f81c6afb226",
 			"key": "puerto",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "44f33e88-36c1-4e89-a523-44942ab2c90f",
+			"id": "4b6c529b-4d14-4152-8886-2ddb52dc5779",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "2106c46f-9de9-4268-94a7-67f1e2559557",
+			"id": "f46ad077-120a-413b-8c96-cdc968717f20",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"

@@ -294,7 +294,7 @@
 						"id": "aca15998-a648-48b7-8c2f-d88bd97252ff",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"nuevaTarjeta\",data.id);",
+							"pm.environment.set(\"nuevaTarjeta\", data.id);",
 							"tests[\"No genera error el POST de una tarjeta especifica\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
@@ -377,49 +377,49 @@
 	],
 	"variable": [
 		{
-			"id": "1676f2c1-fe2b-471e-81a4-0f96aaa8785c",
+			"id": "2a416219-9288-4fdd-bf28-a586cbd00547",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "44591893-0205-4a3f-88b9-0fb216d6159f",
+			"id": "ac8ab754-b2a8-47b5-aefa-b9b1cd21f890",
 			"key": "port",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "4c5b908f-06f2-4668-8c34-12088962105b",
+			"id": "62c847d3-568c-41ef-8854-bf34eaf7e6fe",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "c04d3b32-35fa-48e0-817b-5b8134c9de2e",
+			"id": "0ea24eb4-d543-40c7-833b-02faa82aac61",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"
 		},
 		{
-			"id": "c7921a01-85bc-4839-9ccc-cff201403d92",
+			"id": "1eb37563-734f-4ed8-ad25-90cfb4ad6273",
 			"key": "t1u1",
 			"value": "10003",
 			"type": "string"
 		},
 		{
-			"id": "47749e10-7aa3-45c8-8f21-660642da1508",
+			"id": "e3f846d1-1a7a-4726-bca1-acde80e98007",
 			"key": "t2u1",
 			"value": "10004",
 			"type": "string"
 		},
 		{
-			"id": "2c60a54e-c361-41a9-956d-97dc0ecb8646",
+			"id": "0137628c-4d33-42c5-8396-f498ffa82655",
 			"key": "t1u2",
 			"value": "10005",
 			"type": "string"
 		},
 		{
-			"id": "1c17a2a2-c249-4877-9ec0-87f21a5ba480",
+			"id": "9906603b-c622-48f8-b0a6-ee08f0f5682f",
 			"key": "t2u2",
 			"value": "10006",
 			"type": "string"
