@@ -57,6 +57,7 @@ public class VehiculoLogic {
             throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getPlaca() + "\"");
         }
         
+        
         if(entity.getNumeroConductores()>8)
         {
             throw new BusinessLogicException("El Vehiculo tiene mas conductores que el limite");
