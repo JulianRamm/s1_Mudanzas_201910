@@ -43,7 +43,7 @@ public class ViajesCargaResource {
     @DELETE
     public void deleteCargasViaje(@PathParam("id") Long id)throws WebApplicationException{
         try{
-            cargaLogic.getCarga(id);
+            viajesLogic.getCargasDadoUnId(id);
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
