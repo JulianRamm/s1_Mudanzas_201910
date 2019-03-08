@@ -50,5 +50,4 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoAgendaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
     }
-
 }

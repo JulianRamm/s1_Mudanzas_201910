@@ -92,11 +92,12 @@ public class VehiculosProveedorResource {
      */
     @POST
     public VehiculoDTO crearVehiculo(@PathParam("login") String login, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
-        if (vehiculoLogic.getVehiculoProveedor(login, vehiculo.getPlaca()) != null) {
-            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + vehiculo.getPlaca() + " ya existe.", 412);
+        try {
+            VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculoLogic.crearVehiculo(vehiculo.toEntity(), login));
+            return vehiculoDTO;
+        } catch(BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + vehiculo.getPlaca() + " ya existe..." ,412);
         }
-        VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculoLogic.crearVehiculo(vehiculo.toEntity(), login));
-        return vehiculoDTO;
     }
 
     /**
