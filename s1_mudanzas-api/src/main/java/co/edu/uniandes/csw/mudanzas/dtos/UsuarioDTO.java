@@ -106,98 +106,98 @@ public class UsuarioDTO implements Serializable {
     /**
      * @return the login
      */
-    public String getDTOLogin() {
+    public String getLogin() {
         return login;
     }
 
     /**
      * @param login the login to set
      */
-    public void setDTOLogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
     /**
      * @return the password
      */
-    public String getDTOPassword() {
+    public String getPassword() {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setDTOPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
     /**
      * @return the nombre
      */
-    public String getDTONombre() {
+    public String getNombre() {
         return nombre;
     }
 
     /**
      * @param nombre the nombre to set
      */
-    public void setDTONombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
      * @return the apellido
      */
-    public String getDTOApellido() {
+    public String getApellido() {
         return apellido;
     }
 
     /**
      * @param apellido the apellido to set
      */
-    public void setDTOApellido(String apellido) {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
     /**
      * @return the correoElectronico
      */
-    public String getDTOCorreoElectronico() {
+    public String getCorreoElectronico() {
         return correoElectronico;
     }
 
     /**
      * @param correoElectronico the correoElectronico to set
      */
-    public void setDTOCorreoElectronico(String correoElectronico) {
+    public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
     /**
      * @return the ciudadDeOrigen
      */
-    public String getDTOCiudadDeOrigen() {
+    public String getCiudadDeOrigen() {
         return ciudadDeOrigen;
     }
 
     /**
      * @param ciudadDeOrigen the ciudadDeOrigen to set
      */
-    public void setDTOCiudadDeOrigen(String ciudadDeOrigen) {
+    public void setCiudadDeOrigen(String ciudadDeOrigen) {
         this.ciudadDeOrigen = ciudadDeOrigen;
     }
 
     /**
      * @return the id
      */
-    public Long getDTOId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setDTOId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

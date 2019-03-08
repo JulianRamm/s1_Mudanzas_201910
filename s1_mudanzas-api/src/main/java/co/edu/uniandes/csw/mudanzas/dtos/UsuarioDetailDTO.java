@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,7 @@ import java.util.List;
  *
  * @author Luis Miguel
  */
-public class UsuarioDetailDTO extends UsuarioDTO {
+public class UsuarioDetailDTO extends UsuarioDTO implements Serializable {
 
     /*
     * Esta lista de tipo TarjetaDeCreditoDTO contiene las Tarjetas De Credito que estan asociados a un Usuario.

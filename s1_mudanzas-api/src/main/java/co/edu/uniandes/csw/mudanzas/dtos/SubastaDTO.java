@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
+import java.io.Serializable;
 
 /**
  *
  * @author estudiante
  */
-public class SubastaDTO {
+public class SubastaDTO implements Serializable {
 
     private Long idSubasta;
 

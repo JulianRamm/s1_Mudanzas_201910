@@ -42,11 +42,6 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     private int codigoSeguridad;
 
     /**
-     * Atributo que representa el nombre del usuario titular de la cuenta.
-     */
-    private String titularCuenta;
-
-    /**
      * Atributo que representa la fecha de vencimiento de la tarjeta de credito.
      */
     @Temporal(TemporalType.DATE)
@@ -56,7 +51,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
      * Atributo que representa al usuario dueno de la tarjeta.
      */
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private UsuarioEntity usuario;
 
     /**
@@ -113,20 +108,6 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
      */
     public void setCodigoSeguridad(int codigoSeguridad) {
         this.codigoSeguridad = codigoSeguridad;
-    }
-
-    /**
-     * @return the titularCuenta
-     */
-    public String getTitularCuenta() {
-        return titularCuenta;
-    }
-
-    /**
-     * @param titularCuenta the titularCuenta to set
-     */
-    public void setTitularCuenta(String titularCuenta) {
-        this.titularCuenta = titularCuenta;
     }
 
     /**
