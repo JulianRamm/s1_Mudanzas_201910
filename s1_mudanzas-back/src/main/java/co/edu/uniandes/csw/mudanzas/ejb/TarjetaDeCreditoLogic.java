@@ -163,6 +163,7 @@ public class TarjetaDeCreditoLogic {
     /**
      * Borrar una tarjeta
      *
+     * @param login
      * @param tarjetaId: id del tarjeta a borrar
      * @throws BusinessLogicException Si el tarjeta a eliminar tiene tarjetas de
      * credito.
