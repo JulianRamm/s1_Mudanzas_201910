@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -38,7 +39,7 @@ public class CargaDTO implements Serializable {
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private LinkedList<String> imagenes;
+    private List<String> imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -133,7 +134,7 @@ public class CargaDTO implements Serializable {
     /**
      * @return the imagenes
      */
-    public LinkedList<String> getImagenes() {
+    public List<String> getImagenes() {
         return imagenes;
     }
 
