@@ -48,6 +48,13 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorViajesResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
+
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
+
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoAgendaResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
+
+
     }
 }
