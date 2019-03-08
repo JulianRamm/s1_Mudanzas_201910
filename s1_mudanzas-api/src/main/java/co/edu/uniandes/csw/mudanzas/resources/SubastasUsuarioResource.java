@@ -73,7 +73,7 @@ public class SubastasUsuarioResource {
      */
     @GET
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException
+    public SubastaDetailDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException
     {
         try {
             SubastaDetailDTO c = new SubastaDetailDTO(subastaLogic.getSubastaUsuario(login, idSubasta));

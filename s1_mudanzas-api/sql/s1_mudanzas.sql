@@ -19,6 +19,18 @@ insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectron
     id 10001, y 10002 en cada subasta... ponle dos 
     subastas a cada uno. Usuario se llama usuario_id*/
 
+insert into SubastaEntity (id, valorFinal, valorInicial, usuario_id, proveedor_id) values (10001, 300000, 100000, 10001, 10001);
+insert into SubastaEntity (id, valorFinal, valorInicial, usuario_id, proveedor_id) values (10002, 500000, 200000, 10001, 10002);
+insert into SubastaEntity (id, valorFinal, valorInicial, usuario_id, proveedor_id) values (10003, 200000, 50000, 10002, 10002);
+
+
+insert into OfertaEntity (id, valor, comentario, proveedor_id, subasta_id) values (10001, 150000, 10001, 10001);
+insert into OfertaEntity (id, valor, comentario, proveedor_id, subasta_id) values (10002, 500000, 10002, 10002);
+insert into OfertaEntity (id, valor, comentario, proveedor_id, subasta_id) values (10003, 400000, 10002, 10001);
+insert into OfertaEntity (id, valor, comentario, proveedor_id, subasta_id) values (10004, 50000, 10001, 10002);
+
+
+
 /*  @Julian Osorio   
     Para el query de carga: pon a los usuarios de 
     id 10001, y 10002 en cada subasta... ponle dos 
