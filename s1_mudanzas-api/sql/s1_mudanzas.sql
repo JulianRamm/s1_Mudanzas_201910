@@ -35,7 +35,8 @@ insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSa
 insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values(10003, 10002, 10002, 'U are gay', 420, 'En el puente', 'Debajo del puente','01/03/2007','01/03/2007', 'cuidadito papá');
 insert into CargaEntity (id, viajes_id, usuario_id, datosEnvio, volumen, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values(10004, 10002, 10002, 'no u', 420, 'En mi casa', 'A la casa a donde me paso','01/03/2008','01/03/2008', 'el contenido son mis cosas');
 */
-insert into ProveedorEntity(id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10001, 'df.machado', 'Qwerty2@', 'Daniel Inc', 'png', 'Bogota', 'dfmachado@gmail.com', '7212343', 4 , 5000000, 5);
 
-insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10001, 15000, 16000, 10001, 10001);
-insert into OfertaEntity(id, proveedor_id, subasta_id, comentario, valor) values ( 10001, 10001, 10001, 'Oferta Proveedor 1', 150);
+insert into ProveedorEntity(id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10003, 'df.machado', 'Qwerty2@', 'Daniel Inc', 'png', 'Bogota', 'dfmachado@gmail.com', '7212343', 4 , 5000000, 5);
+
+insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10004, 15000, 16000, 10003, 10001);
+insert into OfertaEntity(id, comentario, valor, subasta_id, proveedor_id) values ( 10005, 'Oferta Proveedor 1', 150, 10004, 10003);

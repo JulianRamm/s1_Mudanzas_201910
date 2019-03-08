@@ -18,7 +18,6 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class ProveedorEntity extends BaseEntity implements Serializable{
-
     
     private String login;
     
