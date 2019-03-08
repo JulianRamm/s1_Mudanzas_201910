@@ -111,6 +111,7 @@ public class UsuarioResource {
      * Borra el usuario asociado recibido en la URL.
      *
      * @param login del usuario que se desea borrar.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{login}")
