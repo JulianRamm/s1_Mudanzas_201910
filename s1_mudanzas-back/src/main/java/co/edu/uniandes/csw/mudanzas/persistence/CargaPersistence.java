@@ -28,6 +28,7 @@ public class CargaPersistence {
      */
     @PersistenceContext(unitName = "mudanzasPU")
     protected EntityManager em;
+    private UsuarioPersistence usuPer;
 
     /**
      * Crea un viaje en la BD
@@ -107,5 +108,9 @@ public class CargaPersistence {
             }
         }
         return resultado;
+    }
+
+    public List<CargaEntity> getCargasUsuario(String login) {
+        return usuPer.findUsuarioPorLogin(login).getCargas();
     }
 }
