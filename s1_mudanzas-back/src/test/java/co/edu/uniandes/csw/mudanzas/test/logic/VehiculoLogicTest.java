@@ -133,6 +133,9 @@ public class VehiculoLogicTest {
         //arregalar para que funcionen las reglas de negocio...
         nuevaEntidad.setNumeroConductores(4);
         nuevaEntidad.setColor("Limon");
+        nuevaEntidad.setMarca("Bugatti");
+        nuevaEntidad.setPlaca("BYC943");
+        nuevaEntidad.setRendimiento(30);
         //-----
         String loginP = proveedorData.getLogin();
         VehiculoEntity resultado = VLogic.crearVehiculo(nuevaEntidad, loginP);
@@ -142,12 +145,15 @@ public class VehiculoLogicTest {
         VehiculoEntity entidad = VLogic.getVehiculoPlacaProveedor(loginP, resultado.getPlaca());
         Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
         Assert.assertEquals(nuevaEntidad.getNumeroConductores(), entidad.getNumeroConductores());
+        Assert.assertEquals(nuevaEntidad.getMarca(), entidad.getMarca());
+        Assert.assertEquals(nuevaEntidad.getPlaca(), entidad.getPlaca());
+        Assert.assertEquals(nuevaEntidad.getRendimiento(), entidad.getRendimiento(), 0.001);
         Assert.assertEquals(nuevaEntidad.getProveedor().getLogin(), entidad.getProveedor().getLogin());
 
     }
     
-   // @Test
-    //(expected = BusinessLogicException.class)
+    
+    @Test(expected = BusinessLogicException.class)
     public void nullTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         VehiculoEntity veh = factory.manufacturePojo(VehiculoEntity.class);
@@ -156,8 +162,8 @@ public class VehiculoLogicTest {
         VLogic.crearVehiculo(veh, proveedorData.getLogin());
     }
 
-   // @Test
-    //(expected = BusinessLogicException.class)
+    
+    @Test(expected = BusinessLogicException.class)
     public void createVehiculoConMismaPlaca() throws BusinessLogicException {
         VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
         newEntity.setPlaca(data.get(0).getPlaca());
@@ -185,7 +191,7 @@ public class VehiculoLogicTest {
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
-    //@Test(expected = BusinessLogicException.class)
+    @Test(expected = BusinessLogicException.class)
     public void PlacaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
@@ -194,25 +200,13 @@ public class VehiculoLogicTest {
         VLogic.crearVehiculo(vec, proveedorData.getLogin());
     }
     
-//    (expected = BusinessLogicException.class)
-   // @Test
+    @Test(expected = BusinessLogicException.class)
     public void MarcaTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);
-        vec.setMarca("Bugati");
+        vec.setMarca("Bugati34567");
         //llamamos al manager de persistencia, en este caso no se creara
         VLogic.crearVehiculo(vec, proveedorData.getLogin());
-        try
-        {
-            VehiculoEntity vehiculo = new VehiculoEntity();
-            vehiculo.setMarca(vec.getMarca());
-            VLogic.crearVehiculo(vehiculo, proveedorData.getLogin());
-            Assert.fail("a");
-        }
-        catch(Exception e)
-        {
-            
-        }
     }
     
     /**
@@ -238,7 +232,7 @@ public class VehiculoLogicTest {
         VLogic.crearVehiculo(vec, proveedorData.getLogin());
     }
     
-    //@Test(expected = BusinessLogicException.class)
+    @Test(expected = BusinessLogicException.class)
     public void RendimientoTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         VehiculoEntity vec = factory.manufacturePojo(VehiculoEntity.class);

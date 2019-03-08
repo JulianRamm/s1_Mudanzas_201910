@@ -6,10 +6,12 @@
 package co.edu.uniandes.csw.mudanzas.ejb;
 
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
+import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.ProveedorPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import static java.lang.Character.isDigit;
@@ -39,6 +41,9 @@ public class VehiculoLogic {
      */
     @Inject
     private ProveedorPersistence proveedorPersistence;
+    
+    @Inject
+    private DiaPersistence diaPersistence;
 
     public VehiculoEntity crearVehiculo(VehiculoEntity entity, String login) throws BusinessLogicException {
         ProveedorEntity prov = proveedorPersistence.findProveedorPorLogin(login);        
@@ -48,21 +53,51 @@ public class VehiculoLogic {
         }
         entity.setProveedor(prov);
         
+        if (vehiculoPersistence.findByPlaca(entity.getPlaca()) != null) {
+            throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getPlaca() + "\"");
+        }
+        
         if(entity.getNumeroConductores()>8)
         {
             throw new BusinessLogicException("El Vehiculo tiene mas conductores que el limite");
         }
         
-         if (!entity.getColor().matches("([a-zA-Z ]+){2,}"))
+         if (!entity.getColor().matches("([a-zA-Z ]+){2,}")&& !entity.getMarca().matches("([a-zA-Z ]+){2,}"))
          {
             throw new BusinessLogicException("El color solo puede contener letras minusculas o mayusculas");
          }
+         char[] cadena = entity.getPlaca().toCharArray();
+         for(int i = 0; i < cadena.length; i++)
+         {
+             if(i<=2)
+             {
+                 if(!Character.isUpperCase(cadena[i]))
+                 {
+                   throw new BusinessLogicException("Los 3 primeros caracteres de la placa tienen que estar en mayuscula");
+
+                 }
+             }
+             if(i>2)
+             {
+                 if(!Character.isDigit(cadena[i]))
+                 {
+                   throw new BusinessLogicException("Los 3 ultimos caracteres de la placa tienen que ser números");
+                 }
+             }
+         }
+         if(entity.getRendimiento()<0)
+         {
+             throw new BusinessLogicException("El rendimiento no puede ser menor a 0");
+         }
+         if(entity.getMarca() == null || entity.getColor()==null|| entity.getPlaca()==null)
+         {
+             throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
+         }
          
          
-     //   if(entity.getMarca().isEmpty() || entity.getMarca().toCharArray().length > 25 || entity.getMarca().contains("!"))
-     //   {
-     //       throw new BusinessLogicException("La marca: \"" + entity.getMarca() + "no tiene un formato valido\"");
-     //   }
+         
+         
+    
         prov.getVehiculos().add(entity);
         vehiculoPersistence.create(entity);
         proveedorPersistence.update(prov);
@@ -113,22 +148,30 @@ public class VehiculoLogic {
         throw new BusinessLogicException("No existe tal vehiculo con un proveedor de login: " + loginP);
     }
 
+   
+    
     /**
      * Obtener un vehiculo por medio de su placa.
      *
-     * @param idC id del conductor
+     * @param idC id de la agenda 
      * @param placa: id del vehiculo para ser buscado.
      * @return el vehiculo solicitado por medio de su id.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public VehiculoEntity getVehiculoPlacaConductor(Long idC, String placa) throws BusinessLogicException {
-        List<VehiculoEntity> vehiculos = conductorPersistence.find(idC).getVehiculos();
+    public VehiculoEntity getVehiculoIdAgenda(Long idD, String placa) throws BusinessLogicException 
+    {
+        VehiculoEntity rta= null;
+        DiaEntity agenda = diaPersistence.find(idD);
         VehiculoEntity vehiculoEntity = vehiculoPersistence.findByPlaca(placa);
-        int index = vehiculos.indexOf(vehiculoEntity);
-        if (index >= 0) {
-            return vehiculos.get(index);
+        if(vehiculoEntity.getAgenda().getId() == agenda.getId())
+        {
+            rta = vehiculoEntity;
         }
-        throw new BusinessLogicException("No existe tal vehiculo con un conductor de id: " + idC);
+        else
+        {
+        throw new BusinessLogicException("No existe tal vehiculo con una agenda con id: " + idD);
+        }
+        return rta;
     }
     
     /**
