@@ -51,6 +51,7 @@ public class TarjetasUsuarioResource {
      * @param login del usuario que se esta buscando.
      * @return JSONArray {@link TarjetaDeCreditoDTO} - Las tarjetas encontradas
      * en el usuario. Si no hay ninguno retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     public List<TarjetaDeCreditoDTO> getTarjetas(@PathParam("login") String login) throws BusinessLogicException {
