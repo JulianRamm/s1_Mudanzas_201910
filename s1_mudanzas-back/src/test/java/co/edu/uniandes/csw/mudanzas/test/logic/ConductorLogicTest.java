@@ -219,7 +219,7 @@ public class ConductorLogicTest {
     @Test
     public void getConductorLoginTest() throws BusinessLogicException {
         ConductorEntity entidad = data.get(0);
-        ConductorEntity resultado = conLogic.getConductor(proveedorData.getLogin(), entidad.getId());
+        ConductorEntity resultado = conLogic.getConductorProveedor(proveedorData.getLogin(), entidad.getId());
         Assert.assertNotNull(resultado);
         Assert.assertEquals(resultado.getId(), entidad.getId());
         Assert.assertEquals(resultado.getNombre(), entidad.getNombre());
