@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class VehiculoDTO 
 {
     //Falta el atributo de la ubicaciòn actual con la clase de direccion
+    private Long id;
     
     private Long idConductorActual;
     
@@ -158,6 +159,20 @@ public class VehiculoDTO
      */
     public void setRendimiento(double rendimiento) {
         this.rendimiento = rendimiento;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
     
 }

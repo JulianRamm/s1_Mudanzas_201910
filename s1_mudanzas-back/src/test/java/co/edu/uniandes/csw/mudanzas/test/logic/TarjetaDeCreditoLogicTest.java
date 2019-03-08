@@ -139,24 +139,26 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        Integer i = 10007;
+        Long idi = i.longValue();
+        nuevaEntidad.setId(idi);
         nuevaEntidad.setNumeroSerial("123456789123");
         nuevaEntidad.setNombreTarjeta("Luis Miguel");
-        nuevaEntidad.setTitularCuenta("Luis Miguel");
         Date fechaV = new Date();
         fechaV.setMonth(02);
         fechaV.setYear(2020);
         nuevaEntidad.setCodigoSeguridad(951);
         nuevaEntidad.setFechaVencimiento(fechaV);
-        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, usuarioData.getLogin());
+        String usuariologin = usuarioData.getLogin();
+        TarjetaDeCreditoEntity resultado = tarjetaLogic.crearTarjeta(nuevaEntidad, usuariologin);
 
         Assert.assertNotNull(resultado);
 
-        TarjetaDeCreditoEntity entidad = em.find(TarjetaDeCreditoEntity.class, resultado.getId());
+        TarjetaDeCreditoEntity entidad = tarjetaLogic.getTarjeta(resultado.getId());
 
         Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
         Assert.assertEquals(nuevaEntidad.getNombreTarjeta(), entidad.getNombreTarjeta());
         Assert.assertEquals(nuevaEntidad.getNumeroSerial(), entidad.getNumeroSerial());
-        Assert.assertEquals(nuevaEntidad.getTitularCuenta(), entidad.getTitularCuenta());
         Assert.assertEquals(nuevaEntidad.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
 
@@ -193,23 +195,6 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);;
         trjt.setNombreTarjeta("l1234");
-        trjt.setUsuario(dummy);
-        //llamamos al manager de persistencia, en este caso no se creara
-        tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
-    }
-
-    /**
-     * Prueba que valida que no se pueda crear un titular sin el formato
-     * requerido.
-     *
-     * @throws BusinessLogicException si no se cumple esta regla de negocio.
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void expresionRegularTitularCuentaTest() throws BusinessLogicException {
-        //podam nos crea una instancia automatica
-        TarjetaDeCreditoEntity trjt = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        UsuarioEntity dummy = factory.manufacturePojo(UsuarioEntity.class);
-        trjt.setTitularCuenta("l1234");
         trjt.setUsuario(dummy);
         //llamamos al manager de persistencia, en este caso no se creara
         tarjetaLogic.crearTarjeta(trjt, dummy.getLogin());
@@ -301,7 +286,6 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultado.getId(), entidad.getId());
         Assert.assertEquals(resultado.getNombreTarjeta(), entidad.getNombreTarjeta());
         Assert.assertEquals(resultado.getNumeroSerial(), entidad.getNumeroSerial());
-        Assert.assertEquals(resultado.getTitularCuenta(), entidad.getTitularCuenta());
         Assert.assertEquals(resultado.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
 
@@ -318,7 +302,6 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultado.getId(), entidad.getId());
         Assert.assertEquals(resultado.getNombreTarjeta(), entidad.getNombreTarjeta());
         Assert.assertEquals(resultado.getNumeroSerial(), entidad.getNumeroSerial());
-        Assert.assertEquals(resultado.getTitularCuenta(), entidad.getTitularCuenta());
         Assert.assertEquals(resultado.getCodigoSeguridad(), entidad.getCodigoSeguridad());
     }
 
@@ -335,7 +318,6 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(respuesta.getId(), nuevaEntidad.getId());
         Assert.assertEquals(respuesta.getNombreTarjeta(), nuevaEntidad.getNombreTarjeta());
         Assert.assertEquals(respuesta.getNumeroSerial(), nuevaEntidad.getNumeroSerial());
-        Assert.assertEquals(respuesta.getTitularCuenta(), nuevaEntidad.getTitularCuenta());
         Assert.assertEquals(respuesta.getCodigoSeguridad(), nuevaEntidad.getCodigoSeguridad());
     }
 
@@ -347,7 +329,7 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(1);
-        tarjetaLogic.deleteTarjeta(entidad.getId());
+        tarjetaLogic.deleteTarjeta(usuarioData.getLogin(), entidad.getId());
         TarjetaDeCreditoEntity borrar = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
