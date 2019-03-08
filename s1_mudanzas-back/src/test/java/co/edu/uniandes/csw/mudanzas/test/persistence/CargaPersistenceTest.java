@@ -5,11 +5,12 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
-
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.CargaPersistence;
+import co.edu.uniandes.csw.mudanzas.persistence.UsuarioPersistence;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -32,25 +33,27 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class CargaPersistenceTest {
-        
+
     @Inject
     UserTransaction utx;
-    
+
     @PersistenceContext
     private EntityManager em;
 
-    private List<CargaEntity> data = new ArrayList <CargaEntity>();
+    private List<CargaEntity> data = new ArrayList<CargaEntity>();
 
     @Inject
     private CargaPersistence persistence;
-    
+    @Inject
     private UsuarioEntity usuarioData;
 
     private PodamFactory factory = new PodamFactoryImpl();
-    
+
     /**
-     * método que retorna un archivo jar dada la información del archivo persistence.xml y beans.xml
-     * @return 
+     * método que retorna un archivo jar dada la información del archivo
+     * persistence.xml y beans.xml
+     *
+     * @return
      */
     @Deployment
     public static JavaArchive createDeployment() {
@@ -62,7 +65,8 @@ public class CargaPersistenceTest {
     }
 
     /**
-     * método que configura las pruebas para que puedan ser ejecutadas de forma correcta
+     * método que configura las pruebas para que puedan ser ejecutadas de forma
+     * correcta
      */
     @Before
     public void configTest() {
@@ -98,23 +102,27 @@ public class CargaPersistenceTest {
 
         em.persist(usr);
 
-        usuarioData = usr;
-        
         for (int i = 0; i < 3; i++) {
 
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
 
             entity.setUsuario(usr);
-            
+
             em.persist(entity);
 
             data.add(entity);
         }
+        usr.setCargas(data);
+
+        usuarioData = usr;
     }
+
     /**
-     * Crea una entidad de Cargas aleatoria y una con el método que fue implmentado en la clase de persistencia
-     * Verifica que no sea null el objeto creado, lo busca con el método find de la clase de persistencia y compara
-     * los id's de la entidad creada aleatoriamente y de la creada con el método create
+     * Crea una entidad de Cargas aleatoria y una con el método que fue
+     * implmentado en la clase de persistencia Verifica que no sea null el
+     * objeto creado, lo busca con el método find de la clase de persistencia y
+     * compara los id's de la entidad creada aleatoriamente y de la creada con
+     * el método create
      */
     @Test
     public void createCargaTest() {
@@ -126,17 +134,19 @@ public class CargaPersistenceTest {
         Assert.assertNotNull(entity);
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
+
     /**
-     * Busca todos los Cargas que hay en la base de datos ingresados de manera aleatoria
-     * y compara los id's de estos con la lista generada por el método findAll de la clase de persisitencia
+     * Busca todos los Cargas que hay en la base de datos ingresados de manera
+     * aleatoria y compara los id's de estos con la lista generada por el método
+     * findAll de la clase de persisitencia
      */
     @Test
     public void getCargasTest() {
-        List  <CargaEntity> list = persistence.findAll();
+        List<CargaEntity> list = persistence.findAll();
         Assert.assertEquals(data.size(), list.size());
         for (CargaEntity ent : list) {
             boolean found = false;
-            for  (CargaEntity entity : data) {
+            for (CargaEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -144,10 +154,12 @@ public class CargaPersistenceTest {
             Assert.assertTrue(found);
         }
     }
+
     /**
-     * Busca un Carga dado un id, en este caso, se prueba con el id de la primera entidad generada en el atributo
-     * data, compara este objeto retornado al invocar al método find() de la clase de perisistencia y lo compara con null,
-     * además de comparar ambas id's
+     * Busca un Carga dado un id, en este caso, se prueba con el id de la
+     * primera entidad generada en el atributo data, compara este objeto
+     * retornado al invocar al método find() de la clase de perisistencia y lo
+     * compara con null, además de comparar ambas id's
      */
     @Test
     public void getCargaTest() {
@@ -159,9 +171,10 @@ public class CargaPersistenceTest {
 
     @Test
     /**
-     * Con la entidad generada aleatoriamente que se encuentra en la posición 0 
+     * Con la entidad generada aleatoriamente que se encuentra en la posición 0
      * del atributo data, se llama al método delete de la clase de persistencia
-     * y luego se compara este con null lo cual debe ser true ya que el objeto fue eliminado
+     * y luego se compara este con null lo cual debe ser true ya que el objeto
+     * fue eliminado
      */
     public void deleteCargaTest() {
         CargaEntity entity = data.get(0);
@@ -169,11 +182,13 @@ public class CargaPersistenceTest {
         CargaEntity deleted = em.find(CargaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+
     /**
      * Con la enridad generada aleatoriamente que se encuentra en la posición 0
-     * del atributo data, crea otra nueva entidad con podam y le asigna el id de la 
-     * id de la entidad de data y se invoca al método update de la clase de perisistencia, luego,
-     * se busca el mismo objeto en la base de datos para ver si se encuentra con el id actualizado
+     * del atributo data, crea otra nueva entidad con podam y le asigna el id de
+     * la id de la entidad de data y se invoca al método update de la clase de
+     * perisistencia, luego, se busca el mismo objeto en la base de datos para
+     * ver si se encuentra con el id actualizado
      */
     @Test
     public void updateCargaTest() {
@@ -188,7 +203,7 @@ public class CargaPersistenceTest {
 
         Assert.assertEquals(newEntity.getId(), resp.getId());
     }
-    
+
     /**
      * Prueba para buscar una carga por el nombre de su propietario.
      */
@@ -201,6 +216,16 @@ public class CargaPersistenceTest {
         nuevo = persistence.findCargaPorLoginPropietario(entidad.getUsuario().getLogin(), null);
         Assert.assertNull(nuevo);
     }
-    
 
+    @Test
+    public void getCargasUsuarioTest() {
+        CargaEntity entidad = data.get(0);
+        List<CargaEntity> nuevo = persistence.getCargasUsuario(entidad.getUsuario().getLogin());
+        Assert.assertNotNull(nuevo);
+        Assert.assertTrue(listEqualsIgnoreOrder(data, nuevo));
+    }
+
+    public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
+        return new HashSet<>(list1).equals(new HashSet<>(list2));
+    }
 }

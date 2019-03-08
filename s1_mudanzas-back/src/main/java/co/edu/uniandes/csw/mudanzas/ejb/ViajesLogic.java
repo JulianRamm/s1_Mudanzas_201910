@@ -86,7 +86,7 @@ public class ViajesLogic {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException 
      */
 
-    public List<ViajesEntity> getViajes() {
+    public List<ViajesEntity> getViajes() throws BusinessLogicException {
         List<ViajesEntity> viajes = viajesPersistence.findAll();
         if(viajes==null){
             throw new BusinessLogicException("No hay viajes");
@@ -144,11 +144,11 @@ public class ViajesLogic {
      * @throws BusinessLogicException 
      */
     public void deleteCargasDaodUnId(Long id) throws BusinessLogicException{
-        List<CargaEntity> car = persistence.getCargasDadoUnId(id);
+        List<CargaEntity> car = viajesPersistence.getCargasDadoUnId(id);
         if(car==null){
             throw new BusinessLogicException("No hay cargas que eliminar para un id: " + id);
         }
-        persistence.deleteCargasDadoUnId(id);
+        viajesPersistence.deleteCargasDadoUnId(id);
         
     }
 }

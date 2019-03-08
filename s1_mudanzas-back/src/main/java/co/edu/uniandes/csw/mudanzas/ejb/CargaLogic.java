@@ -132,8 +132,8 @@ public class CargaLogic {
      * @return
      * @throws BusinessLogicException
      */
-    public List<CargaEntity> getCargas(String login) throws BusinessLogicException {
-        List<CargaEntity> cargas = usuarioPersistence.findUsuarioPorLogin(login).getCargas();
+    public List<CargaEntity> getCargasUsuario(String login) throws BusinessLogicException {
+        List<CargaEntity> cargas = cargaPersistence.getCargasUsuario(login);
         if (cargas == null) {
             throw new BusinessLogicException("No hay cargas para este usuario con login: " + login);
         }
