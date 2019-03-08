@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -29,6 +30,9 @@ public class ViajesPersistence {
      */
     @PersistenceContext(unitName = "mudanzasPU")
     protected EntityManager em;
+
+    @Inject
+    CargaPersistence cargaP;
 
     /**
      * Crea un viaje en la BD
@@ -89,18 +93,24 @@ public class ViajesPersistence {
      * @return
      */
     public List<CargaEntity> getCargasDadoUnId(Long id) {
-        TypedQuery<ViajesEntity> query;
-        query = em.createQuery("select e from ViajesEntity e where e.id=:id", ViajesEntity.class);
-        query.setParameter("id", id);
-        List<ViajesEntity> viaje = query.getResultList();
-        LinkedList<CargaEntity> cargas = new LinkedList<>();
-        if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
+        TypedQuery<CargaEntity> query;
+        ViajesEntity vi=find(id);
+        query = em.createQuery("select e from CargaEntity e where e.viaje=:viaje", CargaEntity.class);
+        query.setParameter("viaje", vi);
+        List<CargaEntity> cargas = query.getResultList();
+        if (cargas == null || cargas.isEmpty()) {
             cargas = null;
-        } else {
-           for(CargaEntity cargae:viaje.get(0).getCargas()){
-            cargas.add(cargae);
-        }
-        }
+        } 
         return cargas;
     }
+
+    public void deleteCargasDadoUnId(Long id) {
+        List<CargaEntity> cargas = getCargasDadoUnId(id);
+        if (cargas != null) {
+            for (CargaEntity carga : cargas) {
+                cargaP.delete(carga.getId());
+            }
+        }
+    }
+
 }

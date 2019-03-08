@@ -113,7 +113,7 @@ public class ViajesLogicTest {
         CargaEntity cargaEntity = factory.manufacturePojo(CargaEntity.class);
         em.persist(cargaEntity);
         cargaData.add(cargaEntity);
-        
+
         for (int i = 0; i < 3; i++) {
             ViajesEntity viajes = factory.manufacturePojo(ViajesEntity.class);
             em.persist(viajes);
@@ -132,29 +132,23 @@ public class ViajesLogicTest {
     @Test
     public void createViajesTest() throws BusinessLogicException {
         /**
-        ViajesEntity newEntity = data.get(0);
-        newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
-        newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
-        newEntity.getVehiculoDelViaje().setRendimiento(21);
-        LinkedList<DireccionEntity> dirs = new LinkedList<>();
-        DireccionEntity dir = newEntity.getCargas().get(0).getDirecciones().get(0);
-        dir.setId((long) 2);
-        dir.setIdPar(1);
-        dir.setLatitud(23);
-        dir.setLongitud(34);
-        dir.setIsDeSalida(false);
-        dirs.add(dir);
-        DireccionEntity dir1 = newEntity.getCargas().get(0).getDirecciones().get(1);
-        dir1.setId((long) 1);
-        dir1.setIsDeSalida(true);
-        dir1.setLatitud(32);
-        dir1.setLongitud(43);
-        dir1.setIdPar(2);
-        dirs.add(dir1);
-        newEntity.getCargas().get(0).setDirecciones(dirs);
-        newEntity.setTiempo((int) 4.06364);
-        newEntity.setGastoGasolina((int) 1336.486711011556 * 21);
-        */
+         * ViajesEntity newEntity = data.get(0);
+         * newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
+         * newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
+         * newEntity.getVehiculoDelViaje().setRendimiento(21);
+         * LinkedList<DireccionEntity> dirs = new LinkedList<>();
+         * DireccionEntity dir =
+         * newEntity.getCargas().get(0).getDirecciones().get(0);
+         * dir.setId((long) 2); dir.setIdPar(1); dir.setLatitud(23);
+         * dir.setLongitud(34); dir.setIsDeSalida(false); dirs.add(dir);
+         * DireccionEntity dir1 =
+         * newEntity.getCargas().get(0).getDirecciones().get(1);
+         * dir1.setId((long) 1); dir1.setIsDeSalida(true); dir1.setLatitud(32);
+         * dir1.setLongitud(43); dir1.setIdPar(2); dirs.add(dir1);
+         * newEntity.getCargas().get(0).setDirecciones(dirs);
+         * newEntity.setTiempo((int) 4.06364); newEntity.setGastoGasolina((int)
+         * 1336.486711011556 * 21);
+         */
         ViajesEntity newEntity = data.get(0);
         newEntity.setLugarSalida(newEntity.getCargas().get(0).getLugarSalida());
         newEntity.setLugarLlegada(newEntity.getCargas().get(0).getLugarLlegada());
@@ -187,7 +181,7 @@ public class ViajesLogicTest {
      * prueba para encontrar los viajes
      */
     @Test
-    public void getViajesesTest() {
+    public void getViajesesTest() throws BusinessLogicException {
         List<ViajesEntity> list = viajesLogic.getViajes();
         Assert.assertEquals(data.size(), list.size());
         for (ViajesEntity entity : list) {
@@ -255,6 +249,10 @@ public class ViajesLogicTest {
         Assert.assertNull(deleted);
     }
 
+    /**
+     * prueba para obtener las cargas dado un id
+     * @throws BusinessLogicException
+     */
     @Test
     public void getCargasPorIdTest() throws BusinessLogicException {
         ViajesEntity entity = data.get(0);
@@ -264,7 +262,13 @@ public class ViajesLogicTest {
         Assert.assertEquals(cargaData.size(), resultEntity.size());
         Assert.assertTrue(listEqualsIgnoreOrder(resultEntity, cargaData));
     }
-
+    @Test
+    public void deleteCargasDadoIdTest() throws BusinessLogicException{
+        ViajesEntity entity = data.get(0);
+        viajesLogic.deleteCargasDaodUnId(entity.getId());
+        Assert.assertEquals(null, entity.getCargas());
+        
+    }
     public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
