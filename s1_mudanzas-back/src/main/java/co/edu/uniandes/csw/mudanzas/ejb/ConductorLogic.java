@@ -149,9 +149,29 @@ public class ConductorLogic {
      * por ejemplo el nombre.
      * @return el conductor con los cambios actualizados en la base de datos.
      */
-    public ConductorEntity updateConductor(ConductorEntity nuevoConductor) {
-        ConductorEntity tarjetaEntity = conductorPersistence.update(nuevoConductor);
-        return tarjetaEntity;
+    public ConductorEntity updateConductor(ConductorEntity nuevoConductor) throws BusinessLogicException {
+        
+        ConductorEntity conductor = getConductor(nuevoConductor.getId());
+        ProveedorEntity pertenece = conductor.getProveedor();
+        pertenece.getConductores().remove(conductor);
+        pertenece.getConductores().add(nuevoConductor);
+        
+        proveedorPersistence.update(pertenece);
+        
+        for (VehiculoEntity veh : conductor.getVehiculos()) {
+            for (ConductorEntity c : veh.getConductor()) {
+                if (c.getId() == conductor.getId()) {
+                    veh.getConductor().remove(c);
+                    veh.getConductor().add(nuevoConductor);
+                    break;
+                }
+            }
+            vehiculoPersistence.update(veh);
+        }
+        
+        ConductorEntity actualizado = conductorPersistence.update(nuevoConductor);
+        
+        return actualizado;
     }
 
     /**
