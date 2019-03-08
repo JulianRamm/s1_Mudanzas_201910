@@ -45,8 +45,10 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.WebApplicationExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.CargasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasProveedorResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
     }
 }

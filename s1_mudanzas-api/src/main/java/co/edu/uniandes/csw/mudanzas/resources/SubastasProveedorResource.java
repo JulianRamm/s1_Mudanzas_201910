@@ -84,7 +84,6 @@ public class SubastasProveedorResource {
      * @param login del proveedor que se esta actualizando.
      * @param subasta
      * @return JSON {@link SubastaDTO} - La carga guardada en el proveedor.
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
     public SubastaDTO crearSubasta(@PathParam("login") String login, SubastaDTO subasta) throws WebApplicationException {
