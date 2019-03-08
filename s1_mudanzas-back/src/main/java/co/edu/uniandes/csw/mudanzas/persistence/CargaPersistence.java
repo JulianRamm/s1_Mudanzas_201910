@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -111,6 +112,22 @@ public class CargaPersistence {
     }
 
     public List<CargaEntity> getCargasUsuario(String login) {
-        return usuPer.findUsuarioPorLogin(login).getCargas();
+        TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
+        query = query.setParameter("login", login);
+        List<UsuarioEntity> duenio = query.getResultList();
+        List<CargaEntity> resultado = new ArrayList<CargaEntity>();
+        if (duenio == null) {
+            resultado = null;
+        } else if (duenio.isEmpty()) {
+            resultado = null;
+        } else if (duenio.get(0).getCargas() == null) {
+            resultado = null;
+        } else {
+            for (CargaEntity t : duenio.get(0).getCargas()) {
+               resultado.add(t);
+                    
+                }
+            }
+        return resultado;
     }
 }

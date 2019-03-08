@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -93,14 +95,18 @@ public class ViajesPersistence {
      * @return
      */
     public List<CargaEntity> getCargasDadoUnId(Long id) {
-        TypedQuery<CargaEntity> query;
-        ViajesEntity vi=find(id);
-        query = em.createQuery("select e from CargaEntity e where e.viaje=:viaje", CargaEntity.class);
-        query.setParameter("viaje", vi);
-        List<CargaEntity> cargas = query.getResultList();
-        if (cargas == null || cargas.isEmpty()) {
+        TypedQuery<ViajesEntity> query;
+        query = em.createQuery("select e from ViajesEntity e where e.id=:id", ViajesEntity.class);
+        query.setParameter("id", id);
+        List<ViajesEntity> viaje = query.getResultList();
+        LinkedList<CargaEntity> cargas = new LinkedList<>();
+        if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
             cargas = null;
-        } 
+        } else {
+           for(CargaEntity cargae:viaje.get(0).getCargas()){
+            cargas.add(cargae);
+        }
+        }
         return cargas;
     }
 
