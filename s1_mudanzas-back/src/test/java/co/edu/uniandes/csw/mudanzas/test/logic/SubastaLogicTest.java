@@ -253,9 +253,10 @@ public class SubastaLogicTest {
     
     
      @Test
-    public void deleteSubasta() {
+    public void deleteSubasta() throws BusinessLogicException {
         SubastaEntity entidad = subastasData.get(0);
-        subastaLogic.delete(entidad.getId());
+        
+        subastaLogic.deleteSubastaUsuario( usuario.getLogin(),entidad.getId());
         SubastaEntity borrar = em.find(SubastaEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }

@@ -20,7 +20,7 @@ public class CargaDTO implements Serializable {
     /**
      * viaje en el que va la carga
      */
-    private ViajesDTO viaje;
+    private ViajeDTO viaje;
     /**
      * Usuario dueño de la carga;
      */
@@ -90,7 +90,7 @@ public class CargaDTO implements Serializable {
             this.observaciones = cargaEntity.getObservaciones();
             this.volumen = cargaEntity.getVolumen();
             if (cargaEntity.getViaje() != null) {
-                this.viaje = new ViajesDTO(cargaEntity.getViaje());
+                this.viaje = new ViajeDTO(cargaEntity.getViaje());
             } else {
                 this.viaje = null;
             }
@@ -252,14 +252,14 @@ public class CargaDTO implements Serializable {
     /**
      * @return the viaje
      */
-    public ViajesDTO getViaje() {
+    public ViajeDTO getViaje() {
         return viaje;
     }
 
     /**
      * @param viaje the viaje to set
      */
-    public void setViaje(ViajesDTO viaje) {
+    public void setViaje(ViajeDTO viaje) {
         this.viaje = viaje;
     }
 
