@@ -28,11 +28,12 @@ public class DireccionDTO {
      */
 
     private Double longitud;
+    private CargaDTO carga;
     /**
      *  indica true si la dirección es de salida del origen o false si es de llegada al destino
      */
     
-    private boolean deSalida;
+    private Boolean deSalida;
 
     public DireccionDTO() {
         
@@ -44,6 +45,12 @@ public class DireccionDTO {
             this.longitud = d.getLongitud();
             this.latitud = d.getLatitud();
             this.deSalida = d.getIsDeSalida();
+            if(d.getCarga()!=null){
+                this.carga = new CargaDTO(d.getCarga());
+            }
+            else{
+                this.carga = null;
+            }
         }
     }
     
@@ -101,5 +108,15 @@ public class DireccionDTO {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public DireccionEntity toEntity() {
+        DireccionEntity di = new DireccionEntity();
+        di.setId(this.id);
+        di.setCarga(this.carga.toEntity());
+        di.setIsDeSalida(this.deSalida);
+        di.setLatitud(this.latitud);
+        di.setLongitud(this.longitud);
+        return di;
     }
 }
