@@ -25,18 +25,40 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Atributo que modela la placa de un vehiculo.
+     */
     private String placa;
 
+    /**
+     * Atributo que modela el rendimiento de un vehiculo.
+     */
     private double rendimiento;
     
+    /**
+     * Atributo que modela el id del conductor que está manejando el vehiculo.
+     */
     private long idConductorActual;
     
+    /**
+     * Atributo que modela la marca de un vehiculo.
+     */
     private String marca;
    
+    /**
+     * Atributo que modela el numero de conductores que posee un vehiculo.
+     */
     private int numeroConductores;
 
+    /**
+     * Atributo que modela el color de un vehiculo.
+     */
     private String color;
 
+    
+    /**
+     * Atributo que modela las dimensiones de un vehiculo.
+     */
     private String dimensiones;
 
     /**
