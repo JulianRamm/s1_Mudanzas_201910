@@ -81,13 +81,13 @@ public class ConductorViajesResource {
     @GET
     public List<ViajeDTO> getViajes()throws BusinessLogicException, WebApplicationException{
         List<ViajesEntity> viajesEntity;
-        try{
+//        try{
         viajesEntity = viajesLogic.getViajes();
-       
-        }
-        catch(BusinessLogicException e){
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
+//       
+//        }
+//        catch(BusinessLogicException e){
+//            throw new WebApplicationException(Response.Status.NOT_FOUND);
+//        }
         return List2Entity(viajesEntity);
     }
     /**

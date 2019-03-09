@@ -41,7 +41,7 @@ public class SubastasProveedorResource {
      */
     @Inject
     private ProveedorLogic proveedorLogic;
-    
+
     /**
      * Busca y devuelve todas las subastas que existen en el proveedor.
      *
@@ -67,7 +67,7 @@ public class SubastasProveedorResource {
      */
     @GET
     @Path("{idSubasta: \\d+}")
-    public SubastaDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException
+    public SubastaDetailDTO getSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException
     {
         try {
             SubastaDetailDTO c = new SubastaDetailDTO(subastaLogic.getSubastaProveedor(login, idSubasta));
@@ -84,7 +84,6 @@ public class SubastasProveedorResource {
      * @param login del proveedor que se esta actualizando.
      * @param subasta
      * @return JSON {@link SubastaDTO} - La carga guardada en el proveedor.
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
     public SubastaDTO crearSubasta(@PathParam("login") String login, SubastaDTO subasta) throws WebApplicationException {
