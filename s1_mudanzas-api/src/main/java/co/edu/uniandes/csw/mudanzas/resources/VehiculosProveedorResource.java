@@ -132,5 +132,22 @@ public class VehiculosProveedorResource {
         }
         return lista;
     }
+    
+    /**
+     * Conexión con el servicio de cargas para un usuario.
+     * {@link CargasUsuarioResource}
+     *
+     * Este método conecta la ruta de /usuarios con las rutas de /cargas que
+     * dependen del usuario, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las cargas de un usuario.
+     *
+     * @param login El login del usuario con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de cargas para este usuario en particular.
+     */
+    @Path("{placa}/agenda")
+    public Class<CargasUsuarioResource> getCargasUsuarioResource(@PathParam("login") String login) {
+        return CargasUsuarioResource.class;
+    }
 
 }
