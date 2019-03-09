@@ -90,7 +90,7 @@
 					"script": {
 						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
 						"exec": [
-							"tests[\"No genera error el GET de un usuario especifico\"] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -104,7 +104,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuario1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -114,7 +114,7 @@
 						"s1_mudanzas-api",
 						"api",
 						"usuarios",
-						"{{usuario1}}"
+						"{{usuarioPrueba1}}"
 					]
 				}
 			},
@@ -128,7 +128,7 @@
 					"script": {
 						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
 						"exec": [
-							"tests[\"No genera error el GET de un usuario especifico\"] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -142,7 +142,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuario2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -152,7 +152,45 @@
 						"s1_mudanzas-api",
 						"api",
 						"usuarios",
-						"{{usuario2}}"
+						"{{usuarioPrueba2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Especifico no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
+						"exec": [
+							"tests[\"No obtiene un usuario que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/lalaland",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"lalaland"
 					]
 				}
 			},
@@ -167,7 +205,7 @@
 						"id": "b3c36c4d-a367-4f86-9562-4d272df6989c",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"nuevoUsuario\",data.login);",
+							"pm.environment.set(\"nuevoUsuario\", data.login);",
 							"tests[\"No genera error el POST de un usuario especifico\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
@@ -290,25 +328,25 @@
 	],
 	"variable": [
 		{
-			"id": "944cab6b-a669-46b5-9586-69b6283077ac",
+			"id": "948923dd-4d6b-4309-9eab-3a08b764c2f7",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "7d68eac2-6fad-428f-8c61-eda3c9b3bf52",
+			"id": "e0fa3e72-8ca3-45c6-9291-f23b153a7967",
 			"key": "puerto",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "80515aa2-125a-4691-963d-7cd7e84821c7",
+			"id": "1eac2ae1-b878-4ed1-b7b1-d15b72b15be1",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "43205b3f-88ee-483e-b056-ac54249caff2",
+			"id": "e758ff90-0d27-46da-9cf0-13add16f0e2f",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"

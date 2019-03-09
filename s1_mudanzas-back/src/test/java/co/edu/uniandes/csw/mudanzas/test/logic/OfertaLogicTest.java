@@ -60,6 +60,7 @@ public class OfertaLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+    private ProveedorEntity prv;
 
     @Before
     public void configTest() {
@@ -92,7 +93,7 @@ public class OfertaLogicTest {
 
         em.persist(ofer);
 
-        ProveedorEntity prv = factory.manufacturePojo(ProveedorEntity.class);
+        prv = factory.manufacturePojo(ProveedorEntity.class);
 
         em.persist(prv);
 
@@ -110,7 +111,7 @@ public class OfertaLogicTest {
     @Test
     public void createOfertaTest() throws BusinessLogicException, Exception {
         OfertaEntity ManufacturedEntity = factory.manufacturePojo(OfertaEntity.class);
-        OfertaEntity oferCreada = ofertaLogic.createOferta(ManufacturedEntity);
+        OfertaEntity oferCreada = ofertaLogic.createOfertaProveedor(ManufacturedEntity,prv.getLogin() );
         Assert.assertNotNull(oferCreada);
         OfertaEntity entidadFound = em.find(OfertaEntity.class, oferCreada.getId());
         Assert.assertEquals(ManufacturedEntity.getId(), entidadFound.getId());
@@ -142,7 +143,7 @@ public class OfertaLogicTest {
                 nuevaActual.setId(Long.MIN_VALUE+ i);
                 nuevaActual.setProveedor(nProv);
                 
-                ofertaLogic.createOferta(nuevaActual);
+                ofertaLogic.createOfertaProveedor(nuevaActual, prv.getLogin());
                 real.add(nuevaActual);
             }
             

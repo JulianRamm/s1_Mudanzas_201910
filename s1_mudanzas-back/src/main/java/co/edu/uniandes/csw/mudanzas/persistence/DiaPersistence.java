@@ -43,27 +43,56 @@ public class DiaPersistence
        TypedQuery<DiaEntity> query = em.createQuery("select u from DiaEntity u", DiaEntity.class);
        return query.getResultList();
    }
-   public DiaEntity findByVehiculo(VehiculoEntity pV)
+   
+   public DiaEntity findByPlacaVehiculo(String placa, Long pId)
    {
-       DiaEntity rta;
-       TypedQuery<DiaEntity> query = em.createQuery("select e from DiaEntity e where e.vehiculo.id = :pId", DiaEntity.class);
-       query = query.setParameter("pId", pV.getId());
+       DiaEntity rta = null;
+       TypedQuery<VehiculoEntity> query = em.createQuery("select e from VehiculoEntity e where e.placa = :pPlaca", VehiculoEntity.class);
+       query = query.setParameter("pPlaca", placa);
        
-       List<DiaEntity> sameDia = query.getResultList();
+       List<VehiculoEntity> sameCarro = query.getResultList();
        
-       if(sameDia == null)
+       if(sameCarro == null)
        {
            rta = null;
        }
-       else if(sameDia.isEmpty())
+       else if(sameCarro.isEmpty())
        {
            rta = null;
        }
+       else if (sameCarro.get(0) == null) 
+       {
+            rta = null;
+        } 
        else
        {
-           rta = sameDia.get(0);
-       }
+            
+                if (sameCarro.get(0).getAgenda().getId() == pId) 
+                {
+                    rta = sameCarro.get(0).getAgenda();
+                }
+            
+        }
        return rta;
    }
+   
+   /**
+     * Elimina un vehiculo con
+     *
+     * @param vehiculoId de la base de datos.
+     */
+    public void delete(Long DiaId) {
+        em.remove(find(DiaId));
+    }
+
+    /**
+     * Actualiza una vehiculo con la bd
+     *
+     * @param cambiada
+     * @return la vehiculo actualizada
+     */
+    public DiaEntity update(DiaEntity cambiada) {
+        return em.merge(cambiada);
+    }
     
 }

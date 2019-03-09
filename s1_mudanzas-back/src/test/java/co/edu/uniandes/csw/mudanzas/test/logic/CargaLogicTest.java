@@ -76,6 +76,7 @@ public class CargaLogicTest {
      */
     private UsuarioEntity usuarioData;
     private ViajesEntity viajeData;
+
     /**
      * Crea todo lo necesario para el desarrollo de las pruebas.
      *
@@ -125,11 +126,11 @@ public class CargaLogicTest {
      * pruebas.
      */
     private void insertData() {
-        ViajesEntity viaje=factory.manufacturePojo(ViajesEntity.class);
-        em.persist(viaje);
+        ViajesEntity viaje = factory.manufacturePojo(ViajesEntity.class);
         viajeData = viaje;
+        em.persist(viaje);
+
         UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
-        em.persist(usuario);
         usuarioData = usuario;
         for (int i = 0; i < 3; i++) {
             CargaEntity entity = factory.manufacturePojo(CargaEntity.class);
@@ -138,6 +139,10 @@ public class CargaLogicTest {
             em.persist(entity);
             data.add(entity);
         }
+        usuarioData.setCargas(data);
+
+        em.persist(usuarioData);
+
     }
 
     /**
@@ -148,11 +153,15 @@ public class CargaLogicTest {
      */
     @Test
     public void createCargaTest() throws BusinessLogicException {
-        CargaEntity newEntity = data.get(0);
+        CargaEntity newEntity = factory.manufacturePojo(CargaEntity.class);
+        Integer i = 10007;
+        Long idi = i.longValue();
+        newEntity.setId(idi);
         newEntity.setVolumen(344);
+        newEntity.setViaje(viajeData);
         Date a = new Date(2019, 4, 25, 10, 0);
-        Date b = new Date(2019,4,25,20,0);
-        Date c= new Date(2019,4,25,2,0);
+        Date b = new Date(2019, 4, 25, 20, 0);
+        Date c = new Date(2019, 4, 25, 2, 0);
         newEntity.getViaje().setTiempo(b.getHours());
         newEntity.setFechaEstimadaLlegada(a);
         newEntity.setFechaEnvio(c);
@@ -188,7 +197,7 @@ public class CargaLogicTest {
      * Prueba para consultar la lista de cargas.
      */
     @Test
-    public void getEditorialsTest() {
+    public void getCargassTest() {
         List<CargaEntity> list = cargaLogic.getCargas();
         Assert.assertEquals(data.size(), list.size());
         for (CargaEntity entity : list) {
@@ -254,7 +263,7 @@ public class CargaLogicTest {
     @Test
     public void deleteCargaTest() throws BusinessLogicException {
         CargaEntity entity = data.get(1);
-        cargaLogic.deleteCarga(entity.getId());
+        cargaLogic.deleteCarga(usuarioData.getLogin(), entity.getId());
         CargaEntity deleted = em.find(CargaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -267,7 +276,7 @@ public class CargaLogicTest {
     @Test
     public void getCargaUsuarioTest() throws BusinessLogicException {
         CargaEntity entity = data.get(0);
-        CargaEntity resultEntity = cargaLogic.getCargaUsuario(entity.getUsuario().getLogin(), entity.getId());
+        CargaEntity resultEntity = cargaLogic.getCarga(entity.getUsuario().getLogin(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(resultEntity.getId(), entity.getId());
@@ -288,14 +297,12 @@ public class CargaLogicTest {
      * @throws BusinessLogicException
      */
     @Test
-    public void getCargasTest() throws BusinessLogicException {
+    public void getCargasUsuarioTest() throws BusinessLogicException {
         CargaEntity entity = data.get(0);
-        List<CargaEntity> resultEntity = cargaLogic.getCargas(entity.getUsuario().getLogin());
+        List<CargaEntity> resultEntity = cargaLogic.getCargasUsuario(usuarioData.getLogin());
         Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(3, resultEntity.size());
         Assert.assertTrue(listEqualsIgnoreOrder(resultEntity, data));
     }
-
     public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
