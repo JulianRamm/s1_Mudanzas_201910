@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "c3f7a73b-8749-4dd5-ba6f-53c2cbead93d",
+		"name": "SubastasProveedorResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Subastas Proveedor 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedor/{{proveedorPrueba1}}/subastas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedor",
+						"{{proveedorPrueba1}}",
+						"subastas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subastas Proveedor 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedor/{{proveedorPrueba2}}/subastas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedor",
+						"{{proveedorPrueba2}}",
+						"subastas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 1 Proveedor 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/subastas/{{s1u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"subastas",
+						"{{s1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 1 Proveedor 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba2}}/subastas/{{s1u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba2}}",
+						"subastas",
+						"{{s1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica no existe Proveedor 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/subastas/123456789",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"subastas",
+						"123456789"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Nueva Proveedor 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/subastas/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"subastas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta de Proveedor 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/subastas/{{nuevaSubasta}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"subastas",
+						"{{nuevaSubasta}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "38cb969b-26e6-4935-80bc-af14f8d12668",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f9d036fc-d4cb-4e01-8cd5-08c17fdf1151",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3a52ac2a-5dcd-416f-89cc-9b54019df006",
+			"key": "ip",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "e9dc6f0a-f5c1-4fb4-9024-34afa55fb7bf",
+			"key": "puerto",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

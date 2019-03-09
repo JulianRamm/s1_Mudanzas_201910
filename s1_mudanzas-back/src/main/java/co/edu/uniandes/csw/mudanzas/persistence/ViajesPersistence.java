@@ -6,12 +6,15 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -29,6 +32,9 @@ public class ViajesPersistence {
      */
     @PersistenceContext(unitName = "mudanzasPU")
     protected EntityManager em;
+
+    @Inject
+    CargaPersistence cargaP;
 
     /**
      * Crea un viaje en la BD
@@ -97,10 +103,19 @@ public class ViajesPersistence {
         if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
             cargas = null;
         } else {
-           for(CargaEntity cargae:viaje.get(0).getCargas()){
-            cargas.add(cargae);
-        }
+            for (CargaEntity cargae : viaje.get(0).getCargas()) {
+                cargas.add(cargae);
+            }
         }
         return cargas;
     }
+    public void deleteCargasDadoUnId(Long id) {
+        List<CargaEntity> cargas = getCargasDadoUnId(id);
+        if (cargas != null) {
+            for (CargaEntity carga : cargas) {
+                cargaP.delete(carga.getId());
+            }
+        }
+    }
+
 }

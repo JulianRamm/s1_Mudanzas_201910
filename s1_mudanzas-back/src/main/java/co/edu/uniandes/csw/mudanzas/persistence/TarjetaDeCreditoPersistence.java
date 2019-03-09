@@ -82,32 +82,4 @@ public class TarjetaDeCreditoPersistence {
         return em.merge(cambiada);
     }
 
-    /**
-     * Busca una tarjeta de credito por el login del titular de la cuenta.
-     *
-     * @param login del usuario que queremos buscar
-     * @return la tarjeta de credito que pertenece al usuario que entra por
-     * parametro.
-     */
-    public TarjetaDeCreditoEntity findTarjetaPorLoginUsuario(String login, Long idTarjeta) {
-        TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.login = :login", UsuarioEntity.class);
-        query = query.setParameter("login", login);
-        List<UsuarioEntity> duenio = query.getResultList();
-        TarjetaDeCreditoEntity resultado = null;
-        if (duenio == null) {
-            resultado = null;
-        } else if (duenio.isEmpty()) {
-            resultado = null;
-        } else if (duenio.get(0).getTarjetas() == null) {
-            resultado = null;
-        } else {
-            for (TarjetaDeCreditoEntity t : duenio.get(0).getTarjetas()) {
-                if (t.getId() == idTarjeta) {
-                    resultado = t;
-                }
-            }
-        }
-        return resultado;
-    }
-
 }

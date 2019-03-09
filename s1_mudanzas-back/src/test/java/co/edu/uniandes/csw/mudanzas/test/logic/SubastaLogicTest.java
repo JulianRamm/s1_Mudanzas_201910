@@ -60,6 +60,10 @@ public class SubastaLogicTest {
 
     private List<SubastaEntity> subastasData = new LinkedList<>();
 
+    private UsuarioEntity usuario;
+    
+    private ProveedorEntity proveedor;
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -98,17 +102,19 @@ public class SubastaLogicTest {
      * pruebas.
      */
     private void insertData() {
- UsuarioEntity usr = factory.manufacturePojo(UsuarioEntity.class);
-
-        em.persist(usr);
+        UsuarioEntity user = factory.manufacturePojo(UsuarioEntity.class);
+        user.setLogin("luismigolondo");
+        em.persist(user);
+        this.usuario = user;
 
         ProveedorEntity prv = factory.manufacturePojo(ProveedorEntity.class);
-
+        prv.setLogin("Andres");
         em.persist(prv);
+        proveedor = prv;
 
         for (int i = 0; i < 3; i++) {
             SubastaEntity subastas = factory.manufacturePojo(SubastaEntity.class);
-            subastas.setUsuario(usr);
+            subastas.setUsuario(user);
             subastas.setProveedor(prv);
             em.persist(subastas);
             subastasData.add(subastas);
@@ -120,9 +126,9 @@ public class SubastaLogicTest {
     public void createSubastaTest() throws BusinessLogicException {
         SubastaEntity ManufacturedEntity = factory.manufacturePojo(SubastaEntity.class);
         ManufacturedEntity.setValorFinal(ManufacturedEntity.getValorInicial());
-        SubastaEntity subcreada = subastaLogic.createSubasta(ManufacturedEntity);
+        SubastaEntity subcreada = subastaLogic.createSubastaUsuario(ManufacturedEntity, usuario.getLogin());
         Assert.assertNotNull(subcreada);
-        SubastaEntity entidadFound = em.find(SubastaEntity.class, subcreada.getId());
+        SubastaEntity entidadFound = subastaLogic.getSubasta(subcreada.getId());
         Assert.assertEquals(ManufacturedEntity.getId(), entidadFound.getId());
 
     }
@@ -132,8 +138,8 @@ public class SubastaLogicTest {
         SubastaEntity ManufacturedEntity = factory.manufacturePojo(SubastaEntity.class);
         ManufacturedEntity.setValorFinal(ManufacturedEntity.getValorInicial());
         try {
-            subastaLogic.createSubasta(ManufacturedEntity);
-            subastaLogic.createSubasta(ManufacturedEntity);
+            subastaLogic.createSubastaUsuario(ManufacturedEntity, usuario.getLogin());
+            subastaLogic.createSubastaUsuario(ManufacturedEntity, usuario.getLogin());
 
             fail("No deberia crear dos subs iguales");
         } catch (BusinessLogicException ex) {
@@ -142,17 +148,13 @@ public class SubastaLogicTest {
 
     }
 
-    @Test
-    public void createSubastasDiferenteValor() {
+    @Test(expected = BusinessLogicException.class)
+    public void createSubastasDiferenteValor() throws BusinessLogicException {
         SubastaEntity ManufacturedEntity = factory.manufacturePojo(SubastaEntity.class);
         ManufacturedEntity.setValorFinal(10);
         ManufacturedEntity.setValorInicial(2);
-        try {
-            subastaLogic.createSubasta(ManufacturedEntity);
-            fail(" no debio crearla ");
-        } catch (BusinessLogicException e) {
-            // no deberia llegar
-        }
+            subastaLogic.createSubastaUsuario(ManufacturedEntity, usuario.getLogin());
+        
     }
 
    
@@ -200,7 +202,9 @@ public class SubastaLogicTest {
                 nuevaActual.setId(Long.MIN_VALUE+ i);
                 nuevaActual.setProveedor(nProv);
                 
-                subastaLogic.createSubasta(nuevaActual);
+                subastaLogic.createSubastaUsuario(nuevaActual, nUser.getLogin());
+                subastaLogic.createSubastaProveedor(nuevaActual, nProv.getLogin());
+
                 real.add(nuevaActual);
             }
             
@@ -215,9 +219,9 @@ public class SubastaLogicTest {
     public void getSubastaProvUser() throws BusinessLogicException
     {
         SubastaEntity real = subastasData.get(0);
-        SubastaEntity pruebaPv = subastaLogic.getSubastaProveedor(real.getId(), real.getProveedor().getLogin());
+        SubastaEntity pruebaPv = subastaLogic.getSubastaProveedor( real.getProveedor().getLogin(),real.getId());
 
-        SubastaEntity pruebaUs = subastaLogic.getSubastaUsuario(real.getId(), real.getUsuario().getLogin());
+        SubastaEntity pruebaUs = subastaLogic.getSubasta( real.getId());
         Assert.assertNotNull(pruebaUs);
         Assert.assertNotNull(pruebaPv);
         Assert.assertEquals(pruebaUs, real);
@@ -249,9 +253,10 @@ public class SubastaLogicTest {
     
     
      @Test
-    public void deleteSubasta() {
+    public void deleteSubasta() throws BusinessLogicException {
         SubastaEntity entidad = subastasData.get(0);
-        subastaLogic.delete(entidad.getId());
+        
+        subastaLogic.deleteSubastaUsuario( usuario.getLogin(),entidad.getId());
         SubastaEntity borrar = em.find(SubastaEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }

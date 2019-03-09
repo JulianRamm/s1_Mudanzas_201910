@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "ab73b01e-df89-4b29-b999-f979532c9d64",
+		"name": "SubastasUsuarioResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Subastas Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5df2fe17-e54c-4417-9ffb-4fcabf23f09c",
+						"exec": [
+							"tests[\"No genera error el GET de las subastas de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba1}}",
+						"subastas"
+					]
+				},
+				"description": "Request para obtener todas las tarjetas de un usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "Subastas Usuario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5df2fe17-e54c-4417-9ffb-4fcabf23f09c",
+						"exec": [
+							"tests[\"No genera error el GET de las subastas de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba2}}",
+						"subastas"
+					]
+				},
+				"description": "Request para obtener todas las tarjetas de un usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 1 Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s1u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/{{s1u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba1}}",
+						"subastas",
+						"{{s1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 2 Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s2u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas/{{s2u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba2}}",
+						"subastas",
+						"{{s2u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica no existente Usuario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No obtiene una subasta que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/123456789",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba1}}",
+						"subastas",
+						"123456789"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 1 Usuario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s1u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas/{{s1u2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba2}}",
+						"subastas",
+						"{{s1u2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 2 Usuario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
+						"exec": [
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s2u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas/{{s2u2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba2}}",
+						"subastas",
+						"{{s2u2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Nueva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aca15998-a648-48b7-8c2f-d88bd97252ff",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"nuevaSubasta\", data.id);",
+							"tests[\"No genera error el POST de una subasta especifica\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"codigoSeguridad\": 953,\n    \"fechaVencimiento\": \"2020-02-10T00:00:00-05:00\",\n    \"nombreTarjeta\": \"Tarjeta terciaria\",\n    \"numeroSerial\": \"123456789102\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba1}}",
+						"subastas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta de un Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ff82228-06d0-4768-8e3e-8fd12a6f0e96",
+						"exec": [
+							"tests[\"No genera error el DELETE de subasta\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/{{nuevaSubasta}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba1}}",
+						"subastas",
+						"{{nuevaSubasta}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

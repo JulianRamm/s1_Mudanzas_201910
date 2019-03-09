@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
+import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import java.util.ArrayList;
@@ -32,9 +33,16 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class VehiculoPersistenceTest 
 {
     PodamFactory factory = new PodamFactoryImpl();
-    
+    /**
+     * Inyección de la persistencia del vehiculo
+     */
      @Inject
     private VehiculoPersistence VPersistence;
+    /**
+     * Inyección de la persistencia del dia
+     */ 
+     @Inject
+     private DireccionEntity dEntity;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -55,9 +63,7 @@ public class VehiculoPersistenceTest
      */
     private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
+  
     
     /**
      *
@@ -95,6 +101,9 @@ public class VehiculoPersistenceTest
             }
         }
     }
+    /**
+     * Crea datos aleatorios de entidades, los cuales los mete en la base de datos
+     */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
 
@@ -109,7 +118,9 @@ public class VehiculoPersistenceTest
     {
         em.createQuery("delete from VehiculoEntity").executeUpdate();
     }
-    
+    /**
+     * verificación de las reglas de negocio del vehiculo con un test
+     */
     @Test
     public void createVehiculoTest()
     {
@@ -121,5 +132,108 @@ public class VehiculoPersistenceTest
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
+    
+    /**
+     * verificación la eliminación de un vehiculo con un test
+     */
+      @Test
+    public void deleteVehiculoTest() {
+        VehiculoEntity entidad = data.get(0);
+        VPersistence.delete(entidad.getId());
+        VehiculoEntity borrado = em.find(VehiculoEntity.class, entidad.getId());
+        Assert.assertNull(borrado);
+    }
+    /**
+     * verificación la actualización de un vehiculo con un test
+     */
+    @Test
+    public void updateVehiculoTest() {
+        VehiculoEntity entidad = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        VehiculoEntity cambiada = factory.manufacturePojo(VehiculoEntity.class);
+
+        cambiada.setId(entidad.getId());
+
+        VPersistence.update(cambiada);
+
+        VehiculoEntity encontrada = em.find(VehiculoEntity.class, entidad.getId());
+
+        Assert.assertEquals(cambiada.getNumeroConductores(), encontrada.getNumeroConductores());
+        Assert.assertEquals(cambiada.getId(), encontrada.getId());
+        Assert.assertEquals(cambiada.getMarca(), encontrada.getMarca());
+        Assert.assertEquals(cambiada.getColor(), encontrada.getColor());
+        Assert.assertEquals(cambiada.getPlaca(), encontrada.getPlaca());
+    }
+     /**
+     * verificación la obtención de un vehiculo con un test
+     */
+     @Test
+    public void getVehiculoTest() {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity nuevo = VPersistence.find(entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getNumeroConductores(), nuevo.getNumeroConductores());
+        Assert.assertEquals(entidad.getId(), nuevo.getId());
+        Assert.assertEquals(entidad.getMarca(), nuevo.getMarca());
+        Assert.assertEquals(entidad.getColor(), nuevo.getColor());
+        Assert.assertEquals(entidad.getPlaca(), nuevo.getPlaca());
+    }
+    /**
+     * Busca un vehiculo por su placa
+     */
+    @Test
+    public void buscarVehiculoPorPlacaTest() {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity nuevo = VPersistence.findByPlaca(entidad.getPlaca());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getPlaca(), nuevo.getPlaca());
+        nuevo = VPersistence.findByPlaca(null);
+        Assert.assertNull(nuevo);
+    }
+
+//    @Test
+//    public void buscarVehiculoPorAgenda() {
+//        VehiculoEntity entidad = data.get(0);
+//        VehiculoEntity nuevo = VPersistence.findByDia(entidad.getAgenda().getId(),entidad.getPlaca());
+//        Assert.assertNotNull(nuevo);
+//        Assert.assertEquals(entidad.getAgenda().getId(), nuevo.getAgenda().getId());
+//      //  nuevo = VPersistence.findByDia(null);
+//     //   Assert.assertNull(nuevo);
+//    }
+//    
+//    @Test
+//    public void buscarVehiculoPorUbicacionActual() 
+//    {
+//        PodamFactory factory = new PodamFactoryImpl();
+//        DireccionEntity ubiA = factory.manufacturePojo(DireccionEntity.class);
+//        VehiculoEntity entidad = factory.manufacturePojo(VehiculoEntity.class);
+//        entidad.setUbicacionActual(ubiA);
+//        VehiculoEntity result= VPersistence.create(entidad);
+//        VehiculoEntity nuevo = VPersistence.findByUbicacionActual(entidad.getUbicacionActual().getIdPar());
+//        
+//        Assert.assertNotNull(nuevo);
+//        Assert.assertEquals(entidad.getUbicacionActual().getIdPar(), nuevo.getUbicacionActual().getIdPar());
+//      //  nuevo = VPersistence.findByUbicacionActual(null);
+//      //  Assert.assertNull(nuevo);
+//    }
+    
+     @Test
+    public void getVehiculosTest() {
+        List<VehiculoEntity> lista = VPersistence.findAll();
+        Assert.assertEquals(data.size(), lista.size());
+
+        for (VehiculoEntity enLista : lista) {
+            boolean loEncontre = false;
+            for (VehiculoEntity enData : data) {
+                if (enLista.getId().equals(enData.getId()));
+                loEncontre = true;
+            }
+            Assert.assertTrue(loEncontre);
+        }
+
+    }
+    
+    
+
     
 }

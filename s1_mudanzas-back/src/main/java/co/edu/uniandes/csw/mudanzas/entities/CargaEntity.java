@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -31,6 +32,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
      */
     @PodamExclude
     @ManyToOne
+    @JoinColumn(name="viaje_id")
     ViajesEntity viaje;
     /**
      * Representa los datos de env�o de la carga que se lleva de un lugar a otro
@@ -60,7 +62,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private LinkedList<String> imagenes;
+    private String imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -121,14 +123,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the imagenes
      */
-    public LinkedList<String> getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
     /**
      * @param imagenes the imagenes to set
      */
-    public void setImagenes(LinkedList<String> imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -245,10 +247,10 @@ public class CargaEntity extends BaseEntity implements Serializable{
     public LinkedList<DireccionEntity> encontrarParDirecciones(long id){
         LinkedList<DireccionEntity> res=new LinkedList<>();       
         for(DireccionEntity dir : direcciones){
-            if(dir.getIdPar()==id&&dir.getIsDeSalida()==true){
+            if(dir.getId()==id&&dir.getIsDeSalida()==true){
                 res.add(0, dir);
             }
-            else if(dir.getIdPar()==id&&dir.getIsDeSalida()==false){
+            else if(dir.getId()==id&&dir.getIsDeSalida()==false){
                 res.add(1, dir);
             }
         }

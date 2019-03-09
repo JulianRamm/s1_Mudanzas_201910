@@ -6,7 +6,8 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,32 +22,57 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class VehiculoEntity extends BaseEntity implements Serializable {
-    @PodamExclude
-    @ManyToOne
-    private ProveedorEntity proveedor;
+    
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Atributo que modela la placa de un vehiculo.
+     */
     private String placa;
 
+    /**
+     * Atributo que modela el rendimiento de un vehiculo.
+     */
     private double rendimiento;
     
+    /**
+     * Atributo que modela el id del conductor que está manejando el vehiculo.
+     */
     private long idConductorActual;
     
+    /**
+     * Atributo que modela la marca de un vehiculo.
+     */
     private String marca;
    
+    /**
+     * Atributo que modela el numero de conductores que posee un vehiculo.
+     */
     private int numeroConductores;
 
+    /**
+     * Atributo que modela el color de un vehiculo.
+     */
     private String color;
 
+    
+    /**
+     * Atributo que modela las dimensiones de un vehiculo.
+     */
     private String dimensiones;
-
 
     /**
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
+    /**
+     * Atributo que modela la lista de vehiculos de un conductor
+     */
+    @PodamExclude
     @ManyToMany
-    private List<ConductorEntity> conductor;
+    private List<ConductorEntity> conductor = new ArrayList<>();
 
     @PodamExclude
     @OneToOne

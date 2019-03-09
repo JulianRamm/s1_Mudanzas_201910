@@ -16,33 +16,30 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class DireccionEntity extends BaseEntity implements Serializable {
+        
+    /**
+     * latitud de la dirección
+    */
+
+    private Double latitud;
+    /**
+     * longitud de la dirección
+     */
+
+    private Double longitud;
+    /**
+     * indica true si la dirección es de salida del origen o false si es de
+     * llegada al destino
+     */
+    private boolean isDeSalida;
+    
     /**
      * Carga que contiene una lista de direcciones
      */
     @PodamExclude
     @ManyToOne
     private CargaEntity carga;
-    
-    /**
-     * latitud de la dirección
-    */
 
-    private double latitud;
-    /**
-     * longitud de la dirección
-     */
-
-    private double longitud;
-    /**
-     * indica true si la dirección es de salida del origen o false si es de
-     * llegada al destino
-     */
-
-    private boolean isDeSalida;
-    /**
-     * id del par latitudf,longitudf,latitudi,longitudi
-     */
-    private long idPar; 
     /**
      * @return the latitud
      */
@@ -53,7 +50,7 @@ public class DireccionEntity extends BaseEntity implements Serializable {
     /**
      * @param latitud the latitud to set
      */
-    public void setLatitud(int latitud) {
+    public void setLatitud(Double latitud) {
         this.latitud = latitud;
     }
 
@@ -83,20 +80,6 @@ public class DireccionEntity extends BaseEntity implements Serializable {
      */
     public void setIsDeSalida(boolean isDeSalida) {
         this.isDeSalida = isDeSalida;
-    }
-
-    /**
-     * @return the idPar
-     */
-    public long getIdPar() {
-        return idPar;
-    }
-
-    /**
-     * @param idPar the idPar to set
-     */
-    public void setIdPar(long idPar) {
-        this.idPar = idPar;
     }
 
     /**

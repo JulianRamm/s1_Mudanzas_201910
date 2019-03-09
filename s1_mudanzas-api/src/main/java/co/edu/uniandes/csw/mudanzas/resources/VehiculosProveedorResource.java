@@ -92,11 +92,12 @@ public class VehiculosProveedorResource {
      */
     @POST
     public VehiculoDTO crearVehiculo(@PathParam("login") String login, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
-        if (vehiculoLogic.getVehiculoProveedor(login, vehiculo.getPlaca()) != null) {
-            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + vehiculo.getPlaca() + " ya existe.", 412);
+        try {
+            VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculoLogic.crearVehiculo(vehiculo.toEntity(), login));
+            return vehiculoDTO;
+        } catch(BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + vehiculo.getPlaca() + " ya existe..." ,412);
         }
-        VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculoLogic.crearVehiculo(vehiculo.toEntity(), login));
-        return vehiculoDTO;
     }
 
     /**
@@ -130,6 +131,23 @@ public class VehiculosProveedorResource {
             lista.add(new VehiculoDTO(entidad));
         }
         return lista;
+    }
+    
+    /**
+     * Conexión con el servicio de cargas para un usuario.
+     * {@link CargasUsuarioResource}
+     *
+     * Este método conecta la ruta de /usuarios con las rutas de /cargas que
+     * dependen del usuario, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las cargas de un usuario.
+     *
+     * @param login El login del usuario con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de cargas para este usuario en particular.
+     */
+    @Path("{placa}/agenda")
+    public Class<CargasUsuarioResource> getCargasUsuarioResource(@PathParam("login") String login) {
+        return CargasUsuarioResource.class;
     }
 
 }

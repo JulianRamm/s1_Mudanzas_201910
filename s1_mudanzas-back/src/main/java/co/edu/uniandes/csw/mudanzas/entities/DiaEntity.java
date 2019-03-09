@@ -5,13 +5,15 @@
  */
 package co.edu.uniandes.csw.mudanzas.entities;
 
+import co.edu.uniandes.csw.mudanzas.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -20,15 +22,15 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class DiaEntity extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  //  private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @PodamStrategyValue(DateStrategy.class)
     private Date horaInicio;
-
-    @Temporal(TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @PodamStrategyValue(DateStrategy.class)
     private Date horaFin;
-
-    @Temporal(TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date diaActual;
 
     private boolean isDisponibilidad;
@@ -63,10 +65,10 @@ public class DiaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @param horaLlegada the horaLlegada to set
+     * @param horaFin the horaFin to set
      */
-    public void setHoraFin(Date horaLlegada) {
-        this.horaFin = horaLlegada;
+    public void setHoraFin(Date horaFin) {
+        this.horaFin = horaFin;
     }
 
     /**
@@ -110,5 +112,7 @@ public class DiaEntity extends BaseEntity implements Serializable {
     public void setDiaActual(Date diaActual) {
         this.diaActual = diaActual;
     }
+
+   
 
 }

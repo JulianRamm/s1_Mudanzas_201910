@@ -54,7 +54,7 @@ public class UsuarioResource {
     public UsuarioDTO crearUsuario(UsuarioDTO usuario) throws BusinessLogicException {
         UsuarioEntity usuarioEntity = usuario.toEntity();
         UsuarioEntity nuevoUsuarioEntity = usuarioLogic.crearUsuario(usuarioEntity);
-        UsuarioDTO nuevoDTO = new UsuarioDTO(nuevoUsuarioEntity);
+        UsuarioDTO nuevoDTO = new UsuarioDetailDTO(nuevoUsuarioEntity);
         return nuevoDTO;
     }
 
@@ -75,10 +75,11 @@ public class UsuarioResource {
      *
      * @param login del usuario que se esta buscando.
      * @return JSON {@link UsuarioDTO} - El usuario buscado.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     @Path("{login}")
-    public UsuarioDTO getUsuario(@PathParam("login") String login) throws WebApplicationException, BusinessLogicException {
+    public UsuarioDetailDTO getUsuario(@PathParam("login") String login) throws WebApplicationException, BusinessLogicException {
         UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(login);
         if (usuarioEntity == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
@@ -98,7 +99,7 @@ public class UsuarioResource {
     @PUT
     @Path("{login}")
     public UsuarioDetailDTO updateUsuario(@PathParam("login") String login, UsuarioDetailDTO usuario) throws WebApplicationException, BusinessLogicException {
-        usuario.setDTOLogin(login);
+        usuario.setLogin(login);
         if (usuarioLogic.getUsuario(login) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
         }
@@ -110,6 +111,7 @@ public class UsuarioResource {
      * Borra el usuario asociado recibido en la URL.
      *
      * @param login del usuario que se desea borrar.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{login}")

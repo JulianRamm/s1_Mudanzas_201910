@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "dedae336-32dc-4a2a-a616-cd48c3390615",
+		"name": "ViajesCargaResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Elimina cargas de un viaje",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ee5ac70-772e-4e44-9f5e-081ebe4d23e2",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "api/api/proveedores/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}/viajes/{{viajesPrueba1}}/cargas",
+					"host": [
+						"api"
+					],
+					"path": [
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{conductorPrueba1}}",
+						"viajes",
+						"{{viajesPrueba1}}",
+						"cargas"
+					]
+				},
+				"description": "Elimina las cargas de un viaje con id especificado"
+			},
+			"response": []
+		},
+		{
+			"name": "Retornar carga especifica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b701f668-f70c-47a4-8a3c-6c3543382443",
+						"exec": [
+							"tests[\"No genera error el GET de un viaje con id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "api/api/proveedores/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}/viajes/{{viajesPrueba1}}/cargas/{{cargasPrueba1}}",
+					"host": [
+						"api"
+					],
+					"path": [
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{conductorPrueba1}}",
+						"viajes",
+						"{{viajesPrueba1}}",
+						"cargas",
+						"{{cargasPrueba1}}"
+					]
+				},
+				"description": "Retorna la información de la carga de un viaje con un id especificado"
+			},
+			"response": []
+		},
+		{
+			"name": "Retornar cargas de un viaje",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b5627e8-6735-4bb2-bbb0-f66ce4a322c8",
+						"exec": [
+							"tests[\"no genera error en los test\"]=responseCode.Code===200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "api/api/proveedores/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}/viajes{{viajesPrueba2}}/cargas",
+					"host": [
+						"api"
+					],
+					"path": [
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{conductorPrueba1}}",
+						"viajes{{viajesPrueba2}}",
+						"cargas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

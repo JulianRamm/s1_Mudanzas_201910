@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.test.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,11 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class DiaPersistenceTest 
 {
     PodamFactory factory = new PodamFactoryImpl();
-     @Inject
+     
+    /**
+     * Inyeccion de la persistencia del dia
+     */
+    @Inject
     private DiaPersistence APersistence;
     
     /**
@@ -54,9 +59,7 @@ public class DiaPersistenceTest
      */
     private List<DiaEntity> data = new ArrayList<DiaEntity>();
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
+   
     
     /**
      *
@@ -109,7 +112,9 @@ public class DiaPersistenceTest
     {
         em.createQuery("delete from DiaEntity").executeUpdate();
     }
-    
+    /**
+     * Verificación de todas las reglas de negocio de un dia
+     */
     @Test
     public void createAgendaTest()
     {
@@ -121,5 +126,81 @@ public class DiaPersistenceTest
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
+    /**
+     * Verificación de que si se pueda eliminar un dia
+     */
+    @Test
+    public void deleteDiaTest() {
+        DiaEntity entidad = data.get(0);
+        APersistence.delete(entidad.getId());
+        DiaEntity borrado = em.find(DiaEntity.class, entidad.getId());
+        Assert.assertNull(borrado);
+    }
+    /**
+     * Verificación de que si se pueda obtener un dia
+     */
+    @Test
+    public void getAgendaTest() {
+        DiaEntity entidad = data.get(0);
+        DiaEntity nuevo = APersistence.find(entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getHoraInicio(), nuevo.getHoraInicio());
+        Assert.assertEquals(entidad.getId(), nuevo.getId());
+        Assert.assertEquals(entidad.getHoraFin(), nuevo.getHoraFin());
+        Assert.assertEquals(entidad.getDiaActual(), nuevo.getDiaActual());
+        Assert.assertEquals(entidad.getIsDisponibilidad(), nuevo.getIsDisponibilidad());
+    }
     
+    /**
+     * Verificación de que si se pueda obtener todos los dias
+     */
+    @Test
+    public void getDiasTest() {
+        List<DiaEntity> lista = APersistence.findAll();
+        Assert.assertEquals(data.size(), lista.size());
+
+        for (DiaEntity enLista : lista) {
+            boolean loEncontre = false;
+            for (DiaEntity enData : data) {
+                if (enLista.getId().equals(enData.getId()));
+                loEncontre = true;
+            }
+            Assert.assertTrue(loEncontre);
+        }
+
+    }
+    /**
+     * Encuentra un dia por medio de la placa de un vehiculo
+     */
+    @Test
+    public void findAgendaByPlacaVehiculo() 
+    {
+        DiaEntity entidad = data.get(0);
+        DiaEntity nuevo = APersistence.findByPlacaVehiculo(entidad.getVehiculo().getPlaca(), entidad.getId());
+        Assert.assertNotNull(nuevo);
+        Assert.assertEquals(entidad.getVehiculo().getPlaca(), nuevo.getVehiculo().getPlaca());
+        nuevo = APersistence.findByPlacaVehiculo(entidad.getVehiculo().getPlaca(), entidad.getId());
+        Assert.assertNull(nuevo);
+    
+    }
+    
+    /**
+     * Verificación de que si se pueda actualizar un dia
+     */
+    @Test
+    public void updateAgendaTest() {
+        DiaEntity entidad = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        DiaEntity cambiada = factory.manufacturePojo(DiaEntity.class);
+
+        cambiada.setId(entidad.getId());
+
+        APersistence.update(cambiada);
+
+        DiaEntity encontrada = em.find(DiaEntity.class, entidad.getId());
+        Assert.assertEquals(cambiada.getHoraInicio(), encontrada.getHoraInicio());
+        Assert.assertEquals(cambiada.getHoraFin(), encontrada.getHoraFin());
+        Assert.assertEquals(cambiada.getDiaActual(), encontrada.getDiaActual());
+        Assert.assertEquals(cambiada.getIsDisponibilidad(), encontrada.getIsDisponibilidad());
+    }
 }

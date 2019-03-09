@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.mudanzas.dtos;
 
+import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
+
 /**
  *
  * @author je.osorio
@@ -12,54 +14,72 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 public class DireccionDTO {
 
     /**
+     * id del par latitudf,longitudf,latitudi,longitudi
+     */
+    private Long id;
+    
+    /**
      * latitud de la dirección
      */
 
-    private int latitud;
+    private Double latitud;
     /**
      * longitud de la dirección
      */
 
-    private int longitud;
+    private Double longitud;
+    private CargaDTO carga;
     /**
      *  indica true si la dirección es de salida del origen o false si es de llegada al destino
      */
     
-    private boolean deSalida;
-    /**
-     * id del par latitudf,longitudf,latitudi,longitudi
-     */
-    private Long idPar;
+    private Boolean deSalida;
+
+    public DireccionDTO() {
+        
+    }
+    
+    public DireccionDTO(DireccionEntity d) {
+        if(d != null) {
+            this.id = d.getId();
+            this.longitud = d.getLongitud();
+            this.latitud = d.getLatitud();
+            this.deSalida = d.getIsDeSalida();
+            if(d.getCarga()!=null){
+                this.carga = new CargaDTO(d.getCarga());
+            }
+            else{
+                this.carga = null;
+            }
+        }
+    }
+    
     /**
      * @return the latitud
      */
-    public int getLatitud() {
+    public Double getLatitud() {
         return latitud;
     }
 
     /**
      * @param latitud the latitud to set
      */
-    public void setLatitud(int latitud) {
+    public void setLatitud(Double latitud) {
         this.latitud = latitud;
     }
 
     /**
      * @return the longitud
      */
-    public int getLongitud() {
+    public Double getLongitud() {
         return longitud;
     }
 
     /**
      * @param longitud the longitud to set
      */
-    public void setLongitud(int longitud) {
+    public void setLongitud(Double longitud) {
         this.longitud = longitud;
-    }
-
-    public DireccionDTO() {
-
     }
 
     /**
@@ -77,16 +97,26 @@ public class DireccionDTO {
     }
 
     /**
-     * @return the idPar
+     * @return the id
      */
-    public Long getIdPar() {
-        return idPar;
+    public Long getId() {
+        return id;
     }
 
     /**
-     * @param idPar the idPar to set
+     * @param id the id to set
      */
-    public void setIdPar(Long idPar) {
-        this.idPar = idPar;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public DireccionEntity toEntity() {
+        DireccionEntity di = new DireccionEntity();
+        di.setId(this.id);
+        di.setCarga(this.carga.toEntity());
+        di.setIsDeSalida(this.deSalida);
+        di.setLatitud(this.latitud);
+        di.setLongitud(this.longitud);
+        return di;
     }
 }

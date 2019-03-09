@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "3e5f0da5-5075-4d4f-9bed-3e439b0a9785",
+		"name": "UsuarioResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffa5e05c-6912-4f27-ad2a-83601162ebd9",
+						"exec": [
+							"tests[\"No genera error el GET de usuarios\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/s1_mudanzas-api/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"s1_mudanzas-api",
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Usuario Especifico 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
+						"exec": [
+							"tests[\"No genera error el GET de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Especifico 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
+						"exec": [
+							"tests[\"No genera error el GET de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{usuarioPrueba2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Especifico no existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13b2fcb2-540a-40fe-a56f-2b08bb4aa5b6",
+						"exec": [
+							"tests[\"No obtiene un usuario que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/lalaland",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"lalaland"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Nuevo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3c36c4d-a367-4f86-9562-4d272df6989c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"nuevoUsuario\", data.login);",
+							"tests[\"No genera error el POST de un usuario especifico\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"apellido\": \"Bernal Neira\",\n    \"ciudadDeOrigen\": \"Bogota\",\n    \"correoElectronico\": \"s.bernaln@uniandes.edu.co\",\n    \"login\": \"samuelbernal\",\n    \"nombre\": \"Samuel\",\n    \"password\": \"Qwerty3@\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Cambiado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ddb91fa-5bed-41a2-8262-09ea4b04b90b",
+						"exec": [
+							"tests[\"No genera error el PUT de un usuario especifico\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"apellido\": \"Bernal Neira\",\n    \"ciudadDeOrigen\": \"Bogota\",\n    \"correoElectronico\": \"s.bernaln@uniandes.edu.co\",\n    \"login\": \"samuelbernal\",\n    \"nombre\": \"Samuel\",\n    \"password\": \"Qwerty4!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{nuevoUsuario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{nuevoUsuario}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2037bee-f65e-412b-9e2f-3065cfc18750",
+						"exec": [
+							"tests[\"No genera error el DELETE de usuarios\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{nuevoUsuario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"usuarios",
+						"{{nuevoUsuario}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "948923dd-4d6b-4309-9eab-3a08b764c2f7",
+			"key": "ip",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"id": "e0fa3e72-8ca3-45c6-9291-f23b153a7967",
+			"key": "puerto",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"id": "1eac2ae1-b878-4ed1-b7b1-d15b72b15be1",
+			"key": "usuario1",
+			"value": "luismigolondo",
+			"type": "string"
+		},
+		{
+			"id": "e758ff90-0d27-46da-9cf0-13add16f0e2f",
+			"key": "usuario2",
+			"value": "julianosorio",
+			"type": "string"
+		}
+	]
+}
