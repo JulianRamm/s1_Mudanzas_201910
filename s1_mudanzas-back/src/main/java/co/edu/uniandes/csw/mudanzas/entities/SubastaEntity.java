@@ -6,12 +6,11 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.transaction.UserTransaction;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -22,7 +21,9 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class SubastaEntity extends BaseEntity implements Serializable {
 
-    private String subastaId;
+   private static long serialVersionUID = 1L;
+
+    
     /**
      * Atributo que representa el valor inicial de la subasta dado por el
      * usuario.
@@ -35,11 +36,11 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     private double valorFinal;
 
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private ProveedorEntity proveedor;
 
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private UsuarioEntity usuario;
 
     @PodamExclude
@@ -47,42 +48,26 @@ public class SubastaEntity extends BaseEntity implements Serializable {
             mappedBy = "subasta",
             fetch = FetchType.LAZY
     )
-    private List<OfertaEntity> ofertas;
-
-    /**
-     * Variable para martcar las transacciones del em anterior cuando se
-     * crean/borran datos para las pruebas.
-     */
-    @Inject
-    private UserTransaction utx;
+    private List<OfertaEntity> ofertas = new ArrayList<>();
 
     public SubastaEntity() {
 
     }
 
-    public String getSubastaId() {
-        return subastaId;
+    /**
+     * @return the serialVersionUID
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setSubastaId(String subastaId) {
-        this.subastaId = subastaId;
+    /**
+     * @param aSerialVersionUID the serialVersionUID to set
+     */
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
     }
 
-    public UsuarioEntity getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UsuarioEntity usuario) {
-        this.usuario = usuario;
-    }
-
-    public List<OfertaEntity> getOfertas() {
-        return ofertas;
-    }
-
-    public void setOfertas(List<OfertaEntity> ofertas) {
-        this.ofertas = ofertas;
-    }
     /**
      * @return the valorInicial
      */
@@ -121,7 +106,36 @@ public class SubastaEntity extends BaseEntity implements Serializable {
     /**
      * @param proveedor the proveedor to set
      */
-    public void setProveedor(ProveedorEntity prove) {
-        proveedor = prove;
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
     }
+
+    /**
+     * @return the usuario
+     */
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the ofertas
+     */
+    public List<OfertaEntity> getOfertas() {
+        return ofertas;
+    }
+
+    /**
+     * @param ofertas the ofertas to set
+     */
+    public void setOfertas(List<OfertaEntity> ofertas) {
+        this.ofertas = ofertas;
+    }
+    
 }

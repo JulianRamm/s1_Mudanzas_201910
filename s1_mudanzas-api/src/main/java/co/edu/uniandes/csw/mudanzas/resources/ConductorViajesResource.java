@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import java.util.LinkedList;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import java.util.logging.Logger;
@@ -63,11 +65,30 @@ public class ConductorViajesResource {
         ViajesEntity viajesEntity;
         try{
         viajesEntity = viajesLogic.getViaje(id);
+       
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         return new ViajesDTO(viajesEntity);
+    }
+    /**
+     * retornar todos los viajes
+     * @return
+     * @throws BusinessLogicException
+     * @throws WebApplicationException 
+     */
+    @GET
+    public List<ViajesDTO> getViajes()throws BusinessLogicException, WebApplicationException{
+        List<ViajesEntity> viajesEntity;
+//        try{
+        viajesEntity = viajesLogic.getViajes();
+//       
+//        }
+//        catch(BusinessLogicException e){
+//            throw new WebApplicationException(Response.Status.NOT_FOUND);
+//        }
+        return List2Entity(viajesEntity);
     }
     /**
      * mètodo que elimina un viaje dado el id 
@@ -90,6 +111,12 @@ public class ConductorViajesResource {
     public Class<ViajesCargaResource> getConductorViaje(@PathParam("id")Long id ){
         return ViajesCargaResource.class;
     }
-    
+    public List<ViajesDTO> List2Entity(List<ViajesEntity> entity){
+        List<ViajesDTO> Viajes= new LinkedList<>();
+        for(ViajesEntity enti: entity){
+            Viajes.add(new ViajesDTO(enti));
+        }
+        return Viajes;
+    }
    
 }

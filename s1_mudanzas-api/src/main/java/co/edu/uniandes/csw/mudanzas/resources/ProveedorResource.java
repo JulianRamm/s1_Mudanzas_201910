@@ -6,9 +6,15 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.ProveedorDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.ProveedorDetailDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
+import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
+import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,6 +22,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -29,14 +36,9 @@ import javax.ws.rs.core.MediaType;
 public class ProveedorResource 
 {
     
-    @Path("{login}/conductores")
-    public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)
-    {
-        return ConductorProveedorResource.class;
-    }
-    
-    private static final Logger LOGGER = Logger.getLogger(ProveedorResource.class.getName());
-    
+    @Inject
+    private ProveedorLogic proveedorLogic;
+        
         /**
      * Crea un nuevo Proveedor y se regresa un objeto identico con un id auto-generado por
      * la base de datos.
@@ -44,10 +46,14 @@ public class ProveedorResource
      * @param proveedor {@link proveedorDTO} - El proveedor a
      * guardar.
      * @return JSON {@link ProveedorDTO} - El proveedor guradado con el atributo
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public ProveedorDTO crearProveedor(ProveedorDTO proveedor){
-        return proveedor;
+    public ProveedorDTO crearProveedor(ProveedorDTO proveedor) throws BusinessLogicException{
+        ProveedorEntity entidad = proveedor.toEntity();
+        ProveedorEntity nuevaEntidad = proveedorLogic.createProveedor(entidad);
+        ProveedorDTO nuevoDTO = new ProveedorDetailDTO(nuevaEntidad);
+        return nuevoDTO;
     }
     
     
@@ -59,31 +65,47 @@ public class ProveedorResource
      */
     
     @GET 
-    public List<ProveedorDTO> getProveedores(){
-        return null;
+    public List<ProveedorDetailDTO> getProveedores(){
+        List<ProveedorDetailDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
+        return listaUsuarios;
     }
     
-        /**
+     /**
      * Busca el proveedor asociado recibido en la URL y lo devuelve.
      *
      * @param login del proveedor que se esta buscando.
-     * @return JSON {@link ProveedorDTO} - El usuario buscado.
+     * @return JSON {@link ProveedorDTO} - El proveedor buscado.
      */
     @GET
     @Path("{login}")
-    public ProveedorDTO getProveedor(@PathParam("login") String login){
-        return null;
+    public ProveedorDetailDTO getProveedor(@PathParam("login") String login)throws WebApplicationException{
+        
+        ProveedorDetailDTO detailDTO = null;
+        try {
+            ProveedorEntity entidad = proveedorLogic.getProveedor(login);
+            detailDTO = new ProveedorDetailDTO(entidad);
+        } catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
+        }
+        
+        return detailDTO;
     }
     
-        /**
+     /**
      * Borra el proveedor asociado recibido en la URL.
      *
      * @param login del proveedor que se desea borrar.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{login}")
-    public void deleteProveedor(@PathParam("login") String login) {
+    public void deleteProveedor(@PathParam("login") String login) throws BusinessLogicException {
         
+        ProveedorEntity proveedor = proveedorLogic.getProveedor(login);
+        if (proveedor == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
+        }
+        proveedorLogic.deleteUsuario(proveedor.getId());
     }
     
      /**
@@ -104,6 +126,12 @@ public class ProveedorResource
         return SubastasProveedorResource.class;
     }
     
+    @Path("{login}/conductores")
+    public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)
+    {
+        return ConductorProveedorResource.class;
+    }
+    
     /**
      * Conexión con el servicio de vehiculos para un proveedor.
      * {@link VehiculosProveedorResource}
@@ -122,5 +150,12 @@ public class ProveedorResource
         return VehiculosProveedorResource.class;
     }
     
+    public List<ProveedorDetailDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
+        List<ProveedorDetailDTO> lista = new ArrayList<>();
+        for (ProveedorEntity entidad : proveedorList) {
+            lista.add(new ProveedorDetailDTO(entidad));
+        }
+        return lista;
+    }
     
 }

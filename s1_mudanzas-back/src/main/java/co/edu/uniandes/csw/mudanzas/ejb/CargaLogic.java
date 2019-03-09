@@ -23,9 +23,9 @@ import javax.inject.Inject;
 public class CargaLogic {
 
     @Inject
-    private CargaPersistence persistence;
+    private CargaPersistence cargaPersistence;
     @Inject
-    private UsuarioPersistence usuarioPer;
+    private UsuarioPersistence usuarioPersistence;
 
     /**
      * método que crea una carga y verifica que se cumplan las reglas de negocio
@@ -36,14 +36,14 @@ public class CargaLogic {
      * @throws BusinessLogicException
      */
     public CargaEntity createCarga(CargaEntity carga, String login) throws BusinessLogicException {
-        UsuarioEntity usuarioEntity = usuarioPer.findUsuarioPorLogin(login);
+        UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(login);
         if (usuarioEntity == null) {
             throw new BusinessLogicException("No existe ningun usuario \"" + login + "\"");
         }
-        //Verificacion de existencia
+        //Verificacion de existencia en el usuario
         for (CargaEntity cargaE : usuarioEntity.getCargas()) {
             if (carga.getId() == cargaE.getId()) {
-                throw new BusinessLogicException("Ya existe un tarjeta con el id \"" + carga.getId() + "\"");
+                throw new BusinessLogicException("Ya existe una carga con el id \"" + carga.getId() + "\"");
             }
         }
         carga.setUsuario(usuarioEntity);
@@ -77,8 +77,8 @@ public class CargaLogic {
             throw new BusinessLogicException("los datos de envío no puede ser null o vacío");
         }
         usuarioEntity.getCargas().add(carga);
-        persistence.create(carga);
-        usuarioPer.update(usuarioEntity);
+        cargaPersistence.create(carga);
+        usuarioPersistence.update(usuarioEntity);
         return carga;
     }
 
@@ -88,18 +88,7 @@ public class CargaLogic {
      * @return
      */
     public List<CargaEntity> getCargas() {
-        List<CargaEntity> cargas = persistence.findAll();
-        return cargas;
-    }
-    
-    /**
-     * Obtener todas las tarjetas existentes en la base de datos que le
-     * pertencen a un usuario en especifico.
-     *
-     * @return una lista de tarjetas de ese usuario.
-     */
-    public List<CargaEntity> getCargasUsuario(String login) {
-        List<CargaEntity> cargas = usuarioPer.findUsuarioPorLogin(login).getCargas();
+        List<CargaEntity> cargas = cargaPersistence.findAll();
         return cargas;
     }
 
@@ -111,41 +100,13 @@ public class CargaLogic {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public CargaEntity getCarga(long id) throws BusinessLogicException {
-        CargaEntity carga = persistence.find(id);
+        CargaEntity carga = cargaPersistence.find(id);
         if (carga == null) {
             throw new BusinessLogicException("No existe una carga con id: " + id);
         }
         return carga;
     }
-
-    /**
-     * métodoq que actualiza una carga
-     *
-     * @param cargaEntity
-     * @return
-     */
-    public CargaEntity updateCarga(CargaEntity cargaEntity) {
-        CargaEntity carga = persistence.update(cargaEntity);
-        return carga;
-    }
-
-    /**
-     * método que elimina una carga
-     *
-     * @param id
-     */
-    public void deleteCarga(String login, Long id) throws BusinessLogicException {
-        CargaEntity crg = getCarga(login, id);
-        UsuarioEntity pertenece = crg.getUsuario();
-        pertenece.getCargas().remove(crg);
-        persistence.delete(id);
-        usuarioPer.update(pertenece);
-    }
     
-    public void deleteCarga(Long id) {
-        persistence.delete(id);
-    }
-
     /**
      * retorna las cargas de un usuario
      *
@@ -155,8 +116,8 @@ public class CargaLogic {
      * @throws BusinessLogicException
      */
     public CargaEntity getCarga(String login, Long idCarga) throws BusinessLogicException {
-        List<CargaEntity> cargas = usuarioPer.findUsuarioPorLogin(login).getCargas();
-        CargaEntity carga = persistence.find(idCarga);
+        List<CargaEntity> cargas = usuarioPersistence.findUsuarioPorLogin(login).getCargas();
+        CargaEntity carga = cargaPersistence.find(idCarga);
         int index = cargas.indexOf(carga);
         if (index >= 0) {
             return cargas.get(index);
@@ -171,11 +132,40 @@ public class CargaLogic {
      * @return
      * @throws BusinessLogicException
      */
-    public List<CargaEntity> getCargas(String login) throws BusinessLogicException {
-        List<CargaEntity> cargas = usuarioPer.findUsuarioPorLogin(login).getCargas();
+    public List<CargaEntity> getCargasUsuario(String login) throws BusinessLogicException {
+        List<CargaEntity> cargas = cargaPersistence.getCargasUsuario(login);
         if (cargas == null) {
             throw new BusinessLogicException("No hay cargas para este usuario con login: " + login);
         }
         return cargas;
     }
+
+    /**
+     * métodoq que actualiza una carga
+     *
+     * @param cargaEntity
+     * @return
+     */
+    public CargaEntity updateCarga(CargaEntity cargaEntity) {
+        CargaEntity carga = cargaPersistence.update(cargaEntity);
+        return carga;
+    }
+
+    /**
+     * método que elimina una carga
+     *
+     * @param id
+     */
+    public void deleteCarga(String login, Long id) throws BusinessLogicException {
+        CargaEntity crg = getCarga(login, id);
+        UsuarioEntity pertenece = crg.getUsuario();
+        pertenece.getCargas().remove(crg);
+        cargaPersistence.delete(id);
+        usuarioPersistence.update(pertenece);
+    }
+    
+    public void deleteCarga(Long id) {
+        cargaPersistence.delete(id);
+    }
+
 }

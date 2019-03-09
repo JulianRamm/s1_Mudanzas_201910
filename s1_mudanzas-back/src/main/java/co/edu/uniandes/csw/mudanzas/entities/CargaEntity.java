@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -31,6 +32,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
      */
     @PodamExclude
     @ManyToOne
+    @JoinColumn(name="viaje_id")
     ViajesEntity viaje;
     /**
      * Representa los datos de env�o de la carga que se lleva de un lugar a otro

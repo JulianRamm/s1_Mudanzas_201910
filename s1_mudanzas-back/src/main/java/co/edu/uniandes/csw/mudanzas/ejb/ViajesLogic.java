@@ -83,9 +83,15 @@ public class ViajesLogic {
     /**
      * método que retorna todos los viajes en la BD
      * @return 
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException 
      */
-    public List<ViajesEntity> getViajes() {
+
+    public List<ViajesEntity> getViajes() throws BusinessLogicException {
         List<ViajesEntity> viajes = viajesPersistence.findAll();
+        if(viajes==null){
+            throw new BusinessLogicException("No hay viajes");
+        }
+
         return viajes;
     }
     
@@ -131,5 +137,18 @@ public class ViajesLogic {
             throw new BusinessLogicException("No hay cargas para un id: " + id);
         }
         return car; 
+    }
+    /**
+     * elimina las cargas dado un id
+     * @param id
+     * @throws BusinessLogicException 
+     */
+    public void deleteCargasDaodUnId(Long id) throws BusinessLogicException{
+        List<CargaEntity> car = viajesPersistence.getCargasDadoUnId(id);
+        if(car==null){
+            throw new BusinessLogicException("No hay cargas que eliminar para un id: " + id);
+        }
+        viajesPersistence.deleteCargasDadoUnId(id);
+        
     }
 }
