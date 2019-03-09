@@ -145,8 +145,6 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
     }
-
-    /**
      * @return the viaje
      */
     public ViajesEntity getViaje() {

@@ -225,7 +225,7 @@ public class ViajesLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertTrue(listEqualsIgnoreOrder(newEntity.getCargas(), entity.getCargas()));
         Assert.assertEquals(newEntity.getClima(), entity.getClima());
-        Assert.assertEquals(newEntity.getConductorEntity(), entity.getConductorEntity());
+        Assert.assertEquals(newEntity.getConductor(), entity.getConductor());
         Assert.assertEquals(newEntity.getGastoGasolina(), entity.getGastoGasolina());
         Assert.assertEquals(newEntity.getLugarLlegada(), entity.getLugarLlegada());
         Assert.assertEquals(newEntity.getTiempo(), entity.getTiempo());
@@ -236,7 +236,6 @@ public class ViajesLogicTest {
     /**
      * Prueba para actualizar un viaje.
      */
-    
 //    @Test
 //    public void updateViajeTest() {
 //        ViajesEntity entity = data.get(0);
@@ -259,7 +258,6 @@ public class ViajesLogicTest {
 //        Assert.assertEquals(encontrado.getLugarLlegada(), nuevo.getLugarLlegada());
 //        Assert.assertEquals(encontrado.getLugarSalida(), nuevo.getLugarSalida());
 //    }
-
     /**
      * prueba para eliminar un viaje
      *

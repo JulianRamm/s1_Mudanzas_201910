@@ -42,7 +42,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @OneToOne
-    private ConductorEntity conductorEntity;
+    private ConductorEntity conductor;
     
     private String lugarSalida;
 
@@ -203,7 +203,6 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     public void setClima(String clima) {
         this.clima = clima;
     }
-
     /**
      * @return the horaPartida
      */
