@@ -50,9 +50,9 @@ public class VehiculoDiaResource
     @POST
     public DiaDTO crearAgenda(@PathParam("login") String login, @PathParam("idConductor") Long pId, @PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
     {
-        DiaEntity dEntity = dia.toEntity();
-        dEntity = dLogica.crearDia(dEntity, pPlaca);
-        
+
+        dEntity = dLogica.crearDia(dEntity ,pPlaca );
+        dEntity = dLogica.crearDia(dEntity, pPlaca);        
         return new DiaDTO(dEntity);
     }
     
