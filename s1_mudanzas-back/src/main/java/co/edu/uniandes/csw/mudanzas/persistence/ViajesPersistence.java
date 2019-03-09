@@ -103,13 +103,12 @@ public class ViajesPersistence {
         if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
             cargas = null;
         } else {
-           for(CargaEntity cargae:viaje.get(0).getCargas()){
-            cargas.add(cargae);
-        }
+            for (CargaEntity cargae : viaje.get(0).getCargas()) {
+                cargas.add(cargae);
+            }
         }
         return cargas;
     }
-
     public void deleteCargasDadoUnId(Long id) {
         List<CargaEntity> cargas = getCargasDadoUnId(id);
         if (cargas != null) {
