@@ -22,7 +22,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ConductorEntity extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
     /**
      * Atributo que modela el nombre de un conductor
      */
@@ -50,17 +50,30 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor;
-    
+
     @PodamExclude
     @OneToOne
-    private ViajesEntity viajes;
+    private ViajesEntity viaje;
 
-    
     /**
      * Metdo constructor de la entidad de un conductor
      */
     public ConductorEntity() {
 
+    }
+
+    /**
+     * @return the serialVersionUID
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    /**
+     * @param aSerialVersionUID the serialVersionUID to set
+     */
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
     }
 
     /**
@@ -133,4 +146,17 @@ public class ConductorEntity extends BaseEntity implements Serializable {
         this.proveedor = proveedor;
     }
 
+    /**
+     * @return the viaje
+     */
+    public ViajesEntity getViaje() {
+        return viaje;
+    }
+
+    /**
+     * @param viaje the viaje to set
+     */
+    public void setViaje(ViajesEntity viaje) {
+        this.viaje = viaje;
+    }
 }
