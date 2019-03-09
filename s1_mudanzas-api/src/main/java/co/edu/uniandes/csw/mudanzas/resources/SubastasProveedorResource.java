@@ -15,19 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Daniel Machado
  */
+
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class SubastasProveedorResource {
-    
     private static final Logger LOGGER = Logger.getLogger(SubastasProveedorResource.class.getName());
 
     /**
@@ -115,6 +121,16 @@ public class SubastasProveedorResource {
         }
         SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
         return dto;
+    }
+    
+    @DELETE
+    @Path("{idSubasta: \\d+}")
+    public void cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException, BusinessLogicException {
+        
+        if (subastaLogic.getSubastaProveedor(login, idSubasta) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
+        }
+        subastaLogic.deleteSubastaProveedor(login, idSubasta);
     }
     
     /**
