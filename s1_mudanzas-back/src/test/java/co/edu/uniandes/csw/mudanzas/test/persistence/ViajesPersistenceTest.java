@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -40,6 +41,7 @@ public class ViajesPersistenceTest {
     private EntityManager em;
 
     private List<ViajesEntity> data = new ArrayList<ViajesEntity>();
+    private List<CargaEntity> carg= new ArrayList<>();
 
     @Inject
     private ViajesPersistence persistence;
@@ -91,12 +93,15 @@ public class ViajesPersistenceTest {
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
+        CargaEntity car = factory.manufacturePojo(CargaEntity.class);
+        carg.add(car);
+        em.persist(car);
         for (int i = 0; i < 3; i++) {
 
             ViajesEntity entity = factory.manufacturePojo(ViajesEntity.class);
 
             em.persist(entity);
-
+            entity.setCargas(carg);
             data.add(entity);
         }
     }
@@ -185,9 +190,12 @@ public class ViajesPersistenceTest {
         List<CargaEntity> nuevo = persistence.getCargasDadoUnId(entidad.getId());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getCargas().size(), nuevo.size());
-        Assert.assertEquals(entidad.getCargas(), nuevo);
+        Assert.assertTrue(listEqualsIgnoreOrder(carg,nuevo));
         nuevo = persistence.getCargasDadoUnId(null);
         Assert.assertNull(nuevo);
+    }
+    public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
+        return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
 
 }

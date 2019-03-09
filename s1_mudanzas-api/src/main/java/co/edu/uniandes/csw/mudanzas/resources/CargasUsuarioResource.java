@@ -59,7 +59,7 @@ public class CargasUsuarioResource {
      */
     @GET
     public List<CargaDetailDTO> getCargas(@PathParam("login") String login) throws BusinessLogicException {
-        List<CargaDetailDTO> listaCargas = listEntity2DTO(cargaLogic.getCargas(login));
+        List<CargaDetailDTO> listaCargas = listEntity2DTO(cargaLogic.getCargasUsuario(login));
         return listaCargas;
     }
 
@@ -111,8 +111,10 @@ public class CargasUsuarioResource {
      * @param login del usuario que se esta remplazando.
      * @param idCarga Identificador de la tarjeta que se desea actualizar.
      * Este debe ser una cadena de dígitos.
+     * @param carga
      * @return JSON {@link CargaDTO} - La Tarjeta de Credito
      * Actualizada
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @PUT
     @Path("{idCarga: \\d+}")

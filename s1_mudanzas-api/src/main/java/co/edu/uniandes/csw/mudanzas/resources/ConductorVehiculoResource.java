@@ -8,22 +8,39 @@ package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.ConductorDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.TarjetaDeCreditoDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.VehiculoDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.ConductorLogic;
+import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
+import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Daniel Machado
  */
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ConductorVehiculoResource 
 {
     private static final Logger LOGGER = Logger.getLogger(TarjetasUsuarioResource.class.getName());
+    
+    @Inject
+    private ConductorLogic conLogic;
+    
+    @Inject
+    private VehiculoLogic vehLogic;
 
     /**
      * Busca y devuelve todas las tarjetas que existen en el usuario.
@@ -82,6 +99,34 @@ public class ConductorVehiculoResource
     public Class<VehiculoDiaResource> getProveedorConductorResource(@PathParam("placa") String pPlaca)
     {
         return VehiculoDiaResource.class;
+    }
+    
+    /**
+     * Convierte una lista de entidades en lista de DTOs
+     *
+     * @param vehiculosList la lista de entidades a convertir
+     * @return una lista de dtos.
+     */
+    public List<VehiculoDTO> vehiculosListEntity2DTO(List<VehiculoEntity> vehiculosList) {
+        List<VehiculoDTO> lista = new ArrayList<>();
+        for (VehiculoEntity entidad : vehiculosList) {
+            lista.add(new VehiculoDTO(entidad));
+        }
+        return lista;
+    }
+    
+    /**
+     * Convierte una lista de entidades en lista de DTOs
+     *
+     * @param conductorList la lista de entidades a convertir
+     * @return una lista de dtos.
+     */
+    public List<ConductorDTO> conductorListEntity2DTO(List<ConductorEntity> conductorList) {
+        List<ConductorDTO> lista = new ArrayList<>();
+        for (ConductorEntity entidad : conductorList) {
+            lista.add(new ConductorDTO(entidad));
+        }
+        return lista;
     }
     
 }
