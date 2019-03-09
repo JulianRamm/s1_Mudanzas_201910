@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "fab12660-db4a-4ddf-9a41-e18569731b62",
+		"name": "VehiculosProveedorResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vehiculos Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34f85b24-50e0-4e87-bf29-b0496663eb73",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET de los vehiculos de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculos Proveedor 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d26fcb44-a247-423c-ac22-9b858fb9bcb7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET de los vehiculos de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba2\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba2}}/vehiculos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba2}}",
+						"vehiculos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Especifico 1 Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5bda15d-23a3-4d7c-9211-fb2d422bdeed",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET del vehiculo \" + pm.environment.get(\"p1v1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{p1v1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{p1v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Especifico 2 Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5bda15d-23a3-4d7c-9211-fb2d422bdeed",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET del vehiculo \" + pm.environment.get(\"p1v1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{p1v1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{p1v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Especifico no existente Proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5bda15d-23a3-4d7c-9211-fb2d422bdeed",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET del vehiculo \" + pm.environment.get(\"p1v1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{p1v1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{p1v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Especifico 1 Proveedor 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5bda15d-23a3-4d7c-9211-fb2d422bdeed",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET del vehiculo \" + pm.environment.get(\"p1v1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{p1v1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{p1v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Especifico 2 Proveedor 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5bda15d-23a3-4d7c-9211-fb2d422bdeed",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET del vehiculo \" + pm.environment.get(\"p1v1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{p1v1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{p1v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Nuevo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5069296-8fcd-4ebe-961c-2391a17f9b37",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"nuevoVehiculo\", data.id);",
+							"tests[\"No genera error el POST de un vehiculo especifico\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"placa\": \"BYC999\",\n    \"rendimiento\": 5,\n    \"marca\": \"Audi\",\n    \"numeroConductores\": 6,\n    \"color\": \"Azul\",\n    \"idConductorActual\": 123456789\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculo Nuevo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2edcc9ac-6137-474f-a18a-2499f33ab878",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el DELETE de vehiculo\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{nuevoVehiculo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{nuevoVehiculo}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

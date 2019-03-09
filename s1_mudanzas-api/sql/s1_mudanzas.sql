@@ -95,6 +95,3 @@ insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10027, 
 /*Agenda Vehiculo 1 Proveedor 2*/
 /*10028 proveedorPrueba2*/
 insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10028, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
-
-
-

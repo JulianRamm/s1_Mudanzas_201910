@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "eaddf2c5-4a4d-4db6-b3d1-27a950aad99b",
+		"name": "VehiculoDiaResource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Agenda Vehiculo 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a021739-8e37-4bb7-9a36-ca3333789104",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET de la agenda por una placa especifica: \" + pm.environment.get(\"v1p1\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/vehiculos/{{v1p1}}/agenda",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"vehiculos",
+						"{{v1p1}}",
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda Vehiculo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff2eb304-3373-408b-a750-c5f610492b51",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET de la agenda por una placa especifica: \" + pm.environment.get(\"v1p2\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba2}}/vehiculos/{{v1p2}}/agenda",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba2}}",
+						"vehiculos",
+						"{{v1p2}}",
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda Vehiculo 2 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff2eb304-3373-408b-a750-c5f610492b51",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error el GET de la agenda por una placa especifica: \" + pm.environment.get(\"v1p2\")] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba2}}/vehiculos/{{v1p2}}/agenda",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba2}}",
+						"vehiculos",
+						"{{v1p2}}",
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

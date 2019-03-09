@@ -157,7 +157,7 @@ public class VehiculoLogicTest {
     public void nullTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         VehiculoEntity veh = factory.manufacturePojo(VehiculoEntity.class);
-        veh.setColor(null);
+        veh.setPlaca(null);
         //llamamos al manager de persistencia, en este caso no se creara
         VLogic.crearVehiculo(veh, proveedorData.getLogin());
     }
