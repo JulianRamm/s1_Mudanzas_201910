@@ -31,14 +31,14 @@ insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSegur
 
 /*Cargas Usuario 1*/
 /*10007 c1u1*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10021, 10001, 'Carga muy grande', 15, 'imagen1 imagen2', 'Medellin', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10025, 10001, 'Carga muy grande', 15, 'imagen1 imagen2', 'Medellin', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
 /*10008 c2u1*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10021, 10001, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bogota', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10025, 10001, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bogota', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
 /*Cargas Usuario 2*/
 /*10009 c1u2*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10023, 10002, 'Carga muy grande', 15, 'imagen1 imagen2', 'Barranquilla', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10026, 10002, 'Carga muy grande', 15, 'imagen1 imagen2', 'Barranquilla', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
 /*10010 c2u2*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10023, 10002, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bucaramanga', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10026, 10002, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bucaramanga', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
 
 /*Proveedores*/
 /*10011 Proveedor 1 proveedorPrueba1*/
@@ -60,32 +60,41 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 
 /*Vehiculos Proveedor 1*/
 /*10017 v1p1 proveedorPrueba1*/
-insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10017, 'VYC943', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011, 10024, 10026);
+insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10017, 'VYC943', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011, 10027, 10026);
 /*10018 v2p1 proveedorPrueba1*/
 insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10018, 'VYC944', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011, 10099, 10026);
 
 /*Vehiculos Proveedor 2*/
 /*10019 v1p2 proveedorPrueba2*/
-insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10019, 'VYC945', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10012, 10025, 10026);
+insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10019, 'VYC945', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10012, 10028, 10026);
 /*10020 v2p2 proveedorPrueba2*/
 insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10020, 'VYC946', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10012, 10100, 10026);
 
 /*Conductores Proveedor 1*/
 /*10021 c1p1 proveedorPrueba1*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10021, 'Cesar', 5, '885444444', 10011, 10025);
 /*10022 c2p1 proveedorPrueba1*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10022, 'Ruby', 5, '885444445', 10011, 10025);
 
 /*Conductores Proveedor 2*/
 /*10023 c1p2 proveedorPrueba2*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10023, 'German', 5, '885444443', 10012, 10026);
 /*10024 c2p2 proveedorPrueba2*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10024, 'Claudia', 5, '885444446', 10012, 10026);
 
 /*Viajes Proveedor 1 Conductor 1*/
-/*10021 c1p1 proveedorPrueba1*/
-
+/*10025 v1p1 proveedorPrueba1*/
+insert into ViajeEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10025, 10021, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '03/10/2019 23:26:00', '03/10/2019 00:26:00');
 /*Viajes Proveedor 2 Conductor 1*/
-/*10023 c1p2 proveedorPrueba2*/
+/*10026 v1p2 proveedorPrueba2*/
+insert into ViajeEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10026, 10023, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '03/10/2019 23:26:00', '03/10/2019 00:26:00');
 
 /*Agenda Vehiculo 1 Proveedor 1*/
-/*10024 proveedorPrueba1*/
+/*10027 proveedorPrueba1*/
+insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10027, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
 /*Agenda Vehiculo 1 Proveedor 2*/
-/*10025 proveedorPrueba2*/
+/*10028 proveedorPrueba2*/
+insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10028, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
+
+
 

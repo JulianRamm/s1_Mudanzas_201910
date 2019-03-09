@@ -165,8 +165,8 @@ public class ViajesDTO implements Serializable {
             this.tiempo = viajeEntity.getTiempo();
             this.horaLlegada = viajeEntity.getHoraLlegada();
             this.horaPartida = viajeEntity.getHoraPartida();
-            if(viajeEntity.getConductorEntity()!=null){
-                this.conductor = new ConductorDTO(viajeEntity.getConductorEntity());
+            if(viajeEntity.getConductor()!=null){
+                this.conductor = new ConductorDTO(viajeEntity.getConductor());
             }
             else{
                 this.conductor=null;
@@ -185,7 +185,7 @@ public class ViajesDTO implements Serializable {
         viajesEntity.setHoraLlegada(this.horaLlegada);
         viajesEntity.setHoraPartida(this.horaPartida);
         if(this.conductor!=null){
-            viajesEntity.setConductorEntity(this.conductor.toEntity());
+            viajesEntity.setConductor(this.conductor.toEntity());
         }
         return viajesEntity;
     }

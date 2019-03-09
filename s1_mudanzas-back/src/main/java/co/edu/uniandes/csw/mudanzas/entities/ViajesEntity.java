@@ -42,7 +42,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @OneToOne
-    private ConductorEntity conductorEntity;
+    private ConductorEntity conductor;
     
     private String lugarSalida;
 
@@ -166,21 +166,21 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     /**
      * @return the conductor
      */
-    public ConductorEntity getConductorEntity() {
-        return conductorEntity;
+    public ConductorEntity getConductor() {
+        return conductor;
     }
 
     /**
      * @param conductor the conductor to set
      */
-    public void setConductorEntity(ConductorEntity conductor) {
-        this.conductorEntity = conductor;
+    public void setConductor(ConductorEntity conductor) {
+        this.conductor = conductor;
     }
 
     public VehiculoEntity getVehiculoDelViaje() {
         VehiculoEntity res = new VehiculoEntity();
-        for (VehiculoEntity ve : conductorEntity.getVehiculos()) {
-            if (Objects.equals(ve.getId(), conductorEntity.getId())) {
+        for (VehiculoEntity ve : conductor.getVehiculos()) {
+            if (Objects.equals(ve.getId(), conductor.getId())) {
               res=ve;
             }
         }

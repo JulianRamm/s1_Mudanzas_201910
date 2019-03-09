@@ -133,4 +133,18 @@ public class ConductorEntity extends BaseEntity implements Serializable {
         this.proveedor = proveedor;
     }
 
+    /**
+     * @return the viajes
+     */
+    public ViajesEntity getViajes() {
+        return viajes;
+    }
+
+    /**
+     * @param viajes the viajes to set
+     */
+    public void setViajes(ViajesEntity viajes) {
+        this.viajes = viajes;
+    }
+
 }
