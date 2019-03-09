@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Andres Gonzalez
  */
-public class SubastaDetailDTO extends SubastaDTO {
+public class SubastaDetailDTO extends SubastaDTO implements Serializable{
 
     private List<OfertaDTO> ofertas;
 

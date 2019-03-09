@@ -59,8 +59,9 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorViajesResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
 
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
+
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
 
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
