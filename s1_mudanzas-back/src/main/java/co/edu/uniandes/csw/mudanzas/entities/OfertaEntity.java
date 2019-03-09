@@ -17,14 +17,9 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class OfertaEntity extends BaseEntity implements Serializable{
-    @PodamExclude
-    @ManyToOne
-    private ProveedorEntity proveedor;
     
+    private static long serialVersionUID = 1L;
     
-    @PodamExclude
-    @ManyToOne
-    private SubastaEntity subasta;
      /**
      * Atributo que representa comentario dado por el proveedor. 
      */
@@ -35,17 +30,31 @@ public class OfertaEntity extends BaseEntity implements Serializable{
      */
     private double valor;
     
+    @PodamExclude
+    @ManyToOne
+    private SubastaEntity subasta;
+    
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor;
+    
     public OfertaEntity()
     {
         
     }
 
-    public SubastaEntity getSubasta() {
-        return subasta;
+    /**
+     * @return the serialVersionUID
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setSubasta(SubastaEntity subasta) {
-        this.subasta = subasta;
+    /**
+     * @param aSerialVersionUID the serialVersionUID to set
+     */
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
     }
 
     /**
@@ -89,7 +98,19 @@ public class OfertaEntity extends BaseEntity implements Serializable{
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
     }
-    
-    
+
+    /**
+     * @return the subasta
+     */
+    public SubastaEntity getSubasta() {
+        return subasta;
+    }
+
+    /**
+     * @param subasta the subasta to set
+     */
+    public void setSubasta(SubastaEntity subasta) {
+        this.subasta = subasta;
+    }
     
 }

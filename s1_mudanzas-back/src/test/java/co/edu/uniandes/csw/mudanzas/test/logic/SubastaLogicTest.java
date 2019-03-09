@@ -148,17 +148,13 @@ public class SubastaLogicTest {
 
     }
 
-    @Test
-    public void createSubastasDiferenteValor() {
+    @Test(expected = BusinessLogicException.class)
+    public void createSubastasDiferenteValor() throws BusinessLogicException {
         SubastaEntity ManufacturedEntity = factory.manufacturePojo(SubastaEntity.class);
         ManufacturedEntity.setValorFinal(10);
         ManufacturedEntity.setValorInicial(2);
-        try {
             subastaLogic.createSubastaUsuario(ManufacturedEntity, usuario.getLogin());
-            fail(" no debio crearla ");
-        } catch (BusinessLogicException e) {
-            // no deberia llegar
-        }
+        
     }
 
    
@@ -223,13 +219,13 @@ public class SubastaLogicTest {
     public void getSubastaProvUser() throws BusinessLogicException
     {
         SubastaEntity real = subastasData.get(0);
-        //SubastaEntity pruebaPv = subastaLogic.getSubastaProveedor(real.getId(), real.getProveedor().getLogin());
+        SubastaEntity pruebaPv = subastaLogic.getSubastaProveedor( real.getProveedor().getLogin(),real.getId());
 
-        //SubastaEntity pruebaUs = subastaLogic.getSubasta(real.getId(), real.getUsuario().getLogin());
-        //Assert.assertNotNull(pruebaUs);
-        //Assert.assertNotNull(pruebaPv);
-        //Assert.assertEquals(pruebaUs, real);
-        //Assert.assertEquals(pruebaPv, real);
+        SubastaEntity pruebaUs = subastaLogic.getSubasta( real.getId());
+        Assert.assertNotNull(pruebaUs);
+        Assert.assertNotNull(pruebaPv);
+        Assert.assertEquals(pruebaUs, real);
+        Assert.assertEquals(pruebaPv, real);
     }
     @Test
     public void updateSubastaTest() {

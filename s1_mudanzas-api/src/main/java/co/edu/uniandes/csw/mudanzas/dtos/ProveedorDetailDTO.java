@@ -20,6 +20,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Daniel Machado
  */
 public class ProveedorDetailDTO extends ProveedorDTO{
+
+    
     
     /*
     * Esta lista de tipo SubastaDTO contiene las subastas que estan asociadas a un Proveedor.
@@ -32,8 +34,65 @@ public class ProveedorDetailDTO extends ProveedorDTO{
     
     private List<VehiculoDTO> vehiculos;
     
+    
     public ProveedorDetailDTO(){
         
+    }
+    
+    /**
+     * @return the subastas
+     */
+    public List<SubastaDTO> getSubastas() {
+        return subastas;
+    }
+
+    /**
+     * @param subastas the subastas to set
+     */
+    public void setSubastas(List<SubastaDTO> subastas) {
+        this.subastas = subastas;
+    }
+
+    /**
+     * @return the ofertas
+     */
+    public List<OfertaDTO> getOfertas() {
+        return ofertas;
+    }
+
+    /**
+     * @param ofertas the ofertas to set
+     */
+    public void setOfertas(List<OfertaDTO> ofertas) {
+        this.ofertas = ofertas;
+    }
+
+    /**
+     * @return the conductores
+     */
+    public List<ConductorDTO> getConductores() {
+        return conductores;
+    }
+
+    /**
+     * @param conductores the conductores to set
+     */
+    public void setConductores(List<ConductorDTO> conductores) {
+        this.conductores = conductores;
+    }
+
+    /**
+     * @return the vehiculos
+     */
+    public List<VehiculoDTO> getVehiculos() {
+        return vehiculos;
+    }
+
+    /**
+     * @param vehiculos the vehiculos to set
+     */
+    public void setVehiculos(List<VehiculoDTO> vehiculos) {
+        this.vehiculos = vehiculos;
     }
     
     public ProveedorDetailDTO(ProveedorEntity entidad){
@@ -76,30 +135,30 @@ public class ProveedorDetailDTO extends ProveedorDTO{
     @Override
     public ProveedorEntity toEntity(){
         ProveedorEntity entidad = super.toEntity();
-        if(subastas != null){
+        if(getSubastas() != null){
             List<SubastaEntity> subastasEntity = new ArrayList<>();
-            for(SubastaDTO subastaDTO : subastas){
+            for(SubastaDTO subastaDTO : getSubastas()){
                 subastasEntity.add(subastaDTO.toEntity());
             }
             entidad.setSubastas(subastasEntity);
         }
-        if(ofertas != null){
+        if(getOfertas() != null){
             List<OfertaEntity> ofertasEntity = new ArrayList<>();
-            for(OfertaDTO ofertaDTO : ofertas){
+            for(OfertaDTO ofertaDTO : getOfertas()){
                 ofertasEntity.add(ofertaDTO.toEntity());
             }
             entidad.setOfertas(ofertasEntity);
         }
-        if(conductores != null){
+        if(getConductores() != null){
             List<ConductorEntity> conductoresEntity = new ArrayList<>();
-            for(ConductorDTO conductorDTO : conductores){
+            for(ConductorDTO conductorDTO : getConductores()){
                 conductoresEntity.add(conductorDTO.toEntity());
             }
             entidad.setConductores(conductoresEntity);
         }
-        if(vehiculos != null){
+        if(getVehiculos() != null){
             List<VehiculoEntity> vehucyulosEntity = new ArrayList<>();
-            for(VehiculoDTO vehiculoDTO : vehiculos){
+            for(VehiculoDTO vehiculoDTO : getVehiculos()){
                 vehucyulosEntity.add(vehiculoDTO.toEntity());
             }
             entidad.setVehiculos(vehucyulosEntity);
