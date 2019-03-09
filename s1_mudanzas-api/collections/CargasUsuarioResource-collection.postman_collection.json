@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "d87ec170-9086-468a-b0af-cad7c5295dba",
-		"name": "TarjetasUsuarioResource-collection",
+		"_postman_id": "82ff8967-140f-4a5d-a1c9-880f4d5bd2f2",
+		"name": "CargasUsuarioResource-collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Tarjetas Usuario 1",
+			"name": "Cargas Usuario 1",
 			"event": [
 				{
 					"listen": "test",
@@ -27,7 +27,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/cargas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -38,7 +38,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas"
+						"cargas"
 					]
 				},
 				"description": "Request para obtener todas las tarjetas de un usuario"
@@ -46,7 +46,7 @@
 			"response": []
 		},
 		{
-			"name": "Tarjetas Usuario 2",
+			"name": "Cargas Usuario 2",
 			"event": [
 				{
 					"listen": "test",
@@ -67,7 +67,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/cargas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -78,7 +78,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas"
+						"cargas"
 					]
 				},
 				"description": "Request para obtener todas las tarjetas de un usuario"
@@ -86,14 +86,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 1 Usuario 1",
+			"name": "Carga Especifica 1 Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t1u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la carga \" + pm.environment.get(\"c1u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -107,7 +107,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/{{t1u1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/cargas/{{c1u1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -118,22 +118,22 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
-						"{{t1u1}}"
+						"cargas",
+						"{{c1u1}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 2 Usuario 1",
+			"name": "Carga Especifica 2 Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t2u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la carga \" + pm.environment.get(\"c2u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -147,7 +147,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas/{{t2u1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/cargas/{{c2u1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -158,22 +158,22 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas",
-						"{{t2u1}}"
+						"cargas",
+						"{{c2u1}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica no existente Usuario 1",
+			"name": "Carga no existente Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No obtiene una tarjeta que no existe\"] = responseCode.code === 404;"
+							"tests[\"No obtiene una carga que no existe\"] = responseCode.code === 404;"
 						],
 						"type": "text/javascript"
 					}
@@ -187,7 +187,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/123456789",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/cargas/123456789",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -198,7 +198,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
+						"cargas",
 						"123456789"
 					]
 				}
@@ -206,14 +206,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 1 Usuario 2",
+			"name": "Carga Especifica 1 Usuario 2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t1u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la carga \" + pm.environment.get(\"c1u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -227,7 +227,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas/{{t1u2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/cargas/{{c1u2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -238,22 +238,22 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas",
-						"{{t1u2}}"
+						"cargas",
+						"{{c1u2}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 2 Usuario 2",
+			"name": "Carga Especifica 2 Usuario 2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t2u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la carga \" + pm.environment.get(\"c2u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -267,7 +267,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas/{{t2u2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/cargas/{{c2u2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -278,15 +278,15 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas",
-						"{{t2u2}}"
+						"cargas",
+						"{{c2u2}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Nueva",
+			"name": "Carga Nueva",
 			"event": [
 				{
 					"listen": "test",
@@ -295,7 +295,7 @@
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"pm.environment.set(\"nuevaTarjeta\", data.id);",
-							"tests[\"No genera error el POST de una tarjeta especifica\"] = responseCode.code === 200;"
+							"tests[\"No genera error el POST de una carga especifica\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -316,7 +316,7 @@
 					"raw": "{\n    \"codigoSeguridad\": 953,\n    \"fechaVencimiento\": \"2020-02-10T00:00:00-05:00\",\n    \"nombreTarjeta\": \"Tarjeta terciaria\",\n    \"numeroSerial\": \"123456789102\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/cargas/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -327,7 +327,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
+						"cargas",
 						""
 					]
 				}
@@ -335,14 +335,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjeta de un Usuario",
+			"name": "Carga de un Usuario",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "0ff82228-06d0-4768-8e3e-8fd12a6f0e96",
 						"exec": [
-							"tests[\"No genera error el DELETE de tarjeta\"] = responseCode.code === 204;"
+							"tests[\"No genera error el DELETE de carga\"] = responseCode.code === 204;"
 						],
 						"type": "text/javascript"
 					}
@@ -356,7 +356,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/{{nuevaTarjeta}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/cargas/{{nuevaCarga}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -367,62 +367,12 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
-						"{{nuevaTarjeta}}"
+						"cargas",
+						"{{nuevaCarga}}"
 					]
 				}
 			},
 			"response": []
-		}
-	],
-	"variable": [
-		{
-			"id": "1f8e8173-192c-42b6-bb19-554e2956c383",
-			"key": "ip",
-			"value": "localhost",
-			"type": "string"
-		},
-		{
-			"id": "d855caa2-acb5-418c-a66d-2d107ccc53a0",
-			"key": "port",
-			"value": "8080",
-			"type": "string"
-		},
-		{
-			"id": "92305907-962c-4e52-8c85-ca645fa39564",
-			"key": "usuario1",
-			"value": "luismigolondo",
-			"type": "string"
-		},
-		{
-			"id": "79f4e7ec-a667-4dce-9be8-18e6543b3a0e",
-			"key": "usuario2",
-			"value": "julianosorio",
-			"type": "string"
-		},
-		{
-			"id": "76032cc2-3ac3-45d4-baf5-615e2315a5bf",
-			"key": "t1u1",
-			"value": "10003",
-			"type": "string"
-		},
-		{
-			"id": "929e46c8-d18c-4368-9a31-01163ef14eb1",
-			"key": "t2u1",
-			"value": "10004",
-			"type": "string"
-		},
-		{
-			"id": "2c62a07a-79c7-4348-8355-b4e6bb4dc55c",
-			"key": "t1u2",
-			"value": "10005",
-			"type": "string"
-		},
-		{
-			"id": "b463ad08-292b-4494-ba92-ecb9beea2d83",
-			"key": "t2u2",
-			"value": "10006",
-			"type": "string"
 		}
 	]
 }

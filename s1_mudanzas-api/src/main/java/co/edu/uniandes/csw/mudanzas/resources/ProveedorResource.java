@@ -7,10 +7,8 @@ package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.ProveedorDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ProveedorDetailDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +38,7 @@ public class ProveedorResource
     
     @Inject
     private ProveedorLogic proveedorLogic;
-    
-    @Path("{login}/conductores")
-    public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)
-    {
-        return ConductorProveedorResource.class;
-    }
-    
-    private static final Logger LOGGER = Logger.getLogger(ProveedorResource.class.getName());
-    
+        
         /**
      * Crea un nuevo Proveedor y se regresa un objeto identico con un id auto-generado por
      * la base de datos.
@@ -60,10 +50,9 @@ public class ProveedorResource
      */
     @POST
     public ProveedorDTO crearProveedor(ProveedorDTO proveedor) throws BusinessLogicException{
-        
         ProveedorEntity entidad = proveedor.toEntity();
         ProveedorEntity nuevaEntidad = proveedorLogic.createProveedor(entidad);
-        ProveedorDTO nuevoDTO = new ProveedorDTO(nuevaEntidad);
+        ProveedorDTO nuevoDTO = new ProveedorDetailDTO(nuevaEntidad);
         return nuevoDTO;
     }
     
@@ -135,6 +124,12 @@ public class ProveedorResource
     public Class<SubastasProveedorResource> getSubastasProveedorResource(@PathParam("login") String login)
     {
         return SubastasProveedorResource.class;
+    }
+    
+    @Path("{login}/conductores")
+    public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)
+    {
+        return ConductorProveedorResource.class;
     }
     
     /**

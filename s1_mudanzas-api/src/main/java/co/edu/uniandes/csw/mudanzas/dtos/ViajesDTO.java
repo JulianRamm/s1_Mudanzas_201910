@@ -153,20 +153,20 @@ public class ViajesDTO implements Serializable {
     /**
      * constructor de un DTO dado una entidad
      *
-     * @param viajesEntity
+     * @param viajeEntity
      */
-    public ViajesDTO(ViajesEntity viajesEntity) {
-        if (viajesEntity != null) {
-            this.id=viajesEntity.getId();
-            this.clima = viajesEntity.getClima();
-            this.gastoGasolina = viajesEntity.getGastoGasolina();
-            this.lugarLlegada = viajesEntity.getLugarLlegada();
-            this.lugarSalida = viajesEntity.getLugarSalida();
-            this.tiempo = viajesEntity.getTiempo();
-            this.horaLlegada = viajesEntity.getHoraLlegada();
-            this.horaPartida = viajesEntity.getHoraPartida();
-            if(viajesEntity.getConductorEntity()!=null){
-                this.conductor = new ConductorDTO(viajesEntity.getConductorEntity());
+    public ViajesDTO(ViajesEntity viajeEntity) {
+        if (viajeEntity != null) {
+            this.id=viajeEntity.getId();
+            this.clima = viajeEntity.getClima();
+            this.gastoGasolina = viajeEntity.getGastoGasolina();
+            this.lugarLlegada = viajeEntity.getLugarLlegada();
+            this.lugarSalida = viajeEntity.getLugarSalida();
+            this.tiempo = viajeEntity.getTiempo();
+            this.horaLlegada = viajeEntity.getHoraLlegada();
+            this.horaPartida = viajeEntity.getHoraPartida();
+            if(viajeEntity.getConductorEntity()!=null){
+                this.conductor = new ConductorDTO(viajeEntity.getConductorEntity());
             }
             else{
                 this.conductor=null;
