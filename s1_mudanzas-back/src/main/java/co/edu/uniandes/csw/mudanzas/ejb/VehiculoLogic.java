@@ -33,8 +33,6 @@ public class VehiculoLogic {
     @Inject
     private VehiculoPersistence vehiculoPersistence;
     
-    @Inject
-    private ConductorPersistence conductorPersistence;
 
     /**
      * Atributo que inyecta la persistencia del prioveedor en la logica.
@@ -56,7 +54,6 @@ public class VehiculoLogic {
         if (vehiculoPersistence.findByPlaca(entity.getPlaca()) != null) {
             throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getPlaca() + "\"");
         }
-        
         
         if(entity.getNumeroConductores()>8)
         {
