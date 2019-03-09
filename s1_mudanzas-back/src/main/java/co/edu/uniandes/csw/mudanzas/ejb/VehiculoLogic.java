@@ -33,8 +33,6 @@ public class VehiculoLogic {
     @Inject
     private VehiculoPersistence vehiculoPersistence;
     
-    @Inject
-    private ConductorPersistence conductorPersistence;
 
     /**
      * Atributo que inyecta la persistencia del prioveedor en la logica.

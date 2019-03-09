@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.ejb;
 
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
+import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
 import static java.lang.Character.isDigit;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,9 +35,22 @@ public class DiaLogic
 {
    @Inject
    private DiaPersistence per;
+   
+   @Inject
+   private VehiculoPersistence vehiculoPersistence;
     
-    public DiaEntity crearDia(DiaEntity entity) throws BusinessLogicException
+    public DiaEntity crearDia(DiaEntity entity, String placa) throws BusinessLogicException
     {
+        VehiculoEntity vec = vehiculoPersistence.findByPlaca(placa);
+        if(vec == null)
+        {
+            throw new BusinessLogicException("No existe ningun vehiculo con la placa: " + placa);
+        }
+        
+        entity.setVehiculo(vec);
+        
+       
+        
         //Verificaión de que solo existe un dia con ese id
         if(per.find(entity.getId())!= null)
         {
@@ -46,27 +61,6 @@ public class DiaLogic
         {
             throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
         }
-        // Verificación de que el dia tenga un único vehículo
-     //   if(per.findByVehiculo(entity.getVehiculo())!= null)
-     //   {
-     //       throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getVehiculo().getPlaca() + "\"");
-     //   }
-        // Verificación que la hora inicial no sea mayor o igual a la final
-        if(!entity.getHoraInicio().before(entity.getHoraFin()))
-        {
-          throw new BusinessLogicException("La hora inicial no puede ser mayor o igual a la hora final");
-
-        }
-        // Verificacion del formato correcto para la hora inicial
-        if(!isValidTimeFormat(entity.getHoraInicio().toString()))
-        {
-            throw new BusinessLogicException("El formato para la hora inicial no es valido");
-        }
-         // Verificacion del formato correcto para la hora final
-        if(!isValidTimeFormat(entity.getHoraFin().toString()))
-        {
-            throw new BusinessLogicException("El formato para la hora Final no es valido");
-        }
         
         if(! isValidDateFormat("dd/MM/yyyy", entity.getDiaActual().toString()))
         {
@@ -74,15 +68,32 @@ public class DiaLogic
         }
         
         
+        
         //verificacion que el dia actual si corresponda con su valor real
         Date d =Calendar.getInstance(TimeZone.getDefault()).getTime();
-        if(!entity.getDiaActual().equals(d))
+        int añoP = d.getYear();
+        int añoN = entity.getDiaActual().getYear();
+        if(añoP!=añoN)
         {
             throw new BusinessLogicException("El dia actual no coincide con el verdadero dia actual");
         }
         
-        
-   
+        if(!entity.getHoraInicio().before(entity.getHoraFin()) )
+        {
+          throw new BusinessLogicException("La hora inicial no puede ser mayor o igual a la hora final");
+        }
+         // Verificación que la hora inicial no sea mayor o igual a la final
+        if(!entity.getHoraFin().after(entity.getHoraInicio()))
+        {
+          throw new BusinessLogicException("La hora final no puede menor o igual a la hora Inicial");
+        }
+        // Verificación de que el dia tenga un único vehículo
+     //   if(per.findByVehiculo(entity.getVehiculo())!= null)
+     //   {
+     //       throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getVehiculo().getPlaca() + "\"");
+     //   }
+       
+ 
         
         entity = per.create(entity);
         return entity;
@@ -110,15 +121,6 @@ public class DiaLogic
       return rta;
     }
     
-    private boolean isValidTimeFormat(String valor)
-    {
-        boolean rta = false;
-        String formato= "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-        Pattern patern = Pattern.compile(formato);
-        Matcher matcher = patern.matcher(valor);
-        rta = matcher.matches();
-        return rta;
-    }
     
     /**
      * Obtener un usuario por medio de su login.
@@ -138,13 +140,30 @@ public class DiaLogic
     /**
      * Actualizar un usuario.
      *
-     * @param nuevoUsuario: usuario con los cambios para ser actualizado, por
+     * @param nuevoDia: dia con los cambios para ser actualizado, por
      * ejemplo el nombre.
-     * @return el usuario con los cambios actualizados en la base de datos.
+     * @return el dia con los cambios actualizados en la base de datos.
      */
     public DiaEntity updateDia(DiaEntity nuevoDia) {
         DiaEntity usuarioEntity = per.update(nuevoDia);
         return usuarioEntity;
+    }
+    
+    public DiaEntity getDiaPlacaVehiculo(Long idD, String placa) throws BusinessLogicException
+    {
+        DiaEntity rta = null;
+        VehiculoEntity vehiculo = vehiculoPersistence.findByPlaca(placa);
+        DiaEntity diaEntity = per.find(idD);
+        if(diaEntity.getVehiculo().getPlaca().equals(vehiculo.getPlaca()))
+        {
+            rta = diaEntity;
+        }
+        else
+        {
+            throw new BusinessLogicException("No existe tal dia con un vehiculo con placa: " + placa);
+
+        }
+        return rta;
     }
 
     /**
