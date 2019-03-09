@@ -31,9 +31,14 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class VehiculoDiaResource 
 {
+    /**
+     * Inyección de la lógica del vehículo
+     */
     @Inject
     private VehiculoLogic vLogica;
-    
+    /**
+     * Inyección de la lógica del día
+     */
     @Inject
     private DiaLogic dLogica;
     
