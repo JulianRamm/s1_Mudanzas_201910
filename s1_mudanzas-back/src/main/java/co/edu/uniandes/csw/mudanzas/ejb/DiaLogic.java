@@ -33,14 +33,27 @@ import javax.inject.Inject;
 @Stateless
 public class DiaLogic 
 {
+    /**
+     * Inyección de la persistencia de un día.
+     */
    @Inject
    private DiaPersistence per;
    
+   /**
+     * Inyección de la persistencia de un día.
+     */
    @Inject
    private VehiculoPersistence vehiculoPersistence;
-    
+    /**
+     * 
+     * @param entity
+     * @param placa
+     * @return La entidad del dia creada, persistida y con las reglas de negocio validadas
+     * @throws BusinessLogicException 
+     */
     public DiaEntity crearDia(DiaEntity entity, String placa) throws BusinessLogicException
     {
+        // Verificación que el vehiculo no sea nulo.
         VehiculoEntity vec = vehiculoPersistence.findByPlaca(placa);
         if(vec == null)
         {
@@ -61,7 +74,7 @@ public class DiaLogic
         {
             throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
         }
-        
+        // verificación del formato del día actual
         if(! isValidDateFormat("dd/MM/yyyy", entity.getDiaActual().toString()))
         {
             throw new BusinessLogicException("El formato para el día actual no es valido");
@@ -77,7 +90,7 @@ public class DiaLogic
         {
             throw new BusinessLogicException("El dia actual no coincide con el verdadero dia actual");
         }
-        
+        // Verificación para que la horaiNICIO NO SEA MAYOR QUE LA HORAfIN
         if(!entity.getHoraInicio().before(entity.getHoraFin()) )
         {
           throw new BusinessLogicException("La hora inicial no puede ser mayor o igual a la hora final");
@@ -98,7 +111,12 @@ public class DiaLogic
         entity = per.create(entity);
         return entity;
     }
-    
+    /**
+     * Metodo auxiliar para revisar el formato de la fechaActual
+     * @param formato
+     * @param valor
+     * @return 
+     */
     private boolean isValidDateFormat(String formato, String valor)
     {
       boolean rta = false;
@@ -148,7 +166,13 @@ public class DiaLogic
         DiaEntity usuarioEntity = per.update(nuevoDia);
         return usuarioEntity;
     }
-    
+    /**
+     * Metodo que encuentra el dia por medio de la placa de un vehiculo
+     * @param idD
+     * @param placa
+     * @return
+     * @throws BusinessLogicException 
+     */
     public DiaEntity getDiaPlacaVehiculo(Long idD, String placa) throws BusinessLogicException
     {
         DiaEntity rta = null;
@@ -173,7 +197,7 @@ public class DiaLogic
      * @throws BusinessLogicException Si el usuario a eliminar tiene tarjetas de
      * credito.
      */
-    public void deleteUsuario(Long diaId) throws BusinessLogicException 
+    public void deleteDia(Long diaId) throws BusinessLogicException 
     {
         
         per.delete(diaId);
