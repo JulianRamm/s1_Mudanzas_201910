@@ -103,9 +103,14 @@ public class ViajesLogic {
      * método que retorna todos los viajes en la BD
      *
      * @return
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public List<ViajesEntity> getViajes() {
+    public List<ViajesEntity> getViajes() throws BusinessLogicException {
         List<ViajesEntity> viajes = persistence.findAll();
+        if (viajes == null) {
+            throw new BusinessLogicException("No hay viajes");
+        }
+
         return viajes;
     }
 
@@ -131,8 +136,11 @@ public class ViajesLogic {
      * @return
      */
     public ViajesEntity updateViaje(ViajesEntity viajesEntity) {
-        ViajesEntity viaje = persistence.update(viajesEntity);
-        return viaje;
+        ConductorEntity conductor = viajesEntity.getConductorEntity();
+        conductor.setViaje(viajesEntity);
+        conductorPersistence.update(conductor);
+        persistence.update(viajesEntity);
+        return viajesEntity;
     }
 
     /**
@@ -142,7 +150,30 @@ public class ViajesLogic {
      * @throws BusinessLogicException
      */
     public void deleteViaje(Long id) throws BusinessLogicException {
+        ViajesEntity viaje = persistence.find(id);
+        ConductorEntity conductor = viaje.getConductorEntity();
+        conductor.setViaje(null);
+        conductorPersistence.update(conductor);
         persistence.delete(id);
+    }
+
+    /**
+     * retornar conductor
+     *
+     * @param idConductor
+     * @return
+     * @throws BusinessLogicException
+     */
+    public ViajesEntity getViajeConductor(Long idConductor) throws BusinessLogicException {
+        ConductorEntity conductor = conductorPersistence.find(idConductor);
+        if (conductor != null) {
+            ViajesEntity viaje = conductor.getViaje();
+            if (viaje != null) {
+                return viaje;
+            }
+            throw new BusinessLogicException("No existe el viaje de un conductor con id: " + idConductor);
+        }
+        throw new BusinessLogicException("No existe tal conductor con id: " + idConductor);
     }
 
     /**
@@ -153,10 +184,24 @@ public class ViajesLogic {
      * @throws BusinessLogicException
      */
     public List<CargaEntity> getCargasDadoUnId(Long id) throws BusinessLogicException {
-        List<CargaEntity> car = persistence.getCargasDadoUnId(id);
+        List<CargaEntity> car = persistence.find(id).getCargas();
         if (car == null) {
             throw new BusinessLogicException("No hay cargas para un id: " + id);
         }
         return car;
+    }
+    /**
+     * elimina las cargas dado un id
+     *
+     * @param id
+     * @throws BusinessLogicException
+     */
+    public void deleteCargasDaodUnId(Long id) throws BusinessLogicException {
+        List<CargaEntity> car = persistence.getCargasDadoUnId(id);
+        if (car == null) {
+            throw new BusinessLogicException("No hay cargas que eliminar para un id: " + id);
+        }
+        persistence.deleteCargasDadoUnId(id);
+
     }
 }
