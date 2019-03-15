@@ -124,14 +124,14 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      * @return the conductorEntity
      */
     public ConductorEntity getConductorEntity() {
-        return conductorEntity;
+        return conductor;
     }
 
     /**
      * @param conductorEntity the conductorEntity to set
      */
     public void setConductorEntity(ConductorEntity conductorEntity) {
-        this.conductorEntity = conductorEntity;
+        this.conductor = conductorEntity;
     }
 
     /**
