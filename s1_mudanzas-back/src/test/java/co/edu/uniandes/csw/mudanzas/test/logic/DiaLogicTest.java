@@ -47,7 +47,9 @@ public class DiaLogicTest
 { 
     PodamFactory factory = new PodamFactoryImpl();
 
-    
+    /**
+     * Inyección de la lógica del día
+     */
      @Inject
     private DiaLogic DLogic;
     
@@ -69,6 +71,10 @@ public class DiaLogicTest
      * Lista que tiene los datos de prueba.
      */
     private List<DiaEntity> data = new ArrayList<DiaEntity>();
+    
+    /**
+     * Atrributo que modela la entidad de un vehiculo
+    */
 
     private VehiculoEntity vehiculoData;
     /**
@@ -146,7 +152,11 @@ public class DiaLogicTest
        Assert.assertEquals(nuevaEntidad.getIsDisponibilidad(), entidad.getIsDisponibilidad());
    
     }
-    
+    /**
+     * Crea un Date a partir de un String
+     * @param pDia
+     * @return 
+     */
     private Date toDate(String pDia)
     {
         Date rta = null;
@@ -161,7 +171,10 @@ public class DiaLogicTest
        }
         return rta;
     }
-    
+    /**
+* Metodo auxiliar para crear una horaFin que cumpla con sus reglas de negocio
+* @return 
+     */
     private Timestamp crearHoraFin()
     {
 //        Random  rnd;
@@ -186,7 +199,11 @@ public class DiaLogicTest
         Timestamp rand = new Timestamp(offset + (long)(Math.random() * diff));
         return rand;
     }
-    
+    /**
+     * Metodo auxiliar para crear una hora inicio que cumpla con sus reglas de negocio
+     * @param pTime
+     * @return 
+     */
     private Date crearHoraInicio(Date pTime)
     {
         Timestamp rta=null;
@@ -246,7 +263,7 @@ public class DiaLogicTest
 //    }
     
      /**
-     * Prueba la regla de negocio para el correo electronico del usuario
+     * Prueba la regla de negocio para la horaFin
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
@@ -260,7 +277,7 @@ public class DiaLogicTest
     }
     
      /**
-     * Prueba la regla de negocio para el correo electronico del usuario
+     * Prueba la regla de negocio para el dia actual
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
@@ -274,14 +291,14 @@ public class DiaLogicTest
     }
     
     /**
-     * Prueba la eliminacion de un usuario.
+     * Prueba la eliminacion de un Dia.
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
     @Test
-    public void deleteUsuarioTest() throws BusinessLogicException {
+    public void deleteDiaTest() throws BusinessLogicException {
         DiaEntity entidad = data.get(1);
-        DLogic.deleteUsuario(entidad.getId());
+        DLogic.deleteDia(entidad.getId());
         DiaEntity borrar = em.find(DiaEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
