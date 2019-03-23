@@ -8,14 +8,11 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
-import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -236,7 +233,6 @@ public class ViajesLogicTest {
     /**
      * Prueba para actualizar un viaje.
      */
-    
 //    @Test
 //    public void updateViajeTest() {
 //        ViajesEntity entity = data.get(0);
@@ -259,7 +255,6 @@ public class ViajesLogicTest {
 //        Assert.assertEquals(encontrado.getLugarLlegada(), nuevo.getLugarLlegada());
 //        Assert.assertEquals(encontrado.getLugarSalida(), nuevo.getLugarSalida());
 //    }
-
     /**
      * prueba para eliminar un viaje
      *

@@ -62,7 +62,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private List<String> imagenes;
+    private String imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -123,14 +123,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the imagenes
      */
-    public List<String> getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
     /**
      * @param imagenes the imagenes to set
      */
-    public void setImagenes(List<String> imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 
