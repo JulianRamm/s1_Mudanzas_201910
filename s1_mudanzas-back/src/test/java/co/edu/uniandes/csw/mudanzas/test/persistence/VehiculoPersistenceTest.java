@@ -33,10 +33,14 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class VehiculoPersistenceTest 
 {
     PodamFactory factory = new PodamFactoryImpl();
-    
+    /**
+     * Inyección de la persistencia del vehiculo
+     */
      @Inject
     private VehiculoPersistence VPersistence;
-     
+    /**
+     * Inyección de la persistencia del dia
+     */ 
      @Inject
      private DireccionEntity dEntity;
     
@@ -59,9 +63,7 @@ public class VehiculoPersistenceTest
      */
     private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
+  
     
     /**
      *
@@ -99,6 +101,9 @@ public class VehiculoPersistenceTest
             }
         }
     }
+    /**
+     * Crea datos aleatorios de entidades, los cuales los mete en la base de datos
+     */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
 
@@ -113,7 +118,9 @@ public class VehiculoPersistenceTest
     {
         em.createQuery("delete from VehiculoEntity").executeUpdate();
     }
-    
+    /**
+     * verificación de las reglas de negocio del vehiculo con un test
+     */
     @Test
     public void createVehiculoTest()
     {
@@ -126,6 +133,9 @@ public class VehiculoPersistenceTest
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
     
+    /**
+     * verificación la eliminación de un vehiculo con un test
+     */
       @Test
     public void deleteVehiculoTest() {
         VehiculoEntity entidad = data.get(0);
@@ -133,7 +143,9 @@ public class VehiculoPersistenceTest
         VehiculoEntity borrado = em.find(VehiculoEntity.class, entidad.getId());
         Assert.assertNull(borrado);
     }
-    
+    /**
+     * verificación la actualización de un vehiculo con un test
+     */
     @Test
     public void updateVehiculoTest() {
         VehiculoEntity entidad = data.get(0);
@@ -152,7 +164,9 @@ public class VehiculoPersistenceTest
         Assert.assertEquals(cambiada.getColor(), encontrada.getColor());
         Assert.assertEquals(cambiada.getPlaca(), encontrada.getPlaca());
     }
-    
+     /**
+     * verificación la obtención de un vehiculo con un test
+     */
      @Test
     public void getVehiculoTest() {
         VehiculoEntity entidad = data.get(0);
@@ -164,7 +178,9 @@ public class VehiculoPersistenceTest
         Assert.assertEquals(entidad.getColor(), nuevo.getColor());
         Assert.assertEquals(entidad.getPlaca(), nuevo.getPlaca());
     }
-    
+    /**
+     * Busca un vehiculo por su placa
+     */
     @Test
     public void buscarVehiculoPorPlacaTest() {
         VehiculoEntity entidad = data.get(0);
