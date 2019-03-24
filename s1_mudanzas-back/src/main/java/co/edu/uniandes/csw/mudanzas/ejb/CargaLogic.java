@@ -53,7 +53,7 @@ public class CargaLogic {
         if (carga.getVolumen() == 1) {
             throw new BusinessLogicException("El volumen no puede ser 1");
         }
-        if (carga.getImagenes().isEmpty()) {
+        if (carga.getImagenes().equals("") ){
             throw new BusinessLogicException("Las imagenes no puyeden ser vacias");
         }
         if (carga.getLugarLlegada() == null || carga.getLugarLlegada().equals("")) {

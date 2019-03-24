@@ -29,16 +29,41 @@ insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSegur
 /*10006 t2u2*/
 insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSeguridad, fechaVencimiento, usuario_id) values (10006, 'Tarjeta secundaria', '123456789105', 954, '02/10/2021', 10002);
 
+/*Conductores Proveedor 1*/
+/*10021 c1p1 proveedorPrueba1*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viaje_id) values(10021, 'Cesar', 5, '885444444', 10011, 10025);
+/*10022 c2p1 proveedorPrueba1*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viaje_id) values(10022, 'Ruby', 5, '885444445', 10011, 10026);
+
+/*Conductores Proveedor 2*/
+/*10023 c1p2 proveedorPrueba2*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viaje_id) values(10023, 'German', 5, '885444443', 10012, 10027);
+/*10024 c2p2 proveedorPrueba2*/
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viaje_id) values(10024, 'Claudia', 5, '885444446', 10012, 10028);
+
+
+/*Viajes Proveedor 1 Conductor 1*/
+/*10025 v1p1 proveedorPrueba1*/
+insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10025,  'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
+/*Viajes Proveedor 2 Conductor 1*/
+/*10026 v1p2 proveedorPrueba2*/
+insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10026,  'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
+
+insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10027,  'Medllin', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
+/*Viajes Proveedor 2 Conductor 1*/
+/*10026 v1p2 proveedorPrueba2*/
+insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10028,  'Bogota', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
+
 /*Cargas Usuario 1*/
 /*10007 c1u1*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10025, 10001, 'Carga muy grande', 15, 'imagen1 imagen2', 'Medellin', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10025, 10001, 'Carga muy grande', 15, 'imagen' , 'Medellin', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
 /*10008 c2u1*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10025, 10001, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bogota', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10026, 10001, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bogota', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
 /*Cargas Usuario 2*/
 /*10009 c1u2*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10026, 10002, 'Carga muy grande', 15, 'imagen1 imagen2', 'Barranquilla', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10009, 10027, 10002, 'Carga muy grande', 15, 'imagen1 imagen2', 'Barranquilla', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
 /*10010 c2u2*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10026, 10002, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bucaramanga', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10010, 10028, 10002, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bucaramanga', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
 
 /*Proveedores*/
 /*10011 Proveedor 1 proveedorPrueba1*/
@@ -70,28 +95,10 @@ insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, num
 /*10020 v2p2 proveedorPrueba2*/
 insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10020, 'VYC946', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10012, 10100, 10026);
 
-/*Conductores Proveedor 1*/
-/*10021 c1p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10011);
-/*10022 c2p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10011);
-
-/*Conductores Proveedor 2*/
-/*10023 c1p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10023, 'German', 5, '885444443', 10012, 10026);
-/*10024 c2p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10024, 'Claudia', 5, '885444446', 10012, 10026);
-
-/*Viajes Proveedor 1 Conductor 1*/
-/*10025 v1p1 proveedorPrueba1*/
-insert into ViajesEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10025, 10021, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
-/*Viajes Proveedor 2 Conductor 1*/
-/*10026 v1p2 proveedorPrueba2*/
-insert into ViajesEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10026, 10023, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
 
 /*Agenda Vehiculo 1 Proveedor 1*/
 /*10027 proveedorPrueba1*/
-insert DiaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10027, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
+insert DiaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10029, '03/10/2019 23:26:00', '03/10/2019 00:26:00', false);
 /*Agenda Vehiculo 1 Proveedor 2*/
 /*10028 proveedorPrueba2*/
-insert DiaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10028, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
+insert DiaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10030, '03/10/2019 23:26:00', '03/10/2019 00:26:00', false);
