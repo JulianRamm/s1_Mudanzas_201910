@@ -72,9 +72,9 @@ insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, num
 
 /*Conductores Proveedor 1*/
 /*10021 c1p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10021, 'Cesar', 5, '885444444', 10011, 10025);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10011);
 /*10022 c2p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, viajes_id) values(10022, 'Ruby', 5, '885444445', 10011, 10025);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10011);
 
 /*Conductores Proveedor 2*/
 /*10023 c1p2 proveedorPrueba2*/
@@ -84,14 +84,14 @@ insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id, vi
 
 /*Viajes Proveedor 1 Conductor 1*/
 /*10025 v1p1 proveedorPrueba1*/
-insert into ViajeEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10025, 10021, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '03/10/2019 23:26:00', '03/10/2019 00:26:00');
+insert into ViajesEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10025, 10021, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
 /*Viajes Proveedor 2 Conductor 1*/
 /*10026 v1p2 proveedorPrueba2*/
-insert into ViajeEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10026, 10023, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '03/10/2019 23:26:00', '03/10/2019 00:26:00');
+insert into ViajesEntity(id, conductor_id, lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada) values (10026, 10023, 'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00');
 
 /*Agenda Vehiculo 1 Proveedor 1*/
 /*10027 proveedorPrueba1*/
-insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10027, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
+insert DiaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10027, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
 /*Agenda Vehiculo 1 Proveedor 2*/
 /*10028 proveedorPrueba2*/
-insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10028, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);
+insert DiaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10028, '03/10/2019 23:26:00', '03/10/2019 00:26:00', 0);

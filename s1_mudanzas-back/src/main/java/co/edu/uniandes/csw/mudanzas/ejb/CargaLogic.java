@@ -62,14 +62,14 @@ public class CargaLogic {
         if (carga.getLugarSalida() == null || carga.getLugarSalida().equals("")) {
             throw new BusinessLogicException("El lugar de salida no puede ser null");
         }
-        Date a= carga.getFechaEstimadaLlegada();
-        Date b=new Date(carga.getFechaEstimadaLlegada().getYear(),carga.getFechaEstimadaLlegada().getMonth(),carga.getFechaEstimadaLlegada().getDate(),carga.getViaje().getTiempo(),carga.getFechaEstimadaLlegada().getSeconds());
-        Date c=carga.getFechaEnvio();
-        double tiempo=(Math.abs(a.getTime()-b.getTime()))/3.6E6;
-        double tiempo2=(a.getTime()-c.getTime())/3.6E6;
-        if ((tiempo2 >= tiempo - 8 && tiempo2 <= tiempo2 + 8)==false) {
-            throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
-        }
+//        Date a= carga.getFechaEstimadaLlegada();
+//        Date b=new Date(carga.getFechaEstimadaLlegada().getYear(),carga.getFechaEstimadaLlegada().getMonth(),carga.getFechaEstimadaLlegada().getDate(),carga.getViaje().getTiempo(),carga.getFechaEstimadaLlegada().getSeconds());
+//        Date c=carga.getFechaEnvio();
+//        double tiempo=(Math.abs(a.getTime()-b.getTime()))/3.6E6;
+//        double tiempo2=(a.getTime()-c.getTime())/3.6E6;
+//        if ((tiempo2 >= tiempo - 8 && tiempo2 <= tiempo2 + 8)==false) {
+//            throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
+//        }
         if (carga.getFechaEnvio() == null) {
             throw new BusinessLogicException("la fecha de envío no pued e ser null");
         }

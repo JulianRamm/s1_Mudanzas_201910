@@ -46,11 +46,13 @@ private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorVehiculoResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorViajesResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.TarjetasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
     }
