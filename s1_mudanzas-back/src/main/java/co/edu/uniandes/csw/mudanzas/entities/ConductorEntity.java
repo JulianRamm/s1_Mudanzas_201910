@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -145,8 +144,7 @@ public class ConductorEntity extends BaseEntity implements Serializable {
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
     }
-
-    /**
+    /*
      * @return the viaje
      */
     public ViajesEntity getViaje() {
