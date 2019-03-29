@@ -95,15 +95,12 @@ public class ViajesPersistence {
      * @return
      */
     public List<CargaEntity> getCargasDadoUnId(Long id) {
-        TypedQuery<ViajesEntity> query;
-        query = em.createQuery("select e from ViajesEntity e where e.id=:id", ViajesEntity.class);
-        query.setParameter("id", id);
-        List<ViajesEntity> viaje = query.getResultList();
+        ViajesEntity viaje = find(id);
         LinkedList<CargaEntity> cargas = new LinkedList<>();
-        if (viaje == null || viaje.isEmpty() || viaje.get(0) == null) {
+        if (viaje == null || viaje.getCargas().isEmpty() ) {
             cargas = null;
         } else {
-            for (CargaEntity cargae : viaje.get(0).getCargas()) {
+            for (CargaEntity cargae : viaje.getCargas()) {
                 cargas.add(cargae);
             }
         }
