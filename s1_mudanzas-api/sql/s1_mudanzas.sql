@@ -47,7 +47,6 @@ insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) va
 /*10024 c2p2 proveedorPrueba2*/
 insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10010);
 
-
 /*Viajes Proveedor 1 Conductor 1*/
 /*10025 v1p1 proveedorPrueba1*/
 insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada, conductor_id) values (10025,  'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00', 10021);
@@ -86,20 +85,17 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 
 /*Vehiculos Proveedor 1*/
 /*10017 v1p1 proveedorPrueba1*/
-insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10017, 'VYC943', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011, 10027, 10026);
+insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id) values (10017, 'VYC943', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011);
 /*10018 v2p1 proveedorPrueba1*/
-insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10018, 'VYC944', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011, 10099, 10026);
-
+insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id) values (10018, 'VYC944', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011);
 /*Vehiculos Proveedor 2*/
 /*10019 v1p2 proveedorPrueba2*/
-insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10019, 'VYC945', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10012, 10028, 10026);
+insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id) values (10019, 'VYC945', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10010);
 /*10020 v2p2 proveedorPrueba2*/
-insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id, agenda_id, ubicacionActual_id) values (10020, 'VYC946', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10012, 10100, 10026);
+insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id) values (10020, 'VYC946', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10010);
 
 
-/*Agenda Vehiculo 1 Proveedor 1*/
-/*10027 proveedorPrueba1*/
-insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10029, '03/10/2019 23:26:00', '03/10/2019 00:26:00', false);
-/*Agenda Vehiculo 1 Proveedor 2*/
-/*10028 proveedorPrueba2*/
-insert AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10030, '03/10/2019 23:26:00', '03/10/2019 00:26:00', false);
+insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10029, '03/10/2019','2019-10-03 23:26:00', '2019-10-03 01:00:00', 0, 10017);
+insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10030, '04/11/2019','2019-11-04 23:26:00', '2019-10-03 01:00:00', 1, 10018);
+insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10031, '05/11/2019','2019-12-05 23:26:00', '2019-10-03 01:00:00', 0, 10019);
+insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10032, '06/12/2019','2019-12-06 23:26:00', '2019-10-03 01:00:00', 1, 10020);
