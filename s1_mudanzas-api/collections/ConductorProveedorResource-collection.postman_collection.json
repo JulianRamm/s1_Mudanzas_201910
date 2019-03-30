@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "0216d41c-c6ca-4279-85ad-9433bff53ba7",
+		"name": "ConductorProveedorResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Conductor Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d41770a7-19f1-4c86-8d5a-d3c1aa7ad565",
+						"exec": [
+							"tests[\"No genera error el GET de los conductores de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Conductores Proveedor 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f0c8782-b4b0-4cf2-be17-f1d9c00c0b1b",
+						"exec": [
+							"tests[\"No genera error el GET de los conductores de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Conductor Especifico 1 Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5f4ce25-14df-4ba9-96d9-f93a6cf7b378",
+						"exec": [
+							"tests[\"No genera error el GET del conductor \" + pm.environment.get(\"conductorPrueba1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedor/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedor",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{conductorPrueba1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Conductor Especifico 2 Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1495266-babb-4835-9626-6c333e0d4358",
+						"exec": [
+							"tests[\"No genera error el GET del conductor \" + pm.environment.get(\"conductorPrueba2\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba1\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedor/{{proveedorPrueba1}}/conductores/{{conductorPrueba2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedor",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{conductorPrueba2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Conductor Especifico no existente Proveedor 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "517fd4eb-4e3d-4a69-9533-b16b360b3df4",
+						"exec": [
+							"tests[\"No obtiene un Conductor que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedor/{{proveedorPrueba1}}/conductores/134124141",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedor",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"134124141"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Conductor Especifico 1 Proveedor 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3956d6a6-9d03-4157-be89-abd040e1bc1a",
+						"exec": [
+							"tests[\"No genera error el GET del conductor \" + pm.environment.get(\"conductorPrueba1\") + \" de un proveedor especifico: \" + pm.environment.get(\"proveedorPrueba2\")] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedor/{{proveedorPrueba2}}/conductores/{{conductorPrueba1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedor",
+						"{{proveedorPrueba2}}",
+						"conductores",
+						"{{conductorPrueba1}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -123,6 +124,18 @@ public class SubastasUsuarioResource {
         SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
         return dto;
     }
+    
+    
+    @DELETE
+    @Path("{idSubasta: \\d+}")
+    public void cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException, BusinessLogicException {
+        
+        if (subastaLogic.getSubastaUsuario(login, idSubasta) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
+        }
+        subastaLogic.deleteSubastaUsuario(login, idSubasta);
+    }
+    
     
     /**
      * Convierte una lista de entidades en lista de DTOs

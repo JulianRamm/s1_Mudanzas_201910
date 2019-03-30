@@ -30,7 +30,7 @@ public class AgendaEntity extends BaseEntity implements Serializable {
 
     @Temporal(TemporalType.TIME)
     private Date horaLlegada;
-    private boolean disponibilidad;
+    private boolean isDisponibilidad;
 
     public AgendaEntity() {
 
@@ -65,17 +65,17 @@ public class AgendaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the disponibilidad
+     * @return the isDisponibilidad
      */
-    public boolean isDisponibilidad() {
-        return disponibilidad;
+    public boolean getIsDisponibilidad() {
+        return isDisponibilidad;
     }
 
     /**
-     * @param disponibilidad the disponibilidad to set
+     * @param isDisponibilidad the isDisponibilidad to set
      */
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
+    public void setIsDisponibilidad(boolean isDisponibilidad) {
+        this.isDisponibilidad = isDisponibilidad;
     }
 
 }

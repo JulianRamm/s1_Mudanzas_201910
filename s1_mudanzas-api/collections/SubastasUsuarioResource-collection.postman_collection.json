@@ -1,19 +1,19 @@
 {
 	"info": {
-		"_postman_id": "d87ec170-9086-468a-b0af-cad7c5295dba",
-		"name": "TarjetasUsuarioResource-collection",
+		"_postman_id": "ab73b01e-df89-4b29-b999-f979532c9d64",
+		"name": "SubastasUsuarioResource-collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Tarjetas Usuario 1",
+			"name": "Subastas Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "5df2fe17-e54c-4417-9ffb-4fcabf23f09c",
 						"exec": [
-							"tests[\"No genera error el GET de las tarjetas de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de las subastas de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -27,7 +27,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -38,7 +38,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas"
+						"subastas"
 					]
 				},
 				"description": "Request para obtener todas las tarjetas de un usuario"
@@ -46,14 +46,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjetas Usuario 2",
+			"name": "Subastas Usuario 2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "5df2fe17-e54c-4417-9ffb-4fcabf23f09c",
 						"exec": [
-							"tests[\"No genera error el GET de las tarjetas de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de las subastas de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -67,7 +67,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -78,7 +78,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas"
+						"subastas"
 					]
 				},
 				"description": "Request para obtener todas las tarjetas de un usuario"
@@ -86,14 +86,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 1 Usuario 1",
+			"name": "Subasta Especifica 1 Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t1u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s1u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba1\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -107,7 +107,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/{{t1u1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/{{s1u1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -118,22 +118,22 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
-						"{{t1u1}}"
+						"subastas",
+						"{{s1u1}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 2 Usuario 1",
+			"name": "Subasta Especifica 2 Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t2u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s2u1\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -147,7 +147,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/{{t2u1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas/{{s2u1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -157,23 +157,23 @@
 						"s1_mudanzas-api",
 						"api",
 						"usuarios",
-						"{{usuarioPrueba1}}",
-						"tarjetas",
-						"{{t2u1}}"
+						"{{usuarioPrueba2}}",
+						"subastas",
+						"{{s2u1}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica no existente Usuario 1",
+			"name": "Subasta Especifica no existente Usuario 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No obtiene una tarjeta que no existe\"] = responseCode.code === 404;"
+							"tests[\"No obtiene una subasta que no existe\"] = responseCode.code === 404;"
 						],
 						"type": "text/javascript"
 					}
@@ -187,7 +187,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/123456789",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/123456789",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -198,7 +198,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
+						"subastas",
 						"123456789"
 					]
 				}
@@ -206,14 +206,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 1 Usuario 2",
+			"name": "Subasta Especifica 1 Usuario 2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t1u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s1u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -227,7 +227,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas/{{t1u2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas/{{s1u2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -238,22 +238,22 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas",
-						"{{t1u2}}"
+						"subastas",
+						"{{s1u2}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Especifica 2 Usuario 2",
+			"name": "Subasta Especifica 2 Usuario 2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "d972fdaa-335b-45fb-a1fa-121f14e7621f",
 						"exec": [
-							"tests[\"No genera error el GET de la tarjeta \" + pm.environment.get(\"t2u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de la subasta \" + pm.environment.get(\"s2u2\") + \" de un usuario especifico: \" + pm.environment.get(\"usuarioPrueba2\")] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -267,7 +267,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas/{{t2u2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/subastas/{{s2u2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -278,15 +278,15 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba2}}",
-						"tarjetas",
-						"{{t2u2}}"
+						"subastas",
+						"{{s2u2}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Tarjeta Nueva",
+			"name": "Subasta Nueva",
 			"event": [
 				{
 					"listen": "test",
@@ -294,8 +294,8 @@
 						"id": "aca15998-a648-48b7-8c2f-d88bd97252ff",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"pm.environment.set(\"nuevaTarjeta\", data.id);",
-							"tests[\"No genera error el POST de una tarjeta especifica\"] = responseCode.code === 200;"
+							"pm.environment.set(\"nuevaSubasta\", data.id);",
+							"tests[\"No genera error el POST de una subasta especifica\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -316,7 +316,7 @@
 					"raw": "{\n    \"codigoSeguridad\": 953,\n    \"fechaVencimiento\": \"2020-02-10T00:00:00-05:00\",\n    \"nombreTarjeta\": \"Tarjeta terciaria\",\n    \"numeroSerial\": \"123456789102\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -327,7 +327,7 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
+						"subastas",
 						""
 					]
 				}
@@ -335,14 +335,14 @@
 			"response": []
 		},
 		{
-			"name": "Tarjeta de un Usuario",
+			"name": "Subasta de un Usuario",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "0ff82228-06d0-4768-8e3e-8fd12a6f0e96",
 						"exec": [
-							"tests[\"No genera error el DELETE de tarjeta\"] = responseCode.code === 204;"
+							"tests[\"No genera error el DELETE de subasta\"] = responseCode.code === 204;"
 						],
 						"type": "text/javascript"
 					}
@@ -356,7 +356,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/{{nuevaTarjeta}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/subastas/{{nuevaSubasta}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -367,62 +367,12 @@
 						"api",
 						"usuarios",
 						"{{usuarioPrueba1}}",
-						"tarjetas",
-						"{{nuevaTarjeta}}"
+						"subastas",
+						"{{nuevaSubasta}}"
 					]
 				}
 			},
 			"response": []
-		}
-	],
-	"variable": [
-		{
-			"id": "07dba188-541c-49f3-b499-a206d96b8268",
-			"key": "ip",
-			"value": "localhost",
-			"type": "string"
-		},
-		{
-			"id": "b8d101d7-6ffa-4445-b6fa-3e6d58954af5",
-			"key": "port",
-			"value": "8080",
-			"type": "string"
-		},
-		{
-			"id": "4d6a6800-f6da-4819-8235-7339ace6aaa0",
-			"key": "usuario1",
-			"value": "luismigolondo",
-			"type": "string"
-		},
-		{
-			"id": "0aecb79f-e4fd-4cf9-b3bd-cbf9f0db294e",
-			"key": "usuario2",
-			"value": "julianosorio",
-			"type": "string"
-		},
-		{
-			"id": "3010c6bb-b09a-4362-8d11-092bd7506d32",
-			"key": "t1u1",
-			"value": "10003",
-			"type": "string"
-		},
-		{
-			"id": "76ecc4a2-733e-452b-98bc-06508ac4d575",
-			"key": "t2u1",
-			"value": "10004",
-			"type": "string"
-		},
-		{
-			"id": "ca23a817-f63e-4a14-9e3a-4237ed5b3182",
-			"key": "t1u2",
-			"value": "10005",
-			"type": "string"
-		},
-		{
-			"id": "3adae83f-d7dd-4149-b77e-28cead6addd2",
-			"key": "t2u2",
-			"value": "10006",
-			"type": "string"
 		}
 	]
 }

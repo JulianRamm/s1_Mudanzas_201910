@@ -33,39 +33,48 @@ public class VehiculoLogic {
     @Inject
     private VehiculoPersistence vehiculoPersistence;
     
-    @Inject
-    private ConductorPersistence conductorPersistence;
 
     /**
-     * Atributo que inyecta la persistencia del prioveedor en la logica.
+     * Atributo que inyecta la persistencia del proveedor en la logica.
      */
     @Inject
     private ProveedorPersistence proveedorPersistence;
     
+    /**
+     * Atributo que inyecta la persistencia del día en la logica.
+     */
     @Inject
     private DiaPersistence diaPersistence;
-
+/**
+ * 
+ * @param entity la entidad con la que se van a probar las reglas de negocio.
+ * @param login el login del proveedor
+ * @return
+ * @throws BusinessLogicException 
+ */
     public VehiculoEntity crearVehiculo(VehiculoEntity entity, String login) throws BusinessLogicException {
+        //Verificación de nulidad del proveedor
         ProveedorEntity prov = proveedorPersistence.findProveedorPorLogin(login);        
         if(prov == null)
         {
             throw new BusinessLogicException("No existe ningun proveedor de login: " + login);
         }
         entity.setProveedor(prov);
-        
+        //Verificación para que la placa sea única.
         if (vehiculoPersistence.findByPlaca(entity.getPlaca()) != null) {
             throw new BusinessLogicException("Ya existe un vehiculo con la placa: \"" + entity.getPlaca() + "\"");
         }
-        
+        //Verificacion para que el numero de conductores adscritos a un vehiculo sean menores a 8.
         if(entity.getNumeroConductores()>8)
         {
             throw new BusinessLogicException("El Vehiculo tiene mas conductores que el limite");
         }
-        
+        // Verificación del formato del color
          if (!entity.getColor().matches("([a-zA-Z ]+){2,}")&& !entity.getMarca().matches("([a-zA-Z ]+){2,}"))
          {
             throw new BusinessLogicException("El color solo puede contener letras minusculas o mayusculas");
          }
+         //Verificación del formato de la placa por medio de un recorrido simple a un arreglo de chars que viene del string de la placa.
          char[] cadena = entity.getPlaca().toCharArray();
          for(int i = 0; i < cadena.length; i++)
          {
@@ -85,18 +94,19 @@ public class VehiculoLogic {
                  }
              }
          }
-         if(entity.getRendimiento()<0)
+         //Verificacion para que el rendimiento no sea negativo
+         if(entity.getRendimiento()<=0)
          {
              throw new BusinessLogicException("El rendimiento no puede ser menor a 0");
          }
+         
+         //Verificación del formato correcto de la marca
          if(entity.getMarca() == null || entity.getColor()==null|| entity.getPlaca()==null)
          {
              throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
          }
          
-         
-         
-         
+        //Se persiste y se crea el vehiculo despues de haber evaluado todas las reglas de negocio.
     
         prov.getVehiculos().add(entity);
         vehiculoPersistence.create(entity);
