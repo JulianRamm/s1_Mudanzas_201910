@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -26,14 +25,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class CargaEntity extends BaseEntity implements Serializable{
     
     private static final long serialVersionUID = 1L;
-    /**
-     * Objeto viaje que contiene 1 o muchos objetos derivados de la clase CargaEntity, este objeto existe debido a la relación 
-     * definida desde el modelo conceptual
-     */
-    @PodamExclude
-    @ManyToOne
-    @JoinColumn(name="viaje_id")
-    ViajesEntity viaje;
+    
     /**
      * Representa los datos de env�o de la carga que se lleva de un lugar a otro
      */
@@ -43,6 +35,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
             fetch=FetchType.LAZY
     )
     List<DireccionEntity> direcciones;
+    /**
+     * Objeto viaje que contiene 1 o muchos objetos derivados de la clase CargaEntity, este objeto existe debido a la relación 
+     * definida desde el modelo conceptual
+     */
+    @PodamExclude
+    @ManyToOne
+    ViajesEntity viaje;
+
     /**
      * usuario de la carga
      */
@@ -62,7 +62,7 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private List<String> imagenes;
+    private String imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -123,14 +123,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the imagenes
      */
-    public List<String> getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
     /**
      * @param imagenes the imagenes to set
      */
-    public void setImagenes(List<String> imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -246,14 +246,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
      */
     public LinkedList<DireccionEntity> encontrarParDirecciones(long id){
         LinkedList<DireccionEntity> res=new LinkedList<>();       
-        for(DireccionEntity dir : direcciones){
+        direcciones.forEach((dir) -> {
             if(dir.getId()==id&&dir.getIsDeSalida()==true){
                 res.add(0, dir);
             }
             else if(dir.getId()==id&&dir.getIsDeSalida()==false){
                 res.add(1, dir);
             }
-        }
+        });
         return res;
     }
     /**

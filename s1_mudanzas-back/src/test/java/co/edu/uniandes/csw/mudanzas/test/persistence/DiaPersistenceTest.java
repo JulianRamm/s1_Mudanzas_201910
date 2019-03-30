@@ -33,7 +33,11 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class DiaPersistenceTest 
 {
     PodamFactory factory = new PodamFactoryImpl();
-     @Inject
+     
+    /**
+     * Inyeccion de la persistencia del dia
+     */
+    @Inject
     private DiaPersistence APersistence;
     
     /**
@@ -55,9 +59,7 @@ public class DiaPersistenceTest
      */
     private List<DiaEntity> data = new ArrayList<DiaEntity>();
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
+   
     
     /**
      *
@@ -110,7 +112,9 @@ public class DiaPersistenceTest
     {
         em.createQuery("delete from DiaEntity").executeUpdate();
     }
-    
+    /**
+     * Verificación de todas las reglas de negocio de un dia
+     */
     @Test
     public void createAgendaTest()
     {
@@ -122,6 +126,9 @@ public class DiaPersistenceTest
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
     }
+    /**
+     * Verificación de que si se pueda eliminar un dia
+     */
     @Test
     public void deleteDiaTest() {
         DiaEntity entidad = data.get(0);
@@ -129,7 +136,9 @@ public class DiaPersistenceTest
         DiaEntity borrado = em.find(DiaEntity.class, entidad.getId());
         Assert.assertNull(borrado);
     }
-    
+    /**
+     * Verificación de que si se pueda obtener un dia
+     */
     @Test
     public void getAgendaTest() {
         DiaEntity entidad = data.get(0);
@@ -142,6 +151,9 @@ public class DiaPersistenceTest
         Assert.assertEquals(entidad.getIsDisponibilidad(), nuevo.getIsDisponibilidad());
     }
     
+    /**
+     * Verificación de que si se pueda obtener todos los dias
+     */
     @Test
     public void getDiasTest() {
         List<DiaEntity> lista = APersistence.findAll();
@@ -157,7 +169,9 @@ public class DiaPersistenceTest
         }
 
     }
-    
+    /**
+     * Encuentra un dia por medio de la placa de un vehiculo
+     */
     @Test
     public void findAgendaByPlacaVehiculo() 
     {
@@ -170,6 +184,9 @@ public class DiaPersistenceTest
     
     }
     
+    /**
+     * Verificación de que si se pueda actualizar un dia
+     */
     @Test
     public void updateAgendaTest() {
         DiaEntity entidad = data.get(0);

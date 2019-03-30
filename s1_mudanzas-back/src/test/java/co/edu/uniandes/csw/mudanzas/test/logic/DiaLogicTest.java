@@ -8,16 +8,21 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 import co.edu.uniandes.csw.mudanzas.ejb.DiaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
+import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.TimeZone;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,7 +47,9 @@ public class DiaLogicTest
 { 
     PodamFactory factory = new PodamFactoryImpl();
 
-    
+    /**
+     * Inyección de la lógica del día
+     */
      @Inject
     private DiaLogic DLogic;
     
@@ -64,11 +71,12 @@ public class DiaLogicTest
      * Lista que tiene los datos de prueba.
      */
     private List<DiaEntity> data = new ArrayList<DiaEntity>();
-
-    /**
-     * Lista que tiene los datos de prueba.
-     */
     
+    /**
+     * Atrributo que modela la entidad de un vehiculo
+    */
+
+    private VehiculoEntity vehiculoData;
     /**
      *
      * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
@@ -93,6 +101,7 @@ public class DiaLogicTest
     public void configTest() {
         try {
             utx.begin();
+            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
@@ -106,54 +115,48 @@ public class DiaLogicTest
         }
     }
     private void insertData() {
+        VehiculoEntity vehiculo = factory.manufacturePojo(VehiculoEntity.class);
+        vehiculo.setPlaca("BYC943");
+        em.persist(vehiculo);
+        vehiculoData = vehiculo;
         for (int i = 0; i < 3; i++) {
-
             DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
-
             em.persist(entity);
-
             data.add(entity);
         }
     }
     private void clearData() 
     {
         em.createQuery("delete from DiaEntity").executeUpdate();
+        em.createQuery("delete from VehiculoEntity").executeUpdate();
     }
+    
+    Date horaFin = crearHoraFin();
     
     @Test
     public void createAgendaTest() throws BusinessLogicException
     {
         
       DiaEntity nuevaEntidad = factory.manufacturePojo(DiaEntity.class);
-     nuevaEntidad.setHoraInicio(toDateTime("08:02:11"));
-      nuevaEntidad.setHoraFin(toDateTime("10:02:11"));
-     nuevaEntidad.setDiaActual(toDate("02/03/2019"));
+     nuevaEntidad.setHoraFin(horaFin);
+      nuevaEntidad.setHoraInicio(crearHoraInicio(nuevaEntidad.getHoraFin()));
+     nuevaEntidad.setDiaActual(Calendar.getInstance(TimeZone.getDefault()).getTime());
       nuevaEntidad.setIsDisponibilidad(true);
-      DiaEntity resultado = DLogic.crearDia(nuevaEntidad);
+      DiaEntity resultado = DLogic.crearDia(nuevaEntidad, vehiculoData.getPlaca());
       Assert.assertNotNull(resultado);
       DiaEntity entidad = em.find(DiaEntity.class, resultado.getId());
       Assert.assertEquals(nuevaEntidad.getId(), entidad.getId());
-      Assert.assertEquals(nuevaEntidad.getHoraInicio(), entidad.getHoraInicio());
-        Assert.assertEquals(nuevaEntidad.getHoraFin(), entidad.getHoraFin());
-        Assert.assertEquals(nuevaEntidad.getDiaActual(), entidad.getDiaActual());
+      Assert.assertEquals(nuevaEntidad.getHoraInicio().getTime(), entidad.getHoraInicio().getTime());
+        Assert.assertEquals(nuevaEntidad.getHoraFin().getTime(), entidad.getHoraFin().getTime());
+        Assert.assertEquals(nuevaEntidad.getDiaActual().getYear(), entidad.getDiaActual().getYear());
        Assert.assertEquals(nuevaEntidad.getIsDisponibilidad(), entidad.getIsDisponibilidad());
    
     }
-    private Date toDateTime(String pHora)
-    {
-        Date rta = null;
-        try
-        {
-        DateTimeFormatter form = DateTimeFormatter.ofPattern("hh:mm:ss");
-      //  Date date = Date.parse(pHora, form);
-     //   rta = date;
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return rta;
-    }
+    /**
+     * Crea un Date a partir de un String
+     * @param pDia
+     * @return 
+     */
     private Date toDate(String pDia)
     {
         Date rta = null;
@@ -168,6 +171,68 @@ public class DiaLogicTest
        }
         return rta;
     }
+    /**
+* Metodo auxiliar para crear una horaFin que cumpla con sus reglas de negocio
+* @return 
+     */
+    private Timestamp crearHoraFin()
+    {
+//        Random  rnd;
+//        Date    dt;
+//        long    ms;
+//
+//// Get a new random instance, seeded from the clock
+//        rnd = new Random();
+//
+//// Get an Epoch value roughly between 1940 and 2010
+//// -946771200000L = January 1, 1940
+//// Add up to 80 years to it (using modulus on the next long)
+//        ms = -946771200000L + (Math.abs(rnd.nextLong()) % (80L * 365 * 24 * 60 * 60 * 1000));
+//
+//// Construct a date
+//        dt = new Date(ms);
+//        return dt;
+        
+        long offset = Timestamp.valueOf("2012-01-01 00:00:00").getTime();
+        long end = Timestamp.valueOf("2019-01-01 00:00:00").getTime();
+        long diff = end - offset + 1;
+        Timestamp rand = new Timestamp(offset + (long)(Math.random() * diff));
+        return rand;
+    }
+    /**
+     * Metodo auxiliar para crear una hora inicio que cumpla con sus reglas de negocio
+     * @param pTime
+     * @return 
+     */
+    private Date crearHoraInicio(Date pTime)
+    {
+        Timestamp rta=null;
+        long offset = Timestamp.valueOf("2012-01-01 00:00:00").getTime();
+        long end = Timestamp.valueOf("2019-01-01 00:00:00").getTime();
+        long diff = end - offset + 1;
+        Timestamp[] ms = new Timestamp[10];
+
+// Get a new random instance, seeded from the clock
+        // Get an Epoch value roughly between 1940 and 2010
+// -946771200000L = January 1, 1940
+//// Add up to 80 years to it (using modulus on the next long)
+         
+         for(int i = 0; i<10;i++)
+         {
+            ms[i]= new Timestamp(offset + (long)(Math.random() * diff));;
+            if(ms[i].before(pTime))
+            {
+                rta = ms[i];
+            }
+             
+         }
+  
+         return rta;
+
+    }
+    
+    
+    
     
     /**
      * Prueba que valida que no se puede crear una usuario si este es nulo.
@@ -180,7 +245,7 @@ public class DiaLogicTest
         DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
         usr.setDiaActual(null);
         //llamamos al manager de persistencia, en este caso no se creara
-        DLogic.crearDia(usr);
+        DLogic.crearDia(usr, vehiculoData.getPlaca());
     }
     
     /**
@@ -188,17 +253,17 @@ public class DiaLogicTest
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
-    @Test(expected = BusinessLogicException.class)
-    public void horaInicioTest() throws BusinessLogicException {
-        //podam nos crea una instancia automatica
-        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
-        usr.setHoraInicio(toDateTime("123456"));
-        //llamamos al manager de persistencia, en este caso no se creara
-        DLogic.crearDia(usr);
-    }
+//    @Test
+//    public void horaInicioTest() throws BusinessLogicException {
+//        //podam nos crea una instancia automatica
+//        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
+//        usr.setHoraInicio(crearHoraInicio(horaFin));
+//        //llamamos al manager de persistencia, en este caso no se creara
+//        DLogic.crearDia(usr, vehiculoData.getPlaca());
+//    }
     
      /**
-     * Prueba la regla de negocio para el correo electronico del usuario
+     * Prueba la regla de negocio para la horaFin
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
@@ -206,13 +271,13 @@ public class DiaLogicTest
     public void horaFinTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
-        usr.setHoraFin(toDateTime("456789"));
+        usr.setHoraFin(crearHoraFin());
         //llamamos al manager de persistencia, en este caso no se creara
-        DLogic.crearDia(usr);
+        DLogic.crearDia(usr, vehiculoData.getPlaca());
     }
     
      /**
-     * Prueba la regla de negocio para el correo electronico del usuario
+     * Prueba la regla de negocio para el dia actual
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
@@ -222,18 +287,18 @@ public class DiaLogicTest
         DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
         usr.setDiaActual(toDate("123456"));
         //llamamos al manager de persistencia, en este caso no se creara
-        DLogic.crearDia(usr);
+        DLogic.crearDia(usr, vehiculoData.getPlaca());
     }
     
     /**
-     * Prueba la eliminacion de un usuario.
+     * Prueba la eliminacion de un Dia.
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
     @Test
-    public void deleteUsuarioTest() throws BusinessLogicException {
+    public void deleteDiaTest() throws BusinessLogicException {
         DiaEntity entidad = data.get(1);
-        DLogic.deleteUsuario(entidad.getId());
+        DLogic.deleteDia(entidad.getId());
         DiaEntity borrar = em.find(DiaEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
@@ -244,16 +309,15 @@ public class DiaLogicTest
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
     @Test
-    public void getUsuarioPorIdTest() throws BusinessLogicException {
+    public void getDiaPorIdTest() throws BusinessLogicException {
         DiaEntity entidad = data.get(0);
         DiaEntity resultado = DLogic.getDia(entidad.getId());
         Assert.assertNotNull(resultado);
         Assert.assertEquals(resultado.getId(), entidad.getId());
         Assert.assertEquals(resultado.getHoraInicio(), entidad.getHoraInicio());
         Assert.assertEquals(resultado.getHoraFin(), entidad.getHoraFin());
-        Assert.assertEquals(resultado.getDiaActual(), entidad.getDiaActual());
         Assert.assertEquals(resultado.getIsDisponibilidad(), entidad.getIsDisponibilidad());
-        
+        Assert.assertEquals(resultado.getDiaActual().getYear(), entidad.getDiaActual().getYear());
     }
     
     

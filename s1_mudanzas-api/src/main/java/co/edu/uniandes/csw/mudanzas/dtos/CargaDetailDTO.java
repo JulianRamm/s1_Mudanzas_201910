@@ -35,6 +35,18 @@ public class CargaDetailDTO extends CargaDTO implements Serializable{
         }
     }
     
+    public CargaEntity toEntity(){
+        CargaEntity car=super.toEntity();
+        if(direcciones!=null){
+            List<DireccionEntity> dirs= new ArrayList<>();
+            for(DireccionDTO dir : direcciones){
+                dirs.add(dir.toEntity());
+            }
+            car.setDirecciones(dirs);
+        }
+        return car;
+    }
+    
     /**
      * @return the direcciones
      */

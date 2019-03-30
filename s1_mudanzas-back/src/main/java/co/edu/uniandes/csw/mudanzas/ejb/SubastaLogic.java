@@ -102,6 +102,7 @@ public class SubastaLogic {
      * Obtener todas las subastas existentes en la base de datos que le
      * pertencen a un usuario en especifico.
      *
+     * @param login
      * @return una lista de subastas de ese usuario.
      */
     public List<SubastaEntity> getSubastasUsuario(String login) {
@@ -183,10 +184,10 @@ public class SubastaLogic {
         proveedorPersistence.update(pertenece);
     }
     
-    public void delete(Long idSubasta)
-    {
-        subastaPersistence.delete(idSubasta);
-    }
+//    public void delete(Long idSubasta)
+//    {
+//        subastaPersistence.delete(idSubasta);
+//    }
     
     public SubastaEntity update(SubastaEntity cambio)
     {

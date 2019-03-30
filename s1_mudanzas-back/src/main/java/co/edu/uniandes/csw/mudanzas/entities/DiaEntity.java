@@ -65,10 +65,10 @@ public class DiaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @param horaLlegada the horaLlegada to set
+     * @param horaFin the horaFin to set
      */
-    public void setHoraFin(Date horaLlegada) {
-        this.horaFin = horaLlegada;
+    public void setHoraFin(Date horaFin) {
+        this.horaFin = horaFin;
     }
 
     /**

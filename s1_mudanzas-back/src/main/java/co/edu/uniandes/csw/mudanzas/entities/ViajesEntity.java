@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -42,7 +41,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @OneToOne
-    private ConductorEntity conductorEntity;
+    private ConductorEntity conductor;
     
     private String lugarSalida;
 
@@ -75,6 +74,64 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaLlegada;
+
+    
+    /**
+     * método que verifica que el tiempo es acorde a la distancia
+     * @param tiempo
+     * @throws BusinessLogicException 
+     */
+    public void verificarTiempo(double tiempo)throws BusinessLogicException{
+        if (!(this.getTiempo() >= tiempo - 8.0 && this.getTiempo() <= tiempo + 8.0)) {
+                throw new BusinessLogicException("El tiempo no es acorde a la distancia");
+            } else if (this.getTiempo() < 0) {
+                throw new BusinessLogicException("El tiempo es negativo");
+            } else if (this.getTiempo() == 1 && this.getTiempo() == 0) {
+                throw new BusinessLogicException("El tiempo 1 o 0");
+            } //24*7=168
+            else if (this.getTiempo() > 168) {
+                throw new BusinessLogicException("El tiempo no es acorde a la distancia de colombia");
+            }
+    }
+    public VehiculoEntity getVehiculoDelViaje() {
+        VehiculoEntity res = new VehiculoEntity();
+        for (VehiculoEntity ve : getConductorEntity().getVehiculos()) {
+            if (ve.getIdConductorActual()== getConductorEntity().getId()) {
+              res=ve;
+            }
+        }
+        return res;
+    }
+    public ViajesEntity() {
+    }
+
+    /**
+     * @return the cargas
+     */
+    public List<CargaEntity> getCargas() {
+        return cargas;
+    }
+
+    /**
+     * @param cargas the cargas to set
+     */
+    public void setCargas(List<CargaEntity> cargas) {
+        this.cargas = cargas;
+    }
+
+    /**
+     * @return the conductorEntity
+     */
+    public ConductorEntity getConductorEntity() {
+        return conductor;
+    }
+
+    /**
+     * @param conductorEntity the conductorEntity to set
+     */
+    public void setConductorEntity(ConductorEntity conductorEntity) {
+        this.conductor = conductorEntity;
+    }
 
     /**
      * @return the lugarSalida
@@ -145,48 +202,6 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     public void setClima(String clima) {
         this.clima = clima;
     }
-
-    public ViajesEntity() {
-    }
-
-    /**
-     * @return the cargas
-     */
-    public List<CargaEntity> getCargas() {
-        return cargas;
-    }
-
-    /**
-     * @param cargas the cargas to set
-     */
-    public void setCargas(List<CargaEntity> cargas) {
-        this.cargas = cargas;
-    }
-
-    /**
-     * @return the conductor
-     */
-    public ConductorEntity getConductorEntity() {
-        return conductorEntity;
-    }
-
-    /**
-     * @param conductor the conductor to set
-     */
-    public void setConductorEntity(ConductorEntity conductor) {
-        this.conductorEntity = conductor;
-    }
-
-    public VehiculoEntity getVehiculoDelViaje() {
-        VehiculoEntity res = new VehiculoEntity();
-        for (VehiculoEntity ve : conductorEntity.getVehiculos()) {
-            if (Objects.equals(ve.getId(), conductorEntity.getId())) {
-              res=ve;
-            }
-        }
-        return res;
-    }
-
     /**
      * @return the horaPartida
      */
@@ -213,23 +228,6 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     public void setHoraLlegada(Date horaLlegada) {
         this.horaLlegada = horaLlegada;
-    }
-    /**
-     * método que verifica que el tiempo es acorde a la distancia
-     * @param tiempo
-     * @throws BusinessLogicException 
-     */
-    public void verificarTiempo(double tiempo)throws BusinessLogicException{
-        if (!(this.getTiempo() >= tiempo - 8.0 && this.getTiempo() <= tiempo + 8.0)) {
-                throw new BusinessLogicException("El tiempo no es acorde a la distancia");
-            } else if (this.getTiempo() < 0) {
-                throw new BusinessLogicException("El tiempo es negativo");
-            } else if (this.getTiempo() == 1 && this.getTiempo() == 0) {
-                throw new BusinessLogicException("El tiempo 1 o 0");
-            } //24*7=168
-            else if (this.getTiempo() > 168) {
-                throw new BusinessLogicException("El tiempo no es acorde a la distancia de colombia");
-            }
     }
 
 }

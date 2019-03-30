@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author je.osorio
  */
-public class ViajesDetailDTO extends ViajesDTO implements Serializable {
+public class ViajesDetailDTO extends ViajeDTO implements Serializable {
 
     /**
      * Lista encadenada de CargaDTO que corresponde a que un viaje pude tener 1

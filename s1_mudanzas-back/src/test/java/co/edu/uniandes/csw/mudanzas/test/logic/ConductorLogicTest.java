@@ -230,7 +230,7 @@ public class ConductorLogicTest {
      * Prueba que valida que se pueda actualizar una tarjeta ya existente.
      */
     @Test
-    public void updateConductorTest() {
+    public void updateConductorTest() throws BusinessLogicException {
         ConductorEntity entidad = data.get(0);
         ConductorEntity nuevaEntidad = factory.manufacturePojo(ConductorEntity.class);
         nuevaEntidad.setId(entidad.getId());
@@ -258,8 +258,5 @@ public class ConductorLogicTest {
         ConductorEntity borrar = em.find(ConductorEntity.class, entidad.getId());
         Assert.assertNull(borrar);
     }
-
-
-
 
 }
