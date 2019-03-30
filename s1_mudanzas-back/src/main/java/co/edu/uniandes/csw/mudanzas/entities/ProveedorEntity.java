@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,28 +45,28 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<ConductorEntity> conductores;
+    private List<ConductorEntity> conductores = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<OfertaEntity> ofertas;
+    private List<OfertaEntity> ofertas = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<SubastaEntity> subastas;
+    private List<SubastaEntity> subastas = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<VehiculoEntity> vehiculos;
+    private List<VehiculoEntity> vehiculos = new ArrayList<>();
 
     public void setLogin(String login) {
         this.login = login;
