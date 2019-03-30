@@ -95,7 +95,7 @@ public class OfertaPersistence {
      * @param subLogin de un proveedor que hace una oferta
      * @return ofertas encontrada
      */
-    public List<OfertaEntity> findBySubasta(String subLogin)
+    public List<OfertaEntity> findBySubasta(Long subLogin)
     {
         List<OfertaEntity> retornable = null;
         TypedQuery<OfertaEntity> query = em.createQuery("select e from OfertaEntity e where e.subasta.id = :subLogin", OfertaEntity.class);
@@ -114,7 +114,7 @@ public class OfertaPersistence {
      * @param pSubId  de la oferta
      * @return oferta encontrada
      */
-    public OfertaEntity findOneBySubasta(String loginSubas, Long pId)
+    public OfertaEntity findOneBySubasta(Long loginSubas, Long pId)
     {
         OfertaEntity retornable = null;
         if(!findBySubasta(loginSubas).isEmpty() && findBySubasta(loginSubas).get(0)!=null)
