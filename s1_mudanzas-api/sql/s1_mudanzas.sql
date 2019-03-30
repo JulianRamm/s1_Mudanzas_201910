@@ -31,21 +31,21 @@ insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSegur
 
 /*Proveedores*/
 /*10011 Proveedor 1 proveedorPrueba1*/
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
 /*10012 Proveedor 1 proveedorPrueba1*/
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
 
 /*Conductores Proveedor 1*/
 /*10021 c1p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10010);
 /*10022 c2p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10010);
 
 /*Conductores Proveedor 2*/
 /*10023 c1p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10023, 'German', 5, '885444443', 10010);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10023, 'German', 5, '885444443', 10011);
 /*10024 c2p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10010);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10011);
 
 /*Viajes Proveedor 1 Conductor 1*/
 /*10025 v1p1 proveedorPrueba1*/

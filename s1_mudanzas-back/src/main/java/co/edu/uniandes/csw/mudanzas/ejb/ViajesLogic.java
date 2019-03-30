@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.ConductorPersistence;
 import co.edu.uniandes.csw.mudanzas.persistence.ViajesPersistence;
-import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

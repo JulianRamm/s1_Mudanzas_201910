@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.ViajeDTO;
-import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
+import co.edu.uniandes.csw.mudanzas.dtos.ViajesDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ViajesLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
@@ -30,41 +30,41 @@ public class ConductorViajesResource {
      */
     @Inject
     private ViajesLogic viajesLogic;
-    @Inject 
-    private CargaLogic cargalogic;
+
+    
     /**
      * mètodo que crea un nuevo viaje dado un json con la informaciòn de sus atributos
      * @param viajeDTO
+     * @param idConductor
      * @return un nuevo objeto que hereda de la clase ViajeDTO
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public ViajeDTO createViaje(ViajeDTO viajeDTO) throws BusinessLogicException, WebApplicationException{
+    public ViajesDetailDTO createViaje(ViajeDTO viajeDTO, @PathParam("idConductor") Long idConductor) throws BusinessLogicException, WebApplicationException{
         ViajesEntity viajesEntity = viajeDTO.toEntity();
         ViajesEntity nuevoViajeEntity;
-//        try{
-//            nuevoViajeEntity = viajesLogic.createViaje(viajesEntity);
-//        }
-//        catch(BusinessLogicException e){
-//            throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-//        }
-        ViajeDTO nuevoViajeDTO = new ViajeDTO();
-        return nuevoViajeDTO;
+        try{
+            nuevoViajeEntity = viajesLogic.createViaje(viajesEntity, idConductor);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException("No se pudo crear el viaje");
+        }
+        ViajesDetailDTO nuevoViajeDetail = new ViajesDetailDTO(nuevoViajeEntity);
+        return nuevoViajeDetail;
     }
     
-   
     /**
      * mètodo que retorna un viaje dado el id 
-     * @param id
+     * @param idViaje
      * @return el objeto ViajeDTO el cual corresponde al id especificado
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
-    @Path("{id: \\d+}")
-    public ViajeDTO getViajeDTOPorId(@PathParam("id") Long id) throws BusinessLogicException, WebApplicationException{
+    @Path("{idViaje: \\d+}")
+    public ViajeDTO getViajeDTOPorId(@PathParam("idViaje") Long idViaje) throws BusinessLogicException, WebApplicationException{
         ViajesEntity viajesEntity;
         try{
-        viajesEntity = viajesLogic.getViaje(id);
+        viajesEntity = viajesLogic.getViaje(idViaje);
        
         }
         catch(BusinessLogicException e){
@@ -81,36 +81,31 @@ public class ConductorViajesResource {
     @GET
     public List<ViajeDTO> getViajes()throws BusinessLogicException, WebApplicationException{
         List<ViajesEntity> viajesEntity;
-//        try{
-        viajesEntity = viajesLogic.getViajes();
-//       
-//        }
-//        catch(BusinessLogicException e){
-//            throw new WebApplicationException(Response.Status.NOT_FOUND);
-//        }
-        return List2Entity(viajesEntity);
-    }
-    /**
-     * mètodo que elimina un viaje dado el id 
-     * @param id
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
-     */
-    @DELETE
-    @Path("{id: \\d+}")
-    public void deleteViajeDTO(@PathParam("id") Long id) throws BusinessLogicException, WebApplicationException{
         try{
-            viajesLogic.getViaje(id);
+        viajesEntity = viajesLogic.getViajes();      
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        viajesLogic.deleteViaje(id);
+        return List2Entity(viajesEntity);
+    }
+    /**
+     * mètodo que elimina un viaje dado el id 
+     * @param idViaje
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     */
+    @DELETE
+    @Path("{idViaje: \\d+}")
+    public void deleteViajeDTO(@PathParam("idViaje") Long idViaje) throws BusinessLogicException, WebApplicationException{
+        try{
+            viajesLogic.getViaje(idViaje);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        viajesLogic.deleteViaje(idViaje);
     }
     
-    @Path("{id: \\d+}/cargas")   
-    public Class<ViajesCargaResource> getConductorViaje(@PathParam("id")Long id ){
-        return ViajesCargaResource.class;
-    }
     public List<ViajeDTO> List2Entity(List<ViajesEntity> entity){
         List<ViajeDTO> Viajes= new LinkedList<>();
         for(ViajesEntity enti: entity){
@@ -118,5 +113,14 @@ public class ConductorViajesResource {
         }
         return Viajes;
     }
-   
+    /**
+     * 
+     * @param idViaje
+     * @return 
+     */
+   @Path("{idViaje: \\d+}/cargas")
+    public Class<ViajesCargaResource> getViajesCargaResource(@PathParam("idViaje") long idViaje)
+    {
+        return ViajesCargaResource.class;
+    }
 }
