@@ -83,6 +83,16 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 /*10016 s2u1 proveedorPrueba1*/
 insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10016, 123456, 1234567, 10010, 10002);
 
+
+
+/*Agenda Vehiculo 1 Proveedor 1*/
+/*10027 proveedorPrueba1*/
+insert into AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10029, '2019-03-10 23:26:00', '2019-03-11 00:26:00', 0);
+/*Agenda Vehiculo 1 Proveedor 2*/
+/*10028 proveedorPrueba2*/
+insert into AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10030, '2019-05-10 23:26:00', '2019-05-11 00:26:00', 0);
+
+
 /*Vehiculos Proveedor 1*/
 /*10017 v1p1 proveedorPrueba1*/
 insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id) values (10017, 'VYC943', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011);
@@ -99,3 +109,4 @@ insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehi
 insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10030, '04/11/2019','2019-11-04 23:26:00', '2019-10-03 01:00:00', 1, 10018);
 insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10031, '05/11/2019','2019-12-05 23:26:00', '2019-10-03 01:00:00', 0, 10019);
 insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10032, '06/12/2019','2019-12-06 23:26:00', '2019-10-03 01:00:00', 1, 10020);
+
