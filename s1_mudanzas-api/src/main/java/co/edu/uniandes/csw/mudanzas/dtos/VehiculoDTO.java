@@ -6,13 +6,13 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 /**
  *
  * @author estudiante
  */
-public class VehiculoDTO 
+public class VehiculoDTO implements Serializable
 {
     //Falta el atributo de la ubicaciòn actual con la clase de direccion
     private Long id;
@@ -30,6 +30,11 @@ public class VehiculoDTO
     private String dimensiones;
     
     private double rendimiento;
+    
+    public VehiculoDTO()
+    {
+        
+    }
     
     public VehiculoDTO(VehiculoEntity entity)
     {
