@@ -198,16 +198,6 @@ public class ViajesPersistenceTest {
         Assert.assertEquals(newEntity.getId(), resp.getId());
     }
 
-//    @Test
-//    public void getCargasDadoUnIdTest() {
-//        ViajesEntity entidad = data.get(0);
-//        List<CargaEntity> nuevo = persistence.getCargasDadoUnId(entidad.getId());
-//        Assert.assertNotNull(nuevo);
-//        Assert.assertEquals(entidad.getCargas().size(), nuevo.size());
-//        Assert.assertTrue(listEqualsIgnoreOrder(carg, nuevo));
-//        nuevo = persistence.getCargasDadoUnId(null);
-//        Assert.assertNull(nuevo);
-//    }
 
     public static <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));

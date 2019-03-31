@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -42,7 +41,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @OneToOne
-    private ConductorEntity conductorEntity;
+    private ConductorEntity conductor;
     
     private String lugarSalida;
 
@@ -68,12 +67,12 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      /**
      * hora de salida del viaje
      */
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date horaPartida;
     /**
      * hora de llegada del viaje
      */
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date horaLlegada;
 
     
@@ -97,7 +96,7 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     public VehiculoEntity getVehiculoDelViaje() {
         VehiculoEntity res = new VehiculoEntity();
         for (VehiculoEntity ve : getConductorEntity().getVehiculos()) {
-            if (Objects.equals(ve.getId(), getConductorEntity().getId())) {
+            if (ve.getIdConductorActual()== getConductorEntity().getId()) {
               res=ve;
             }
         }
@@ -124,14 +123,14 @@ public class ViajesEntity extends BaseEntity implements Serializable {
      * @return the conductorEntity
      */
     public ConductorEntity getConductorEntity() {
-        return conductorEntity;
+        return conductor;
     }
 
     /**
      * @param conductorEntity the conductorEntity to set
      */
     public void setConductorEntity(ConductorEntity conductorEntity) {
-        this.conductorEntity = conductorEntity;
+        this.conductor = conductorEntity;
     }
 
     /**
@@ -203,7 +202,6 @@ public class ViajesEntity extends BaseEntity implements Serializable {
     public void setClima(String clima) {
         this.clima = clima;
     }
-
     /**
      * @return the horaPartida
      */

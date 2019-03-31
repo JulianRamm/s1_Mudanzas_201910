@@ -147,7 +147,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba2}}/tarjetas/{{t2u1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/usuarios/{{usuarioPrueba1}}/tarjetas/{{t2u1}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -157,7 +157,7 @@
 						"s1_mudanzas-api",
 						"api",
 						"usuarios",
-						"{{usuarioPrueba2}}",
+						"{{usuarioPrueba1}}",
 						"tarjetas",
 						"{{t2u1}}"
 					]
@@ -377,49 +377,49 @@
 	],
 	"variable": [
 		{
-			"id": "1f8e8173-192c-42b6-bb19-554e2956c383",
+			"id": "07dba188-541c-49f3-b499-a206d96b8268",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "d855caa2-acb5-418c-a66d-2d107ccc53a0",
+			"id": "b8d101d7-6ffa-4445-b6fa-3e6d58954af5",
 			"key": "port",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "92305907-962c-4e52-8c85-ca645fa39564",
+			"id": "4d6a6800-f6da-4819-8235-7339ace6aaa0",
 			"key": "usuario1",
 			"value": "luismigolondo",
 			"type": "string"
 		},
 		{
-			"id": "79f4e7ec-a667-4dce-9be8-18e6543b3a0e",
+			"id": "0aecb79f-e4fd-4cf9-b3bd-cbf9f0db294e",
 			"key": "usuario2",
 			"value": "julianosorio",
 			"type": "string"
 		},
 		{
-			"id": "76032cc2-3ac3-45d4-baf5-615e2315a5bf",
+			"id": "3010c6bb-b09a-4362-8d11-092bd7506d32",
 			"key": "t1u1",
 			"value": "10003",
 			"type": "string"
 		},
 		{
-			"id": "929e46c8-d18c-4368-9a31-01163ef14eb1",
+			"id": "76ecc4a2-733e-452b-98bc-06508ac4d575",
 			"key": "t2u1",
 			"value": "10004",
 			"type": "string"
 		},
 		{
-			"id": "2c62a07a-79c7-4348-8355-b4e6bb4dc55c",
+			"id": "ca23a817-f63e-4a14-9e3a-4237ed5b3182",
 			"key": "t1u2",
 			"value": "10005",
 			"type": "string"
 		},
 		{
-			"id": "b463ad08-292b-4494-ba92-ecb9beea2d83",
+			"id": "3adae83f-d7dd-4149-b77e-28cead6addd2",
 			"key": "t2u2",
 			"value": "10006",
 			"type": "string"

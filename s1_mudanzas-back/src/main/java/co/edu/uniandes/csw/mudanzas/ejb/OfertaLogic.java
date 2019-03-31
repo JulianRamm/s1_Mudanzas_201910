@@ -62,7 +62,7 @@ public class OfertaLogic {
     {
         return ofertaPersistence.findAll();
     }
-    public List<OfertaEntity>getOfertasSubasta(String idSubasta)
+    public List<OfertaEntity>getOfertasSubasta(Long idSubasta)
     {
         return ofertaPersistence.findBySubasta(idSubasta);
     }
@@ -72,7 +72,7 @@ public class OfertaLogic {
     }
     
     
-    public OfertaEntity getOfertaSubasta(Long idOferta, String idSubasta) throws BusinessLogicException {
+    public OfertaEntity getOfertaSubasta(Long idOferta, Long idSubasta) throws BusinessLogicException {
         OfertaEntity retornable = ofertaPersistence.findOneBySubasta(idSubasta, idOferta);
         if (retornable == null) {
             throw new BusinessLogicException("la oferta buscada no existe");
