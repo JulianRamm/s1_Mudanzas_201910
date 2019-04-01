@@ -45,7 +45,26 @@ public class ViajesLogic {
         }
         //Verificacion de existencia
         viaje.setConductorEntity(conductorEntity);
-//        double tiempoT = 0.0;
+
+        if (viaje.getGastoGasolina() <= 0) {
+            throw new BusinessLogicException("El gasto de gasolina no puede ser 0 onegativo ");
+        }
+
+        if (viaje.getHoraPartida() == null) {
+            throw new BusinessLogicException("la hora de partida no puede ser null");
+        }
+        if (viaje.getHoraPartida() == null) {
+            throw new BusinessLogicException("la hora de llegada no puede ser null");
+        }
+        
+        conductorEntity.setViaje(viaje);
+        persistence.create(viaje);
+        conductorPersistence.update(conductorEntity);
+        return viaje;
+    }
+
+    public ViajesEntity asignarCargas(ViajesEntity viaje) throws BusinessLogicException {
+        //        double tiempoT = 0.0;
 //        double distance = 0.0;
         for (CargaEntity carga : viaje.getCargas()) {
             if (!carga.getLugarSalida().equals(viaje.getLugarSalida()) || carga.getLugarSalida() == null || carga.getLugarSalida().equals("")) {
@@ -54,6 +73,10 @@ public class ViajesLogic {
             if (!carga.getLugarLlegada().equals(viaje.getLugarLlegada()) || carga.getLugarLlegada() == null || carga.getLugarLlegada().equals("")) {
                 throw new BusinessLogicException("El lugar de llegada del viaje no es el mismo al lugar de llegada de las cargas, o es null o es vacío");
             }
+            //          double hours =(viajesEntity.getHoraLlegada().getTime()-viajesEntity.getHoraPartida().getTime())*1000*3600;
+//          if (!(tiempoT <=hours+8&&tiempoT>=hours-8)) { 
+//              throw new BusinessLogicException("La hora de llegada y la hora de salida no es acorde a la distancia"); 
+//          }
 
 //         for (DireccionEntity dir : carga.getDirecciones()) {
 //          LinkedList<DireccionEntity> lis =
@@ -62,39 +85,18 @@ public class ViajesLogic {
 //          lis.get(1).getLatitud(), lis.get(0).getLongitud(),
 //          lis.get(1).getLongitud());
 //         }
-            
-//          viajesEntity.verificarTiempo(tiempoT); }   
-//          if (viaje.getGastoGasolina() != distance * viajesEntity.getVehiculoDelViaje().getRendimiento()) {
-//                throw new BusinessLogicException("El gasto de gasolina no es acorde a la distancia"); 
-//          } 
-            if (viaje.getGastoGasolina() <= 0) {
-                throw new BusinessLogicException("El gasto de gasolina no puede ser 0 onegativo ");
-            }
-//          double hours =(viajesEntity.getHoraLlegada().getTime()-viajesEntity.getHoraPartida().getTime())*1000*3600;
-//          if (!(tiempoT <=hours+8&&tiempoT>=hours-8)) { 
-//              throw new BusinessLogicException("La hora de llegada y la hora de salida no es acorde a la distancia"); 
-//          }
-
-            if (viaje.getHoraPartida() == null) {
-                throw new BusinessLogicException("la hora de partida no puede ser null");
-            }
-            if (viaje.getHoraPartida() == null) {
-                throw new BusinessLogicException("la hora de llegada no puede ser null");
-            }
-            if (viaje.getCargas().isEmpty() || viaje.getCargas() == null) {
-                throw new BusinessLogicException("El viaje no puede no tener cargas");
-            }
-        }
-        
-//            if {
+//         if {
 //                tiempoT += (distance / 1000)
 //                        / viaje.getVehiculoDelViaje().getRendimiento();
 //            }
-//         
-//          }
-        conductorEntity.setViaje(viaje);
-        persistence.create(viaje);
-        conductorPersistence.update(conductorEntity);
+//          viajesEntity.verificarTiempo(tiempoT); }   
+//          if (viaje.getGastoGasolina() != distance * viajesEntity.getVehiculoDelViaje().getRendimiento()) {
+//                throw new BusinessLogicException("El gasto de gasolina no es acorde a la distancia"); 
+//          }   
+        }
+        if (viaje.getCargas().isEmpty() || viaje.getCargas() == null) {
+            throw new BusinessLogicException("El viaje no puede no tener cargas");
+        }
         return viaje;
     }
 
@@ -153,6 +155,7 @@ public class ViajesLogic {
         ConductorEntity conductor = viaje.getConductorEntity();
         conductor.setViaje(null);
         conductorPersistence.update(conductor);
+        deleteCargasDaodUnId(id);
         persistence.delete(id);
     }
 
@@ -191,7 +194,7 @@ public class ViajesLogic {
     }
 
     /**
-     * elimina las cargas dado un id
+     * elimina las cargas dado un id de viaje
      *
      * @param id
      * @throws BusinessLogicException
@@ -199,7 +202,7 @@ public class ViajesLogic {
     public void deleteCargasDaodUnId(Long id) throws BusinessLogicException {
         List<CargaEntity> car = persistence.getCargasDadoUnId(id);
         if (car == null) {
-            throw new BusinessLogicException("No hay cargas que eliminar para un id: " + id);
+            throw new BusinessLogicException("No hay cargas que eliminar para un viaje con id: " + id);
         }
         persistence.deleteCargasDadoUnId(id);
 

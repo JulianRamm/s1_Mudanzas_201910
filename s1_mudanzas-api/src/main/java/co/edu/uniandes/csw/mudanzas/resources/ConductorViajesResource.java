@@ -15,13 +15,14 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import java.util.logging.Logger;
 import javax.inject.Inject;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 /**
  *
  * @author je.osorio
  */
-@Produces("application/JSON")
-@Consumes("application/JSON")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class ConductorViajesResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
@@ -31,6 +32,8 @@ public class ConductorViajesResource {
     @Inject
     private ViajesLogic viajesLogic;
 
+   
+    
     
     /**
      * mètodo que crea un nuevo viaje dado un json con la informaciòn de sus atributos
@@ -40,17 +43,14 @@ public class ConductorViajesResource {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
-    public ViajesDetailDTO createViaje(ViajeDTO viajeDTO, @PathParam("idConductor") Long idConductor) throws BusinessLogicException, WebApplicationException{
-        ViajesEntity viajesEntity = viajeDTO.toEntity();
-        ViajesEntity nuevoViajeEntity;
+    public ViajeDTO createViaje(ViajeDTO viajeDTO, @PathParam("idConductor") Long idConductor) throws BusinessLogicException, WebApplicationException{
         try{
-            nuevoViajeEntity = viajesLogic.createViaje(viajesEntity, idConductor);
+            ViajeDTO nuevoViajeEntity = new ViajeDTO(viajesLogic.createViaje(viajeDTO.toEntity(), idConductor));
+            return nuevoViajeEntity;
         }
         catch(BusinessLogicException e){
-            throw new WebApplicationException("No se pudo crear el viaje");
+            throw new WebApplicationException("No se pudo crear el viaje:" + e.getMessage());
         }
-        ViajesDetailDTO nuevoViajeDetail = new ViajesDetailDTO(nuevoViajeEntity);
-        return nuevoViajeDetail;
     }
     
     /**

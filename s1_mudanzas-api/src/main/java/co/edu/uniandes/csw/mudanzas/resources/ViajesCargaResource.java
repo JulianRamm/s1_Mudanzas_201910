@@ -40,18 +40,20 @@ public class ViajesCargaResource {
     private CargaLogic cargaLogic;
     /**
      * método que elimina una carga con un id especificado 
+     * @param idViaje
      * @param idCarga
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{idc: \\d+}")
-    public void deleteCargasViaje(@PathParam("idc") Long idCarga)throws WebApplicationException{
+    public void deleteCargasViaje(@PathParam("idViaje") Long idViaje)throws WebApplicationException, BusinessLogicException{
         try{
-            viajesLogic.getCargasDadoUnId(idCarga);
+            viajesLogic.getCargasDadoUnId(idViaje);
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        cargaLogic.deleteCarga(idCarga);
+        viajesLogic.deleteCargasDaodUnId(idViaje);
     }
     /**
      * método que retorna una carga en específico
@@ -78,7 +80,7 @@ public class ViajesCargaResource {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
-    public List<CargaDTO> getCargasViajeDadoUnID(@PathParam("idv") Long idViaje)throws WebApplicationException, BusinessLogicException{
+    public List<CargaDTO> getCargasViajeDadoUnID(@PathParam("idViaje") Long idViaje)throws WebApplicationException, BusinessLogicException{
         List<CargaEntity> cargas;
         try{
             cargas = viajesLogic.getCargasDadoUnId(idViaje);

@@ -151,8 +151,8 @@ public class ConductorProveedorResource
     }
     
     @Path("{idConductor: \\d+}/viajes")
-    public Class<ViajesCargaResource> getViajesCargaResource(@PathParam("idConductor") Long idCondcutor)
+    public Class<ConductorViajesResource> getViajesCargaResource(@PathParam("idConductor") Long idCondcutor)
     {
-        return ViajesCargaResource.class;
+        return ConductorViajesResource.class;
     }
 }
