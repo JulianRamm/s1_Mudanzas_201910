@@ -149,4 +149,10 @@ public class ConductorProveedorResource
         }
         return lista;
     }
+    
+    @Path("{idConductor: \\d+}/viajes")
+    public Class<ConductorViajesResource> getViajesCargaResource(@PathParam("idConductor") Long idCondcutor)
+    {
+        return ConductorViajesResource.class;
+    }
 }

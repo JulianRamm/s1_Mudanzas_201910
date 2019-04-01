@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "049c9b89-2862-47a1-b51c-7bce6c7eddc8",
+		"name": "ConductorVIajeResource-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un viaje",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb296777-d50a-4a5b-b56e-1099527ad85f",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"nuevViaje\", data.id);",
+							"tests[\"No genera error el POST de un viaje\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"id\": 10420,\r\n\"lugarSalida\": \"Bogotá D.C\" , \r\n\"lugarLlegada\": \"Medellín\" , \r\n\"tiempo\": 24, \r\n\"gastoGasolina\": 100, \r\n\"clima\": \"soleado\",\r\n\"horaPartida\": \"2019-10-03T23:26:00\",\r\n\"horaLlegada\": \"2019-10-03T00:26:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{coot}}/viajes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{coot}}",
+						"viajes"
+					]
+				},
+				"description": "Crea un viaje dado un Json y retorna el objeto"
+			},
+			"response": []
+		},
+		{
+			"name": "Dar viaje con id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27db549b-041f-4e39-aee4-b81f4655b524",
+						"exec": [
+							"tests[\"No genera error el GET de un viaje con id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co1p1}}/viajes/{{v1c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{co1p1}}",
+						"viajes",
+						"{{v1c1}}"
+					]
+				},
+				"description": "Obtiene la información de un viaje dada su id"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un viaje con id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ca7933c-7870-4436-b468-214e760b3034",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co1p1}}/viajes/{{v1c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{co1p1}}",
+						"viajes",
+						"{{v1c1}}"
+					]
+				},
+				"description": "Elimina un viaje dada su id y retorna el Json de los atributos del objeto que fue eliminado "
+			},
+			"response": []
+		},
+		{
+			"name": "Retornar todos los viajes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcfa9e0b-74ad-4f43-b011-676119daa399",
+						"exec": [
+							"tests[\"No genera error el GET de viajes\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co1p1}}/viajes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{co1p1}}",
+						"viajes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dar viaje con id 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "254cc77c-f4f0-47af-ae17-8ff9872b5183",
+						"exec": [
+							"tests[\"No genera error el GET de un viaje con id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co2p1}}/viajes/{{v2c2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{co2p1}}",
+						"viajes",
+						"{{v2c2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear viaje erróneo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a16bdaaf-d73b-4cf7-95f7-958a3f5f93f2",
+						"exec": [
+							"tests[\"No crea un viaje incorrecto\"] = responseCode.code === 403;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"id\": 10003, \r\n\"lugarSalida\": \"\" , \r\n\"lugarLlegada\": \"\" , \r\n\"tiempo\": 24, \r\n\"gastoGasolina\": \"100\", \r\n\"clima\": \"soleado\" \r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co1p1}}/viajes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"proveedores",
+						"{{proveedorPrueba1}}",
+						"conductores",
+						"{{co1p1}}",
+						"viajes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
