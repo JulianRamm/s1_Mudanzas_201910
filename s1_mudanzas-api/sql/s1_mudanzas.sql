@@ -1,15 +1,16 @@
+delete from ProveedorEntity;
 delete from AgendaEntity;
 delete from CargaEntity;
-delete from ConductorEntity;
 delete from DiaEntity;
 delete from DireccionEntity;
 delete from OfertaEntity;
-delete from ProveedorEntity;
 delete from SubastaEntity;
 delete from TarjetaDeCreditoEntity;
 delete from UsuarioEntity;
 delete from VehiculoEntity;
+delete from ConductorEntity;
 delete from ViajesEntity;
+
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/
@@ -32,9 +33,10 @@ insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSegur
 
 /*Proveedores*/
 /*10011 Proveedor 1 proveedorPrueba1*/
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
 /*10012 Proveedor 1 proveedorPrueba1*/
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10012, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
+
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
 
 
 insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10004, 15000, 16000, 10011, 10001);
@@ -43,16 +45,16 @@ insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen
 
 /*Conductores Proveedor 1*/
 /*10021 c1p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10010);
 /*10022 c2p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10010);
 
 /*Conductores Proveedor 2*/
 /*10023 c1p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10023, 'German', 5, '885444443', 10010);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10023, 'German', 5, '885444443', 10011);
 /*10024 c2p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10010);
-
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10025, 'Claudia', 5, '885444446', 10010);
 /*Viajes Proveedor 1 Conductor 1*/
 /*10025 v1p1 proveedorPrueba1*/
 insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada, conductor_id) values (10025,  'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00', 10021);
@@ -89,6 +91,9 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 /*10016 s2u1 proveedorPrueba1*/
 insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10016, 123456, 1234567, 10010, 10002);
 
+
+
+
 /*Vehiculos Proveedor 1*/
 /*10017 v1p1 proveedorPrueba1*/
 insert into VehiculoEntity(id, placa, rendimiento, idConductorActual, marca, numeroConductores, color, dimensiones, proveedor_id) values (10017, 'VYC943', 23, 123456789, 'Buggatti', 2, 'Azul', 'dimension', 10011);
@@ -105,3 +110,4 @@ insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehi
 insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10030, '04/11/2019','2019-11-04 23:26:00', '2019-10-03 01:00:00', 1, 10018);
 insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10031, '05/11/2019','2019-12-05 23:26:00', '2019-10-03 01:00:00', 0, 10019);
 insert into DiaEntity(id, diaactual, horainicio, horafin, isDisponibilidad, vehiculo_id) values (10032, '06/12/2019','2019-12-06 23:26:00', '2019-10-03 01:00:00', 1, 10020);
+
