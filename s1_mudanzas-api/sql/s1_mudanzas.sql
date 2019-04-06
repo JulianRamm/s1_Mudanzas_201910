@@ -1,21 +1,23 @@
+delete from ProveedorEntity;
 delete from AgendaEntity;
 delete from CargaEntity;
-delete from ConductorEntity;
 delete from DiaEntity;
 delete from DireccionEntity;
 delete from OfertaEntity;
-delete from ProveedorEntity;
 delete from SubastaEntity;
 delete from TarjetaDeCreditoEntity;
 delete from UsuarioEntity;
 delete from VehiculoEntity;
+delete from ConductorEntity;
 delete from ViajesEntity;
+
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/
 insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectronico, ciudadDeOrigen) values (10001, 'luismigolondo', 'Qwerty2@', 'Luis Miguel', 'Gomez Londono', 'luismigolondo@gmail.com', 'Manizales');
 /*10002 Usuario 2 usuarioPrueba2*/
 insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectronico, ciudadDeOrigen) values (10002, 'julianosorio', 'Qwerty3@', 'Julian', 'Osorio', 'juliano@gmail.com', 'Bogota');
+
 
 /*Tarjetas Usuario 1*/
 /*10003 t1u1*/
@@ -31,22 +33,28 @@ insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSegur
 
 /*Proveedores*/
 /*10011 Proveedor 1 proveedorPrueba1*/
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
 /*10012 Proveedor 1 proveedorPrueba1*/
+
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
+
+
+insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10004, 15000, 16000, 10011, 10001);
+insert into OfertaEntity(id, comentario, valor, subasta_id, proveedor_id) values ( 10005, 'Oferta Proveedor 1', 150, 10004, 10011);
 insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
 
 /*Conductores Proveedor 1*/
 /*10021 c1p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10021, 'Cesar', 5, '885444444', 10010);
 /*10022 c2p1 proveedorPrueba1*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10022, 'Ruby', 5, '885444445', 10010);
 
 /*Conductores Proveedor 2*/
 /*10023 c1p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10023, 'German', 5, '885444443', 10010);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10023, 'German', 5, '885444443', 10011);
 /*10024 c2p2 proveedorPrueba2*/
-insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10010);
-
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10024, 'Claudia', 5, '885444446', 10011);
+insert into ConductorEntity(id, nombre, calificacion, telefono, proveedor_id) values(10025, 'Claudia', 5, '885444446', 10010);
 /*Viajes Proveedor 1 Conductor 1*/
 /*10025 v1p1 proveedorPrueba1*/
 insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, clima, horaPartida, horaLlegada, conductor_id) values (10025,  'Barranquilla', 'Pasto', 3600, 1500, 'Fog', '2019-10-03 23:26:00', '2019-10-03 00:26:00', 10021);
@@ -84,13 +92,6 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10016, 123456, 1234567, 10010, 10002);
 
 
-
-/*Agenda Vehiculo 1 Proveedor 1*/
-/*10027 proveedorPrueba1*/
-insert into AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10029, '2019-03-10 23:26:00', '2019-03-11 00:26:00', 0);
-/*Agenda Vehiculo 1 Proveedor 2*/
-/*10028 proveedorPrueba2*/
-insert into AgendaEntity(id, horaSalida, horaLlegada, disponibilidad) values (10030, '2019-05-10 23:26:00', '2019-05-11 00:26:00', 0);
 
 
 /*Vehiculos Proveedor 1*/

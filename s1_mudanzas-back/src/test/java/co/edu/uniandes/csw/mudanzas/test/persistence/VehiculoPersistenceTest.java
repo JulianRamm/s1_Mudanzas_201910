@@ -201,21 +201,7 @@ public class VehiculoPersistenceTest
 //     //   Assert.assertNull(nuevo);
 //    }
 //    
-//    @Test
-//    public void buscarVehiculoPorUbicacionActual() 
-//    {
-//        PodamFactory factory = new PodamFactoryImpl();
-//        DireccionEntity ubiA = factory.manufacturePojo(DireccionEntity.class);
-//        VehiculoEntity entidad = factory.manufacturePojo(VehiculoEntity.class);
-//        entidad.setUbicacionActual(ubiA);
-//        VehiculoEntity result= VPersistence.create(entidad);
-//        VehiculoEntity nuevo = VPersistence.findByUbicacionActual(entidad.getUbicacionActual().getIdPar());
-//        
-//        Assert.assertNotNull(nuevo);
-//        Assert.assertEquals(entidad.getUbicacionActual().getIdPar(), nuevo.getUbicacionActual().getIdPar());
-//      //  nuevo = VPersistence.findByUbicacionActual(null);
-//      //  Assert.assertNull(nuevo);
-//    }
+
     
      @Test
     public void getVehiculosTest() {
