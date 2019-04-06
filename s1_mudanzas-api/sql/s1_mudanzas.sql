@@ -10,6 +10,7 @@ delete from TarjetaDeCreditoEntity;
 delete from UsuarioEntity;
 delete from VehiculoEntity;
 delete from ViajesEntity;
+delete from OfertaEntity;
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/
@@ -83,7 +84,17 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 /*10016 s2u1 proveedorPrueba1*/
 insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10016, 123456, 1234567, 10010, 10002);
 
+/*Subastas Usuario 2*/
+/*10051 o1s1 ofertaPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10051, 'super subasta ', 1234567, 10011, 10013);
+/*52 s2u1 proveedorPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10052, 'super subasta ', 1234567, 10011, 10013);
 
+/*Subastas Usuario 2*/
+/*10051 o1s1 ofertaPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10053, 'super subasta ', 1234567, 10010, 10016);
+/*52 s2u1 proveedorPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10054, 'super subasta ', 1234567, 10010, 10016);
 
 /*Agenda Vehiculo 1 Proveedor 1*/
 /*10027 proveedorPrueba1*/
