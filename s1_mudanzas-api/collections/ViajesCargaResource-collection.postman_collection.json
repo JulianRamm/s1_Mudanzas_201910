@@ -27,19 +27,23 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "api/api/proveedores/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}/viajes/{{viajesPrueba1}}/cargas",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co1p1}}/viajes/{{v1c1}}/cargas/{{c1u1}}",
+					"protocol": "http",
 					"host": [
-						"api"
+						"{{ip}}"
 					],
+					"port": "{{puerto}}",
 					"path": [
+						"s1_mudanzas-api",
 						"api",
 						"proveedores",
 						"{{proveedorPrueba1}}",
 						"conductores",
-						"{{conductorPrueba1}}",
+						"{{co1p1}}",
 						"viajes",
-						"{{viajesPrueba1}}",
-						"cargas"
+						"{{v1c1}}",
+						"cargas",
+						"{{c1u1}}"
 					]
 				},
 				"description": "Elimina las cargas de un viaje con id especificado"
@@ -54,7 +58,7 @@
 					"script": {
 						"id": "b701f668-f70c-47a4-8a3c-6c3543382443",
 						"exec": [
-							"tests[\"No genera error el GET de un viaje con id\"] = responseCode.code === 200;"
+							"tests[\"No genera error el GET de un carga con id\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -71,20 +75,23 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "api/api/proveedores/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}/viajes/{{viajesPrueba1}}/cargas/{{cargasPrueba1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co2p1}}/viajes/{{v2c2}}/cargas/{{c2u1}}",
+					"protocol": "http",
 					"host": [
-						"api"
+						"{{ip}}"
 					],
+					"port": "{{puerto}}",
 					"path": [
+						"s1_mudanzas-api",
 						"api",
 						"proveedores",
 						"{{proveedorPrueba1}}",
 						"conductores",
-						"{{conductorPrueba1}}",
+						"{{co2p1}}",
 						"viajes",
-						"{{viajesPrueba1}}",
+						"{{v2c2}}",
 						"cargas",
-						"{{cargasPrueba1}}"
+						"{{c2u1}}"
 					]
 				},
 				"description": "Retorna la información de la carga de un viaje con un id especificado"
@@ -99,7 +106,7 @@
 					"script": {
 						"id": "8b5627e8-6735-4bb2-bbb0-f66ce4a322c8",
 						"exec": [
-							"tests[\"no genera error en los test\"]=responseCode.Code===200;"
+							"tests[\"No genera error el GET de cargas\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -113,17 +120,21 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "api/api/proveedores/{{proveedorPrueba1}}/conductores/{{conductorPrueba1}}/viajes{{viajesPrueba2}}/cargas",
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/proveedores/{{proveedorPrueba1}}/conductores/{{co1p1}}/viajes/{{v1c1}}/cargas",
+					"protocol": "http",
 					"host": [
-						"api"
+						"{{ip}}"
 					],
+					"port": "{{puerto}}",
 					"path": [
+						"s1_mudanzas-api",
 						"api",
 						"proveedores",
 						"{{proveedorPrueba1}}",
 						"conductores",
-						"{{conductorPrueba1}}",
-						"viajes{{viajesPrueba2}}",
+						"{{co1p1}}",
+						"viajes",
+						"{{v1c1}}",
 						"cargas"
 					]
 				}

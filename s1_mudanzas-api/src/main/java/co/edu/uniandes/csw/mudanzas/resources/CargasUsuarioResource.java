@@ -71,7 +71,6 @@ public class CargasUsuarioResource {
      * @param idCarga Identificador de la carga que se esta buscando. Este debe
      * ser una cadena de dígitos.
      * @return JSON {@link CargaDTO} - La Carga buscada
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
     @Path("{idCarga: \\d+}")
@@ -91,7 +90,6 @@ public class CargasUsuarioResource {
      * @param login del usuario que se esta actualizando.
      * @param carga
      * @return JSON {@link CargaDTO} - La carga guardada en el usuario.
-     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @POST
     public CargaDTO crearCarga(@PathParam("login") String login, CargaDTO carga) throws WebApplicationException {

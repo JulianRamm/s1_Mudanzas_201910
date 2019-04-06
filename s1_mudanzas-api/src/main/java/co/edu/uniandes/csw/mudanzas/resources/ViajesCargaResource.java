@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -27,6 +28,7 @@ import javax.ws.rs.core.Response;
  *
  * @author je.osorio
  */
+
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -37,29 +39,34 @@ public class ViajesCargaResource {
     @Inject 
     private CargaLogic cargaLogic;
     /**
-     * método que elimina una carga con un id especificado
-     * @param id 
+     * método que elimina una carga con un id especificado 
+     * @param idViaje
+     * @param idCarga
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @DELETE
-    public void deleteCargasViaje(@PathParam("id") Long id)throws WebApplicationException{
+    @Path("{idc: \\d+}")
+    public void deleteCargasViaje(@PathParam("idViaje") Long idViaje)throws WebApplicationException, BusinessLogicException{
         try{
-            viajesLogic.getCargasDadoUnId(id);
+            viajesLogic.getCargasDadoUnId(idViaje);
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        cargaLogic.deleteCarga(id);
+        viajesLogic.deleteCargasDaodUnId(idViaje);
     }
     /**
      * método que retorna una carga en específico
-     * @param id
+     * @param idCarga
      * @return 
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException 
      */
     @GET
-    public CargaDTO getCargaIdViaje(@PathParam("id") Long id)throws WebApplicationException{
+    @Path("{idc: \\d+}")
+    public CargaDTO getCargaIdViaje(@PathParam("idc") Long idCarga)throws WebApplicationException, BusinessLogicException{
         CargaEntity carga;
         try{
-            carga=cargaLogic.getCarga(id);
+            carga=cargaLogic.getCarga(idCarga);
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -68,20 +75,22 @@ public class ViajesCargaResource {
     }
     /**
      * mètodo que retorna las cargas de un viaje dado el id del viaje
-     * @param id
+     * @param idViaje
      * @return la lista de cargas que corresponden al viaje con id especificado
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
-    public List<CargaDTO> getCargasDadoUnID(@PathParam("id") Long id)throws WebApplicationException{
+    public List<CargaDTO> getCargasViajeDadoUnID(@PathParam("idViaje") Long idViaje)throws WebApplicationException, BusinessLogicException{
         List<CargaEntity> cargas;
         try{
-            cargas = viajesLogic.getCargasDadoUnId(id);
+            cargas = viajesLogic.getCargasDadoUnId(idViaje);
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         return List2Entity(cargas);
     }   
+    
      public List<CargaDTO> List2Entity(List<CargaEntity> entity){
         List<CargaDTO> cargas= new LinkedList<>();
         for(CargaEntity enti: entity){

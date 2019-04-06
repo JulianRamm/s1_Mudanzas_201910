@@ -147,7 +147,7 @@ public class DiaPersistenceTest
         Assert.assertEquals(entidad.getHoraInicio(), nuevo.getHoraInicio());
         Assert.assertEquals(entidad.getId(), nuevo.getId());
         Assert.assertEquals(entidad.getHoraFin(), nuevo.getHoraFin());
-        Assert.assertEquals(entidad.getDiaActual(), nuevo.getDiaActual());
+        Assert.assertEquals(entidad.getDiaActual().getYear(), nuevo.getDiaActual().getYear());
         Assert.assertEquals(entidad.getIsDisponibilidad(), nuevo.getIsDisponibilidad());
     }
     
@@ -169,20 +169,7 @@ public class DiaPersistenceTest
         }
 
     }
-    /**
-     * Encuentra un dia por medio de la placa de un vehiculo
-     */
-    @Test
-    public void findAgendaByPlacaVehiculo() 
-    {
-        DiaEntity entidad = data.get(0);
-        DiaEntity nuevo = APersistence.findByPlacaVehiculo(entidad.getVehiculo().getPlaca(), entidad.getId());
-        Assert.assertNotNull(nuevo);
-        Assert.assertEquals(entidad.getVehiculo().getPlaca(), nuevo.getVehiculo().getPlaca());
-        nuevo = APersistence.findByPlacaVehiculo(entidad.getVehiculo().getPlaca(), entidad.getId());
-        Assert.assertNull(nuevo);
-    
-    }
+
     
     /**
      * Verificación de que si se pueda actualizar un dia
@@ -200,7 +187,7 @@ public class DiaPersistenceTest
         DiaEntity encontrada = em.find(DiaEntity.class, entidad.getId());
         Assert.assertEquals(cambiada.getHoraInicio(), encontrada.getHoraInicio());
         Assert.assertEquals(cambiada.getHoraFin(), encontrada.getHoraFin());
-        Assert.assertEquals(cambiada.getDiaActual(), encontrada.getDiaActual());
+        Assert.assertEquals(cambiada.getDiaActual().getYear(), encontrada.getDiaActual().getYear());
         Assert.assertEquals(cambiada.getIsDisponibilidad(), encontrada.getIsDisponibilidad());
     }
 }

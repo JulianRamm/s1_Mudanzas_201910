@@ -6,8 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
-import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
+ import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
@@ -60,7 +59,7 @@ public class VehiculoLogicTest {
     private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
     /**
-     * Atributo que almacena un usuario duenio de muchas tarjetas.
+     * Atributo que almacena un proveedor duenio de muchos vehiculos.
      */
     private ProveedorEntity proveedorData;
     

@@ -234,12 +234,18 @@ public class ConductorLogicTest {
         ConductorEntity entidad = data.get(0);
         ConductorEntity nuevaEntidad = factory.manufacturePojo(ConductorEntity.class);
         nuevaEntidad.setId(entidad.getId());
-        conLogic.updateConductor(nuevaEntidad);
-        ConductorEntity respuesta = em.find(ConductorEntity.class, entidad.getId());
-        Assert.assertNotNull(respuesta);
-        Assert.assertEquals(respuesta.getId(), nuevaEntidad.getId());
-        Assert.assertEquals(respuesta.getNombre(), nuevaEntidad.getNombre());
-        Assert.assertEquals(respuesta.getCalificacion()+"", nuevaEntidad.getCalificacion()+"");
+        try{
+            conLogic.updateConductor(nuevaEntidad);
+            ConductorEntity respuesta = em.find(ConductorEntity.class, entidad.getId());
+            Assert.assertNotNull(respuesta);
+            Assert.assertEquals(respuesta.getId(), nuevaEntidad.getId());
+            Assert.assertEquals(respuesta.getNombre(), nuevaEntidad.getNombre());
+            Assert.assertEquals(respuesta.getCalificacion()+"", nuevaEntidad.getCalificacion()+"");
+        }
+        catch(Exception e){
+            fail("no deberia fallar");
+        }
+        
     }
     
     /**
