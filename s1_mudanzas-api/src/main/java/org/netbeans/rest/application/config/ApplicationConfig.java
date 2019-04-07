@@ -44,9 +44,8 @@ private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.WebApplicationExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorVehiculoResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorViajesResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertaProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertasSubastaResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorViajesResource.class);
-
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasProveedorResource.class);
@@ -55,6 +54,7 @@ private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
 
     }
 }
