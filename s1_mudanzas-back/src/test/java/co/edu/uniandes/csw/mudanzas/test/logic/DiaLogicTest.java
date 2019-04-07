@@ -7,21 +7,16 @@ package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.DiaLogic;
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
-import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.DiaPersistence;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.TimeZone;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -210,14 +205,14 @@ public class DiaLogicTest
         long offset = Timestamp.valueOf("2012-01-01 00:00:00").getTime();
         long end = Timestamp.valueOf("2019-01-01 00:00:00").getTime();
         long diff = end - offset + 1;
-        Timestamp[] ms = new Timestamp[10];
+        Timestamp[] ms = new Timestamp[100];
 
 // Get a new random instance, seeded from the clock
         // Get an Epoch value roughly between 1940 and 2010
 // -946771200000L = January 1, 1940
 //// Add up to 80 years to it (using modulus on the next long)
          
-         for(int i = 0; i<10;i++)
+         for(int i = 0; i<100;i++)
          {
             ms[i]= new Timestamp(offset + (long)(Math.random() * diff));;
             if(ms[i].before(pTime))
@@ -253,21 +248,21 @@ public class DiaLogicTest
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
-//    @Test
-//    public void horaInicioTest() throws BusinessLogicException {
-//        //podam nos crea una instancia automatica
-//        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
-//        usr.setHoraInicio(crearHoraInicio(horaFin));
-//        //llamamos al manager de persistencia, en este caso no se creara
-//        DLogic.crearDia(usr, vehiculoData.getPlaca());
-//    }
+    @Test 
+    public void horaInicioTest() throws BusinessLogicException {
+        //podam nos crea una instancia automatica
+        DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
+        usr.setHoraInicio(crearHoraInicio(usr.getHoraFin()));
+        //llamamos al manager de persistencia, en este caso no se creara
+        DLogic.crearDia(usr, vehiculoData.getPlaca());
+    }
     
      /**
      * Prueba la regla de negocio para la horaFin
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */
-    @Test(expected = BusinessLogicException.class)
+    @Test (expected = BusinessLogicException.class)
     public void horaFinTest() throws BusinessLogicException {
         //podam nos crea una instancia automatica
         DiaEntity usr = factory.manufacturePojo(DiaEntity.class);
@@ -304,7 +299,7 @@ public class DiaLogicTest
     }
     
     /**
-     * Prueba la obtencion de un usuario por su id
+     * Prueba la obtencion de una agenda por su id
      *
      * @throws BusinessLogicException si no se cumple la regla de negocio
      */

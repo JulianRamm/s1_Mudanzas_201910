@@ -10,7 +10,9 @@ import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -19,7 +21,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Daniel Machado
  */
-public class ProveedorDetailDTO extends ProveedorDTO{
+public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
+    
 
     
     
@@ -37,6 +40,39 @@ public class ProveedorDetailDTO extends ProveedorDTO{
     
     public ProveedorDetailDTO(){
         
+    }
+    
+    
+    public ProveedorDetailDTO(ProveedorEntity entidad){
+        
+        super(entidad);
+        if(entidad != null){
+            
+            if(entidad.getSubastas() != null){
+                subastas = new LinkedList<>();
+                for(SubastaEntity subasta: entidad.getSubastas()){
+                    subastas.add(new SubastaDTO(subasta) );
+                }
+            }
+            if(entidad.getOfertas() != null){
+                ofertas = new ArrayList<>();
+                for(OfertaEntity oferta: entidad.getOfertas()){
+                    ofertas.add(new OfertaDTO(oferta) );
+                }
+            }
+            if(entidad.getConductores() != null){
+                conductores = new ArrayList<>();
+                for(ConductorEntity conductor: entidad.getConductores()){
+                    conductores.add(new ConductorDTO(conductor) );
+                }
+            }
+            if(entidad.getVehiculos() != null){
+                vehiculos = new ArrayList<>();
+                for(VehiculoEntity conductor: entidad.getVehiculos()){
+                    vehiculos.add(new VehiculoDTO(conductor) );
+                }
+            }
+        }
     }
     
     /**
@@ -95,37 +131,7 @@ public class ProveedorDetailDTO extends ProveedorDTO{
         this.vehiculos = vehiculos;
     }
     
-    public ProveedorDetailDTO(ProveedorEntity entidad){
-        
-        super(entidad);
-        if(entidad != null){
-            
-            if(entidad.getSubastas() != null){
-                subastas = new ArrayList<>();
-                for(SubastaEntity subasta: entidad.getSubastas()){
-                    subastas.add(new SubastaDTO(subasta) );
-                }
-            }
-            if(entidad.getOfertas() != null){
-                ofertas = new ArrayList<>();
-                for(OfertaEntity oferta: entidad.getOfertas()){
-                    ofertas.add(new OfertaDTO(oferta) );
-                }
-            }
-            if(entidad.getConductores() != null){
-                conductores = new ArrayList<>();
-                for(ConductorEntity conductor: entidad.getConductores()){
-                    conductores.add(new ConductorDTO(conductor) );
-                }
-            }
-            if(entidad.getVehiculos() != null){
-                vehiculos = new ArrayList<>();
-                for(VehiculoEntity conductor: entidad.getVehiculos()){
-                    vehiculos.add(new VehiculoDTO(conductor) );
-                }
-            }
-        }
-    }
+    
     
     /**
      * Transformar un DTO a un Entity
