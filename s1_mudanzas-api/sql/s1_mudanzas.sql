@@ -10,6 +10,7 @@ delete from UsuarioEntity;
 delete from VehiculoEntity;
 delete from ConductorEntity;
 delete from ViajesEntity;
+delete from OfertaEntity;
 
 
 /*Usuarios*/
@@ -39,9 +40,6 @@ insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen
 insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
 
 
-insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10004, 15000, 16000, 10011, 10001);
-insert into OfertaEntity(id, comentario, valor, subasta_id, proveedor_id) values ( 10005, 'Oferta Proveedor 1', 150, 10004, 10011);
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
 
 /*Conductores Proveedor 1*/
 /*10021 c1p1 proveedorPrueba1*/
@@ -91,7 +89,17 @@ insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_i
 /*10016 s2u1 proveedorPrueba1*/
 insert into SubastaEntity (id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10016, 123456, 1234567, 10010, 10002);
 
+/*Subastas Usuario 2*/
+/*10051 o1s1 ofertaPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10051, 'super subasta ', 1234567, 10011, 10013);
+/*52 s2u1 proveedorPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10052, 'super subasta ', 1234567, 10011, 10013);
 
+/*Subastas Usuario 2*/
+/*10051 o1s1 ofertaPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10053, 'super subasta ', 1234567, 10010, 10016);
+/*52 s2u1 proveedorPrueba1*/
+insert into OfertaEntity (id, comentario, valor, proveedor_id, subasta_id) values (10054, 'super subasta ', 1234567, 10010, 10016);
 
 
 /*Vehiculos Proveedor 1*/

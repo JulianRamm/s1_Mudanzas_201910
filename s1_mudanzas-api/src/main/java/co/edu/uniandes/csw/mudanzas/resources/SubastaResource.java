@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Andres Gonzalez
  */
-@Path("Subastas")
+@Path("subastas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -47,7 +47,7 @@ public class SubastaResource {
     @GET
     public List<SubastaDetailDTO> getSubasta() {
         List<SubastaDetailDTO> listaUsuarios = listEntity2DetailDTO(subastaLogic.getSubastas());
-        return listaUsuarios;
+         return listaUsuarios;
     }
     
     
@@ -69,6 +69,11 @@ public class SubastaResource {
         return detailDTO;
     }
     
+    
+    @Path("{idSubasta}/ofertas")
+    public Class<OfertasSubastaResource> getOfertasSubastaResource(@PathParam("id") Long idSubasta) {
+        return OfertasSubastaResource.class;
+    }
     /**
      * Convierte una lista de entidades en lista de DTOs
      *
