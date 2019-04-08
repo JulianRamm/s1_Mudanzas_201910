@@ -49,7 +49,7 @@ public class ProveedorLogic {
                 proveedor.getTelefono() == null ||
                 proveedor.getCorreoElectronico() == null)
         {
-            throw new BusinessLogicException("Ninguno de los campos puede ser nulo");
+            throw new BusinessLogicException("Ninguno de los campos puede ser nulo" +"fsasfa" );
         }
         else if (!proveedor.getLogin().matches("([0-9a-zA-Z_.-][0-9a-zA-Z_.-]*){8,}$")) {
             throw new BusinessLogicException("El login solamente puede contener Letras, numeros, (-), (.), (_), minimo 8 caracteres.");
