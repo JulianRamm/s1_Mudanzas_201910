@@ -47,7 +47,7 @@ public class SubastaResource {
     @GET
     public List<SubastaDetailDTO> getSubasta() {
         List<SubastaDetailDTO> listaUsuarios = listEntity2DetailDTO(subastaLogic.getSubastas());
-        return listaUsuarios;
+         return listaUsuarios;
     }
     
     
