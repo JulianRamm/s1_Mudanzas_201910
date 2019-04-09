@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.mudanzas.dtos;
 import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class SubastaDetailDTO extends SubastaDTO implements Serializable{
 
-    private List<OfertaDTO> ofertas;
+    private List<OfertaDTO> ofertas= new ArrayList<>();
 
     public SubastaDetailDTO() {
 
@@ -48,7 +49,7 @@ public class SubastaDetailDTO extends SubastaDTO implements Serializable{
         SubastaEntity subEntity = super.toEntity();
        if(ofertas!= null)
        {
-           List<OfertaEntity> ofertasEntitys = new LinkedList<OfertaEntity>();
+           List<OfertaEntity> ofertasEntitys = new LinkedList<>();
            for (OfertaDTO ofertaActual : ofertas) {
                ofertasEntitys.add(ofertaActual.toEntity());
            }

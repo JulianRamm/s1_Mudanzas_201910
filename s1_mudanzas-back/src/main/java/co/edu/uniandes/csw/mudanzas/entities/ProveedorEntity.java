@@ -47,28 +47,28 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<ConductorEntity> conductores = new ArrayList<>();
+    private List<ConductorEntity> conductores;
     
     @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<OfertaEntity> ofertas = new ArrayList<>();
+    private List<OfertaEntity> ofertas;
     
     @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<SubastaEntity> subastas = new ArrayList<>();
+    private List<SubastaEntity> subastas ;
     
     @PodamExclude
     @OneToMany(
         mappedBy = "proveedor", 
         fetch = FetchType.LAZY
     )
-    private List<VehiculoEntity> vehiculos = new ArrayList<>();
+    private List<VehiculoEntity> vehiculos;
 
     public void setLogin(String login) {
         this.login = login;
