@@ -37,10 +37,16 @@ public class SubastaEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne
+    (  
+            fetch = FetchType.LAZY
+    )
     private ProveedorEntity proveedor;
 
     @PodamExclude
     @ManyToOne
+    (  
+            fetch = FetchType.LAZY
+    )
     private UsuarioEntity usuario;
 
     @PodamExclude

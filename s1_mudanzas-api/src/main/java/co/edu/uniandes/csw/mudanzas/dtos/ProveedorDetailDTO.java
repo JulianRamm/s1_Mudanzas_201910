@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -49,7 +48,7 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
         if(entidad != null){
             
             if(entidad.getSubastas() != null){
-                subastas = new LinkedList<>();
+                subastas = new ArrayList<>();
                 for(SubastaEntity subasta: entidad.getSubastas()){
                     subastas.add(new SubastaDTO(subasta) );
                 }

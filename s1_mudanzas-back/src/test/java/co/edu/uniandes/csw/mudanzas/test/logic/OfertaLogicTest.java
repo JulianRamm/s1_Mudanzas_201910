@@ -61,6 +61,7 @@ public class OfertaLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     private ProveedorEntity prv;
+    private SubastaEntity sub;
 
     @Before
     public void configTest() {
@@ -82,6 +83,8 @@ public class OfertaLogicTest {
     private void clearData() {
         em.createQuery("delete from OfertaEntity").executeUpdate();
         em.createQuery("delete from ProveedorEntity").executeUpdate();
+        em.createQuery("delete from SubastaEntity").executeUpdate();
+
     }
 
     /**
@@ -94,12 +97,15 @@ public class OfertaLogicTest {
         em.persist(ofer);
 
         prv = factory.manufacturePojo(ProveedorEntity.class);
+        sub = factory.manufacturePojo(SubastaEntity.class);
 
         em.persist(prv);
+        em.persist(sub);
 
         for (int i = 0; i < 3; i++) {
             OfertaEntity oferActual = factory.manufacturePojo(OfertaEntity.class);
             oferActual.setProveedor(prv);
+            oferActual.setSubasta(sub);
             em.persist(oferActual);
             
             ofertasData.add(oferActual);
@@ -163,6 +169,19 @@ public class OfertaLogicTest {
         Assert.assertEquals(pruebaPv, real);
         Assert.assertEquals(pruebaPv, real);
     }
+    
+    
+    @Test 
+    public void getOfertasSubastaTest() throws BusinessLogicException
+    {
+         OfertaEntity real = ofertasData.get(0);
+        OfertaEntity pruebaPv = ofertaLogic.getOfertaSubasta(real.getId(), real.getSubasta().getId());
+
+        Assert.assertNotNull(pruebaPv);
+        Assert.assertEquals(pruebaPv, real);
+        Assert.assertEquals(pruebaPv, real);
+    }
+            
     @Test
     public void updateSubastaTest() {
         OfertaEntity entidad = ofertasData.get(0);
