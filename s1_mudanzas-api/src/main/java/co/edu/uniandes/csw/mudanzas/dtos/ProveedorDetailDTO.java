@@ -49,7 +49,7 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
         if(entidad != null){
             
             if(entidad.getSubastas() != null){
-                subastas = new LinkedList<>();
+                subastas = new ArrayList<>();
                 for(SubastaEntity subasta: entidad.getSubastas()){
                     subastas.add(new SubastaDTO(subasta) );
                 }

@@ -64,9 +64,9 @@ public class ProveedorResource
      */
     
     @GET 
-    public List<ProveedorDetailDTO> getProveedores(){
-        List<ProveedorDetailDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
-        return listaUsuarios;
+    public List<ProveedorDTO> getProveedores(){
+        List<ProveedorDTO> listaProveedores = listEntity2DTO(proveedorLogic.getProveedores());
+        return listaProveedores;
     }
     
      /**
@@ -149,10 +149,10 @@ public class ProveedorResource
         return VehiculosProveedorResource.class;
     }
     
-    public List<ProveedorDetailDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
-        List<ProveedorDetailDTO> lista = new ArrayList<>();
+    public List<ProveedorDTO> listEntity2DTO(List<ProveedorEntity> proveedorList) {
+        List<ProveedorDTO> lista = new ArrayList<>();
         for (ProveedorEntity entidad : proveedorList) {
-            lista.add(new ProveedorDetailDTO(entidad));
+            lista.add(new ProveedorDTO(entidad));
         }
         return lista;
     }

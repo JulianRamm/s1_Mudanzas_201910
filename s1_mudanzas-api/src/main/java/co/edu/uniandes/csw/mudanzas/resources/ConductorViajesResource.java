@@ -61,7 +61,7 @@ public class ConductorViajesResource {
      */
     @GET
     @Path("{idViaje: \\d+}")
-    public ViajeDTO getViajeDTOPorId(@PathParam("idViaje") Long idViaje) throws BusinessLogicException, WebApplicationException{
+    public ViajesDetailDTO getViajeDTOPorId(@PathParam("idViaje") Long idViaje) throws BusinessLogicException, WebApplicationException{
         ViajesEntity viajesEntity;
         try{
         viajesEntity = viajesLogic.getViaje(idViaje);
@@ -70,7 +70,7 @@ public class ConductorViajesResource {
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return new ViajeDTO(viajesEntity);
+        return new ViajesDetailDTO(viajesEntity);
     }
     /**
      * retornar todos los viajes
@@ -79,7 +79,7 @@ public class ConductorViajesResource {
      * @throws WebApplicationException 
      */
     @GET
-    public List<ViajeDTO> getViajes()throws BusinessLogicException, WebApplicationException{
+    public List<ViajesDetailDTO> getViajes()throws BusinessLogicException, WebApplicationException{
         List<ViajesEntity> viajesEntity;
         try{
         viajesEntity = viajesLogic.getViajes();      
@@ -105,11 +105,23 @@ public class ConductorViajesResource {
         }
         viajesLogic.deleteViaje(idViaje);
     }
-    
-    public List<ViajeDTO> List2Entity(List<ViajesEntity> entity){
-        List<ViajeDTO> Viajes= new LinkedList<>();
+    @PUT
+    @Path("{idViaje: \\d+}")
+    public ViajesDetailDTO updateViajeDTO(@PathParam("idViaje") Long idViaje,ViajesDetailDTO viajeDTO )throws BusinessLogicException, WebApplicationException{
+        try{
+            viajesLogic.getViaje(idViaje);
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        ViajesDetailDTO detailDTO = new ViajesDetailDTO(viajesLogic.updateViaje(viajeDTO.toEntity()));
+        return detailDTO;
+        
+    }
+    public List<ViajesDetailDTO> List2Entity(List<ViajesEntity> entity){
+        List<ViajesDetailDTO> Viajes= new LinkedList<>();
         for(ViajesEntity enti: entity){
-            Viajes.add(new ViajeDTO(enti));
+            Viajes.add(new ViajesDetailDTO(enti));
         }
         return Viajes;
     }
