@@ -148,6 +148,7 @@ public class ConductorLogic {
      * @param nuevoConductor: conductor con los cambios para ser actualizado,
      * por ejemplo el nombre.
      * @return el conductor con los cambios actualizados en la base de datos.
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public ConductorEntity updateConductor(ConductorEntity nuevoConductor) throws BusinessLogicException {
         
