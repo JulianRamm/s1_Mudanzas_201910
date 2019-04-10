@@ -149,8 +149,8 @@ public class VehiculosProveedorResource {
      * @return El servicio de cargas para este usuario en particular.
      */
     @Path("{placa}/agenda")
-    public Class<CargasUsuarioResource> getCargasUsuarioResource(@PathParam("login") String login) {
-        return CargasUsuarioResource.class;
+    public Class<VehiculoDiaResource> getVehiculoAgendaResource(@PathParam("login") String login) {
+        return VehiculoDiaResource.class;
     }
 
 }
