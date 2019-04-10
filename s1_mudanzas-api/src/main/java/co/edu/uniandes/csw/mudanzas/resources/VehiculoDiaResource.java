@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -62,7 +61,11 @@ public class VehiculoDiaResource
     public DiaDTO crearAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
     {
         DiaEntity dEntity = dia.toEntity();
+
         dEntity = dLogica.crearDia(dEntity, pPlaca);
+
+      //  dEntity = dLogica.crearDia(dEntity);
+
         
         return new DiaDTO(dEntity);
     }
@@ -89,5 +92,4 @@ public class VehiculoDiaResource
     
     
 }
-
 

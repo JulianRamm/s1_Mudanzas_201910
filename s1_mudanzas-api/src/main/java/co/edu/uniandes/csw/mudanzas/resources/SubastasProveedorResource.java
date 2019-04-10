@@ -5,10 +5,13 @@
  */
 package co.edu.uniandes.csw.mudanzas.resources;
 
+import co.edu.uniandes.csw.mudanzas.dtos.OfertaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.SubastaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.SubastaDetailDTO;
+import co.edu.uniandes.csw.mudanzas.ejb.OfertaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.SubastaLogic;
+import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -47,6 +50,11 @@ public class SubastasProveedorResource {
      */
     @Inject
     private ProveedorLogic proveedorLogic;
+    
+    @Inject
+    private OfertaLogic ofertaLogic;
+    
+    
 
     /**
      * Busca y devuelve todas las subastas que existen en el proveedor.
@@ -83,24 +91,7 @@ public class SubastasProveedorResource {
         }    
     }
     
-    /**
-     * Guarda una carga dentro de un proveedor con la informacion que recibe el la
-     * URL. Se devuelve la carga que se guarda en el proveedor.
-     *
-     * @param login del proveedor que se esta actualizando.
-     * @param subasta
-     * @return JSON {@link SubastaDTO} - La carga guardada en el proveedor.
-     */
-    @POST
-    public SubastaDTO crearSubasta(@PathParam("login") String login, SubastaDTO subasta) throws WebApplicationException {
-        try {
-            SubastaDTO SubastaDTO = new SubastaDTO(subastaLogic.createSubastaProveedor(subasta.toEntity(), login));
-            return SubastaDTO;
-        }
-        catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /proveedores/" + login + "/subastas/" + subasta.getId() + " ya existe.", 412);
-        }
-    }
+    
     
     /**
      * Remplaza una instancia de Carga asociada a una instancia del
@@ -117,21 +108,30 @@ public class SubastasProveedorResource {
     public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta, SubastaDTO subasta) throws WebApplicationException, BusinessLogicException {
         subasta.setId(idSubasta);
         if (subastaLogic.getSubastaProveedor(login, idSubasta) == null) {
-            throw new WebApplicationException("El recurso /proveedores/" + login + "/cargas/" + idSubasta + " no existe.", 404);
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/subastas/" + idSubasta + " no existe.", 404);
         }
         SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
         return dto;
     }
     
-    @DELETE
+    
+    
+    @PUT
     @Path("{idSubasta: \\d+}")
-    public void cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException, BusinessLogicException {
+    public SubastaDTO asociarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta, SubastaDetailDTO subasta, OfertaDTO ofertaDTO ) throws WebApplicationException, BusinessLogicException 
+    {
+        subasta.setId(idSubasta);
+        OfertaEntity ofer =ofertaLogic.createOfertaProveedor(ofertaDTO.toEntity(), login);
         
-        if (subastaLogic.getSubastaProveedor(login, idSubasta) == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
+        subasta.getOfertas().add(ofertaDTO);
+        
+     if (subastaLogic.getSubastaProveedor(login, idSubasta) == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/cargas/" + idSubasta + " no existe.", 404);
         }
-        subastaLogic.deleteSubastaProveedor(login, idSubasta);
-    }
+        SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
+        return dto;
+        
+        }
     
     /**
      * Convierte una lista de entidades en lista de DTOs

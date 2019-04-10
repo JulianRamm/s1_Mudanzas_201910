@@ -309,12 +309,13 @@ public class TarjetaDeCreditoLogicTest {
      * Prueba que valida que se pueda actualizar una tarjeta ya existente.
      */
     @Test
-    public void updateTarjetaDeCreditoTest() {
+    public void updateTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entidad = data.get(0);
         TarjetaDeCreditoEntity nuevaEntidad = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         nuevaEntidad.setId(entidad.getId());
+        nuevaEntidad.setUsuario(usuarioData);
         tarjetaLogic.updateTarjeta(nuevaEntidad);
-        TarjetaDeCreditoEntity respuesta = em.find(TarjetaDeCreditoEntity.class, entidad.getId());
+        TarjetaDeCreditoEntity respuesta = tarjetaLogic.getTarjeta(nuevaEntidad.getId());
         Assert.assertEquals(respuesta.getId(), nuevaEntidad.getId());
         Assert.assertEquals(respuesta.getNombreTarjeta(), nuevaEntidad.getNombreTarjeta());
         Assert.assertEquals(respuesta.getNumeroSerial(), nuevaEntidad.getNumeroSerial());

@@ -95,7 +95,7 @@ public class VehiculoLogic {
              }
          }
          //Verificacion para que el rendimiento no sea negativo
-         if(entity.getRendimiento()<0)
+         if(entity.getRendimiento()<=0)
          {
              throw new BusinessLogicException("El rendimiento no puede ser menor a 0");
          }
