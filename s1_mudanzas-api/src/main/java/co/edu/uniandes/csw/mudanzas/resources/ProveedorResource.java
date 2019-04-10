@@ -64,8 +64,8 @@ public class ProveedorResource
      */
     
     @GET 
-    public List<ProveedorDetailDTO> getProveedores(){
-        List<ProveedorDetailDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
+    public List<ProveedorDTO> getProveedores(){
+        List<ProveedorDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
         return listaUsuarios;
     }
     
@@ -77,9 +77,9 @@ public class ProveedorResource
      */
     @GET
     @Path("{login}")
-    public ProveedorDetailDTO getProveedor(@PathParam("login") String login)throws WebApplicationException{
+    public ProveedorDTO getProveedor(@PathParam("login") String login)throws WebApplicationException{
         
-        ProveedorDetailDTO detailDTO = null;
+        ProveedorDTO detailDTO = null;
         try {
             ProveedorEntity entidad = proveedorLogic.getProveedor(login);
             detailDTO = new ProveedorDetailDTO(entidad);
@@ -149,8 +149,8 @@ public class ProveedorResource
         return VehiculosProveedorResource.class;
     }
     
-    public List<ProveedorDetailDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
-        List<ProveedorDetailDTO> lista = new ArrayList<>();
+    public List<ProveedorDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
+        List<ProveedorDTO> lista = new ArrayList<>();
         for (ProveedorEntity entidad : proveedorList) {
             lista.add(new ProveedorDetailDTO(entidad));
         }
