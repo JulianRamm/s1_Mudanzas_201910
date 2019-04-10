@@ -32,7 +32,7 @@ public class OfertaLogic {
         
         ProveedorEntity proveedorEntity = proveedorPersistence.findProveedorPorLogin(loginProveedor);
         if (proveedorEntity == null) {
-            throw new BusinessLogicException("No existe ningun proveedor \"" + loginProveedor + "\"");
+            throw new  BusinessLogicException ("No existe ningun proveedor \"" + loginProveedor + "\"");
         }
         //Verificacion de existencia en el proveedor
         for (OfertaEntity subastaE : proveedorEntity.getOfertas()) {

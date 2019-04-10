@@ -57,5 +57,6 @@ private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
+
     }
 }

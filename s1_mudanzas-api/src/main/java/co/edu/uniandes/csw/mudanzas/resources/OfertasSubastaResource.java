@@ -29,12 +29,11 @@ import javax.ws.rs.core.MediaType;
  * @author Andres Gonzalez
  */
 
-
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OfertasSubastaResource {
     
-    private static final Logger LOGGER = Logger.getLogger(SubastasProveedorResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(OfertasSubastaResource.class.getName());
 
     /**
      * Atributo que inyecta la logica de la Oferta en el recurso.
@@ -91,20 +90,20 @@ public class OfertasSubastaResource {
     
     
     
-    @PUT
-    @Path("{idOferta: \\d+}")
-    public OfertaDTO asociarOferta(@PathParam("idOferta") Long idOferta, @PathParam("idSubasta") Long idSubasta, SubastaDetailDTO subasta, OfertaDTO ofertaDTO ) throws WebApplicationException, BusinessLogicException 
-    {
-        ofertaDTO.setId(idSubasta);
-             
-        
-     if (ofertaLogic.getOfertaSubasta(idOferta, idSubasta) == null) {
-            throw new WebApplicationException("El recurso /Subastas/" + idSubasta + "/ofertas/" + idOferta + " no existe.", 404);
-        }
-        OfertaDTO dto = new OfertaDTO(ofertaLogic.updateOferta(ofertaDTO.toEntity()));
-        return dto;
-        
-        }
+//    @PUT
+//    @Path("{idOferta: \\d+}")
+//    public OfertaDTO asociarOferta(@PathParam("idOferta") Long idOferta, @PathParam("idSubasta") Long idSubasta, SubastaDetailDTO subasta, OfertaDTO ofertaDTO ) throws WebApplicationException, BusinessLogicException 
+//    {
+//        ofertaDTO.setId(idSubasta);
+//             
+//        
+//     if (ofertaLogic.getOfertaSubasta(idOferta, idSubasta) == null) {
+//            throw new WebApplicationException("El recurso /Subastas/" + idSubasta + "/ofertas/" + idOferta + " no existe.", 404);
+//        }
+//        OfertaDTO dto = new OfertaDTO(ofertaLogic.updateOferta(ofertaDTO.toEntity()));
+//        return dto;
+//        
+//        }
     
     /**
      * Convierte una lista de entidades en lista de DTOs
