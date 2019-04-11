@@ -75,7 +75,7 @@ public class VehiculosProveedorResource {
     @GET
     @Path("{placa}")
     public VehiculoDTO getVehiculo(@PathParam("login") String login, @PathParam("placa") String placa) throws WebApplicationException, BusinessLogicException {
-        VehiculoEntity vehiculo = vehiculoLogic.getVehiculoProveedor(login, placa);
+        VehiculoEntity vehiculo = vehiculoLogic.getVehiculoPlacaProveedor(login, placa);
         if (vehiculo == null) {
             throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + placa + " no existe.", 404);
         }
@@ -113,7 +113,7 @@ public class VehiculosProveedorResource {
      */
     @PUT
     @Path("{placa}")
-    public VehiculoDTO cambiarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") String placa, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
+    public VehiculoDTO cambiarVehiculo(@PathParam("login") String login, @PathParam("idTarjeta") String placa, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
         vehiculo.setPlaca(placa);
         if (vehiculoLogic.getVehiculoProveedor(login, placa) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/vehiculos/" + placa + " no existe.", 404);

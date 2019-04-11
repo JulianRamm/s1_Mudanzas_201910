@@ -27,6 +27,8 @@ public class VehiculoDTO implements Serializable
     
     private String color;
     
+    private String imagen;
+    
     private String dimensiones;
     
     private double rendimiento;
@@ -45,6 +47,7 @@ public class VehiculoDTO implements Serializable
             this.marca = entity.getMarca();
             this.placa = entity.getPlaca();
             this.color = entity.getColor();
+            this.imagen = entity.getImagen();
             this.dimensiones = entity.getDimensiones();
             this.rendimiento = entity.getRendimiento();
         }
@@ -59,6 +62,7 @@ public class VehiculoDTO implements Serializable
         rta.setMarca(this.marca);
         rta.setPlaca(this.placa);
         rta.setColor(this.color);
+        rta.setImagen(this.imagen);
         rta.setRendimiento(this.rendimiento);
         rta.setDimensiones(this.dimensiones);
         return rta;
@@ -178,6 +182,20 @@ public class VehiculoDTO implements Serializable
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
 }

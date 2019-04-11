@@ -147,7 +147,7 @@ public class DiaLogic
      * @return el usuario solicitado por medio de su login.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public DiaEntity getDia(long pId) throws BusinessLogicException {
+    public DiaEntity getDia(Long pId) throws BusinessLogicException {
         DiaEntity dEntity = per.find(pId);
         if (dEntity == null) {
             throw new BusinessLogicException("No existe tal usuario con login: " +pId);

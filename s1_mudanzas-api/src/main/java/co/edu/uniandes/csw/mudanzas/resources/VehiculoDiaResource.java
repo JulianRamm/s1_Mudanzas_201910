@@ -61,10 +61,10 @@ public class VehiculoDiaResource
     public DiaDTO crearAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
     {
        try {
-            DiaDTO diaDTO = new DiaDTO(dLogica.crearDia(dia.toEntity(), login));
+            DiaDTO diaDTO = new DiaDTO(dLogica.crearDia(dia.toEntity(), pPlaca));
             return diaDTO;
         } catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso vehiculos/" + login + "/agenda/" + " ya existe.", 412);
+            throw new WebApplicationException("El recurso vehiculos/" +pPlaca + "/agenda/" + " ya existe.", 412);
         }
 
     }
@@ -74,7 +74,7 @@ public class VehiculoDiaResource
     {
         try 
         {
-            DiaDTO diaDTO = new DiaDTO(dLogica.getDiaPlacaVehiculo(Long.MIN_VALUE, pPlaca));
+            DiaDTO diaDTO = new DiaDTO(dLogica.getDiaPlacaVehiculo(pId, pPlaca));
             return diaDTO;
         } 
         catch (BusinessLogicException e) 
