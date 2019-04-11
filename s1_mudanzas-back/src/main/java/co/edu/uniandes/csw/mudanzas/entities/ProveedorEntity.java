@@ -178,7 +178,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         return subastas;
     }
 
-    public List<VehiculoEntity> getVehiculos() {
+    public List<VehiculoEntity> getVehiculos() { 
         return vehiculos;
     }
        

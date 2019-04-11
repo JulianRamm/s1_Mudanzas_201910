@@ -29,8 +29,8 @@ import javax.ws.rs.core.MediaType;
  * @author Daniel Machado
  */
 @Path("proveedores")
-@Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class ProveedorResource 
 {
@@ -64,8 +64,8 @@ public class ProveedorResource
      */
     
     @GET 
-    public List<ProveedorDTO> getProveedores(){
-        List<ProveedorDTO> listaProveedores = listEntity2DTO(proveedorLogic.getProveedores());
+    public List<ProveedorDetailDTO> getProveedores(){
+        List<ProveedorDetailDTO> listaProveedores = listEntity2DetailDTO(proveedorLogic.getProveedores());
         return listaProveedores;
     }
     
@@ -149,10 +149,10 @@ public class ProveedorResource
         return VehiculosProveedorResource.class;
     }
     
-    public List<ProveedorDTO> listEntity2DTO(List<ProveedorEntity> proveedorList) {
-        List<ProveedorDTO> lista = new ArrayList<>();
+    public List<ProveedorDetailDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
+        List<ProveedorDetailDTO> lista = new ArrayList<>();
         for (ProveedorEntity entidad : proveedorList) {
-            lista.add(new ProveedorDTO(entidad));
+            lista.add(new ProveedorDetailDTO(entidad));
         }
         return lista;
     }

@@ -66,13 +66,16 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @ManyToOne
+    (  
+            fetch = FetchType.LAZY
+    )
     private ProveedorEntity proveedor;
     /**
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
     @ManyToMany
-    private List<ConductorEntity> conductor = new ArrayList<>();
+    private List<ConductorEntity> conductor ;
 
     @PodamExclude
     @OneToOne
