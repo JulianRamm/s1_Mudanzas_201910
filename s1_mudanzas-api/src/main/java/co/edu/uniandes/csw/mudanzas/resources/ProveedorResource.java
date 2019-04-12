@@ -124,6 +124,11 @@ public class ProveedorResource
     {
         return SubastasProveedorResource.class;
     }
+    @Path("{login}/ofertas")
+    public Class<OfertaProveedorResource> getOfertaProveedorResource(@PathParam("login") String login)
+    {
+        return OfertaProveedorResource.class;
+    }
     
     @Path("{login}/conductores")
     public Class<ConductorProveedorResource> getProveedorConductorResource(@PathParam("login") String login)

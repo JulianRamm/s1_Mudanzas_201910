@@ -58,7 +58,6 @@ public class OfertaProveedorResource {
      * @return JSON {@link OfertaDTO} - La idOferta guardada en el proveedor.
      */
     @POST
-    @Path("{idOferta: \\d+}")
     public OfertaDTO crearOferta(@PathParam("login") String login, OfertaDTO oferta)
     {
         try {
