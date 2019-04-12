@@ -54,6 +54,11 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      * Atributo que modela el color de un vehiculo.
      */
     private String color;
+    
+    /**
+     * Atributo que modela la imagen de un vehiculo.
+     */
+    private String imagen;
 
     
     /**
@@ -246,6 +251,20 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     public void setUbicacionActual(DireccionEntity ubicacionActual) {
         this.ubicacionActual = ubicacionActual;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
 }

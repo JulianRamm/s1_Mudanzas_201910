@@ -239,5 +239,14 @@ public class VehiculoLogicTest {
         //llamamos al manager de persistencia, en este caso no se creara
         VLogic.crearVehiculo(vec, proveedorData.getLogin());
     }
+    
+    @Test
+    public void getVehiculoLoginTest() throws BusinessLogicException {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity resultado = VLogic.getVehiculoPlacaProveedor(proveedorData.getLogin(), entidad.getPlaca());
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(resultado.getId(), entidad.getId());
+        Assert.assertEquals(resultado.getPlaca(), entidad.getPlaca());
+    }
 
 }

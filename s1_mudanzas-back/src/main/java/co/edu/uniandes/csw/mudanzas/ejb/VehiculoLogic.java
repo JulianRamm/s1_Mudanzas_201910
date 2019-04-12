@@ -155,7 +155,7 @@ public class VehiculoLogic {
         if (index >= 0) {
             return vehiculos.get(index);
         }
-        throw new BusinessLogicException("No existe tal vehiculo con un proveedor de login: " + loginP);
+        throw new BusinessLogicException("No existe tales vehiculo con un proveedor de login: " + loginP);
     }
 
    
