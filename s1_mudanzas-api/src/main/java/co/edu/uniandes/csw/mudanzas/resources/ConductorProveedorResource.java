@@ -92,7 +92,7 @@ public class ConductorProveedorResource
             ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.crearConductor(conductor.toEntity(), loginProveedor));
             return conductorDTO;
         } catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + conductor.getId() + " ya existe.", 412);
+            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + conductor.getId() + " ya existe." + e.getMessage(), 412);
         }
     }
 
