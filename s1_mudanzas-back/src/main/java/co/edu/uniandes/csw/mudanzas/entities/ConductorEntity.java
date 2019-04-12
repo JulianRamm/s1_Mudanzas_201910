@@ -48,6 +48,9 @@ public class ConductorEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @ManyToOne
+    (  
+            fetch = FetchType.LAZY
+    )
     private ProveedorEntity proveedor;
 
     @PodamExclude
