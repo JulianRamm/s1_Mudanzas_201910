@@ -5,9 +5,7 @@
  */
 package co.edu.uniandes.csw.mudanzas.persistence;
 
-import co.edu.uniandes.csw.mudanzas.entities.AgendaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
-import co.edu.uniandes.csw.mudanzas.entities.DireccionEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.util.List;

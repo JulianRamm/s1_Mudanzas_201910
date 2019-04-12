@@ -6,8 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.test.logic;
 
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
-import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
-import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
+ import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.VehiculoPersistence;
@@ -60,7 +59,7 @@ public class VehiculoLogicTest {
     private List<VehiculoEntity> data = new ArrayList<VehiculoEntity>();
 
     /**
-     * Atributo que almacena un usuario duenio de muchas tarjetas.
+     * Atributo que almacena un proveedor duenio de muchos vehiculos.
      */
     private ProveedorEntity proveedorData;
     
@@ -239,6 +238,15 @@ public class VehiculoLogicTest {
         vec.setRendimiento(-34);
         //llamamos al manager de persistencia, en este caso no se creara
         VLogic.crearVehiculo(vec, proveedorData.getLogin());
+    }
+    
+    @Test
+    public void getVehiculoLoginTest() throws BusinessLogicException {
+        VehiculoEntity entidad = data.get(0);
+        VehiculoEntity resultado = VLogic.getVehiculoPlacaProveedor(proveedorData.getLogin(), entidad.getPlaca());
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(resultado.getId(), entidad.getId());
+        Assert.assertEquals(resultado.getPlaca(), entidad.getPlaca());
     }
 
 }

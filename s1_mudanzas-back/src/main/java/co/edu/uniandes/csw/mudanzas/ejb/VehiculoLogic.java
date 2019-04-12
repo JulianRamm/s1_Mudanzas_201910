@@ -95,7 +95,7 @@ public class VehiculoLogic {
              }
          }
          //Verificacion para que el rendimiento no sea negativo
-         if(entity.getRendimiento()<0)
+         if(entity.getRendimiento()<=0)
          {
              throw new BusinessLogicException("El rendimiento no puede ser menor a 0");
          }
@@ -155,7 +155,7 @@ public class VehiculoLogic {
         if (index >= 0) {
             return vehiculos.get(index);
         }
-        throw new BusinessLogicException("No existe tal vehiculo con un proveedor de login: " + loginP);
+        throw new BusinessLogicException("No existe tales vehiculo con un proveedor de login: " + loginP);
     }
 
    

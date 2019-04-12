@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.ConductorDetailDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ConductorDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ConductorLogic;
-import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Daniel MAchado
+ * @author Daniel Machado
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -44,12 +43,6 @@ public class ConductorProveedorResource
     private ConductorLogic conductorLogic;
 
     /**
-     * Atributo que inyecta la logica del proveedor en el recurso.
-     */
-    @Inject
-    private ProveedorLogic proveedorLogic;
-
-    /**
      * Busca y devuelve todas las conductores que existen en el proveedor.
      *
      * @param loginProveedor del proveedor que se esta buscando.
@@ -58,8 +51,8 @@ public class ConductorProveedorResource
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     @GET
-    public List<ConductorDetailDTO> getConductores(@PathParam("login") String loginProveedor) throws BusinessLogicException {
-        List<ConductorDetailDTO> listaConductores = listEntity2DTO(conductorLogic.getConductoresProveedor(loginProveedor));
+    public List<ConductorDTO> getConductores(@PathParam("login") String loginProveedor) throws BusinessLogicException {
+        List<ConductorDTO> listaConductores = listEntity2DTO(conductorLogic.getConductoresProveedor(loginProveedor));
         return listaConductores;
     }
 
@@ -99,7 +92,7 @@ public class ConductorProveedorResource
             ConductorDTO conductorDTO = new ConductorDTO(conductorLogic.crearConductor(conductor.toEntity(), loginProveedor));
             return conductorDTO;
         } catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + conductor.getId() + " ya existe.", 412);
+            throw new WebApplicationException("El recurso /proveedores/" + loginProveedor + "/conductores/" + conductor.getId() + " ya existe." + e.getMessage(), 412);
         }
     }
 
@@ -142,11 +135,17 @@ public class ConductorProveedorResource
      * @param conductoresList la lista de entidades a convertir
      * @return una lista de dtos.
      */
-    public List<ConductorDetailDTO> listEntity2DTO(List<ConductorEntity> conductoresList) {
-        List<ConductorDetailDTO> lista = new ArrayList<>();
+    public List<ConductorDTO> listEntity2DTO(List<ConductorEntity> conductoresList) {
+        List<ConductorDTO> lista = new ArrayList<>();
         for (ConductorEntity entidad : conductoresList) {
             lista.add(new ConductorDetailDTO(entidad));
         }
         return lista;
+    }
+    
+    @Path("{idConductor: \\d+}/viajes")
+    public Class<ConductorViajesResource> getViajesCargaResource(@PathParam("idConductor") Long idCondcutor)
+    {
+        return ConductorViajesResource.class;
     }
 }
