@@ -37,14 +37,15 @@ public class ApplicationConfig extends Application {
         addRestResourceClasses(resources);
         return resources;
     }
-private void addRestResourceClasses(Set<Class<?>> resources) {
+
+    private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.mudanzas.filters.CORSFilter.class);
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.BusinessLogicExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.ExceptionMapperA.class);
         resources.add(co.edu.uniandes.csw.mudanzas.mappers.WebApplicationExceptionMapper.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ConductorVehiculoResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertasSubastaResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
