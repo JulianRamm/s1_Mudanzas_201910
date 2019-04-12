@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.ProveedorDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.ProveedorDetailDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.mudanzas.entities.ProveedorEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
@@ -18,6 +19,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -64,8 +66,8 @@ public class ProveedorResource
      */
     
     @GET 
-    public List<ProveedorDetailDTO> getProveedores(){
-        List<ProveedorDetailDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
+    public List<ProveedorDTO> getProveedores(){
+        List<ProveedorDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
         return listaUsuarios;
     }
     
@@ -77,9 +79,9 @@ public class ProveedorResource
      */
     @GET
     @Path("{login}")
-    public ProveedorDetailDTO getProveedor(@PathParam("login") String login)throws WebApplicationException{
+    public ProveedorDTO getProveedor(@PathParam("login") String login)throws WebApplicationException{
         
-        ProveedorDetailDTO detailDTO = null;
+        ProveedorDTO detailDTO = null;
         try {
             ProveedorEntity entidad = proveedorLogic.getProveedor(login);
             detailDTO = new ProveedorDetailDTO(entidad);
@@ -87,6 +89,25 @@ public class ProveedorResource
             throw new WebApplicationException("El recurso /usuarios/" + login + " no existe.", 404);
         }
         
+        return detailDTO;
+    }
+    
+    /**
+     * Actualiza el usuario asociado recibido en la URL y lo cambia...
+     *
+     * @param login del usuario que se quiere actualizar
+     * @param proveedor el proveedor por el que se quiere cambiar
+     * @return un detailDTO de ese usuario que se acaba de cambiar
+     * @throws BusinessLogicException
+     */
+    @PUT
+    @Path("{login}")
+    public ProveedorDTO updateProveedor(@PathParam("login") String login, ProveedorDTO proveedor) throws WebApplicationException, BusinessLogicException {
+        proveedor.setLogin(login);
+        if (proveedorLogic.getProveedor(login) == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + " no existe.", 404);
+        }
+        ProveedorDetailDTO detailDTO = new ProveedorDetailDTO(proveedorLogic.updateProveedor(proveedor.toEntity()));
         return detailDTO;
     }
     
@@ -149,8 +170,8 @@ public class ProveedorResource
         return VehiculosProveedorResource.class;
     }
     
-    public List<ProveedorDetailDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
-        List<ProveedorDetailDTO> lista = new ArrayList<>();
+    public List<ProveedorDTO> listEntity2DetailDTO(List<ProveedorEntity> proveedorList) {
+        List<ProveedorDTO> lista = new ArrayList<>();
         for (ProveedorEntity entidad : proveedorList) {
             lista.add(new ProveedorDetailDTO(entidad));
         }

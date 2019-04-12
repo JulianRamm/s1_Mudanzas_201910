@@ -36,8 +36,10 @@ public class ConductorDetailDTO extends ConductorDTO implements Serializable
                 vehiculos = new ArrayList<>();
                 for(VehiculoEntity carro : entity.getVehiculos()){
                     vehiculos.add(new VehiculoDTO(carro));
+                    System.out.print("ld,fld,lg,f,bgsd");
                 }
             }
+            
         }
     }
     public List<VehiculoDTO> getVehiculos() {

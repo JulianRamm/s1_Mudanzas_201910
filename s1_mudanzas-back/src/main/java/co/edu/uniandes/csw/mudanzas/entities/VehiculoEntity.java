@@ -33,12 +33,12 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela el rendimiento de un vehiculo.
      */
-    private double rendimiento;
+    private Double rendimiento;
     
     /**
      * Atributo que modela el id del conductor que está manejando el vehiculo.
      */
-    private long idConductorActual;
+    private Long idConductorActual;
     
     /**
      * Atributo que modela la marca de un vehiculo.
@@ -48,12 +48,17 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela el numero de conductores que posee un vehiculo.
      */
-    private int numeroConductores;
+    private Integer numeroConductores;
 
     /**
      * Atributo que modela el color de un vehiculo.
      */
     private String color;
+    
+    /**
+     * Atributo que modela la imagen de un vehiculo.
+     */
+    private String imagen;
 
     
     /**
@@ -66,12 +71,18 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     @PodamExclude
     @ManyToOne
+    (  
+            fetch = FetchType.LAZY
+    )
     private ProveedorEntity proveedor;
     /**
      * Atributo que modela la lista de vehiculos de un conductor
      */
     @PodamExclude
     @ManyToMany
+    (  
+            fetch = FetchType.LAZY
+    )
     private List<ConductorEntity> conductor = new ArrayList<>();
 
     @PodamExclude
@@ -240,6 +251,20 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
      */
     public void setUbicacionActual(DireccionEntity ubicacionActual) {
         this.ubicacionActual = ubicacionActual;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
 }

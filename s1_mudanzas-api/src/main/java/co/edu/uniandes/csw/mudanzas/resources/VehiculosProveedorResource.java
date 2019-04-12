@@ -7,12 +7,12 @@ package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.VehiculoDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.ProveedorLogic;
-import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,8 +29,11 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Luis Miguel
  */
+@Path("vehiculos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
+
 public class VehiculosProveedorResource {
 
     /**
@@ -72,7 +75,7 @@ public class VehiculosProveedorResource {
     @GET
     @Path("{placa}")
     public VehiculoDTO getVehiculo(@PathParam("login") String login, @PathParam("placa") String placa) throws WebApplicationException, BusinessLogicException {
-        VehiculoEntity vehiculo = vehiculoLogic.getVehiculoProveedor(login, placa);
+        VehiculoEntity vehiculo = vehiculoLogic.getVehiculoPlacaProveedor(login, placa);
         if (vehiculo == null) {
             throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + placa + " no existe.", 404);
         }
@@ -110,7 +113,7 @@ public class VehiculosProveedorResource {
      */
     @PUT
     @Path("{placa}")
-    public VehiculoDTO cambiarTarjeta(@PathParam("login") String login, @PathParam("idTarjeta") String placa, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
+    public VehiculoDTO cambiarVehiculo(@PathParam("login") String login, @PathParam("idTarjeta") String placa, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
         vehiculo.setPlaca(placa);
         if (vehiculoLogic.getVehiculoProveedor(login, placa) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/vehiculos/" + placa + " no existe.", 404);
@@ -146,8 +149,8 @@ public class VehiculosProveedorResource {
      * @return El servicio de cargas para este usuario en particular.
      */
     @Path("{placa}/agenda")
-    public Class<CargasUsuarioResource> getCargasUsuarioResource(@PathParam("login") String login) {
-        return CargasUsuarioResource.class;
+    public Class<VehiculoDiaResource> getVehiculoAgendaResource(@PathParam("login") String login) {
+        return VehiculoDiaResource.class;
     }
 
 }

@@ -55,7 +55,7 @@ public class ConductorLogic {
         if (!conductor.getNombre().matches("([a-zA-Z ]+){2,}")) {
             throw new BusinessLogicException("el nombre ingresado no es valido");
         }
-        if (conductor.getTelefono().matches("[0-9]{7,10}+")) {
+        if (!conductor.getTelefono().matches("[0-9]{7,10}+")) {
             throw new BusinessLogicException("el numero telefonico ingresado no es valido");
         }
 

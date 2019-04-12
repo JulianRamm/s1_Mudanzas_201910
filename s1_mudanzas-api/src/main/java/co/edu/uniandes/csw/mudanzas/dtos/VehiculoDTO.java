@@ -6,20 +6,20 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 /**
  *
  * @author estudiante
  */
-public class VehiculoDTO 
+public class VehiculoDTO implements Serializable
 {
     //Falta el atributo de la ubicaciòn actual con la clase de direccion
     private Long id;
     
     private Long idConductorActual;
     
-    private int numeroConductores;
+    private Integer numeroConductores;
     
     private String marca;
     
@@ -27,9 +27,18 @@ public class VehiculoDTO
     
     private String color;
     
+    private String imagen;
+    
     private String dimensiones;
     
-    private double rendimiento;
+    private Double rendimiento;
+    
+    private ProveedorDTO proveedor;
+    
+    public VehiculoDTO()
+    {
+        
+    }
     
     public VehiculoDTO(VehiculoEntity entity)
     {
@@ -40,8 +49,13 @@ public class VehiculoDTO
             this.marca = entity.getMarca();
             this.placa = entity.getPlaca();
             this.color = entity.getColor();
+            this.imagen = entity.getImagen();
             this.dimensiones = entity.getDimensiones();
             this.rendimiento = entity.getRendimiento();
+            if(entity.getProveedor() != null)
+                this.proveedor = new ProveedorDTO(entity.getProveedor());
+            else
+                this.proveedor = null;
         }
     }
 
@@ -54,6 +68,7 @@ public class VehiculoDTO
         rta.setMarca(this.marca);
         rta.setPlaca(this.placa);
         rta.setColor(this.color);
+        rta.setImagen(this.imagen);
         rta.setRendimiento(this.rendimiento);
         rta.setDimensiones(this.dimensiones);
         return rta;
@@ -173,6 +188,20 @@ public class VehiculoDTO
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
 }
