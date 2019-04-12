@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -49,29 +48,32 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
         if(entidad != null){
             
             if(entidad.getSubastas() != null){
-                subastas = new LinkedList<>();
+                subastas = new ArrayList<>();
                 for(SubastaEntity subasta: entidad.getSubastas()){
                     subastas.add(new SubastaDTO(subasta) );
                 }
+                System.out.println(subastas.size());
             }
             if(entidad.getOfertas() != null){
                 ofertas = new ArrayList<>();
                 for(OfertaEntity oferta: entidad.getOfertas()){
                     ofertas.add(new OfertaDTO(oferta) );
                 }
+                System.out.println(ofertas.size());
             }
             if(entidad.getConductores() != null){
                 conductores = new ArrayList<>();
                 for(ConductorEntity conductor: entidad.getConductores()){
                     conductores.add(new ConductorDTO(conductor) );
                 }
+                System.out.println(conductores.size());
             }
-            if(entidad.getVehiculos() != null){
+            /*if(entidad.getVehiculos() != null){
                 vehiculos = new ArrayList<>();
                 for(VehiculoEntity conductor: entidad.getVehiculos()){
                     vehiculos.add(new VehiculoDTO(conductor) );
                 }
-            }
+            }*/
         }
     }
     
@@ -162,13 +164,13 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
             }
             entidad.setConductores(conductoresEntity);
         }
-        if(getVehiculos() != null){
+        /* if(getVehiculos() != null){
             List<VehiculoEntity> vehucyulosEntity = new ArrayList<>();
             for(VehiculoDTO vehiculoDTO : getVehiculos()){
                 vehucyulosEntity.add(vehiculoDTO.toEntity());
             }
             entidad.setVehiculos(vehucyulosEntity);
-        }
+        }*/
         return entidad;
     }
     

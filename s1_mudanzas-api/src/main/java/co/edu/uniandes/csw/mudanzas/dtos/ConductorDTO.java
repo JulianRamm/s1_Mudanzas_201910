@@ -7,6 +7,7 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.ConductorEntity;
+import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Daniel Machado
  */
-public class ConductorDTO {
+public class ConductorDTO implements Serializable {
 
     private String nombre;
 
@@ -24,6 +25,10 @@ public class ConductorDTO {
     private Double calificacion;
 
     private String telefono;
+    
+    private ProveedorDTO proveedor;
+    
+    private ViajeDTO viaje;
     
     public ConductorDTO(){
         
@@ -35,6 +40,11 @@ public class ConductorDTO {
             this.id = entity.getId();
             this.calificacion = entity.getCalificacion();
             this.telefono = entity.getTelefono();
+            this.proveedor = new ProveedorDTO(entity.getProveedor());
+            if(entity.getViaje()!=null)
+                this.viaje = new ViajeDTO(entity.getViaje());
+            else
+                this.viaje = null;
         }
     }
 
@@ -72,6 +82,20 @@ public class ConductorDTO {
     public double getCalificacion() {
         return calificacion;
     }
+
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public void setProveedor(ProveedorDTO proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public void setViaje(ViajeDTO viaje) {
+        this.viaje = viaje;
+    }
+    
+    
 
     /**
      * @param calificacion the calificacion to set
