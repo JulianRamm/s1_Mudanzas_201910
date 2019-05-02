@@ -6,29 +6,34 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.DiaDTO;
-import co.edu.uniandes.csw.mudanzas.dtos.ConductorDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.DiaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.VehiculoLogic;
 import co.edu.uniandes.csw.mudanzas.entities.DiaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Samuel Bernal Neira
  */
+@Path("agenda")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
+
 public class VehiculoDiaResource 
 {
     /**
@@ -53,33 +58,54 @@ public class VehiculoDiaResource
      */
     
     @POST
-    public DiaDTO crearAgenda(@PathParam("login") String login, @PathParam("idConductor") Long pId, @PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
+    public DiaDTO crearAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
     {
-        DiaEntity dEntity = dia.toEntity();
-      //  dEntity = dLogica.crearDia(dEntity);
-        
-        return new DiaDTO(dEntity);
+       try {
+            DiaDTO diaDTO = new DiaDTO(dLogica.crearDia(dia.toEntity(), pPlaca));
+            return diaDTO;
+        } catch (BusinessLogicException e) {
+            throw new WebApplicationException("El recurso vehiculos/" +pPlaca + "/agenda/" + " ya existe.", 412);
+        }
+
     }
     
     @GET
-    public DiaDTO getAgenda(@PathParam("login") String login, @PathParam("idConductor") Long pId, @PathParam("placa") String pPlaca)
+    public DiaDTO getAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, @PathParam("agenda") Long pId)
     {
-        return null;
+        try 
+        {
+            DiaDTO diaDTO = new DiaDTO(dLogica.getDiaPlacaVehiculo(pId, pPlaca));
+            return diaDTO;
+        } 
+        catch (BusinessLogicException e) 
+        {
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + pId + " no existe.", 404);
+        }
     }
     
     
     
     @PUT
-    public DiaDTO cambiarAgenda(@PathParam("login") String login, @PathParam("idConductor") Long pId, @PathParam("placa") String pPlaca, @PathParam("Agenda") DiaDTO pAgenda)
+    public DiaDTO cambiarAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, @PathParam("agenda") Long pId, DiaDTO dia )throws WebApplicationException, BusinessLogicException
     {
-        return null;
+       dia.setId(pId);
+        if (dLogica.getDiaPlacaVehiculo(pId, pPlaca) == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + pPlaca + "/agenda/" + pId +   " no existe.", 404);
+        }
+        DiaDTO dto = new DiaDTO(dLogica.updateDia(dia.toEntity()));
+        return dto;
     }
     
     @DELETE
-    public DiaDTO borrarAgenda(@PathParam("login") String login)
+    public void borrarAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, @PathParam("agenda") Long pId)throws WebApplicationException, BusinessLogicException
     {
-        return null;
+       DiaEntity dia = dLogica.getDiaPlacaVehiculo(pId, pPlaca);
+        if(dia == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + pPlaca + " no existe." + "/agenda", 404);
+        }
+        dLogica.deleteDia(pId);
     }
     
     
 }
+
