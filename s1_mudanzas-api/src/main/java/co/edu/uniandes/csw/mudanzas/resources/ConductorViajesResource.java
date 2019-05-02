@@ -59,6 +59,7 @@ public class ConductorViajesResource {
      * @return el objeto ViajeDTO el cual corresponde al id especificado
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
+    /*
     @GET
     @Path("{idViaje: \\d+}")
     public ViajesDetailDTO getViajeDTOPorId(@PathParam("idViaje") Long idViaje) throws BusinessLogicException, WebApplicationException{
@@ -72,22 +73,37 @@ public class ConductorViajesResource {
         }
         return new ViajesDetailDTO(viajesEntity);
     }
+    @GET
+    @Path("{idViaje: \\d+}")
+    public ViajesDetailDTO getViajeDTOPorId(@PathParam("idViaje") Long idViaje) throws BusinessLogicException, WebApplicationException{
+        ViajesEntity viajesEntity;
+        try{
+        viajesEntity = viajesLogic.getViaje(idViaje);
+       
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return new ViajesDetailDTO(viajesEntity);
+    }
+    */
     /**
-     * retornar todos los viajes
+     * retornar viaje conductor
+     * @param idConductor
      * @return
      * @throws BusinessLogicException
      * @throws WebApplicationException 
      */
     @GET
-    public List<ViajesDetailDTO> getViajes()throws BusinessLogicException, WebApplicationException{
-        List<ViajesEntity> viajesEntity;
+    public ViajesDetailDTO getViajes(@PathParam("idConductor") Long idConductor)throws BusinessLogicException, WebApplicationException{
+        ViajesEntity viajesEntity;
         try{
-        viajesEntity = viajesLogic.getViajes();      
+        viajesEntity = viajesLogic.getViajeCon(idConductor);      
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return List2Entity(viajesEntity);
+        return new ViajesDetailDTO(viajesEntity);
     }
     /**
      * mètodo que elimina un viaje dado el id 
@@ -114,9 +130,13 @@ public class ConductorViajesResource {
         catch(BusinessLogicException e){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+        try{
         ViajesDetailDTO detailDTO = new ViajesDetailDTO(viajesLogic.updateViaje(viajeDTO.toEntity()));
-        return detailDTO;
-        
+        return detailDTO;    
+        }
+        catch(Exception e){
+            throw new WebApplicationException("No se pudo actualizar el viaje: "+e.getMessage());
+        }
     }
     public List<ViajesDetailDTO> List2Entity(List<ViajesEntity> entity){
         List<ViajesDetailDTO> Viajes= new LinkedList<>();

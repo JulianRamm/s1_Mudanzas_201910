@@ -6,9 +6,7 @@
 package co.edu.uniandes.csw.mudanzas.persistence;
 
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
-import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.entities.ViajesEntity;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -35,7 +33,8 @@ public class ViajesPersistence {
 
     @Inject
     CargaPersistence cargaP;
-
+    @Inject
+    ConductorPersistence conP;
     /**
      * Crea un viaje en la BD
      *
@@ -105,6 +104,15 @@ public class ViajesPersistence {
             }
         }
         return cargas;
+    }
+    public ViajesEntity getVajesDeConductor(Long idCon) {
+        TypedQuery query = em.createQuery("Select e From ViajesEntity e where e.conductor = :conductor", ViajesEntity.class);
+        query = query.setParameter("conductor", conP.find(idCon));
+        List<ViajesEntity> viaje = query.getResultList();
+        if (viaje == null || viaje.isEmpty() ) {
+            viaje = null;
+        } 
+        return viaje.get(0);
     }
     public void deleteCargasDadoUnId(Long id) {
         List<CargaEntity> cargas = getCargasDadoUnId(id);

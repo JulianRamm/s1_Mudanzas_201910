@@ -62,11 +62,7 @@ public class ViajesLogic {
         return viaje;
     }
 
-    public ViajesEntity asignarCargas(ViajesEntity viaje) throws BusinessLogicException {
-        
-        return viaje;
-    }
-
+   
     /**
      * método que retorna todos los viajes en la BD
      *
@@ -81,7 +77,20 @@ public class ViajesLogic {
 
         return viajes;
     }
-
+/**
+     * método que retorna todos los viajes del conductor
+     *
+     * @param idCon
+     * @return
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
+     */
+    public ViajesEntity getViajeCon(Long idCon) throws BusinessLogicException {
+        ViajesEntity viajes = persistence.getVajesDeConductor(idCon);
+        if (viajes == null) {
+            throw new BusinessLogicException("No hay viajes");
+        }
+        return viajes;
+    }
     /**
      * método que devuelve un viaje dado el id del viaje
      *
