@@ -6,15 +6,16 @@
 package co.edu.uniandes.csw.mudanzas.dtos;
 
 import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author estudiante
  */
-public class VehiculoDetailDTO extends VehiculoDTO
+public class VehiculoDetailDTO extends VehiculoDTO implements Serializable
 {
-    private List<DiaDTO> agendas;
+    private DiaDTO agenda;
     
     private List<ConductorDTO> conductores;
     

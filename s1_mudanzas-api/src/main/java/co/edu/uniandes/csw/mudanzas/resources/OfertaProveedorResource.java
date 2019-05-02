@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.mudanzas.resources;
 import co.edu.uniandes.csw.mudanzas.dtos.OfertaDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.OfertaLogic;
+import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -41,10 +44,10 @@ public class OfertaProveedorResource {
      * @return JSON {@link OfertaDTO} - La idOferta buscada
      */
     @GET
-    @Path("{idOferta: \\d+}")
-    public OfertaDTO getOfrerta(@PathParam("login") String login) throws BusinessLogicException
+    public List<OfertaDTO> getOfertas(@PathParam("login") String login) 
     {
-        return new OfertaDTO(oferLogic.getOfertaProveedor(Long.MIN_VALUE, login));
+       List<OfertaDTO> listaOfertas = listEntity2DTO(oferLogic.getOfertasProveedor(login));
+       return listaOfertas;
     }
     
     /**
@@ -58,7 +61,6 @@ public class OfertaProveedorResource {
      * @return JSON {@link OfertaDTO} - La idOferta guardada en el proveedor.
      */
     @POST
-    @Path("{idOferta: \\d+}")
     public OfertaDTO crearOferta(@PathParam("login") String login, OfertaDTO oferta)
     {
         try {
@@ -88,5 +90,15 @@ public class OfertaProveedorResource {
         }
         catch (BusinessLogicException e) {
             throw new WebApplicationException("El recurso /proveedores/" + login + "/subastas/" + oferta.getId()+ " ya existe.", 412);
-        }    }
+        }    
+    }
+    public List<OfertaDTO> listEntity2DTO(List<OfertaEntity> ofertasList) {
+        List<OfertaDTO> lista = new ArrayList<>();
+        for (OfertaEntity entidad : ofertasList) {
+            lista.add(new OfertaDTO(entidad));
+        }
+        return lista;
+    }
+    
 }
+

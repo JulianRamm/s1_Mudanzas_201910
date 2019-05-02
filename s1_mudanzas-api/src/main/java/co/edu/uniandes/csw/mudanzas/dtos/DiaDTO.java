@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class DiaDTO implements Serializable
 {
+    private Long id;
     
     private boolean disponibilidad;
     
@@ -100,6 +101,20 @@ public class DiaDTO implements Serializable
      */
     public void setDiaActual(Date diaActual) {
         this.diaActual = diaActual;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 
     
