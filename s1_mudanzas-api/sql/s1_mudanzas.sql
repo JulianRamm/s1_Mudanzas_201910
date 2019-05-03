@@ -1,4 +1,6 @@
-delete from ProveedorEntity;
+delete from CargaEntity;
+delete from UsuarioEntity;
+delete from VehiculoEntity;
 delete from AgendaEntity;
 delete from CargaEntity;
 delete from DiaEntity;
@@ -6,12 +8,9 @@ delete from DireccionEntity;
 delete from OfertaEntity;
 delete from SubastaEntity;
 delete from TarjetaDeCreditoEntity;
-delete from UsuarioEntity;
-delete from VehiculoEntity;
 delete from ConductorEntity;
 delete from ViajesEntity;
-delete from OfertaEntity;
-
+delete from ProveedorEntity;
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/

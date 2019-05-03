@@ -115,7 +115,10 @@ public class ViajesLogic {
     public ViajesEntity updateViaje(ViajesEntity viajeEntity) throws BusinessLogicException {
         //        double tiempoT = 0.0;
 //        double distance = 0.0;
-        
+        if(persistence.find(viajeEntity.getId())==null){
+            throw new BusinessLogicException("No existe un viaje con id: "+ viajeEntity.getId());
+        }
+            
         for (CargaEntity carga : viajeEntity.getCargas()) {
             if (!carga.getLugarSalida().equals(viajeEntity.getLugarSalida()) || carga.getLugarSalida() == null || carga.getLugarSalida().equals("")) {
                 throw new BusinessLogicException("El lugar de salida del viaje no es el mismo al lugar de salida de las cargas, o es null o es vacío ");
@@ -147,9 +150,6 @@ public class ViajesLogic {
         if (viajeEntity.getCargas().isEmpty() || viajeEntity.getCargas() == null) {
             throw new BusinessLogicException("El viaje no puede no tener cargas");
         }
-        ConductorEntity conductor = viajeEntity.getConductorEntity();
-        conductor.setViaje(viajeEntity);
-        conductorPersistence.update(conductor);
         persistence.update(viajeEntity);
         return viajeEntity;
     }

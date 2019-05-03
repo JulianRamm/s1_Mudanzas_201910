@@ -122,14 +122,7 @@ public class ConductorViajesResource {
         viajesLogic.deleteViaje(idViaje);
     }
     @PUT
-    @Path("{idViaje: \\d+}")
-    public ViajesDetailDTO updateViajeDTO(@PathParam("idViaje") Long idViaje,ViajesDetailDTO viajeDTO )throws BusinessLogicException, WebApplicationException{
-        try{
-            viajesLogic.getViaje(idViaje);
-        }
-        catch(BusinessLogicException e){
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
+    public ViajesDetailDTO updateViajeDTO(ViajesDetailDTO viajeDTO )throws BusinessLogicException, WebApplicationException{
         try{
         ViajesDetailDTO detailDTO = new ViajesDetailDTO(viajesLogic.updateViaje(viajeDTO.toEntity()));
         return detailDTO;    
