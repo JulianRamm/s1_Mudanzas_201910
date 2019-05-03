@@ -1,4 +1,6 @@
-delete from ProveedorEntity;
+delete from CargaEntity;
+delete from UsuarioEntity;
+delete from VehiculoEntity;
 delete from AgendaEntity;
 delete from CargaEntity;
 delete from DiaEntity;
@@ -6,12 +8,9 @@ delete from DireccionEntity;
 delete from OfertaEntity;
 delete from SubastaEntity;
 delete from TarjetaDeCreditoEntity;
-delete from UsuarioEntity;
-delete from VehiculoEntity;
 delete from ConductorEntity;
 delete from ViajesEntity;
-delete from OfertaEntity;
-
+delete from ProveedorEntity;
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/
@@ -38,6 +37,7 @@ insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen
 /*10012 Proveedor 2 proveedorPrueba2*/
 
 insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
+
 
 
 insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10004, 15000, 16000, 10011, 10001);

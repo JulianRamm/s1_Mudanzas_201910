@@ -31,8 +31,8 @@ import javax.ws.rs.core.MediaType;
  * @author Daniel Machado
  */
 @Path("proveedores")
-@Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class ProveedorResource 
 {
@@ -66,6 +66,7 @@ public class ProveedorResource
      */
     
     @GET 
+
     public List<ProveedorDTO> getProveedores(){
         List<ProveedorDTO> listaUsuarios = listEntity2DetailDTO(proveedorLogic.getProveedores());
         return listaUsuarios;
