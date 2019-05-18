@@ -18,57 +18,57 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Daniel Machado
  */
 @Entity
-public class ProveedorEntity extends BaseEntity implements Serializable{
-    
+public class ProveedorEntity extends BaseEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private String login;
-    
+
     private String password;
-    
+
     private String nombre;
-    
+
     private String logotipo;
-    
+
     private String ciudadOrigen;
-    
+
     private String correoElectronico;
-    
+
     private String telefono;
-    
+
     private Integer numeroVehiculos;
-    
+
     private Integer dineroDisponible;
-    
+
     private Double calificacion;
-    
+
     @PodamExclude
     @OneToMany(
-        mappedBy = "proveedor", 
-        fetch = FetchType.LAZY
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
     )
-    private List<ConductorEntity> conductores = new ArrayList<>();
-    
+    private List<ConductorEntity> conductores;
+
     @PodamExclude
     @OneToMany(
-        mappedBy = "proveedor", 
-        fetch = FetchType.LAZY
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
     )
-    private List<OfertaEntity> ofertas = new ArrayList<>();
-    
+    private List<OfertaEntity> ofertas;
+
     @PodamExclude
     @OneToMany(
-        mappedBy = "proveedor", 
-        fetch = FetchType.LAZY
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
     )
-    private List<SubastaEntity> subastas = new ArrayList<>();
-    
+    private List<SubastaEntity> subastas;
+
     @PodamExclude
     @OneToMany(
-        mappedBy = "proveedor", 
-        fetch = FetchType.LAZY
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
     )
-    private List<VehiculoEntity> vehiculos = new ArrayList<>();
+    private List<VehiculoEntity> vehiculos;
 
     public void setLogin(String login) {
         this.login = login;
@@ -124,8 +124,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
 
     public void setVehiculos(List<VehiculoEntity> vehiculos) {
         this.vehiculos = vehiculos;
-    }    
-    
+    }
+
     public String getLogin() {
         return login;
     }
@@ -181,5 +181,5 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public List<VehiculoEntity> getVehiculos() {
         return vehiculos;
     }
-       
+
 }

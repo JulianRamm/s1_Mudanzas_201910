@@ -41,7 +41,9 @@ public class OfertaEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @ManyToOne
     (  
-        fetch = FetchType.LAZY
+
+            fetch = FetchType.LAZY
+
     )
     private ProveedorEntity proveedor;
     
