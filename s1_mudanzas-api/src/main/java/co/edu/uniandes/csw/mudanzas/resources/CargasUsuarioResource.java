@@ -98,7 +98,7 @@ public class CargasUsuarioResource {
             return cargaDTO;
         }
         catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + carga.getId() + " ya existe.", 412);
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + carga.getId() + " ya existe."+ e.getMessage(), 412 );
         }
     }
 

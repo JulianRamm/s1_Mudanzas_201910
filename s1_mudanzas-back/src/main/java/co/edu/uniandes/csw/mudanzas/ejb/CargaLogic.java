@@ -54,7 +54,7 @@ public class CargaLogic {
             throw new BusinessLogicException("El volumen no puede ser 1");
         }
         if (carga.getImagenes().equals("") ){
-            throw new BusinessLogicException("Las imagenes no puyeden ser vacias");
+            throw new BusinessLogicException("Las imagenes no pueden ser vacias");
         }
         if (carga.getLugarLlegada() == null || carga.getLugarLlegada().equals("")) {
             throw new BusinessLogicException("El lugar de llegada no puede ser null");
@@ -71,7 +71,7 @@ public class CargaLogic {
 //            throw new BusinessLogicException("La fecha estimada no es acorde al tiempo del envío");
 //        }
         if (carga.getFechaEnvio() == null) {
-            throw new BusinessLogicException("la fecha de envío no pued e ser null");
+            throw new BusinessLogicException("la fecha de envío no puede ser null");
         }
         if (carga.getDatosEnvio() == null || carga.getDatosEnvio().equals("")) {
             throw new BusinessLogicException("los datos de envío no puede ser null o vacío");
