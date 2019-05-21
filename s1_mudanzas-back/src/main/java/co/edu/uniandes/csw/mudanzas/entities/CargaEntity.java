@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -62,7 +63,8 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private String imagenes;
+    @Lob
+    private byte[] imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -123,14 +125,14 @@ public class CargaEntity extends BaseEntity implements Serializable{
     /**
      * @return the imagenes
      */
-    public String getImagenes() {
+    public byte[] getImagenes() {
         return imagenes;
     }
 
     /**
      * @param imagenes the imagenes to set
      */
-    public void setImagenes(String imagenes) {
+    public void setImagenes(byte[] imagenes) {
         this.imagenes = imagenes;
     }
 

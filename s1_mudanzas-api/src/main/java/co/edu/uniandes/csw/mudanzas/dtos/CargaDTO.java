@@ -39,7 +39,7 @@ public class CargaDTO implements Serializable {
     /**
      * lista encadenada de im�genes de la carga del env�o
      */
-    private String imagenes;
+    private byte[] imagenes;
 
     /**
      * direcci�n del lugar de salida de la carga
@@ -134,14 +134,14 @@ public class CargaDTO implements Serializable {
     /**
      * @return the imagenes
      */
-    public String getImagenes() {
+    public byte[] getImagenes() {
         return imagenes;
     }
 
     /**
      * @param imagenes the imagenes to set
      */
-    public void setImagenes(String imagenes) {
+    public void setImagenes(byte[] imagenes) {
         this.imagenes = imagenes;
     }
 
