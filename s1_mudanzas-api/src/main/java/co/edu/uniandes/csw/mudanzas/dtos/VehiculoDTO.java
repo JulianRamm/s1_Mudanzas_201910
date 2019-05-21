@@ -35,6 +35,8 @@ public class VehiculoDTO implements Serializable
     
     private ProveedorDTO proveedor;
     
+    private DiaDTO agenda; 
+   
     public VehiculoDTO()
     {
         
@@ -56,8 +58,14 @@ public class VehiculoDTO implements Serializable
                 this.proveedor = new ProveedorDTO(entity.getProveedor());
             else
                 this.proveedor = null;
+            if(entity.getAgenda() != null)
+                this.agenda = new DiaDTO(entity.getAgenda());
+            else
+                this.agenda = null;
         }
+         
     }
+    
 
     
     public VehiculoEntity toEntity()
@@ -71,6 +79,12 @@ public class VehiculoDTO implements Serializable
         rta.setImagen(this.imagen);
         rta.setRendimiento(this.rendimiento);
         rta.setDimensiones(this.dimensiones);
+        if (this.agenda != null) {
+            rta.setAgenda(this.agenda.toEntity());
+        }
+        if (this.proveedor != null) {
+            rta.setProveedor(this.proveedor.toEntity());
+        }
         return rta;
     }
    
