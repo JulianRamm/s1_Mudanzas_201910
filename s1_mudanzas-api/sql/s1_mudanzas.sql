@@ -1,4 +1,6 @@
-delete from ProveedorEntity;
+delete from CargaEntity;
+delete from UsuarioEntity;
+delete from VehiculoEntity;
 delete from AgendaEntity;
 delete from CargaEntity;
 delete from DiaEntity;
@@ -6,12 +8,9 @@ delete from DireccionEntity;
 delete from OfertaEntity;
 delete from SubastaEntity;
 delete from TarjetaDeCreditoEntity;
-delete from UsuarioEntity;
-delete from VehiculoEntity;
 delete from ConductorEntity;
 delete from ViajesEntity;
-delete from OfertaEntity;
-
+delete from ProveedorEntity;
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/
@@ -38,6 +37,7 @@ insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen
 /*10012 Proveedor 2 proveedorPrueba2*/
 
 insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
+
 
 
 insert into SubastaEntity(id, valorInicial, valorFinal, proveedor_id, usuario_id) values (10004, 15000, 16000, 10011, 10001);
@@ -70,14 +70,14 @@ insert into ViajesEntity(id,  lugarSalida, lugarLlegada, tiempo, gastoGasolina, 
 
 /*Cargas Usuario 1*/
 /*10007 c1u1*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10025, 10001, 'Carga muy grande', 15, 'imagen' , 'Medellin', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10007, 10025, 10001, 'Carga muy grande', 15, null , 'Medellin', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
 /*10008 c2u1*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10026, 10001, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bogota', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10008, 10026, 10001, 'Carga muy grande', 16, null, 'Bogota', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
 /*Cargas Usuario 2*/
 /*10009 c1u2*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10009, 10027, 10002, 'Carga muy grande', 15, 'imagen1 imagen2', 'Barranquilla', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10009, 10027, 10002, 'Carga muy grande', 15, null, 'Barranquilla', 'Bogota', '03/10/2019', '03/08/2019', 'muy delicado pilas');
 /*10010 c2u2*/
-insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10010, 10028, 10002, 'Carga muy grande', 16, 'imagen1 imagen2', 'Bucaramanga', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
+insert into CargaEntity (id, viaje_id, usuario_id, datosEnvio, volumen, imagenes, lugarSalida, lugarLlegada, fechaEstimadaLlegada, fechaEnvio, observaciones) values (10010, 10028, 10002, 'Carga muy grande', 16, null, 'Bucaramanga', 'Armenia', '03/10/2019', '03/08/2019', 'muy fragil pilas');
 
 
 /*Subastas Usuario 1*/

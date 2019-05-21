@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "8ca9486a-6b2d-4ae2-b713-fb5cf7c30cc8",
+		"name": "SubastasResource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Subastas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/subastas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"subastas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/subastas/{{s1u1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"subastas",
+						"{{s1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subasta Especifica 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s1_mudanzas-api/api/subastas/{{s2u2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s1_mudanzas-api",
+						"api",
+						"subastas",
+						"{{s2u2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
