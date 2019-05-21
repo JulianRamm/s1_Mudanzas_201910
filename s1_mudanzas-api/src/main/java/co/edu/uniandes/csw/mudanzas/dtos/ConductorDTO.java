@@ -45,6 +45,7 @@ public class ConductorDTO implements Serializable {
                 this.viaje = new ViajeDTO(entity.getViaje());
             else
                 this.viaje = null;
+
         }
     }
 

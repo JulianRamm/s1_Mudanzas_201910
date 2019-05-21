@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.mudanzas.resources;
 
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDTO;
 import co.edu.uniandes.csw.mudanzas.dtos.CargaDetailDTO;
+import co.edu.uniandes.csw.mudanzas.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.CargaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.CargaEntity;
@@ -98,7 +99,7 @@ public class CargasUsuarioResource {
             return cargaDTO;
         }
         catch (BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + carga.getId() + " ya existe."+ e.getMessage(), 412 );
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + carga.getId() + " ya existe."+ e.getMessage(), 401 );
         }
     }
 
@@ -114,17 +115,16 @@ public class CargasUsuarioResource {
      * Actualizada
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
+    
     @PUT
     @Path("{idCarga: \\d+}")
     public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga, CargaDTO carga) throws WebApplicationException, BusinessLogicException {
-        carga.setId(idCarga);
+        carga.setUsuario(new UsuarioDTO(usuarioLogic.getUsuario(login)));
         if (cargaLogic.getCarga(login, idCarga) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
         }
-        CargaDTO dto = new CargaDTO(cargaLogic.updateCarga(carga.toEntity()));
-        return dto;
+        return new CargaDTO(cargaLogic.updateCarga(carga.toEntity()));
     }
-
     @DELETE
     @Path("{idCarga: \\d+}")
     public void borrarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga) throws BusinessLogicException, WebApplicationException {
