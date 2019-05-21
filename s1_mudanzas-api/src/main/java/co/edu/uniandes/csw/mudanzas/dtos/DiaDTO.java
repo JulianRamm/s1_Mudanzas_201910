@@ -25,6 +25,8 @@ public class DiaDTO implements Serializable
     
     private Date diaActual;
     
+    private VehiculoDTO vehiculo;
+    
     public DiaDTO(DiaEntity entity)
     {
         if(entity != null)
@@ -33,6 +35,10 @@ public class DiaDTO implements Serializable
             this.horaInicio = entity.getHoraInicio();
             this.horaFin = entity.getHoraFin();
             this.diaActual = entity.getDiaActual();
+            if(entity.getVehiculo() != null)
+                this.vehiculo = new VehiculoDTO(entity.getVehiculo());
+            else
+                this.vehiculo = null;
         }
     }
     
@@ -43,6 +49,9 @@ public class DiaDTO implements Serializable
         rta.setIsDisponibilidad(this.disponibilidad);
         rta.setHoraInicio(this.horaInicio);
         rta.setHoraFin(this.horaFin);
+        if (this.vehiculo != null) {
+            rta.setVehiculo(this.vehiculo.toEntity());
+        }
         return rta;
     }
     

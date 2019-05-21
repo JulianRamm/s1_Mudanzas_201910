@@ -58,7 +58,7 @@ public class VehiculoDiaResource
      */
     
     @POST
-    public DiaDTO crearAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
+    public DiaDTO crearAgenda(@PathParam("placa") String pPlaca, DiaDTO dia) throws BusinessLogicException
     {
        try {
             DiaDTO diaDTO = new DiaDTO(dLogica.crearDia(dia.toEntity(), pPlaca));
@@ -70,16 +70,17 @@ public class VehiculoDiaResource
     }
     
     @GET
-    public DiaDTO getAgenda(@PathParam("login") String login, @PathParam("placa") String pPlaca, @PathParam("agenda") Long pId)
+    public DiaDTO getAgenda( @PathParam("placa") String pPlaca)
     {
+        
         try 
         {
-            DiaDTO diaDTO = new DiaDTO(dLogica.getDiaPlacaVehiculo(pId, pPlaca));
+            DiaDTO diaDTO = new DiaDTO(dLogica.getDiaPlaca(pPlaca));
             return diaDTO;
         } 
         catch (BusinessLogicException e) 
         {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + pId + " no existe.", 404);
+            throw new WebApplicationException("La agenda asociada al vehiculo con placa" + pPlaca + " no existe.", 404);
         }
     }
     

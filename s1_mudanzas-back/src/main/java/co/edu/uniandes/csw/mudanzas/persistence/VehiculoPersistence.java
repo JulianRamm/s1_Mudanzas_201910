@@ -136,7 +136,7 @@ public class VehiculoPersistence {
     /**
      * Actualiza una vehiculo con la bd
      *
-     * @param cambiada
+     * @param cambiada vehiculo por el cual se va a cambiar la informacion
      * @return la vehiculo actualizada
      */
     public VehiculoEntity update(VehiculoEntity cambiada) {
