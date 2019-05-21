@@ -58,9 +58,9 @@ public class SubastasUsuarioResource {
      */
     
     @GET
-    public List<SubastaDetailDTO> getSubastas(@PathParam("login") String login)
+    public List<SubastaDTO> getSubastas(@PathParam("login") String login)
     {
-        List<SubastaDetailDTO> listaSubastas = listEntity2DTO(subastaLogic.getSubastasUsuario(login));
+        List<SubastaDTO> listaSubastas = listEntity2DTO(subastaLogic.getSubastasUsuario(login));
         return listaSubastas;
     }
     
@@ -143,10 +143,10 @@ public class SubastasUsuarioResource {
      * @param subastasList la lista de entidades a convertir
      * @return una lista de dtos.
      */
-    public List<SubastaDetailDTO> listEntity2DTO(List<SubastaEntity> subastasList) {
-        List<SubastaDetailDTO> lista = new ArrayList<>();
+    public List<SubastaDTO> listEntity2DTO(List<SubastaEntity> subastasList) {
+        List<SubastaDTO> lista = new ArrayList<>();
         for (SubastaEntity entidad : subastasList) {
-            lista.add(new SubastaDetailDTO(entidad));
+            lista.add(new SubastaDTO(entidad));
         }
         return lista;
     }

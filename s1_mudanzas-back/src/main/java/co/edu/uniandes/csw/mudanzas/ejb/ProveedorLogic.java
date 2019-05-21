@@ -83,7 +83,6 @@ public class ProveedorLogic {
     
     /**
      * Obtener un proveedor por medio de su id.
-     *
      * @param proveedorId: id del usuario para ser buscado.
      * @return el proveedor solicitado por medio de su id.
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException

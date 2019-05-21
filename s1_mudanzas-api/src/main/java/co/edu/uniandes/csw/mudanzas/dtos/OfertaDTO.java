@@ -22,7 +22,7 @@ public class OfertaDTO implements Serializable {
     
     public OfertaDTO()
     {
-        
+                
     }
 
     

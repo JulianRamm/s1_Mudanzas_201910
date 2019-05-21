@@ -20,4 +20,18 @@ public class DiaDetailDTO extends DiaDTO
     {
         super(entity);
     }
+
+    /**
+     * @return the vehiculos
+     */
+    public List<VehiculoDTO> getVehiculos() {
+        return vehiculos;
+    }
+
+    /**
+     * @param vehiculos the vehiculos to set
+     */
+    public void setVehiculos(List<VehiculoDTO> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
 }

@@ -44,8 +44,7 @@ public class TarjetaDeCreditoLogic {
      * @param username
      * @return La entiddad de la tarjeta luego de persistirla.
      * @throws BusinessLogicException Si la tarjeta a persistir ya existe.
-     */
-    public TarjetaDeCreditoEntity crearTarjeta(TarjetaDeCreditoEntity tarjeta, String username) throws BusinessLogicException {
+     */public TarjetaDeCreditoEntity crearTarjeta(TarjetaDeCreditoEntity tarjeta, String username) throws BusinessLogicException {
 
         UsuarioEntity usuarioEntity = usuarioPersistence.findUsuarioPorLogin(username);
 
@@ -94,6 +93,7 @@ public class TarjetaDeCreditoLogic {
         usuarioPersistence.update(usuarioEntity);
         return tarjeta;
     }
+    
 
     /**
      * Obtener todas las tarjetas existentes en la base de datos.
