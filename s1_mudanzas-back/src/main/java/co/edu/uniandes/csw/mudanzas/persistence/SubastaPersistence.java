@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
 public class SubastaPersistence {
     
     
-     @PersistenceContext(unitName = "mudanzasPU")
+    @PersistenceContext(unitName = "mudanzasPU")
     protected EntityManager em;
      
      
