@@ -49,9 +49,6 @@ public class ConductorLogic {
         if (conductorPersistence.find(conductor.getId()) != null) {
             throw new BusinessLogicException("Ya existe un conductor con el id: \"" + conductor.getId() + "\"");
         }
-        if (conductorPersistence.findByName(conductor.getNombre()) != null) {
-            throw new BusinessLogicException("Ya existe un conductor con el nombre: \"" + conductor.getNombre() + "\"");
-        }
         if (!conductor.getNombre().matches("([a-zA-Z ]+){2,}")) {
             throw new BusinessLogicException("el nombre ingresado no es valido");
         }
