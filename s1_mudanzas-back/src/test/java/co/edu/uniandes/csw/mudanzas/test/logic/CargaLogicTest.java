@@ -241,7 +241,7 @@ public class CargaLogicTest {
         CargaEntity entity = data.get(0);
         CargaEntity nuevaEntitdad = factory.manufacturePojo(CargaEntity.class);
         nuevaEntitdad.setId(entity.getId());
-        cargaLogic.updateCarga(nuevaEntitdad);
+        cargaLogic.updateCarga(nuevaEntitdad, entity.getUsuario().getLogin());
         CargaEntity resp = em.find(CargaEntity.class, entity.getId());
         Assert.assertEquals(nuevaEntitdad.getId(), resp.getId());
         Assert.assertEquals(nuevaEntitdad.getDatosEnvio(), resp.getDatosEnvio());

@@ -106,10 +106,11 @@ public class ProveedorResource
     public ProveedorDTO updateProveedor(@PathParam("login") String login, ProveedorDTO proveedor) throws WebApplicationException, BusinessLogicException {
         proveedor.setLogin(login);
         if (proveedorLogic.getProveedor(login) == null) {
-            throw new WebApplicationException("El recurso /proveedores/" + login + " no existe.", 404);
+            throw new WebApplicationException("El recurso /proveedores/" + login + " no existe.", 401);
         }
-        ProveedorDetailDTO detailDTO = new ProveedorDetailDTO(proveedorLogic.updateProveedor(proveedor.toEntity()));
-        return detailDTO;
+        ProveedorDTO a=new ProveedorDTO(proveedorLogic.updateProveedor(proveedor.toEntity()));
+        return a;
+        
     }
     
      /**
