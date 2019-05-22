@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mudanzas.dtos.SubastaDetailDTO;
 import co.edu.uniandes.csw.mudanzas.ejb.SubastaLogic;
 import co.edu.uniandes.csw.mudanzas.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.mudanzas.entities.SubastaEntity;
+import co.edu.uniandes.csw.mudanzas.entities.UsuarioEntity;
 import co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.mudanzas.persistence.SubastaPersistence;
 import java.util.ArrayList;
@@ -117,18 +118,37 @@ public class SubastasUsuarioResource {
     @PUT
     @Path("{idSubasta: \\d+}")
     public SubastaDTO cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta, SubastaDTO subasta) throws WebApplicationException, BusinessLogicException {
-        subasta.setId(idSubasta);
+        try {
+            subasta.setId(idSubasta);
         if (subastaLogic.getSubastaUsuario(login, idSubasta) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
         }
-        SubastaDTO dto = new SubastaDTO(subastaLogic.update(subasta.toEntity()));
+        SubastaEntity subastaen = subasta.toEntity();
+        
+        UsuarioEntity usuario = usuarioLogic.getUsuario(login);
+        for(SubastaEntity subas : usuario.getSubastas())
+        {
+            if(subas.getId() == idSubasta)
+            {
+                usuario.getSubastas().remove(subas);
+                usuario.getSubastas().add(subastaen);
+                break;
+            }
+        }
+         subastaen.setUsuario(usuario);
+        SubastaDTO dto = new SubastaDTO(subastaLogic.update(subastaen));
+        usuarioLogic.updateUsuario(usuario);
         return dto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new WebApplicationException("El recuurso /usuarios/" + login + "/subastas/" + subasta.getId() + " ya existe.", 412);
+        }
     }
     
     
     @DELETE
     @Path("{idSubasta: \\d+}")
-    public void cambiarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException, BusinessLogicException {
+    public void borrarSubasta(@PathParam("login") String login, @PathParam("idSubasta") Long idSubasta) throws WebApplicationException, BusinessLogicException {
         
         if (subastaLogic.getSubastaUsuario(login, idSubasta) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idSubasta + " no existe.", 404);
