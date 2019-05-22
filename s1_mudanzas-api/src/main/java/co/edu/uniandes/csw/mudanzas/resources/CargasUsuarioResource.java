@@ -80,7 +80,7 @@ public class CargasUsuarioResource {
             CargaDetailDTO c = new CargaDetailDTO(cargaLogic.getCarga(login, idCarga));
             return c;
         } catch(BusinessLogicException e) {
-            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idCarga + " no existe.", 404);
+            throw new WebApplicationException("El recurso /usuarios/" + login + "/tarjetas/" + idCarga + " no existe." + e.getMessage(), 404);
         }
     }
 
@@ -119,11 +119,17 @@ public class CargasUsuarioResource {
     @PUT
     @Path("{idCarga: \\d+}")
     public CargaDTO cambiarCarga(@PathParam("login") String login, @PathParam("idCarga") Long idCarga, CargaDTO carga) throws WebApplicationException, BusinessLogicException {
-        carga.setUsuario(new UsuarioDTO(usuarioLogic.getUsuario(login)));
+        carga.setId(idCarga);
         if (cargaLogic.getCarga(login, idCarga) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/cargas/" + idCarga + " no existe.", 404);
         }
-        return new CargaDTO(cargaLogic.updateCarga(carga.toEntity()));
+        try{
+          CargaDTO a=new CargaDTO(cargaLogic.updateCarga(carga.toEntity(),login));
+          return a;
+        }
+        catch(BusinessLogicException e){
+            throw new WebApplicationException("No se pudo actualizar la carga "+ e.getMessage());
+        }
     }
     @DELETE
     @Path("{idCarga: \\d+}")

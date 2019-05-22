@@ -122,6 +122,7 @@ public class UsuarioLogic {
      */
     public UsuarioEntity updateUsuario(UsuarioEntity nuevoUsuario) {
         UsuarioEntity usuarioEntity = persistence.update(nuevoUsuario);
+        
         return usuarioEntity;
     }
 
