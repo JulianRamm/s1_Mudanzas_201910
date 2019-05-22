@@ -23,16 +23,16 @@ public class OfertaLogic {
 
     @Inject
     private OfertaPersistence ofertaPersistence;
-    
+
     @Inject
     private ProveedorPersistence proveedorPersistence;
 
     public OfertaEntity createOfertaProveedor(OfertaEntity oferta, String loginProveedor) throws BusinessLogicException {
 
-        
         ProveedorEntity proveedorEntity = proveedorPersistence.findProveedorPorLogin(loginProveedor);
+        System.out.println("PROVEDORLOGIIIC" + proveedorEntity.getId());
         if (proveedorEntity == null) {
-            throw new  BusinessLogicException ("No existe ningun proveedor \"" + loginProveedor + "\"");
+            throw new BusinessLogicException("No existe ningun proveedor \"" + loginProveedor + "\"");
         }
         //Verificacion de existencia en el proveedor
         for (OfertaEntity subastaE : proveedorEntity.getOfertas()) {
@@ -40,7 +40,7 @@ public class OfertaLogic {
                 throw new BusinessLogicException("Ya existe un oferta con el id \"" + oferta.getId() + "\"");
             }
         }
-        
+
         if (ofertaPersistence.find(oferta.getId()) != null) {
             throw new BusinessLogicException("la oferta con id: " + oferta.getId() + "ya existe");
 
@@ -51,27 +51,26 @@ public class OfertaLogic {
 
         }
         
+        oferta.setProveedor(proveedorEntity);
         proveedorEntity.getOfertas().add(oferta);
         ofertaPersistence.create(oferta);
         proveedorPersistence.update(proveedorEntity);
 
         return oferta;
     }
-    
-    public List<OfertaEntity> getOfertas()
-    {
+
+    public List<OfertaEntity> getOfertas() {
         return ofertaPersistence.findAll();
     }
-    public List<OfertaEntity>getOfertasSubasta(Long idSubasta)
-    {
+
+    public List<OfertaEntity> getOfertasSubasta(Long idSubasta) {
         return ofertaPersistence.findBySubasta(idSubasta);
     }
-    public List<OfertaEntity>getOfertasProveedor(String idProveedor)
-    {
-        return ofertaPersistence.findByProveedor(idProveedor);
+
+    public List<OfertaEntity> getOfertasProveedor(String idProveedor) {
+        return proveedorPersistence.findProveedorPorLogin(idProveedor).getOfertas();
     }
-    
-    
+
     public OfertaEntity getOfertaSubasta(Long idOferta, Long idSubasta) throws BusinessLogicException {
         OfertaEntity retornable = ofertaPersistence.findOneBySubasta(idSubasta, idOferta);
         if (retornable == null) {
@@ -80,8 +79,7 @@ public class OfertaLogic {
         }
         return retornable;
     }
-    
-    
+
     public OfertaEntity getOfertaProveedor(Long idOferta, String idProveedor) throws BusinessLogicException {
         OfertaEntity retornable = ofertaPersistence.findOneByProveedor(idProveedor, idOferta);
         if (retornable == null) {
@@ -90,14 +88,12 @@ public class OfertaLogic {
         }
         return retornable;
     }
-    
-    
-    public void delete(Long idOferta)
-    {
+
+    public void delete(Long idOferta) {
         ofertaPersistence.delete(idOferta);
     }
-    public OfertaEntity updateOferta(OfertaEntity oferta)
-    {
+
+    public OfertaEntity updateOferta(OfertaEntity oferta) {
         return ofertaPersistence.update(oferta);
     }
 
