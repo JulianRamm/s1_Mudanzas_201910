@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.mudanzas.persistence;
 import co.edu.uniandes.csw.mudanzas.entities.OfertaEntity;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +22,8 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class OfertaPersistence {
 
+        private static final Logger LOGGER = Logger.getLogger(OfertaPersistence.class.getName());
+
     @PersistenceContext(unitName = "mudanzasPU")
     protected EntityManager em;
 
@@ -29,7 +33,9 @@ public class OfertaPersistence {
      * @return objeto persistido
      */
     public OfertaEntity create(OfertaEntity ofertaEntity) {
+        LOGGER.log(Level.INFO, "Creando unA oferta nuevo");
         em.persist(ofertaEntity);
+        LOGGER.log(Level.INFO, "Creando una oferta nuevo");
         return ofertaEntity;
     }
 /**
