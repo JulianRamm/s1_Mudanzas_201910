@@ -34,12 +34,12 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.mudanzas.resources.OfertasSubastaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.ProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastaResource.class);
-        resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.SubastasProveedorResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.TarjetasUsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.UsuarioResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculoDiaResource.class);
         resources.add(co.edu.uniandes.csw.mudanzas.resources.VehiculosProveedorResource.class);
+        resources.add(co.edu.uniandes.csw.mudanzas.resources.ViajesCargaResource.class);
     }
 }
 
