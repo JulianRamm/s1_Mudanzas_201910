@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.mudanzas.entities.VehiculoEntity;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -26,6 +27,9 @@ public class DiaPersistence
     @PersistenceContext(unitName = "mudanzasPU")
      protected EntityManager em;  
     
+     
+    @Inject
+    VehiculoPersistence vPer;
     
    public DiaEntity create(DiaEntity agendaEntity)
    {
@@ -44,36 +48,18 @@ public class DiaPersistence
        return query.getResultList();
    }
    
-   public DiaEntity findByPlacaVehiculo(String placa, Long pId)
+   public DiaEntity findByPlacaVehiculo(String placa)
    {
-       DiaEntity rta = null;
-       TypedQuery<VehiculoEntity> query = em.createQuery("select e from VehiculoEntity e where e.placa = :pPlaca", VehiculoEntity.class);
-       query = query.setParameter("pPlaca", placa);
+       TypedQuery<DiaEntity> query = em.createQuery("select e from DiaEntity e where e.vehiculo = :vehiculo", DiaEntity.class);
+       query = query.setParameter("vehiculo", vPer.findByPlaca(placa));
        
-       List<VehiculoEntity> sameCarro = query.getResultList();
+       List<DiaEntity> sameDia = query.getResultList();
        
-       if(sameCarro == null)
+       if(sameDia == null||sameDia.isEmpty())
        {
-           rta = null;
+           sameDia = null;
        }
-       else if(sameCarro.isEmpty())
-       {
-           rta = null;
-       }
-       else if (sameCarro.get(0) == null) 
-       {
-            rta = null;
-        } 
-       else
-       {
-            
-                if (sameCarro.get(0).getAgenda().getId() == pId) 
-                {
-                    rta = sameCarro.get(0).getAgenda();
-                }
-            
-        }
-       return rta;
+       return sameDia.get(0);
    }
    
    /**

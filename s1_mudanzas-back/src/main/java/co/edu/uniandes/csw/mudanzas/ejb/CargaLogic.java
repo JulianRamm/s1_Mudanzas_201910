@@ -53,9 +53,6 @@ public class CargaLogic {
         if (carga.getVolumen() == 1) {
             throw new BusinessLogicException("El volumen no puede ser 1");
         }
-        if (carga.getImagenes().equals("") ){
-            throw new BusinessLogicException("Las imagenes no pueden ser vacias");
-        }
         if (carga.getLugarLlegada() == null || carga.getLugarLlegada().equals("")) {
             throw new BusinessLogicException("El lugar de llegada no puede ser null");
         }
@@ -145,10 +142,10 @@ public class CargaLogic {
      *
      * @param cargaEntity
      * @return
+     * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public CargaEntity updateCarga(CargaEntity cargaEntity) {
-        CargaEntity carga = cargaPersistence.update(cargaEntity);
-        return carga;
+    public CargaEntity updateCarga(CargaEntity cargaEntity) throws BusinessLogicException {
+        return cargaPersistence.update(cargaEntity);
     }
 
     /**

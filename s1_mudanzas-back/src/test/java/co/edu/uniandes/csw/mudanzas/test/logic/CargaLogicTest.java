@@ -237,7 +237,7 @@ public class CargaLogicTest {
      * Prueba para actualizar una carga.
      */
     @Test
-    public void updateCargaTest() {
+    public void updateCargaTest() throws BusinessLogicException {
         CargaEntity entity = data.get(0);
         CargaEntity nuevaEntitdad = factory.manufacturePojo(CargaEntity.class);
         nuevaEntitdad.setId(entity.getId());

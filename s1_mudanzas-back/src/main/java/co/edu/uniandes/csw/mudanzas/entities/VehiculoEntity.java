@@ -72,26 +72,27 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     (  
-            fetch = FetchType.LAZY
+        fetch = FetchType.LAZY
     )
     private ProveedorEntity proveedor;
     /**
-     * Atributo que modela la lista de vehiculos de un conductor
+     * Atributo que modela la lista de conductores de un vehiculo
      */
     @PodamExclude
     @ManyToMany
     (  
             fetch = FetchType.LAZY
     )
-    private List<ConductorEntity> conductor = new ArrayList<>();
+    private List<ConductorEntity> conductores ;
 
     @PodamExclude
     @OneToOne
+    (
+     fetch = FetchType.LAZY 
+    )
     private DiaEntity agenda;
     
-    @PodamExclude
-    @OneToOne
-    private DireccionEntity ubicacionActual;
+   
 
     public VehiculoEntity() {
 
@@ -157,15 +158,15 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
     /**
      * @return the conductores
      */
-    public List<ConductorEntity> getConductor() {
-        return conductor;
+    public List<ConductorEntity> getConductores() {
+        return conductores;
     }
 
     /**
      * @param conductor the conductores to set
      */
     public void setConductores(List<ConductorEntity> conductor) {
-        this.conductor = conductor;
+        this.conductores = conductor;
     }
 
     /**
@@ -239,19 +240,6 @@ public class VehiculoEntity extends BaseEntity implements Serializable {
         this.proveedor = proveedor;
     }
 
-    /**
-     * @return the ubicacionActual
-     */
-    public DireccionEntity getUbicacionActual() {
-        return ubicacionActual;
-    }
-
-    /**
-     * @param ubicacionActual the ubicacionActual to set
-     */
-    public void setUbicacionActual(DireccionEntity ubicacionActual) {
-        this.ubicacionActual = ubicacionActual;
-    }
 
     /**
      * @return the imagen

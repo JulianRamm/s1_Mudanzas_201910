@@ -107,8 +107,9 @@ public class DiaLogic
      //   }
        
  
-        
-        entity = per.create(entity);
+        vec.setAgenda(entity);
+        per.create(entity);
+        vehiculoPersistence.update(vec);
         return entity;
     }
     /**
@@ -153,6 +154,16 @@ public class DiaLogic
             throw new BusinessLogicException("No existe tal usuario con login: " +pId);
         }
         return dEntity;
+    }
+    
+    public DiaEntity getDiaPlaca(String placa) throws BusinessLogicException
+    {
+        DiaEntity dia = per.findByPlacaVehiculo(placa);
+        if(dia == null)
+        {
+            throw new BusinessLogicException("No existe un viaje con placa:" + placa);
+        }
+        return dia;
     }
 
     /**

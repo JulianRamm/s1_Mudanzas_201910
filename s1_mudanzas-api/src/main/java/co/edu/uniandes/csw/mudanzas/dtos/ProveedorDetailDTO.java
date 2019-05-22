@@ -68,12 +68,14 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
                 }
                 System.out.println(conductores.size());
             }
-            /*if(entidad.getVehiculos() != null){
+            if(entidad.getVehiculos() != null){
                 vehiculos = new ArrayList<>();
                 for(VehiculoEntity conductor: entidad.getVehiculos()){
                     vehiculos.add(new VehiculoDTO(conductor) );
                 }
-            }*/
+                System.out.println(conductores.size());
+
+            }
         }
     }
     
@@ -164,13 +166,13 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable{
             }
             entidad.setConductores(conductoresEntity);
         }
-        /* if(getVehiculos() != null){
+        if(getVehiculos() != null){
             List<VehiculoEntity> vehucyulosEntity = new ArrayList<>();
             for(VehiculoDTO vehiculoDTO : getVehiculos()){
                 vehucyulosEntity.add(vehiculoDTO.toEntity());
             }
             entidad.setVehiculos(vehucyulosEntity);
-        }*/
+        }
         return entidad;
     }
     
