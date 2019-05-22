@@ -33,10 +33,10 @@ insert into TarjetaDeCreditoEntity (id, nombreTarjeta, numeroSerial, codigoSegur
 
 /*Proveedores*/
 /*10011 Proveedor 1 proveedorPrueba1*/
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', 'movisi.jpg', 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10010, 'mudanzasunidas', 'Qwerty2@', 'MudanzasUnidas', null, 'Manizales', 'mudanzasunidas@gmail.com', '3206648854', 2, 15000000, 5);
 /*10012 Proveedor 2 proveedorPrueba2*/
 
-insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', 'movisi.jpg','Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
+insert into ProveedorEntity (id, login, password, nombre, logotipo, ciudadOrigen, correoElectronico, telefono, numeroVehiculos, dineroDisponible, calificacion) values (10011, 'trasteoincluded', 'Qwerty3@', 'Trasteo Inc', null,'Bogota', 'trasteoinc@gmail.com', '3206648855', 2, 16000000, 4);
 
 
 

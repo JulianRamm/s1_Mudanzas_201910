@@ -6,12 +6,12 @@
 package co.edu.uniandes.csw.mudanzas.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
+import javax.persistence.Lob;
 
 /**
  *
@@ -28,7 +28,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable {
 
     private String nombre;
 
-    private String logotipo;
+    @Lob
+    private byte[] logotipo;
 
     private String ciudadOrigen;
 
@@ -82,7 +83,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable {
         this.nombre = nombre;
     }
 
-    public void setLogotipo(String logotipo) {
+    public void setLogotipo(byte[] logotipo) {
         this.logotipo = logotipo;
     }
 
@@ -138,7 +139,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable {
         return nombre;
     }
 
-    public String getLogotipo() {
+    public byte[] getLogotipo() {
         return logotipo;
     }
 
