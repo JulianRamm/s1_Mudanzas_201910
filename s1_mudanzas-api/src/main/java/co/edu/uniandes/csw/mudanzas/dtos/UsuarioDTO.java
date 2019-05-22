@@ -78,7 +78,8 @@ public class UsuarioDTO implements Serializable {
      * Atributo que representa la ciudad de origen del usuario.
      */
     private String ciudadDeOrigen;
-
+     
+    private byte[] imagen;
     /**
      * Constructor por defecto
      */
@@ -100,6 +101,7 @@ public class UsuarioDTO implements Serializable {
             this.password = usuarioEntity.getPassword();
             this.ciudadDeOrigen = usuarioEntity.getCiudadDeOrigen();
             this.correoElectronico = usuarioEntity.getCorreoElectronico();
+            this.imagen = usuarioEntity.getImagen();
         }
     }
 
@@ -215,7 +217,22 @@ public class UsuarioDTO implements Serializable {
         usuarioEntity.setApellido(this.apellido);
         usuarioEntity.setCorreoElectronico(this.correoElectronico);
         usuarioEntity.setCiudadDeOrigen(this.ciudadDeOrigen);
+        usuarioEntity.setImagen(this.imagen);
         return usuarioEntity;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
 }

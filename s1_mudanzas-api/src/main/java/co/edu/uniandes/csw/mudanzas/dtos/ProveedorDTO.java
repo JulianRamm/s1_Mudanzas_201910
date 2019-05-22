@@ -38,7 +38,7 @@ public class ProveedorDTO implements Serializable{
     
     private Double clasificacion;
     
-    private String logotipo;
+    private byte[] logotipo;
 
     
     public ProveedorDTO(){
@@ -100,7 +100,7 @@ public class ProveedorDTO implements Serializable{
         return clasificacion;
     }
 
-    public String getLogotipo() {
+    public byte[] getLogotipo() {
         return logotipo;
     }
 
@@ -144,7 +144,7 @@ public class ProveedorDTO implements Serializable{
         this.clasificacion = clasificacion;
     }
 
-    public void setLogotipo(String logotipo) {
+    public void setLogotipo(byte[] logotipo) {
         this.logotipo = logotipo;
     }
 
