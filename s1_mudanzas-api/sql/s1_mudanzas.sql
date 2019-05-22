@@ -14,9 +14,9 @@ delete from ProveedorEntity;
 
 /*Usuarios*/
 /*10001 Usuario 1 usuarioPrueba1*/
-insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectronico, ciudadDeOrigen) values (10001, 'luismigolondo', 'Qwerty2@', 'Luis Miguel', 'Gomez Londono', 'luismigolondo@gmail.com', 'Manizales');
+insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectronico, ciudadDeOrigen, imagen) values (10001, 'luismigolondo', 'Qwerty2@', 'Luis Miguel', 'Gomez Londono', 'luismigolondo@gmail.com', 'Manizales',null);
 /*10002 Usuario 2 usuarioPrueba2*/
-insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectronico, ciudadDeOrigen) values (10002, 'julianosorio', 'Qwerty3@', 'Julian', 'Osorio', 'juliano@gmail.com', 'Bogota');
+insert into UsuarioEntity (id, login, password, nombre, apellido, correoElectronico, ciudadDeOrigen,imagen) values (10002, 'julianosorio', 'Qwerty3@', 'Julian', 'Osorio', 'juliano@gmail.com', 'Bogota',null);
 
 
 /*Tarjetas Usuario 1*/
