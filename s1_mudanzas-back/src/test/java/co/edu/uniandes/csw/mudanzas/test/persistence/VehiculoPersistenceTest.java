@@ -187,6 +187,7 @@ public class VehiculoPersistenceTest
         VehiculoEntity nuevo = VPersistence.findByPlaca(entidad.getPlaca());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(entidad.getPlaca(), nuevo.getPlaca());
+        Assert.assertEquals(entidad.getProveedor().getLogin(), nuevo.getProveedor().getLogin());
         nuevo = VPersistence.findByPlaca(null);
         Assert.assertNull(nuevo);
     }

@@ -155,7 +155,7 @@ public class VehiculoLogic {
         if (index >= 0) {
             return vehiculos.get(index);
         }
-        throw new BusinessLogicException("No existe tales vehiculo con un proveedor de login: " + loginP);
+        throw new BusinessLogicException("No existe tal vehiculo con un proveedor de login: " + loginP);
     }
 
    
@@ -207,9 +207,33 @@ public class VehiculoLogic {
      * ejemplo el nombre.
      * @return la vehiculo con los cambios actualizados en la base de datos.
      */
+    
+    
+    
+    
     public VehiculoEntity updateVehiculo(VehiculoEntity nuevoVehiculo) {
-        VehiculoEntity vehiculoEntity = vehiculoPersistence.update(nuevoVehiculo);
-        return vehiculoEntity;
+        ProveedorEntity prov = proveedorPersistence.findProveedorPorLogin(nuevoVehiculo.getProveedor().getLogin());
+        for(VehiculoEntity vehiculoEntity: prov.getVehiculos())
+        {
+            if(vehiculoEntity.getPlaca().equals(nuevoVehiculo.getPlaca()))
+            {
+                prov.getVehiculos().remove(vehiculoEntity);
+                prov.getVehiculos().add(nuevoVehiculo);
+                break;
+            }
+        }
+        proveedorPersistence.update(prov);
+        vehiculoPersistence.update(nuevoVehiculo);
+        return nuevoVehiculo;
+    }
+    
+    public void deleteVehiculo(String login, String placa)throws BusinessLogicException
+    {
+        VehiculoEntity vec = getVehiculoPlacaProveedor(login, placa);
+        ProveedorEntity pertenece = vec.getProveedor();
+        pertenece.getVehiculos().remove(vec);
+        vehiculoPersistence.delete(vec.getId());
+        proveedorPersistence.update(pertenece);
     }
 
 }

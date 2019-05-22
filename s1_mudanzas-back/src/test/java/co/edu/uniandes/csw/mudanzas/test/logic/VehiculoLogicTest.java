@@ -177,13 +177,7 @@ public class VehiculoLogicTest {
         VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
     }
     
-   // @Test
-    //(expected = BusinessLogicException.class)
-    public void createVehiculoConMismaUbicacionActual() throws BusinessLogicException {
-        VehiculoEntity newEntity = factory.manufacturePojo(VehiculoEntity.class);
-        newEntity.setUbicacionActual(data.get(0).getUbicacionActual());
-        VLogic.crearVehiculo(newEntity, proveedorData.getLogin());
-    }
+   
     
     /**
      * Prueba la regla de negocio para la placa del vehiculo

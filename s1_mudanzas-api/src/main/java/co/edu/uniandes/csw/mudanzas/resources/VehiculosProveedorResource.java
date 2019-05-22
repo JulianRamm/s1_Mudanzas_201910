@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -113,13 +115,23 @@ public class VehiculosProveedorResource {
      */
     @PUT
     @Path("{placa}")
-    public VehiculoDTO cambiarVehiculo(@PathParam("login") String login, @PathParam("idTarjeta") String placa, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
+    public VehiculoDTO cambiarVehiculo(@PathParam("login") String login, @PathParam("placa") String placa, VehiculoDTO vehiculo) throws WebApplicationException, BusinessLogicException {
         vehiculo.setPlaca(placa);
-        if (vehiculoLogic.getVehiculoProveedor(login, placa) == null) {
+        if (vehiculoLogic.getVehiculoPlacaProveedor(login, placa) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + login + "/vehiculos/" + placa + " no existe.", 404);
         }
         VehiculoDTO dto = new VehiculoDTO(vehiculoLogic.updateVehiculo(vehiculo.toEntity()));
         return dto;
+    }
+    
+    @DELETE
+    @Path("{placa}")
+    public void borrarVehiculo(@PathParam("login") String login, @PathParam("idTarjeta") String placa) throws BusinessLogicException, WebApplicationException {
+        VehiculoEntity vec = vehiculoLogic.getVehiculoPlacaProveedor(login, placa);
+        if(vec == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + login + "/vehiculos/" + placa +  " no existe.", 404);
+        }
+        vehiculoLogic.deleteVehiculo(login, placa);
     }
 
     /**

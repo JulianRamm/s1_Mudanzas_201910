@@ -129,7 +129,7 @@ public class ConductorLogic {
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
     public ConductorEntity getConductorVehiculo(String placaVehiculo, Long idConductor) throws BusinessLogicException {
-        List<ConductorEntity> conductores = vehiculoPersistence.findByPlaca(placaVehiculo).getConductor();
+        List<ConductorEntity> conductores = vehiculoPersistence.findByPlaca(placaVehiculo).getConductores();
         ConductorEntity conductor = conductorPersistence.find(idConductor);
         int index = conductores.indexOf(conductor);
         if (index >= 0) {
@@ -157,10 +157,10 @@ public class ConductorLogic {
         proveedorPersistence.update(pertenece);
         
         for (VehiculoEntity veh : conductor.getVehiculos()) {
-            for (ConductorEntity c : veh.getConductor()) {
+            for (ConductorEntity c : veh.getConductores()) {
                 if (c.getId() == conductor.getId()) {
-                    veh.getConductor().remove(c);
-                    veh.getConductor().add(nuevoConductor);
+                    veh.getConductores().remove(c);
+                    veh.getConductores().add(nuevoConductor);
                     break;
                 }
             }
@@ -192,9 +192,9 @@ public class ConductorLogic {
     public void deleteConductorTodosLosVehiculo(Long idConductor) throws BusinessLogicException {
         ConductorEntity conductor = conductorPersistence.find(idConductor);
         for (VehiculoEntity veh : conductor.getVehiculos()) {
-            for (ConductorEntity c : veh.getConductor()) {
+            for (ConductorEntity c : veh.getConductores()) {
                 if (c.getId() == conductor.getId()) {
-                    veh.getConductor().remove(c);
+                    veh.getConductores().remove(c);
                     break;
                 }
             }
@@ -209,7 +209,7 @@ public class ConductorLogic {
         ConductorEntity conductor = getConductorProveedor(placa, idConductor);
         int index = vehiculos.indexOf(vehiculo);
         if (index >= 0) {
-            vehiculos.get(index).getConductor().remove(conductor);
+            vehiculos.get(index).getConductores().remove(conductor);
         }
         conductorPersistence.delete(idConductor);
         vehiculoPersistence.update(vehiculo);
