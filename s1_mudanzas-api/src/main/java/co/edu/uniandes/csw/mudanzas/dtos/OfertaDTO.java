@@ -13,27 +13,49 @@ import java.io.Serializable;
  * @author aj.gonzalezt
  */
 public class OfertaDTO implements Serializable {
- 
+
     private double valor;
-     
+
+    private SubastaDTO subasta;
+
+    private ProveedorDTO proveedor;
+
     private Long id;
-    
+
     private String comentario;
-    
-    public OfertaDTO()
-    {
-                
+
+    public OfertaDTO() {
+
     }
 
-    
-    public OfertaDTO(OfertaEntity oferEntity)
-    {
-        setComentario(oferEntity.getComentario());
-        setValor(oferEntity.getValor());
-        setId(oferEntity.getId());
-       
+    public OfertaDTO(OfertaEntity oferEntity) {
+        if (oferEntity != null) {
+            setComentario(oferEntity.getComentario());
+            setValor(oferEntity.getValor());
+            setId(oferEntity.getId());
+            SubastaDTO subastaDto = new SubastaDTO(oferEntity.getSubasta());
+            setSubasta(subastaDto);
+            setProveedor(new ProveedorDTO(oferEntity.getProveedor()));
+        }
+
     }
- 
+
+    public ProveedorDTO getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorDTO proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public SubastaDTO getSubasta() {
+        return subasta;
+    }
+
+    public void setSubasta(SubastaDTO subasta) {
+        this.subasta = subasta;
+    }
+
     public double getValor() {
         return valor;
     }
@@ -60,13 +82,17 @@ public class OfertaDTO implements Serializable {
 
     public OfertaEntity toEntity() {
         OfertaEntity oferEntity = new OfertaEntity();
-       oferEntity.setId(id);
-       oferEntity.setComentario(comentario);
-       oferEntity.setValor(valor);
-        
+        oferEntity.setId(id);
+        oferEntity.setComentario(comentario);
+        oferEntity.setValor(valor);
+        if (subasta != null) {
+            oferEntity.setSubasta(subasta.toEntity());
+        }
+        if (proveedor != null) {
+            oferEntity.setProveedor(proveedor.toEntity());
+        }
+
         return oferEntity;
     }
-    
-    
-    
+
 }
