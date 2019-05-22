@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -51,7 +52,9 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
      * Atributo que representa la ciudad de origen del usuario.
      */
     private String ciudadDeOrigen;
-
+    
+    @Lob
+    private byte[] imagen;
     /**
      * Lista, coleccion que contiene todas las tarjetas de ese usuario.
      */
@@ -213,5 +216,19 @@ public class UsuarioEntity extends BaseEntity implements Serializable {
      */
     public void setSubastas(List<SubastaEntity> subastas) {
         this.subastas = subastas;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 }

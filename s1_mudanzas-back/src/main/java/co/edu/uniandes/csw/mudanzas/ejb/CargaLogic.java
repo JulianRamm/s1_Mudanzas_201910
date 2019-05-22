@@ -141,11 +141,14 @@ public class CargaLogic {
      * métodoq que actualiza una carga
      *
      * @param cargaEntity
+     * @param login
      * @return
      * @throws co.edu.uniandes.csw.mudanzas.exceptions.BusinessLogicException
      */
-    public CargaEntity updateCarga(CargaEntity cargaEntity) throws BusinessLogicException {
-        return cargaPersistence.update(cargaEntity);
+    public CargaEntity updateCarga(CargaEntity cargaEntity, String login) throws BusinessLogicException {
+        cargaEntity.setUsuario(usuarioPersistence.findUsuarioPorLogin(login));
+        CargaEntity carg = cargaPersistence.update(cargaEntity);
+        return carg;
     }
 
     /**
